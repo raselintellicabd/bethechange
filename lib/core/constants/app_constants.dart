@@ -1,0 +1,11 @@
+class AppConstants {
+  AppConstants._();
+
+  static const String appTitle = 'BeTheChange';
+  static const Duration connectTimeout = Duration(seconds: 30);
+  static const Duration receiveTimeout = Duration(seconds: 30);
+  static const Duration sendTimeout = Duration(seconds: 30);
+
+  /// Query param required when opening the Appointment screen.
+  static const String sourceContextQueryParam = 'sourceContext';
+}
