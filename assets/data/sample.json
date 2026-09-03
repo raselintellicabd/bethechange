@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "name": "BeTheChange sample content",
+  "items": [
+    {
+      "id": "demo",
+      "title": "Demo Item"
+    }
+  ]
+}

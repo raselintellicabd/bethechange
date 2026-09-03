@@ -1,3 +1,6 @@
+import '../../features/appointment/domain/models/source_context.dart';
+import '../constants/app_constants.dart';
+
 abstract final class AppRoutes {
   static const String about = '/about';
   static const String conditions = '/conditions';
@@ -18,7 +21,9 @@ abstract final class AppRoutes {
 
   static String blogDetailPath(String articleId) => '/blog/$articleId';
 
-  /// Appointment must always be opened with a [sourceContext] query param.
-  static String appointmentPath(String sourceContext) =>
-      '/appointment?sourceContext=${Uri.encodeQueryComponent(sourceContext)}';
+  /// Appointment must always be opened with a required [SourceContext].
+  static String appointmentPath(SourceContext sourceContext) {
+    final encoded = Uri.encodeQueryComponent(sourceContext.encode());
+    return '$appointment?${AppConstants.sourceContextQueryParam}=$encoded';
+  }
 }

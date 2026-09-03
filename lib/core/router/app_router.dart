@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/appointment/domain/models/source_context.dart';
 import '../constants/app_constants.dart';
 import '../theme/app_colors.dart';
 import '../widgets/placeholder_screen.dart';
@@ -123,20 +124,23 @@ GoRouter createAppRouter() {
         path: AppRoutes.appointment,
         name: 'appointment',
         redirect: (context, state) {
-          final sourceContext =
+          final raw =
               state.uri.queryParameters[AppConstants.sourceContextQueryParam];
-          // No direct/deep-link entry without required sourceContext.
-          if (sourceContext == null || sourceContext.trim().isEmpty) {
+          // No direct/deep-link entry without a valid SourceContext.
+          if (SourceContext.tryParse(raw) == null) {
             return AppRoutes.about;
           }
           return null;
         },
         builder: (context, state) {
-          final sourceContext =
-              state.uri.queryParameters[AppConstants.sourceContextQueryParam]!;
+          final raw =
+              state.uri.queryParameters[AppConstants.sourceContextQueryParam];
+          final sourceContext = SourceContext.tryParse(raw)!;
           return PlaceholderScreen(
             title: 'Appointment',
-            details: 'Appointment placeholder (source: $sourceContext)',
+            details:
+                'Requesting appointment for: ${sourceContext.name}\n'
+                '(${sourceContext.type.name} · ${sourceContext.id})',
           );
         },
       ),
