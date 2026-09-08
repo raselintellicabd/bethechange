@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/about/presentation/screens/about_screen.dart';
 import '../../features/appointment/domain/models/source_context.dart';
+import '../../features/appointment/presentation/screens/appointment_screen.dart';
 import '../../features/conditions/presentation/screens/condition_detail_screen.dart';
 import '../../features/conditions/presentation/screens/conditions_list_screen.dart';
 import '../../features/services/presentation/screens/service_detail_screen.dart';
@@ -126,12 +127,7 @@ GoRouter createAppRouter() {
           final raw =
               state.uri.queryParameters[AppConstants.sourceContextQueryParam];
           final sourceContext = SourceContext.tryParse(raw)!;
-          return PlaceholderScreen(
-            title: 'Appointment',
-            details:
-                'Requesting appointment for: ${sourceContext.name}\n'
-                '(${sourceContext.type.name} · ${sourceContext.id})',
-          );
+          return AppointmentScreen(sourceContext: sourceContext);
         },
       ),
       GoRoute(
