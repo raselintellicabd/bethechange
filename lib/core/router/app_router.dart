@@ -5,6 +5,8 @@ import '../../features/about/presentation/screens/about_screen.dart';
 import '../../features/appointment/domain/models/source_context.dart';
 import '../../features/conditions/presentation/screens/condition_detail_screen.dart';
 import '../../features/conditions/presentation/screens/conditions_list_screen.dart';
+import '../../features/services/presentation/screens/service_detail_screen.dart';
+import '../../features/services/presentation/screens/services_list_screen.dart';
 import '../constants/app_constants.dart';
 import '../theme/app_colors.dart';
 import '../widgets/placeholder_screen.dart';
@@ -55,20 +57,14 @@ GoRouter createAppRouter() {
               GoRoute(
                 path: AppRoutes.services,
                 name: 'services',
-                builder: (context, state) => const PlaceholderScreen(
-                  title: 'Services',
-                  details: 'Services list placeholder',
-                ),
+                builder: (context, state) => const ServicesListScreen(),
                 routes: [
                   GoRoute(
                     path: ':serviceId',
                     name: 'serviceDetail',
                     builder: (context, state) {
                       final id = state.pathParameters['serviceId']!;
-                      return PlaceholderScreen(
-                        title: 'Service',
-                        details: 'Service detail placeholder ($id)',
-                      );
+                      return ServiceDetailScreen(serviceId: id);
                     },
                   ),
                 ],

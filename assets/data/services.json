@@ -1,0 +1,236 @@
+{
+  "services": [
+    {
+      "id": "fsm",
+      "name": "Frequency Specific Microcurrent Therapy",
+      "summary": "Gentle electromagnetic pulses that resonate with specific tissues to support pain relief, mobility, and tissue repair.",
+      "articleBody": "Frequency Specific Microcurrent (FSM) uses electromagnetic pulses on two channels firing at the same time for more specific and targeted therapy. The electrical current is very gentle at one millionth of an ampere.\n\nFrequency specific treatment vibrates a frequency that resonates with specific tissue enough to change its chemical structure, from one that causes tension, pain, and immobility, to a more stable state with greater movement and decreased pain.\n\nSpecific frequencies have been clinically observed to address over 200 conditions involving inflammation, tissue repair, and pain. FSM is known to significantly increase the body's production of ATP in injured tissues and beta-endorphins, and to decrease inflammatory cytokines and substance P.",
+      "howItWorks": {
+        "title": "How Frequency Specific Microcurrent Works",
+        "body": "Treatment involves lying in comfortable clothing with warmed-damp towels strategically placed, depending on the condition(s) being addressed. Towels are connected to the FSM machine while a painless, low-risk current flows through the treatment area. Sessions typically last 30 to 120 minutes.\n\nFSM does not claim to diagnose or treat any medical conditions."
+      },
+      "benefits": [
+        { "label": "Decreased Pain" },
+        { "label": "Reduced Inflammation" },
+        { "label": "Improved Tissue Stability" },
+        { "label": "Greater Mobility Support" },
+        { "label": "Increased ATP in Injured Tissues" }
+      ],
+      "addressedConcerns": [
+        { "label": "Neuropathic Pain" },
+        { "label": "Muscle Pain and Soreness" },
+        { "label": "Tendinitis / Tendinopathy" },
+        { "label": "Shingles and Herpes" },
+        { "label": "Burns and Wounds" },
+        { "label": "Disc Injuries" },
+        { "label": "Irritable Bowel / Visceral Pain" },
+        { "label": "Diabetic Neuropathies" },
+        { "label": "Fibromyalgia" },
+        { "label": "Neuromas" },
+        { "label": "Sports Injuries" },
+        { "label": "Post-Surgery Recovery" },
+        { "label": "Acute and Chronic Musculoskeletal Injuries" }
+      ],
+      "whatToExpect": {
+        "title": "What To Expect During FSM",
+        "body": "Arrive wearing comfortable clothing. You lie on an examination table while your provider places warm, damp towels over treatment areas and connects them to the FSM machine. The session is generally painless; you may feel warmth or tissue softening during treatment."
+      },
+      "recommendedBooks": [
+        {
+          "title": "Frequency Specific Microcurrent in Pain Management",
+          "author": "Carolyn McMakin"
+        }
+      ]
+    },
+    {
+      "id": "infrared-sauna",
+      "name": "Infrared Sauna Therapy",
+      "summary": "A powerful tool to help your body liberate stored toxins through sweat while supporting cellular energy production.",
+      "articleBody": "Infrared sauna therapy is one of our most powerful tools to help your body liberate toxins that are stored in the tissues and eliminate them through the sweat. It works by increasing your core body temperature to promote energy production and the release of toxins at the cellular level.",
+      "howItWorks": {
+        "title": "How Infrared Sauna Therapy Works",
+        "body": "Infrared heat gently raises core body temperature, supporting circulation, detoxification through sweat, and cellular energy processes in a relaxing setting. Sessions can be enhanced with chromotherapy or red light therapy when appropriate."
+      },
+      "benefits": [
+        { "label": "Supports Detoxification" },
+        { "label": "Promotes Cellular Energy Production" },
+        { "label": "Relaxation and Recovery" },
+        { "label": "Circulation Support" }
+      ],
+      "addressedConcerns": [
+        { "label": "Toxin Overload Support" },
+        { "label": "Muscle Recovery" },
+        { "label": "General Wellness" }
+      ],
+      "whatToExpect": {
+        "title": "What To Expect",
+        "body": "Relax in a peaceful sauna environment while infrared heat supports your body's natural detoxification and recovery processes."
+      },
+      "recommendedBooks": []
+    },
+    {
+      "id": "hbot",
+      "name": "Hyperbaric Oxygen Therapy",
+      "summary": "Breathe pure oxygen in a pressurized chamber to enhance healing, reduce inflammation, and support recovery.",
+      "articleBody": "Hyperbaric oxygen therapy (HBOT) is a medical treatment that involves breathing pure oxygen in a pressurized chamber, which allows the lungs to take in more oxygen than under normal atmospheric conditions.\n\nThis increased oxygen concentration significantly enhances the body's ability to heal and fight infections, making it beneficial for conditions such as chronic non-healing wounds, certain infections, and recovery support after injuries including concussions.",
+      "howItWorks": {
+        "title": "How Hyperbaric Oxygen Therapy Works",
+        "body": "During treatment, you lie down in a pressurized chamber as a high concentration of oxygen dissolves into your bloodstream. This improves tissue regeneration and repair and can help relieve inflammation."
+      },
+      "benefits": [
+        { "label": "Enhanced Tissue Healing" },
+        { "label": "Reduced Inflammation and Pain" },
+        { "label": "Improved Oxygenation" },
+        { "label": "Supports Brain and Injury Recovery" },
+        { "label": "Faster Recovery Support" }
+      ],
+      "addressedConcerns": [
+        { "label": "Chronic Non-Healing Wounds" },
+        { "label": "Certain Infections" },
+        { "label": "Concussions and Head Injuries" },
+        { "label": "Sprains, Tears, and Fractures Support" },
+        { "label": "Post-Operative Recovery Support" }
+      ],
+      "whatToExpect": {
+        "title": "What To Expect",
+        "body": "You rest comfortably in the pressurized chamber while oxygen therapy supports circulation, tissue repair, and recovery. Your provider will review suitability and session guidance before treatment."
+      },
+      "recommendedBooks": []
+    },
+    {
+      "id": "nutritional-iv",
+      "name": "Nutritional IV Therapy",
+      "summary": "Rapid hydration and nutrient delivery directly into the bloodstream for faster absorption and support.",
+      "articleBody": "IV therapy provides rapid hydration and nutrient delivery directly into the bloodstream, ensuring faster absorption and immediate effects. It can also aid in recovery from illness, enhance athletic performance, and support overall wellness by addressing nutrient deficiencies efficiently.\n\nWe offer a wide variety of IV Therapy for different conditions and wellness goals.",
+      "howItWorks": {
+        "title": "How Nutritional IV Therapy Works",
+        "body": "Nutrients are delivered intravenously so they bypass digestion and enter circulation directly. Your provider helps select an infusion aligned with your wellness goals and clinical needs."
+      },
+      "benefits": [
+        { "label": "Rapid Hydration" },
+        { "label": "Enhanced Nutrient Absorption" },
+        { "label": "Recovery Support" },
+        { "label": "Energy and Wellness Support" }
+      ],
+      "addressedConcerns": [
+        { "label": "Nutrient Deficiencies" },
+        { "label": "Dehydration" },
+        { "label": "Recovery from Illness" },
+        { "label": "Athletic Recovery Support" }
+      ],
+      "whatToExpect": {
+        "title": "What To Expect",
+        "body": "After a brief review of your goals and history, you receive your infusion in a comfortable clinical setting while staff monitor your session."
+      },
+      "recommendedBooks": []
+    },
+    {
+      "id": "liquivida-iv",
+      "name": "LIQUIVIDA IV Therapy",
+      "summary": "IV options focused on hydration, nutrient absorption, immunity support, and overall wellness.",
+      "articleBody": "LIQUIVIDA IV Therapy offers a range of benefits, including rapid hydration, enhanced nutrient absorption, and increased energy levels, making it an effective solution for recovering from dehydration, boosting immunity, and promoting overall wellness.",
+      "howItWorks": {
+        "title": "How LIQUIVIDA IV Therapy Works",
+        "body": "Targeted IV formulations deliver hydration and nutrients efficiently to support energy, immunity, and recovery based on your needs."
+      },
+      "benefits": [
+        { "label": "Rapid Hydration" },
+        { "label": "Enhanced Nutrient Absorption" },
+        { "label": "Increased Energy Support" },
+        { "label": "Immunity Support" }
+      ],
+      "addressedConcerns": [
+        { "label": "Dehydration Recovery" },
+        { "label": "Low Energy" },
+        { "label": "Immune Support Goals" },
+        { "label": "General Wellness" }
+      ],
+      "whatToExpect": {
+        "title": "What To Expect",
+        "body": "Your provider helps identify an appropriate LIQUIVIDA option, then administers the infusion in a comfortable setting."
+      },
+      "recommendedBooks": []
+    },
+    {
+      "id": "ozone",
+      "name": "Ozone Therapy",
+      "summary": "Therapeutic oxygen (O3) support aimed at circulation, immune activation, and tissue oxygenation.",
+      "articleBody": "Ozone is a gas consisting of 3 oxygen molecules (O3) which can dissolve in the bloodstream for therapeutic and preventive effects. It improves blood circulation and oxygen delivery to damaged tissues, decreases age-related cellular stress, inhibits the growth of bacteria and fungi, and activates the immune system.\n\nOzone therapy has been used in patients with diverse conditions including coronary artery disease, multiple sclerosis, hepatitis, ulcers, and arthritis.",
+      "howItWorks": {
+        "title": "How Ozone Therapy Works",
+        "body": "Medical ozone can be administered using clinic protocols designed to support oxygenation, circulation, and immune activity. Your provider determines whether ozone therapy is appropriate for your goals and history."
+      },
+      "benefits": [
+        { "label": "Improved Circulation Support" },
+        { "label": "Oxygen Delivery to Tissues" },
+        { "label": "Immune System Activation Support" },
+        { "label": "Cellular Stress Support" }
+      ],
+      "addressedConcerns": [
+        { "label": "Circulatory Concerns" },
+        { "label": "Immune Support Goals" },
+        { "label": "Tissue Oxygenation Support" },
+        { "label": "Complementary Wellness Care" }
+      ],
+      "whatToExpect": {
+        "title": "What To Expect",
+        "body": "Your provider reviews suitability and explains the selected ozone protocol before treatment so you know what the session involves."
+      },
+      "recommendedBooks": []
+    },
+    {
+      "id": "reflexology",
+      "name": "Reflexology",
+      "summary": "A non-invasive foot-focused therapy that stimulates reflex points linked to body systems.",
+      "articleBody": "Reflexology is manual therapy in which every system and organ of the body corresponds to a specific point on the foot (or hand or ear), and thus the entire body can be affected by applying pressure techniques to the feet only.\n\nIt is a non-invasive, complementary health practice applying alternating pressure to reflexes, which stimulates complex neural pathways linking body systems, supporting the body's efforts to function optimally.",
+      "howItWorks": {
+        "title": "How Reflexology Works",
+        "body": "Practitioners apply alternating pressure to reflex points on the feet to stimulate neural pathways that correspond to organs and systems throughout the body."
+      },
+      "benefits": [
+        { "label": "Non-Invasive Support" },
+        { "label": "Relaxation" },
+        { "label": "Whole-Body Reflex Stimulation" },
+        { "label": "Complementary Wellness Support" }
+      ],
+      "addressedConcerns": [
+        { "label": "Stress and Tension" },
+        { "label": "General Wellness Support" },
+        { "label": "Complementary Care Alongside Other Therapies" }
+      ],
+      "whatToExpect": {
+        "title": "What To Expect",
+        "body": "You remain comfortably seated or reclined while pressure techniques are applied to reflex points on the feet. Sessions are gentle and non-invasive."
+      },
+      "recommendedBooks": []
+    },
+    {
+      "id": "ion-foot-detox",
+      "name": "Ion Foot Detox",
+      "summary": "A comfortable IonCleanse session designed to support reduction of toxic overload symptoms.",
+      "articleBody": "The IonCleanse detoxification system has been shown to reduce symptoms of \"toxic overload\" through a series of detox sessions. Simply relax with your feet in water for about 30 minutes. The procedure is painless and comfortable.\n\nDetoxification may be recommended as a stand-alone treatment or as part of a larger personal wellness plan.",
+      "howItWorks": {
+        "title": "How Ion Foot Detox Works",
+        "body": "You sit comfortably with your feet submerged in purified water with sea salt for about 30 minutes while the IonCleanse system supports the removal of impurities. An array placed in the water helps facilitate the session."
+      },
+      "benefits": [
+        { "label": "Increased Energy Support" },
+        { "label": "Improved Sleep Potential" },
+        { "label": "Better Circulation Support" },
+        { "label": "Skin Clarity Support" },
+        { "label": "Digestive Comfort Support" },
+        { "label": "Immune Support" }
+      ],
+      "addressedConcerns": [
+        { "label": "Toxic Overload Symptoms" },
+        { "label": "Environmental Exposure Support" },
+        { "label": "General Detoxification Goals" }
+      ],
+      "whatToExpect": {
+        "title": "What To Expect",
+        "body": "Relax for about 30 minutes with your feet in water. The procedure is painless and comfortable, and a series of sessions may be recommended based on your goals."
+      },
+      "recommendedBooks": []
+    }
+  ]
+}

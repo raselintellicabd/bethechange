@@ -67,7 +67,7 @@ Phase 0 + Phase 1 from the original plan are **complete** in this repo:
 | B | About tab | ✅ Done |
 | C | Shared content models + Appointment contract | ✅ Done |
 | D | Conditions tab | ✅ Done |
-| E | Services tab | ⬜ Not started |
+| E | Services tab | ✅ Done |
 | F | Appointment booking flow | ⬜ Not started |
 | G | Blog tab | ⬜ Not started |
 | H | Patient tab (3 cards only) | ⬜ Not started |
