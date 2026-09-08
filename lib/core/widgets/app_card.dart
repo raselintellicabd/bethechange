@@ -7,12 +7,14 @@ class AppCard extends StatelessWidget {
     super.key,
     required this.child,
     this.onTap,
+    this.semanticLabel,
     this.padding = const EdgeInsets.all(AppSpacing.md),
     this.margin,
   });
 
   final Widget child;
   final VoidCallback? onTap;
+  final String? semanticLabel;
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry? margin;
 
@@ -23,11 +25,20 @@ class AppCard extends StatelessWidget {
       child: Padding(padding: padding, child: child),
     );
 
-    if (onTap == null) return card;
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
-      child: card,
+    if (onTap == null) {
+      return semanticLabel == null
+          ? card
+          : Semantics(label: semanticLabel, child: card);
+    }
+
+    return Semantics(
+      button: true,
+      label: semanticLabel,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+        child: card,
+      ),
     );
   }
 }

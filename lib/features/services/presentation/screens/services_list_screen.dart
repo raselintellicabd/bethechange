@@ -41,6 +41,7 @@ class ServicesListScreen extends ConsumerWidget {
             itemBuilder: (context, index) {
               final service = catalog.services[index];
               return AppCard(
+                semanticLabel: 'Open ${service.name} details',
                 onTap: () => context.push(
                   AppRoutes.serviceDetailPath(service.id),
                 ),

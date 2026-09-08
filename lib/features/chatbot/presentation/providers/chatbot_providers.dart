@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/analytics/analytics_service.dart';
 import '../../data/chatbot_repository.dart';
 import '../../data/mock_chatbot_repository.dart';
 import '../../domain/models/chat_message.dart';
@@ -50,9 +51,11 @@ class ChatbotUiState {
 }
 
 class ChatbotController extends StateNotifier<ChatbotUiState> {
-  ChatbotController(this._repository) : super(const ChatbotUiState());
+  ChatbotController(this._repository, this._analytics)
+      : super(const ChatbotUiState());
 
   final ChatbotRepository _repository;
+  final AnalyticsService _analytics;
   int _idCounter = 0;
 
   Future<void> send(String rawText) async {
@@ -80,6 +83,10 @@ class ChatbotController extends StateNotifier<ChatbotUiState> {
 
     result.when(
       success: (reply) {
+        _analytics.logEvent(
+          AnalyticsEvents.chatbotMessageSent,
+          parameters: {'conversationId': reply.conversationId},
+        );
         final botMessage = ChatMessage(
           id: 'local-${++_idCounter}',
           role: ChatMessageRole.bot,
@@ -125,5 +132,8 @@ class ChatbotController extends StateNotifier<ChatbotUiState> {
 
 final chatbotControllerProvider =
     StateNotifierProvider<ChatbotController, ChatbotUiState>((ref) {
-  return ChatbotController(ref.watch(chatbotRepositoryProvider));
+  return ChatbotController(
+    ref.watch(chatbotRepositoryProvider),
+    ref.watch(analyticsServiceProvider),
+  );
 });

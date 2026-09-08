@@ -54,6 +54,7 @@ class AppointmentCtaBar extends StatelessWidget {
             label: label,
             icon: icon,
             expand: true,
+            semanticLabel: '$label for ${sourceContext.name}',
             onPressed: () => _openAppointment(context),
           ),
         ],

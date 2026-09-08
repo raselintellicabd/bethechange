@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/analytics/analytics_service.dart';
 import '../../data/appointment_repository.dart';
 import '../../data/mock_appointment_repository.dart';
 import '../../domain/models/appointment_booking_result.dart';
@@ -85,6 +86,7 @@ final appointmentControllerProvider = StateNotifierProvider.autoDispose
     return AppointmentController(
       repository: ref.watch(appointmentRepositoryProvider),
       sourceContext: sourceContext,
+      analytics: ref.watch(analyticsServiceProvider),
     );
   },
 );
@@ -93,8 +95,10 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
   AppointmentController({
     required this._repository,
     required SourceContext sourceContext,
+    AnalyticsService? analytics,
     DateTime? now,
-  })  : _now = now ?? DateTime.now(),
+  })  : _analytics = analytics ?? const LoggingAnalyticsService(),
+        _now = now ?? DateTime.now(),
         super(
           AppointmentBookingState(
             sourceContext: sourceContext,
@@ -104,10 +108,18 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
             ),
           ),
         ) {
+    _analytics.logEvent(
+      AnalyticsEvents.appointmentStarted,
+      parameters: {
+        'type': sourceContext.type.name,
+        'id': sourceContext.id,
+      },
+    );
     loadMonth(state.focusedMonth);
   }
 
   final AppointmentRepository _repository;
+  final AnalyticsService _analytics;
   final DateTime _now;
 
   Future<void> loadMonth(DateTime month) async {
@@ -218,6 +230,14 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
     final result = await _repository.bookAppointment(request);
     result.when(
       success: (booking) {
+        _analytics.logEvent(
+          AnalyticsEvents.appointmentCompleted,
+          parameters: {
+            'type': state.sourceContext.type.name,
+            'id': state.sourceContext.id,
+            'bookingId': booking.confirmationId,
+          },
+        );
         state = state.copyWith(
           isLoading: false,
           result: booking,

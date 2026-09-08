@@ -58,19 +58,23 @@ class _ContextHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Requesting appointment for: ${sourceContext.name}',
-          style: theme.textTheme.titleLarge,
-        ),
-        const SizedBox(height: AppSpacing.xxs),
-        Text(
-          '${sourceContext.type.name} · ${sourceContext.id}',
-          style: theme.textTheme.bodySmall,
-        ),
-      ],
+    return Semantics(
+      header: true,
+      label: 'Requesting appointment for ${sourceContext.name}',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Requesting appointment for: ${sourceContext.name}',
+            style: theme.textTheme.titleLarge,
+          ),
+          const SizedBox(height: AppSpacing.xxs),
+          Text(
+            '${sourceContext.type.name} · ${sourceContext.id}',
+            style: theme.textTheme.bodySmall,
+          ),
+        ],
+      ),
     );
   }
 }

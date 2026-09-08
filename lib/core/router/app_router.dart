@@ -186,6 +186,7 @@ class MainShellWidget extends StatelessWidget {
         selectedIndex: navigationShell.currentIndex,
         backgroundColor: AppColors.surface,
         indicatorColor: AppColors.surfaceMuted,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         onDestinationSelected: (index) {
           navigationShell.goBranch(
             index,
@@ -198,6 +199,7 @@ class MainShellWidget extends StatelessWidget {
               icon: Icon(destination.icon),
               selectedIcon: Icon(destination.selectedIcon),
               label: destination.label,
+              tooltip: destination.label,
             ),
         ],
       ),

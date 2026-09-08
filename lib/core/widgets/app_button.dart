@@ -13,6 +13,7 @@ class AppButton extends StatelessWidget {
     this.isLoading = false,
     this.expand = false,
     this.icon,
+    this.semanticLabel,
   });
 
   final String label;
@@ -21,6 +22,7 @@ class AppButton extends StatelessWidget {
   final bool isLoading;
   final bool expand;
   final IconData? icon;
+  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,15 @@ class AppButton extends StatelessWidget {
         ),
     };
 
-    if (!expand) return button;
-    return SizedBox(width: double.infinity, child: button);
+    final labeled = Semantics(
+      button: true,
+      label: semanticLabel ?? label,
+      enabled: !isLoading && onPressed != null,
+      excludeSemantics: true,
+      child: button,
+    );
+
+    if (!expand) return labeled;
+    return SizedBox(width: double.infinity, child: labeled);
   }
 }

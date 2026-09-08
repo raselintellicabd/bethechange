@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/analytics/analytics_service.dart';
 import '../../data/contact_repository.dart';
 import '../../data/mock_contact_repository.dart';
 import '../../domain/models/contact_request.dart';
@@ -37,9 +38,11 @@ class ContactFormState {
 }
 
 class ContactController extends StateNotifier<ContactFormState> {
-  ContactController(this._repository) : super(const ContactFormState());
+  ContactController(this._repository, this._analytics)
+      : super(const ContactFormState());
 
   final ContactRepository _repository;
+  final AnalyticsService _analytics;
 
   Future<bool> submit(ContactRequest request) async {
     if (state.isSubmitting) return false;
@@ -53,6 +56,10 @@ class ContactController extends StateNotifier<ContactFormState> {
     final result = await _repository.submit(request);
     return result.when(
       success: (data) {
+        _analytics.logEvent(
+          AnalyticsEvents.contactSubmitted,
+          parameters: {'id': data.id},
+        );
         state = state.copyWith(
           isSubmitting: false,
           successId: data.id,
@@ -78,5 +85,8 @@ class ContactController extends StateNotifier<ContactFormState> {
 
 final contactControllerProvider =
     StateNotifierProvider.autoDispose<ContactController, ContactFormState>(
-  (ref) => ContactController(ref.watch(contactRepositoryProvider)),
+  (ref) => ContactController(
+    ref.watch(contactRepositoryProvider),
+    ref.watch(analyticsServiceProvider),
+  ),
 );

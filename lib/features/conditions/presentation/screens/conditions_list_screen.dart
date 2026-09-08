@@ -41,6 +41,7 @@ class ConditionsListScreen extends ConsumerWidget {
             itemBuilder: (context, index) {
               final condition = catalog.conditions[index];
               return AppCard(
+                semanticLabel: 'Open ${condition.name} details',
                 onTap: () => context.push(
                   AppRoutes.conditionDetailPath(condition.id),
                 ),
