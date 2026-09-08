@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/doctor_profile_card.dart';
@@ -84,6 +86,9 @@ class AboutContentView extends StatelessWidget {
                       title: doctor.title,
                       imageUrl: doctor.imageUrl,
                       bio: doctor.bio,
+                      onTap: () => context.push(
+                        AppRoutes.doctorDetailPath(doctor.id),
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.sm),
                   ],

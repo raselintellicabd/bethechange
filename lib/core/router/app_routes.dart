@@ -32,6 +32,8 @@ abstract final class AppRoutes {
 
   static String aboutSectionPath(String sectionId) => '/about/$sectionId';
 
+  static String doctorDetailPath(String doctorId) => '/about/$doctorId';
+
   /// Appointment must always be opened with a required [SourceContext].
   static String appointmentPath(SourceContext sourceContext) {
     final encoded = Uri.encodeQueryComponent(sourceContext.encode());

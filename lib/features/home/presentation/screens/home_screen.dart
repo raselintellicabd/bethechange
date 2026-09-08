@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -170,8 +173,8 @@ class _DoctorsRow extends StatelessWidget {
 
   final List<DoctorProfile> doctors;
 
-  static const double _cardHeight = 168;
-  static const double _cardWidth = 148;
+  static const double _cardHeight = 210;
+  static const double _cardWidth = 160;
 
   @override
   Widget build(BuildContext context) {
@@ -226,46 +229,60 @@ class _DoctorTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageUrl = doctor.imageUrl;
+
     return Material(
       color: AppColors.card,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
         side: const BorderSide(color: AppColors.line),
       ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-        child: Column(
-          children: [
-            CircleAvatar(
-              radius: 22,
-              backgroundColor: AppColors.sage,
-              foregroundColor: Colors.white,
-              child: Text(
-                _initials,
-                style: AppTextStyles.labelMedium.copyWith(color: Colors.white),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => context.push(AppRoutes.doctorDetailPath(doctor.id)),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 12, 10, 10),
+          child: Column(
+            children: [
+              CircleAvatar(
+                radius: 36,
+                backgroundColor: AppColors.sageLight,
+                foregroundColor: AppColors.brandPrimary,
+                backgroundImage: imageUrl != null && imageUrl.isNotEmpty
+                    ? CachedNetworkImageProvider(imageUrl)
+                    : null,
+                child: imageUrl == null || imageUrl.isEmpty
+                    ? Text(
+                        _initials,
+                        style: AppTextStyles.labelLarge.copyWith(
+                          color: AppColors.brandPrimary,
+                        ),
+                      )
+                    : null,
               ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              doctor.name,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: AppTextStyles.labelMedium.copyWith(fontSize: 12),
-            ),
-            const SizedBox(height: 4),
-            Expanded(
-              child: Text(
-                doctor.title,
+              const SizedBox(height: 10),
+              Text(
+                doctor.name,
                 textAlign: TextAlign.center,
-                maxLines: 3,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: AppTextStyles.bodySmall.copyWith(fontSize: 10.5),
+                style: AppTextStyles.labelMedium.copyWith(fontSize: 12.5),
               ),
-            ),
-          ],
+              const SizedBox(height: 4),
+              Expanded(
+                child: Text(
+                  doctor.title,
+                  textAlign: TextAlign.center,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.bodySmall.copyWith(fontSize: 11),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+

@@ -27,6 +27,13 @@ class AboutContent {
     return null;
   }
 
+  DoctorProfile? doctorById(String id) {
+    for (final doctor in doctors) {
+      if (doctor.id == id) return doctor;
+    }
+    return null;
+  }
+
   factory AboutContent.fromJson(Map<String, dynamic> json) {
     return AboutContent(
       doctorsIntro: json['doctorsIntro'] as String?,

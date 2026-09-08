@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/about/presentation/screens/about_menu_screen.dart';
+import '../../features/about/presentation/screens/about_slug_screen.dart';
 import '../../features/appointment/domain/models/source_context.dart';
 import '../../features/appointment/presentation/screens/appointment_screen.dart';
 import '../../features/blog/presentation/screens/blog_detail_screen.dart';
@@ -154,7 +155,7 @@ GoRouter createAppRouter() {
             name: 'aboutSection',
             builder: (context, state) {
               final id = state.pathParameters['sectionId']!;
-              return AboutSectionScreen(sectionId: id);
+              return AboutSlugScreen(slug: id);
             },
           ),
         ],

@@ -32,6 +32,9 @@ void main() {
       );
       expect(content.doctors, hasLength(2));
       expect(content.doctors.first.name, contains('Sultana Afrooz'));
+      expect(content.doctors.first.imageUrl, isNotNull);
+      expect(content.doctors.first.detailParagraphs, isNotEmpty);
+      expect(content.doctorById('jessica-needle')?.title, 'Naturopathic Doctor');
       expect(content.reviews, isNotEmpty);
       expect(content.reviewCount, 37);
 
