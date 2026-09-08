@@ -33,7 +33,7 @@ class _BeTheChangeAppState extends ConsumerState<BeTheChangeApp> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: EnvConfig.appName,
-      debugShowCheckedModeBanner: widget.flavor.isDev,
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       routerConfig: _router,
     );
