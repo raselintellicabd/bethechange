@@ -79,6 +79,7 @@ GoRouter createAppRouter() {
                       GoRoute(
                         path: ':conditionId',
                         name: 'conditionDetail',
+                        parentNavigatorKey: rootNavigatorKey,
                         builder: (context, state) {
                           final id = state.pathParameters['conditionId']!;
                           return ConditionDetailScreen(conditionId: id);
@@ -95,6 +96,7 @@ GoRouter createAppRouter() {
                       GoRoute(
                         path: ':serviceId',
                         name: 'serviceDetail',
+                        parentNavigatorKey: rootNavigatorKey,
                         builder: (context, state) {
                           final id = state.pathParameters['serviceId']!;
                           return ServiceDetailScreen(serviceId: id);
@@ -116,6 +118,7 @@ GoRouter createAppRouter() {
                   GoRoute(
                     path: ':articleId',
                     name: 'blogDetail',
+                    parentNavigatorKey: rootNavigatorKey,
                     builder: (context, state) {
                       final id = state.pathParameters['articleId']!;
                       return BlogDetailScreen(articleId: id);

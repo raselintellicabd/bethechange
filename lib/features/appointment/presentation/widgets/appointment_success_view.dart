@@ -43,7 +43,7 @@ class AppointmentSuccessView extends StatelessWidget {
         AppButton(
           label: 'Back to home',
           expand: true,
-          onPressed: () => context.go(AppRoutes.about),
+          onPressed: () => context.go(AppRoutes.home),
         ),
       ],
     );
