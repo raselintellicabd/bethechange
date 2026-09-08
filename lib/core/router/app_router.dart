@@ -8,6 +8,7 @@ import '../../features/blog/presentation/screens/blog_detail_screen.dart';
 import '../../features/blog/presentation/screens/blog_list_screen.dart';
 import '../../features/conditions/presentation/screens/condition_detail_screen.dart';
 import '../../features/conditions/presentation/screens/conditions_list_screen.dart';
+import '../../features/patient/presentation/screens/patient_tab_screen.dart';
 import '../../features/services/presentation/screens/service_detail_screen.dart';
 import '../../features/services/presentation/screens/services_list_screen.dart';
 import '../constants/app_constants.dart';
@@ -98,10 +99,7 @@ GoRouter createAppRouter() {
               GoRoute(
                 path: AppRoutes.patient,
                 name: 'patient',
-                builder: (context, state) => const PlaceholderScreen(
-                  title: 'Patient',
-                  details: 'Patient area placeholder',
-                ),
+                builder: (context, state) => const PatientTabScreen(),
               ),
             ],
           ),
