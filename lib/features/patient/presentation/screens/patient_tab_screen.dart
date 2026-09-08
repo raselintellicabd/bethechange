@@ -6,6 +6,7 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/utils/external_link_handler.dart';
 import '../../../../core/utils/material_icon_map.dart';
 import '../../../../core/widgets/app_button.dart';
+import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/ui_kit.dart';
@@ -24,10 +25,7 @@ class PatientTabScreen extends ConsumerWidget {
     final clinicAsync = ref.watch(clinicInfoProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Patients'),
-        centerTitle: false,
-      ),
+      appBar: AppAppBar.text('Patients'),
       body: patientsAsync.when(
         loading: () => const LoadingIndicator(message: 'Loading…'),
         error: (error, _) => ErrorStateWidget(

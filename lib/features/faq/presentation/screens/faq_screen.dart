@@ -6,6 +6,7 @@ import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../providers/faq_providers.dart';
@@ -33,10 +34,7 @@ class _FaqScreenState extends ConsumerState<FaqScreen> {
     final catalogAsync = ref.watch(faqCatalogProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FAQ'),
-        centerTitle: false,
-      ),
+      appBar: AppAppBar.text('FAQ'),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.push(AppRoutes.chatbot),
         backgroundColor: AppColors.forest,

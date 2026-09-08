@@ -234,27 +234,33 @@ class MainShellWidget extends StatelessWidget {
 
     return Scaffold(
       body: navigationShell,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: shellIndex,
-        backgroundColor: AppColors.card,
-        indicatorColor: AppColors.sageLight,
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-        onDestinationSelected: (index) {
-          navigationShell.goBranch(
-            index,
-            initialLocation: index == shellIndex,
-          );
-        },
-        destinations: [
-          for (final destination in _destinations)
-            NavigationDestination(
-              icon: Icon(destination.icon, color: AppColors.inkMuted),
-              selectedIcon:
-                  Icon(destination.selectedIcon, color: AppColors.forest),
-              label: destination.label,
-              tooltip: destination.label,
-            ),
-        ],
+      bottomNavigationBar: DecoratedBox(
+        decoration: const BoxDecoration(
+          color: AppColors.card,
+          border: Border(top: BorderSide(color: AppColors.line)),
+        ),
+        child: NavigationBar(
+          selectedIndex: shellIndex,
+          backgroundColor: Colors.transparent,
+          indicatorColor: AppColors.sageLight,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+          onDestinationSelected: (index) {
+            navigationShell.goBranch(
+              index,
+              initialLocation: index == shellIndex,
+            );
+          },
+          destinations: [
+            for (final destination in _destinations)
+              NavigationDestination(
+                icon: Icon(destination.icon, color: AppColors.inkMuted),
+                selectedIcon:
+                    Icon(destination.selectedIcon, color: AppColors.forest),
+                label: destination.label,
+                tooltip: destination.label,
+              ),
+          ],
+        ),
       ),
     );
   }

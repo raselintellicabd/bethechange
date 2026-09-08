@@ -8,6 +8,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/app_button.dart';
+import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/review_card.dart';
@@ -35,10 +36,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final homeAsync = ref.watch(homeContentProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Be The Change'),
-        centerTitle: false,
-      ),
+      appBar: AppAppBar.text('Be The Change'),
       body: aboutAsync.when(
         loading: () => const LoadingIndicator(message: 'Loading…'),
         error: (error, _) => ErrorStateWidget(

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/image_with_caption.dart';
 import '../../../../core/widgets/loading_indicator.dart';
@@ -20,11 +21,11 @@ class BlogDetailScreen extends ConsumerWidget {
 
     return articleAsync.when(
       loading: () => Scaffold(
-        appBar: AppBar(title: const Text('Article')),
+        appBar: AppAppBar.text('Article'),
         body: const LoadingIndicator(message: 'Loading article...'),
       ),
       error: (error, _) => Scaffold(
-        appBar: AppBar(title: const Text('Article')),
+        appBar: AppAppBar.text('Article'),
         body: ErrorStateWidget(
           message: error.toString().replaceFirst('Exception: ', ''),
           onRetry: () => ref.invalidate(blogArticleByIdProvider(articleId)),
@@ -50,7 +51,7 @@ class _BlogDetailBody extends StatelessWidget {
         .toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text(article.title)),
+      appBar: AppAppBar(title: Text(article.title)),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(
           AppSpacing.md,

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/ui_kit.dart';
@@ -19,10 +20,7 @@ class AboutMenuScreen extends ConsumerWidget {
     final aboutAsync = ref.watch(aboutContentProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('About'),
-        centerTitle: false,
-      ),
+      appBar: AppAppBar.text('About'),
       body: aboutAsync.when(
         loading: () => const LoadingIndicator(message: 'Loading About...'),
         error: (error, _) => ErrorStateWidget(
@@ -89,11 +87,11 @@ class AboutSectionScreen extends ConsumerWidget {
 
     return aboutAsync.when(
       loading: () => Scaffold(
-        appBar: AppBar(title: const Text('About')),
+        appBar: AppAppBar.text('About'),
         body: const LoadingIndicator(message: 'Loading About...'),
       ),
       error: (error, _) => Scaffold(
-        appBar: AppBar(title: const Text('About')),
+        appBar: AppAppBar.text('About'),
         body: ErrorStateWidget(
           message: error.toString().replaceFirst('Exception: ', ''),
           onRetry: () => ref.invalidate(aboutContentProvider),
@@ -103,7 +101,7 @@ class AboutSectionScreen extends ConsumerWidget {
         final section = content.sectionById(sectionId);
         if (section == null) {
           return Scaffold(
-            appBar: AppBar(title: const Text('About')),
+            appBar: AppAppBar.text('About'),
             body: const ErrorStateWidget(
               title: 'Not found',
               message: 'That About section could not be found.',
@@ -115,10 +113,7 @@ class AboutSectionScreen extends ConsumerWidget {
             content.sections.indexWhere((s) => s.id == sectionId);
 
         return Scaffold(
-          appBar: AppBar(
-            title: Text(section.title),
-            centerTitle: false,
-          ),
+          appBar: AppAppBar(title: Text(section.title)),
           body: Column(
             children: [
               if (content.sections.length > 1)

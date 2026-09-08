@@ -6,6 +6,7 @@ import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/image_with_caption.dart';
 import '../../../../core/widgets/loading_indicator.dart';
@@ -20,10 +21,7 @@ class BlogListScreen extends ConsumerWidget {
     final catalogAsync = ref.watch(blogCatalogProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Blog'),
-        centerTitle: false,
-      ),
+      appBar: AppAppBar.text('Blog'),
       body: catalogAsync.when(
         loading: () => const LoadingIndicator(message: 'Loading articles...'),
         error: (error, _) => ErrorStateWidget(

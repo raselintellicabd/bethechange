@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
@@ -37,19 +38,15 @@ class AppointmentScreen extends ConsumerWidget {
         ref.read(appointmentControllerProvider(sourceContext).notifier);
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppAppBar(
         title: const Text('Appointment'),
-        centerTitle: false,
-        leading: state.step == AppointmentStep.date ||
-                state.step == AppointmentStep.success
-            ? IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () => Navigator.of(context).maybePop(),
-              )
-            : IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: controller.goBack,
-              ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: state.step == AppointmentStep.date ||
+                  state.step == AppointmentStep.success
+              ? () => Navigator.of(context).maybePop()
+              : controller.goBack,
+        ),
       ),
       body: Column(
         children: [

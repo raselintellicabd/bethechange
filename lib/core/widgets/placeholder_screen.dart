@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/app_spacing.dart';
+import 'app_app_bar.dart';
 
 /// Temporary placeholder used until feature screens are implemented.
 class PlaceholderScreen extends StatelessWidget {
@@ -16,7 +17,7 @@ class PlaceholderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppAppBar(title: Text(title)),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(AppSpacing.lg),

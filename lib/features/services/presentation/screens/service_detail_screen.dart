@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/domain/models/content_block.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/appointment_cta_bar.dart';
 import '../../../../core/widgets/bullet_or_icon_list_section.dart';
 import '../../../../core/widgets/content_block_view.dart';
@@ -27,11 +28,11 @@ class ServiceDetailScreen extends ConsumerWidget {
 
     return serviceAsync.when(
       loading: () => Scaffold(
-        appBar: AppBar(title: const Text('Service')),
+        appBar: AppAppBar.text('Service'),
         body: const LoadingIndicator(message: 'Loading service...'),
       ),
       error: (error, _) => Scaffold(
-        appBar: AppBar(title: const Text('Service')),
+        appBar: AppAppBar.text('Service'),
         body: ErrorStateWidget(
           message: error.toString().replaceFirst('Exception: ', ''),
           onRetry: () => ref.invalidate(serviceByIdProvider(serviceId)),
@@ -65,101 +66,87 @@ class _ServiceDetailBody extends StatelessWidget {
     ];
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            expandedHeight: 200,
-            backgroundColor: AppColors.forest,
-            foregroundColor: Colors.white,
-            flexibleSpace: FlexibleSpaceBar(
-              background: AppHeroBanner(
-                title: service.name,
-                tag: 'Therapy',
-                height: 220,
-                backgroundColor: AppColors.thumbPalette[
-                    (service.id.hashCode.abs() + 3) %
-                        AppColors.thumbPalette.length],
-              ),
-            ),
+      appBar: AppAppBar(title: Text(service.name)),
+      body: ListView(
+        children: [
+          AppHeroBanner(
+            title: service.name,
+            tag: 'Therapy',
+            height: 180,
+            backgroundColor: AppColors.thumbPalette[
+                (service.id.hashCode.abs() + 3) %
+                    AppColors.thumbPalette.length],
           ),
-          SliverToBoxAdapter(
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: Text(service.summary, style: theme.textTheme.titleMedium),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: AppointmentCtaBar(sourceContext: _sourceContext),
+          ),
+          if (chipLabels.isNotEmpty) ...[
+            const SizedBox(height: AppSpacing.md),
+            ChipRow(labels: chipLabels),
+          ],
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.md,
+              AppSpacing.md,
+              AppSpacing.md,
+              AppSpacing.xxl,
+            ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                  child: Text(service.summary, style: theme.textTheme.titleMedium),
-                ),
-                const SizedBox(height: AppSpacing.md),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: AppointmentCtaBar(sourceContext: _sourceContext),
-                ),
-                if (chipLabels.isNotEmpty) ...[
-                  const SizedBox(height: AppSpacing.md),
-                  ChipRow(labels: chipLabels),
+                const SectionHeader(title: 'Overview'),
+                const SizedBox(height: AppSpacing.sm),
+                Text(service.articleBody, style: theme.textTheme.bodyLarge),
+                if (howItWorks != null) ...[
+                  const SizedBox(height: AppSpacing.lg),
+                  ContentBlockView(
+                    block: ContentBlock(
+                      title: service.howItWorksTitle,
+                      body: howItWorks.body,
+                      imageUrl: howItWorks.imageUrl,
+                    ),
+                  ),
                 ],
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    AppSpacing.md,
-                    AppSpacing.md,
-                    AppSpacing.md,
-                    AppSpacing.xxl,
+                if (service.benefits.isNotEmpty) ...[
+                  const SizedBox(height: AppSpacing.lg),
+                  BulletOrIconListSection(
+                    title: service.benefitsTitle,
+                    items: service.benefits,
+                    fallbackIcon: Icons.verified_outlined,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SectionHeader(title: 'Overview'),
-                      const SizedBox(height: AppSpacing.sm),
-                      Text(service.articleBody, style: theme.textTheme.bodyLarge),
-                      if (howItWorks != null) ...[
-                        const SizedBox(height: AppSpacing.lg),
-                        ContentBlockView(
-                          block: ContentBlock(
-                            title: service.howItWorksTitle,
-                            body: howItWorks.body,
-                            imageUrl: howItWorks.imageUrl,
-                          ),
-                        ),
-                      ],
-                      if (service.benefits.isNotEmpty) ...[
-                        const SizedBox(height: AppSpacing.lg),
-                        BulletOrIconListSection(
-                          title: service.benefitsTitle,
-                          items: service.benefits,
-                          fallbackIcon: Icons.verified_outlined,
-                        ),
-                      ],
-                      if (service.addressedConcerns.isNotEmpty) ...[
-                        const SizedBox(height: AppSpacing.lg),
-                        BulletOrIconListSection(
-                          title: service.addressedConcernsTitle,
-                          items: service.addressedConcerns,
-                          fallbackIcon: Icons.checklist_outlined,
-                        ),
-                      ],
-                      if (whatToExpect != null) ...[
-                        const SizedBox(height: AppSpacing.lg),
-                        ContentBlockView(
-                          block: ContentBlock(
-                            title: service.whatToExpectTitle,
-                            body: whatToExpect.body,
-                            imageUrl: whatToExpect.imageUrl,
-                          ),
-                        ),
-                      ],
-                      if (service.recommendedBooks.isNotEmpty) ...[
-                        const SizedBox(height: AppSpacing.lg),
-                        RecommendedBooksSection(
-                          books: service.recommendedBooks,
-                        ),
-                      ],
-                      const SizedBox(height: AppSpacing.lg),
-                      AppointmentCtaBar(sourceContext: _sourceContext),
-                    ],
+                ],
+                if (service.addressedConcerns.isNotEmpty) ...[
+                  const SizedBox(height: AppSpacing.lg),
+                  BulletOrIconListSection(
+                    title: service.addressedConcernsTitle,
+                    items: service.addressedConcerns,
+                    fallbackIcon: Icons.checklist_outlined,
                   ),
-                ),
+                ],
+                if (whatToExpect != null) ...[
+                  const SizedBox(height: AppSpacing.lg),
+                  ContentBlockView(
+                    block: ContentBlock(
+                      title: service.whatToExpectTitle,
+                      body: whatToExpect.body,
+                      imageUrl: whatToExpect.imageUrl,
+                    ),
+                  ),
+                ],
+                if (service.recommendedBooks.isNotEmpty) ...[
+                  const SizedBox(height: AppSpacing.lg),
+                  RecommendedBooksSection(
+                    books: service.recommendedBooks,
+                  ),
+                ],
+                const SizedBox(height: AppSpacing.lg),
+                AppointmentCtaBar(sourceContext: _sourceContext),
               ],
             ),
           ),

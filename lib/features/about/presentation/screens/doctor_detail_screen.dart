@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
@@ -25,11 +26,11 @@ class DoctorDetailScreen extends ConsumerWidget {
 
     return aboutAsync.when(
       loading: () => Scaffold(
-        appBar: AppBar(title: const Text('Doctor')),
+        appBar: AppAppBar.text('Doctor'),
         body: const LoadingIndicator(message: 'Loading…'),
       ),
       error: (error, _) => Scaffold(
-        appBar: AppBar(title: const Text('Doctor')),
+        appBar: AppAppBar.text('Doctor'),
         body: ErrorStateWidget(
           message: error.toString().replaceFirst('Exception: ', ''),
           onRetry: () => ref.invalidate(aboutContentProvider),
@@ -39,7 +40,7 @@ class DoctorDetailScreen extends ConsumerWidget {
         final doctor = content.doctorById(doctorId);
         if (doctor == null) {
           return Scaffold(
-            appBar: AppBar(title: const Text('Doctor')),
+            appBar: AppAppBar.text('Doctor'),
             body: const ErrorStateWidget(
               title: 'Not found',
               message: 'That doctor profile could not be found.',
@@ -76,10 +77,7 @@ class _DoctorDetailBody extends StatelessWidget {
     final imageUrl = doctor.imageUrl;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(doctor.name),
-        centerTitle: false,
-      ),
+      appBar: AppAppBar(title: Text(doctor.name)),
       body: ListView(
         children: [
           if (imageUrl != null && imageUrl.isNotEmpty)

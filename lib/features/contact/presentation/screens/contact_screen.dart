@@ -5,6 +5,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/external_link_handler.dart';
+import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
@@ -127,10 +128,7 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
     final clinicAsync = ref.watch(clinicInfoProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Contact'),
-        centerTitle: false,
-      ),
+      appBar: AppAppBar.text('Contact'),
       body: clinicAsync.when(
         loading: () => const LoadingIndicator(message: 'Loading…'),
         error: (error, _) => ErrorStateWidget(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../providers/about_providers.dart';
@@ -19,11 +20,11 @@ class AboutSlugScreen extends ConsumerWidget {
 
     return aboutAsync.when(
       loading: () => Scaffold(
-        appBar: AppBar(title: const Text('About')),
+        appBar: AppAppBar.text('About'),
         body: const LoadingIndicator(message: 'Loading…'),
       ),
       error: (error, _) => Scaffold(
-        appBar: AppBar(title: const Text('About')),
+        appBar: AppAppBar.text('About'),
         body: ErrorStateWidget(
           message: error.toString().replaceFirst('Exception: ', ''),
           onRetry: () => ref.invalidate(aboutContentProvider),
@@ -37,7 +38,7 @@ class AboutSlugScreen extends ConsumerWidget {
           return AboutSectionScreen(sectionId: slug);
         }
         return Scaffold(
-          appBar: AppBar(title: const Text('About')),
+          appBar: AppAppBar.text('About'),
           body: const ErrorStateWidget(
             title: 'Not found',
             message: 'That About page could not be found.',

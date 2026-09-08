@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'app_colors.dart';
@@ -47,16 +48,30 @@ abstract final class AppTheme {
       primaryTextTheme: textTheme,
       fontFamily: GoogleFonts.workSans().fontFamily,
       appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.paper,
-        foregroundColor: AppColors.forestDark,
+        backgroundColor: AppColors.ochre,
+        foregroundColor: AppColors.textOnPrimary,
         elevation: 0,
         scrolledUnderElevation: 0,
-        centerTitle: true,
-        titleTextStyle: AppTextStyles.titleLarge,
-        surfaceTintColor: Colors.transparent,
-        shape: const Border(
-          bottom: BorderSide(color: AppColors.line),
+        centerTitle: false,
+        titleSpacing: AppSpacing.md,
+        toolbarHeight: 56,
+        titleTextStyle: AppTextStyles.titleLarge.copyWith(
+          color: AppColors.textOnPrimary,
         ),
+        iconTheme: const IconThemeData(
+          color: AppColors.textOnPrimary,
+          size: 22,
+        ),
+        actionsIconTheme: const IconThemeData(
+          color: AppColors.textOnPrimary,
+          size: 22,
+        ),
+        surfaceTintColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        shape: const Border(
+          bottom: BorderSide(color: AppColors.ochreDark, width: 1),
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       cardTheme: CardThemeData(
         color: AppColors.card,
@@ -153,6 +168,8 @@ abstract final class AppTheme {
         indicatorColor: Colors.transparent,
         elevation: 0,
         height: 62,
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           final selected = states.contains(WidgetState.selected);
           return AppTextStyles.labelSmall.copyWith(

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/app_card.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
@@ -19,7 +20,7 @@ class ServicesListScreen extends ConsumerWidget {
     final catalogAsync = ref.watch(servicesCatalogProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Services')),
+      appBar: AppAppBar.text('Services'),
       body: catalogAsync.when(
         loading: () => const LoadingIndicator(message: 'Loading services...'),
         error: (error, _) => ErrorStateWidget(
