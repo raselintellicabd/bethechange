@@ -157,7 +157,7 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
 
-      expect(find.text('Chatbot'), findsWidgets);
+      expect(find.text('Assistant'), findsWidgets);
       expect(find.byType(TextField), findsOneWidget);
     });
 

@@ -1,120 +1,120 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'app_colors.dart';
 
-/// Typography tokens. Swap [fontFamily] when brand fonts are bundled.
+/// Typography: Fraunces for headings, Work Sans for body/UI.
 abstract final class AppTextStyles {
-  static const String fontFamily = 'Roboto';
+  static TextStyle get displayLarge => GoogleFonts.fraunces(
+        fontSize: 34,
+        fontWeight: FontWeight.w500,
+        height: 1.2,
+        color: AppColors.forestDark,
+      );
 
-  static const TextStyle displayLarge = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 40,
-    fontWeight: FontWeight.w700,
-    height: 1.2,
-    color: AppColors.textPrimary,
-  );
+  static TextStyle get displayMedium => GoogleFonts.fraunces(
+        fontSize: 28,
+        fontWeight: FontWeight.w500,
+        height: 1.25,
+        color: AppColors.forestDark,
+      );
 
-  static const TextStyle displayMedium = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 32,
-    fontWeight: FontWeight.w700,
-    height: 1.25,
-    color: AppColors.textPrimary,
-  );
+  static TextStyle get headlineLarge => GoogleFonts.fraunces(
+        fontSize: 22,
+        fontWeight: FontWeight.w500,
+        height: 1.25,
+        color: AppColors.forestDark,
+      );
 
-  static const TextStyle headlineLarge = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 28,
-    fontWeight: FontWeight.w600,
-    height: 1.3,
-    color: AppColors.textPrimary,
-  );
+  static TextStyle get headlineMedium => GoogleFonts.fraunces(
+        fontSize: 19,
+        fontWeight: FontWeight.w500,
+        height: 1.3,
+        color: AppColors.forestDark,
+      );
 
-  static const TextStyle headlineMedium = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 24,
-    fontWeight: FontWeight.w600,
-    height: 1.3,
-    color: AppColors.textPrimary,
-  );
+  static TextStyle get headlineSmall => GoogleFonts.fraunces(
+        fontSize: 17,
+        fontWeight: FontWeight.w500,
+        height: 1.3,
+        color: AppColors.forestDark,
+      );
 
-  static const TextStyle headlineSmall = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
-    height: 1.35,
-    color: AppColors.textPrimary,
-  );
+  static TextStyle get titleLarge => GoogleFonts.fraunces(
+        fontSize: 17,
+        fontWeight: FontWeight.w500,
+        height: 1.3,
+        color: AppColors.forestDark,
+      );
 
-  static const TextStyle titleLarge = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 18,
-    fontWeight: FontWeight.w600,
-    height: 1.4,
-    color: AppColors.textPrimary,
-  );
+  static TextStyle get titleMedium => GoogleFonts.workSans(
+        fontSize: 15,
+        fontWeight: FontWeight.w600,
+        height: 1.35,
+        color: AppColors.forestDark,
+      );
 
-  static const TextStyle titleMedium = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    height: 1.4,
-    color: AppColors.textPrimary,
-  );
+  static TextStyle get titleSmall => GoogleFonts.workSans(
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+        height: 1.35,
+        color: AppColors.forestDark,
+      );
 
-  static const TextStyle titleSmall = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 14,
-    fontWeight: FontWeight.w600,
-    height: 1.4,
-    color: AppColors.textPrimary,
-  );
+  static TextStyle get bodyLarge => GoogleFonts.workSans(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        height: 1.6,
+        color: AppColors.inkMuted,
+      );
 
-  static const TextStyle bodyLarge = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
-    height: 1.5,
-    color: AppColors.textPrimary,
-  );
+  static TextStyle get bodyMedium => GoogleFonts.workSans(
+        fontSize: 12.5,
+        fontWeight: FontWeight.w400,
+        height: 1.65,
+        color: AppColors.inkMuted,
+      );
 
-  static const TextStyle bodyMedium = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    height: 1.5,
-    color: AppColors.textPrimary,
-  );
+  static TextStyle get bodySmall => GoogleFonts.workSans(
+        fontSize: 11,
+        fontWeight: FontWeight.w400,
+        height: 1.55,
+        color: AppColors.inkMuted,
+      );
 
-  static const TextStyle bodySmall = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    height: 1.45,
-    color: AppColors.textSecondary,
-  );
+  static TextStyle get labelLarge => GoogleFonts.workSans(
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+        height: 1.3,
+        color: AppColors.ink,
+      );
 
-  static const TextStyle labelLarge = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 14,
-    fontWeight: FontWeight.w600,
-    height: 1.3,
-    color: AppColors.textPrimary,
-  );
+  static TextStyle get labelMedium => GoogleFonts.workSans(
+        fontSize: 11,
+        fontWeight: FontWeight.w600,
+        height: 1.3,
+        color: AppColors.forestDark,
+      );
 
-  static const TextStyle labelMedium = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 12,
-    fontWeight: FontWeight.w600,
-    height: 1.3,
-    color: AppColors.textSecondary,
-  );
+  static TextStyle get labelSmall => GoogleFonts.workSans(
+        fontSize: 10,
+        fontWeight: FontWeight.w500,
+        height: 1.3,
+        color: AppColors.inkMuted,
+      );
 
-  static const TextStyle labelSmall = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 11,
-    fontWeight: FontWeight.w500,
-    height: 1.3,
-    color: AppColors.textSecondary,
-  );
+  static TextStyle get sectionTitle => GoogleFonts.fraunces(
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+        height: 1.3,
+        color: AppColors.forestDark,
+      );
+
+  static TextStyle get eyebrow => GoogleFonts.workSans(
+        fontSize: 9,
+        fontWeight: FontWeight.w700,
+        height: 1.3,
+        letterSpacing: 0.3,
+        color: AppColors.ochreDark,
+      );
 }

@@ -5,6 +5,7 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
+import '../../../../core/widgets/ui_kit.dart';
 import '../../domain/models/source_context.dart';
 import '../providers/appointment_providers.dart';
 import '../widgets/appointment_calendar_view.dart';
@@ -18,6 +19,17 @@ class AppointmentScreen extends ConsumerWidget {
 
   final SourceContext sourceContext;
 
+  int _stepIndex(AppointmentStep step) {
+    return switch (step) {
+      AppointmentStep.date => 0,
+      AppointmentStep.time => 1,
+      AppointmentStep.details ||
+      AppointmentStep.confirm ||
+      AppointmentStep.success =>
+        2,
+    };
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(appointmentControllerProvider(sourceContext));
@@ -26,52 +38,40 @@ class AppointmentScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Request Appointment'),
+        title: const Text('Appointment'),
+        centerTitle: false,
         leading: state.step == AppointmentStep.date ||
                 state.step == AppointmentStep.success
-            ? null
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () => Navigator.of(context).maybePop(),
+              )
             : IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: controller.goBack,
               ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(AppSpacing.md),
+      body: Column(
         children: [
-          _ContextHeader(sourceContext: sourceContext),
-          const SizedBox(height: AppSpacing.lg),
-          _StepBody(
-            state: state,
-            controller: controller,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ContextHeader extends StatelessWidget {
-  const _ContextHeader({required this.sourceContext});
-
-  final SourceContext sourceContext;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Semantics(
-      header: true,
-      label: 'Requesting appointment for ${sourceContext.name}',
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Requesting appointment for: ${sourceContext.name}',
-            style: theme.textTheme.titleLarge,
-          ),
-          const SizedBox(height: AppSpacing.xxs),
-          Text(
-            '${sourceContext.type.name} · ${sourceContext.id}',
-            style: theme.textTheme.bodySmall,
+          if (state.step != AppointmentStep.success)
+            StepIndicator(currentStep: _stepIndex(state.step)),
+          if (state.step != AppointmentStep.success)
+            LockedContextChip(label: 'Reason: ${sourceContext.name}'),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.md,
+                0,
+                AppSpacing.md,
+                AppSpacing.xxl,
+              ),
+              children: [
+                _StepBody(
+                  state: state,
+                  controller: controller,
+                ),
+              ],
+            ),
           ),
         ],
       ),

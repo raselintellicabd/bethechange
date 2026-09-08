@@ -22,7 +22,7 @@ void main() {
     router.go(AppRoutes.appointment);
     await tester.pumpAndSettle();
 
-    expect(router.routeInformationProvider.value.uri.path, AppRoutes.about);
+    expect(router.routeInformationProvider.value.uri.path, AppRoutes.home);
     expect(find.text('Request Appointment'), findsNothing);
   });
 
@@ -48,9 +48,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
 
     expect(
-      find.text(
-        'Requesting appointment for: Frequency Specific Microcurrent Therapy',
-      ),
+      find.text('Reason: Frequency Specific Microcurrent Therapy'),
       findsOneWidget,
     );
     expect(find.text('Select a date'), findsOneWidget);

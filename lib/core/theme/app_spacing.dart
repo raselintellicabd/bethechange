@@ -8,9 +8,10 @@ abstract final class AppSpacing {
   static const double xxl = 48;
   static const double xxxl = 64;
 
-  static const double radiusSm = 8;
-  static const double radiusMd = 12;
+  static const double radiusSm = 9;
+  static const double radiusMd = 14;
   static const double radiusLg = 16;
+  static const double radiusPill = 20;
 
   static const double iconSm = 16;
   static const double iconMd = 24;

@@ -7,6 +7,7 @@ import '../../../../core/widgets/empty_state_widget.dart';
 import '../../../../core/widgets/image_with_caption.dart';
 import '../../../../core/widgets/review_card.dart';
 import '../../../../core/widgets/section_header.dart';
+import '../../../../core/widgets/ui_kit.dart';
 import '../../domain/models/about_content.dart';
 import '../../domain/models/about_content_block.dart';
 import '../../domain/models/about_section.dart';
@@ -16,86 +17,118 @@ class AboutContentView extends StatelessWidget {
     super.key,
     required this.section,
     required this.content,
+    this.showHero = false,
   });
 
   final AboutSection section;
   final AboutContent content;
+  final bool showHero;
 
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.md,
-        AppSpacing.md,
-        AppSpacing.md,
+      padding: EdgeInsets.fromLTRB(
+        showHero ? 0 : AppSpacing.md,
+        showHero ? 0 : AppSpacing.md,
+        showHero ? 0 : AppSpacing.md,
         AppSpacing.xxl,
       ),
       children: [
-        for (final block in section.blocks) ...[
-          _AboutBlockWidget(block: block),
-          const SizedBox(height: AppSpacing.md),
-        ],
-        if (section.showDoctors) ...[
-          SectionHeader(
-            title: 'Meet Our Doctors',
-            subtitle: content.doctorsIntro,
+        if (showHero)
+          AppHeroBanner(
+            title: section.title,
+            tag: 'About',
+            height: 160,
+            backgroundColor: AppColors.sage,
           ),
-          const SizedBox(height: AppSpacing.sm),
-          if (content.doctors.isEmpty)
-            const EmptyStateWidget(
-              title: 'No doctors listed',
-              message: 'Doctor profiles will appear here when available.',
-              icon: Icons.medical_information_outlined,
-            )
-          else
-            for (final doctor in content.doctors) ...[
-              DoctorProfileCard(
-                name: doctor.name,
-                title: doctor.title,
-                imageUrl: doctor.imageUrl,
-                bio: doctor.bio,
-              ),
-              const SizedBox(height: AppSpacing.sm),
+        Padding(
+          padding: EdgeInsets.fromLTRB(
+            showHero ? AppSpacing.md : 0,
+            showHero ? AppSpacing.md : 0,
+            showHero ? AppSpacing.md : 0,
+            0,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (final block in section.blocks) ...[
+                _AboutBlockWidget(block: block),
+                const SizedBox(height: AppSpacing.md),
+              ],
             ],
-          const SizedBox(height: AppSpacing.md),
-        ],
-        if (section.showReviews) ...[
-          SectionHeader(
-            title: 'What Our Patients Say',
-            subtitle: content.reviewCount == null
-                ? content.reviewSummaryLabel
-                : '${content.reviewSummaryLabel ?? 'Reviews'} · Based on ${content.reviewCount} reviews',
           ),
-          const SizedBox(height: AppSpacing.sm),
-          if (content.reviews.isEmpty)
-            const EmptyStateWidget(
-              title: 'No reviews yet',
-              message: 'Patient reviews will appear here when available.',
-              icon: Icons.rate_review_outlined,
-            )
-          else
-            SizedBox(
-              height: 220,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: content.reviews.length,
-                separatorBuilder: (_, _) =>
-                    const SizedBox(width: AppSpacing.sm),
-                itemBuilder: (context, index) {
-                  final review = content.reviews[index];
-                  return SizedBox(
-                    width: MediaQuery.sizeOf(context).width * 0.78,
-                    child: ReviewCard(
-                      reviewerName: review.reviewerName,
-                      reviewText: review.reviewText,
-                      rating: review.rating,
-                      dateLabel: review.dateLabel,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: showHero ? AppSpacing.md : 0,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (section.showDoctors) ...[
+                SectionHeader(
+                  title: 'Meet Our Doctors',
+                  subtitle: content.doctorsIntro,
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                if (content.doctors.isEmpty)
+                  const EmptyStateWidget(
+                    title: 'No doctors listed',
+                    message: 'Doctor profiles will appear here when available.',
+                    icon: Icons.medical_information_outlined,
+                  )
+                else
+                  for (final doctor in content.doctors) ...[
+                    DoctorProfileCard(
+                      name: doctor.name,
+                      title: doctor.title,
+                      imageUrl: doctor.imageUrl,
+                      bio: doctor.bio,
                     ),
-                  );
-                },
-              ),
-            ),
-        ],
+                    const SizedBox(height: AppSpacing.sm),
+                  ],
+                const SizedBox(height: AppSpacing.md),
+              ],
+              if (section.showReviews) ...[
+                SectionHeader(
+                  title: 'What Our Patients Say',
+                  subtitle: content.reviewCount == null
+                      ? content.reviewSummaryLabel
+                      : '${content.reviewSummaryLabel ?? 'Reviews'} · Based on ${content.reviewCount} reviews',
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                if (content.reviews.isEmpty)
+                  const EmptyStateWidget(
+                    title: 'No reviews yet',
+                    message: 'Patient reviews will appear here when available.',
+                    icon: Icons.rate_review_outlined,
+                  )
+                else
+                  SizedBox(
+                    height: 220,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: content.reviews.length,
+                      separatorBuilder: (_, _) =>
+                          const SizedBox(width: AppSpacing.sm),
+                      itemBuilder: (context, index) {
+                        final review = content.reviews[index];
+                        return SizedBox(
+                          width: MediaQuery.sizeOf(context).width * 0.78,
+                          child: ReviewCard(
+                            reviewerName: review.reviewerName,
+                            reviewText: review.reviewText,
+                            rating: review.rating,
+                            dateLabel: review.dateLabel,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+              ],
+            ],
+          ),
+        ),
       ],
     );
   }

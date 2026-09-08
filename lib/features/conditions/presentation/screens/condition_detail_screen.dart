@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/domain/models/content_block.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/appointment_cta_bar.dart';
 import '../../../../core/widgets/bullet_or_icon_list_section.dart';
 import '../../../../core/widgets/content_block_view.dart';
 import '../../../../core/widgets/error_state_widget.dart';
-import '../../../../core/widgets/image_with_caption.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/recommended_books_section.dart';
 import '../../../../core/widgets/section_header.dart';
+import '../../../../core/widgets/ui_kit.dart';
 import '../../../../features/appointment/domain/models/source_context.dart';
 import '../../domain/models/condition.dart';
 import '../providers/conditions_providers.dart';
@@ -56,79 +57,116 @@ class _ConditionDetailBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final approach = condition.integrativeApproach;
+    final chipLabels = <String>[
+      if (condition.symptoms.isNotEmpty) 'Symptoms',
+      if (condition.treatmentMethods.isNotEmpty) 'Treatments',
+      if (condition.benefits.isNotEmpty) 'Benefits',
+    ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(condition.name)),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(
-          AppSpacing.md,
-          AppSpacing.md,
-          AppSpacing.md,
-          AppSpacing.xxl,
-        ),
-        children: [
-          Text(condition.name, style: theme.textTheme.headlineSmall),
-          const SizedBox(height: AppSpacing.sm),
-          Text(condition.summary, style: theme.textTheme.titleMedium),
-          const SizedBox(height: AppSpacing.md),
-          AppointmentCtaBar(sourceContext: _sourceContext),
-          const SizedBox(height: AppSpacing.lg),
-          if (condition.heroImageUrl != null &&
-              condition.heroImageUrl!.isNotEmpty) ...[
-            ImageWithCaption(imageUrl: condition.heroImageUrl!),
-            const SizedBox(height: AppSpacing.lg),
-          ],
-          const SectionHeader(title: 'Overview'),
-          const SizedBox(height: AppSpacing.sm),
-          Text(condition.articleBody, style: theme.textTheme.bodyLarge),
-          if (condition.symptoms.isNotEmpty) ...[
-            const SizedBox(height: AppSpacing.lg),
-            BulletOrIconListSection(
-              title: 'Common Symptoms',
-              items: condition.symptoms,
-              fallbackIcon: Icons.healing_outlined,
-            ),
-          ],
-          if (condition.contributingFactors.isNotEmpty) ...[
-            const SizedBox(height: AppSpacing.lg),
-            BulletOrIconListSection(
-              title: 'Factors That Contribute',
-              items: condition.contributingFactors,
-              fallbackIcon: Icons.warning_amber_outlined,
-            ),
-          ],
-          if (approach != null) ...[
-            const SizedBox(height: AppSpacing.lg),
-            ContentBlockView(
-              block: ContentBlock(
-                title: condition.integrativeApproachTitle,
-                body: approach.body,
-                imageUrl: approach.imageUrl,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: 200,
+            backgroundColor: AppColors.forest,
+            foregroundColor: Colors.white,
+            flexibleSpace: FlexibleSpaceBar(
+              background: AppHeroBanner(
+                title: condition.name,
+                tag: 'Condition',
+                height: 220,
+                backgroundColor: AppColors.thumbPalette[
+                    condition.id.hashCode.abs() % AppColors.thumbPalette.length],
               ),
             ),
-          ],
-          if (condition.benefits.isNotEmpty) ...[
-            const SizedBox(height: AppSpacing.lg),
-            BulletOrIconListSection(
-              title: condition.benefitsTitle,
-              items: condition.benefits,
-              fallbackIcon: Icons.verified_outlined,
+          ),
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  child: Text(condition.summary, style: theme.textTheme.titleMedium),
+                ),
+                const SizedBox(height: AppSpacing.md),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: AppointmentCtaBar(sourceContext: _sourceContext),
+                ),
+                if (chipLabels.isNotEmpty) ...[
+                  const SizedBox(height: AppSpacing.md),
+                  ChipRow(labels: chipLabels),
+                ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                    AppSpacing.md,
+                    AppSpacing.md,
+                    AppSpacing.md,
+                    AppSpacing.xxl,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SectionHeader(title: 'Overview'),
+                      const SizedBox(height: AppSpacing.sm),
+                      Text(condition.articleBody, style: theme.textTheme.bodyLarge),
+                      if (condition.symptoms.isNotEmpty) ...[
+                        const SizedBox(height: AppSpacing.lg),
+                        BulletOrIconListSection(
+                          title: 'Common Symptoms',
+                          items: condition.symptoms,
+                          fallbackIcon: Icons.healing_outlined,
+                        ),
+                      ],
+                      if (condition.contributingFactors.isNotEmpty) ...[
+                        const SizedBox(height: AppSpacing.lg),
+                        BulletOrIconListSection(
+                          title: 'Factors That Contribute',
+                          items: condition.contributingFactors,
+                          fallbackIcon: Icons.warning_amber_outlined,
+                        ),
+                      ],
+                      if (approach != null) ...[
+                        const SizedBox(height: AppSpacing.lg),
+                        ContentBlockView(
+                          block: ContentBlock(
+                            title: condition.integrativeApproachTitle,
+                            body: approach.body,
+                            imageUrl: approach.imageUrl,
+                          ),
+                        ),
+                      ],
+                      if (condition.benefits.isNotEmpty) ...[
+                        const SizedBox(height: AppSpacing.lg),
+                        BulletOrIconListSection(
+                          title: condition.benefitsTitle,
+                          items: condition.benefits,
+                          fallbackIcon: Icons.verified_outlined,
+                        ),
+                      ],
+                      if (condition.treatmentMethods.isNotEmpty) ...[
+                        const SizedBox(height: AppSpacing.lg),
+                        BulletOrIconListSection(
+                          title: condition.treatmentTitle,
+                          items: condition.treatmentMethods,
+                          fallbackIcon: Icons.medical_services_outlined,
+                        ),
+                      ],
+                      if (condition.recommendedBooks.isNotEmpty) ...[
+                        const SizedBox(height: AppSpacing.lg),
+                        RecommendedBooksSection(
+                          books: condition.recommendedBooks,
+                        ),
+                      ],
+                      const SizedBox(height: AppSpacing.lg),
+                      AppointmentCtaBar(sourceContext: _sourceContext),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
-          if (condition.treatmentMethods.isNotEmpty) ...[
-            const SizedBox(height: AppSpacing.lg),
-            BulletOrIconListSection(
-              title: condition.treatmentTitle,
-              items: condition.treatmentMethods,
-              fallbackIcon: Icons.medical_services_outlined,
-            ),
-          ],
-          if (condition.recommendedBooks.isNotEmpty) ...[
-            const SizedBox(height: AppSpacing.lg),
-            RecommendedBooksSection(books: condition.recommendedBooks),
-          ],
-          const SizedBox(height: AppSpacing.lg),
-          AppointmentCtaBar(sourceContext: _sourceContext),
+          ),
         ],
       ),
     );

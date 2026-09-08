@@ -56,7 +56,7 @@ void main() {
   });
 
   group('PatientTabScreen', () {
-    testWidgets('shows exactly three cards and no membership', (tester) async {
+    testWidgets('shows exactly four tiles and no membership', (tester) async {
       final router = createAppRouter();
       final opened = <String>[];
 
@@ -78,14 +78,14 @@ void main() {
       );
       await tester.pump();
 
-      router.go(AppRoutes.patient);
+      router.go(AppRoutes.patients);
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 50));
 
       for (final title in PatientTabScreen.cardTitles) {
         expect(find.text(title), findsOneWidget);
       }
-      expect(PatientTabScreen.cardTitles, hasLength(3));
+      expect(PatientTabScreen.cardTitles, hasLength(4));
 
       expect(find.textContaining('Membership', findRichText: true), findsNothing);
       expect(find.textContaining('membership', findRichText: true), findsNothing);
@@ -94,7 +94,10 @@ void main() {
       await tester.pump();
       expect(opened, [AppConstants.patientPortalUrl]);
 
-      await tester.tap(find.text('Shop Supplements'));
+      final shop = find.text('Shop');
+      await tester.ensureVisible(shop);
+      await tester.pump();
+      await tester.tap(shop);
       await tester.pump();
       expect(opened, [
         AppConstants.patientPortalUrl,
@@ -102,7 +105,7 @@ void main() {
       ]);
     });
 
-    testWidgets('Book a Service navigates to Services tab', (tester) async {
+    testWidgets('Book a service navigates to Explore Services', (tester) async {
       final router = createAppRouter();
 
       await tester.pumpWidget(
@@ -112,15 +115,18 @@ void main() {
       );
       await tester.pump();
 
-      router.go(AppRoutes.patient);
+      router.go(AppRoutes.patients);
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 50));
 
-      await tester.tap(find.text('Book a Service'));
+      await tester.tap(find.text('Book a service'));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 50));
 
-      expect(router.routeInformationProvider.value.uri.path, AppRoutes.services);
+      expect(
+        router.routeInformationProvider.value.uri.path,
+        AppRoutes.exploreServices,
+      );
       expect(find.text('Services'), findsWidgets);
     });
   });

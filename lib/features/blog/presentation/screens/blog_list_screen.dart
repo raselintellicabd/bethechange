@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
-import '../../../../core/widgets/app_card.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/image_with_caption.dart';
 import '../../../../core/widgets/loading_indicator.dart';
@@ -20,7 +20,10 @@ class BlogListScreen extends ConsumerWidget {
     final catalogAsync = ref.watch(blogCatalogProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Blog')),
+      appBar: AppBar(
+        title: const Text('Blog'),
+        centerTitle: false,
+      ),
       body: catalogAsync.when(
         loading: () => const LoadingIndicator(message: 'Loading articles...'),
         error: (error, _) => ErrorStateWidget(
@@ -47,7 +50,11 @@ class BlogListScreen extends ConsumerWidget {
               separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
               itemBuilder: (context, index) {
                 final article = catalog.articles[index];
-                return _BlogArticleCard(article: article);
+                return _BlogArticleCard(
+                  article: article,
+                  thumbColor: AppColors.thumbPalette[
+                      index % AppColors.thumbPalette.length],
+                );
               },
             ),
           );
@@ -58,52 +65,74 @@ class BlogListScreen extends ConsumerWidget {
 }
 
 class _BlogArticleCard extends StatelessWidget {
-  const _BlogArticleCard({required this.article});
+  const _BlogArticleCard({
+    required this.article,
+    required this.thumbColor,
+  });
 
   final BlogArticle article;
+  final Color thumbColor;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final imageUrl = article.imageUrl;
+    final eyebrow = [
+      if (article.author != null && article.author!.isNotEmpty) article.author!,
+      if (article.publishedAt != null && article.publishedAt!.isNotEmpty)
+        article.publishedAt!,
+    ].join(' · ');
 
-    return AppCard(
-      onTap: () => context.push(AppRoutes.blogDetailPath(article.id)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (imageUrl != null && imageUrl.isNotEmpty)
-            ImageWithCaption(imageUrl: imageUrl, height: 160)
-          else
-            Container(
-              height: 120,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: AppColors.surfaceMuted,
-                borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+    return Material(
+      color: AppColors.card,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14),
+        side: const BorderSide(color: AppColors.line),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => context.push(AppRoutes.blogDetailPath(article.id)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (imageUrl != null && imageUrl.isNotEmpty)
+              ImageWithCaption(imageUrl: imageUrl, height: 150)
+            else
+              Container(
+                height: 120,
+                width: double.infinity,
+                color: thumbColor,
               ),
-              child: const Icon(Icons.article_outlined, color: AppColors.primary),
-            ),
-          const SizedBox(height: AppSpacing.sm),
-          Text(article.title, style: theme.textTheme.titleMedium),
-          const SizedBox(height: AppSpacing.xxs),
-          Text(
-            article.subtitle,
-            style: theme.textTheme.bodyMedium,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-          ),
-          if (article.publishedAt != null &&
-              article.publishedAt!.isNotEmpty) ...[
-            const SizedBox(height: AppSpacing.xs),
-            Text(
-              article.publishedAt!,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: AppColors.textSecondary,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12, 12, 12, 14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (eyebrow.isNotEmpty)
+                    Text(
+                      eyebrow.toUpperCase(),
+                      style: AppTextStyles.labelSmall.copyWith(
+                        letterSpacing: 0.6,
+                        color: AppColors.inkMuted,
+                        fontSize: 9.5,
+                      ),
+                    ),
+                  const SizedBox(height: 4),
+                  Text(
+                    article.title,
+                    style: AppTextStyles.titleMedium,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    article.subtitle,
+                    style: AppTextStyles.bodySmall,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
             ),
           ],
-        ],
+        ),
       ),
     );
   }

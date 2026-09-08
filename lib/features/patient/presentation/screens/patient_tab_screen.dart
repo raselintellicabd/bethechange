@@ -4,81 +4,80 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/router/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/utils/external_link_handler.dart';
-import '../../../../core/widgets/app_card.dart';
+import '../../../../core/widgets/app_button.dart';
+import '../../../../core/widgets/ui_kit.dart';
 
-/// Patient area — exactly three actions. Membership is intentionally omitted.
+/// Patients hub — four tiles. Membership is intentionally omitted.
 class PatientTabScreen extends ConsumerWidget {
   const PatientTabScreen({super.key});
 
   static const List<String> cardTitles = [
     'Patient Portal',
-    'Book a Service',
-    'Shop Supplements',
+    'Book a service',
+    'Shop',
+    'FAQ',
   ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Patient'),
-        actions: [
-          TextButton(
-            onPressed: () => context.push(AppRoutes.faq),
-            child: const Text('FAQ'),
-          ),
-          TextButton(
-            onPressed: () => context.push(AppRoutes.contact),
-            child: const Text('Contact'),
-          ),
-        ],
+        title: const Text('Patients'),
+        centerTitle: false,
       ),
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.md),
         children: [
-          Text(
-            'Patient resources',
-            style: theme.textTheme.titleLarge,
-          ),
+          const SectionTitle('Patient resources'),
           const SizedBox(height: AppSpacing.xs),
           Text(
-            'Access your portal, explore services, or order supplements.',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: AppColors.textSecondary,
-            ),
+            'Portal access, booking, supplements, and answers.',
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: AppSpacing.lg),
-          _PatientActionCard(
-            title: cardTitles[0],
-            subtitle: 'Sign in to view records and messages.',
-            icon: Icons.account_circle_outlined,
-            onTap: () => _openExternal(
-              context,
-              ref,
-              AppConstants.patientPortalUrl,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          _PatientActionCard(
-            title: cardTitles[1],
-            subtitle: 'Browse clinic services and request an appointment.',
-            icon: Icons.medical_services_outlined,
-            onTap: () => context.go(AppRoutes.services),
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          _PatientActionCard(
-            title: cardTitles[2],
-            subtitle: 'Order recommended supplements on Fullscript.',
-            icon: Icons.shopping_bag_outlined,
-            onTap: () => _openExternal(
-              context,
-              ref,
-              AppConstants.shopSupplementsUrl,
-            ),
+          GridView.count(
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            mainAxisSpacing: 12,
+            crossAxisSpacing: 12,
+            childAspectRatio: 1.05,
+            children: [
+              PatientTile(
+                title: cardTitles[0],
+                subtitle: 'Records & messages',
+                icon: Icons.account_circle_outlined,
+                onTap: () => _openExternal(
+                  context,
+                  ref,
+                  AppConstants.patientPortalUrl,
+                ),
+              ),
+              PatientTile(
+                title: cardTitles[1],
+                subtitle: 'Browse therapies',
+                icon: Icons.medical_services_outlined,
+                onTap: () => context.go(AppRoutes.exploreServices),
+              ),
+              PatientTile(
+                title: cardTitles[2],
+                subtitle: 'Fullscript shop',
+                icon: Icons.shopping_bag_outlined,
+                onTap: () => _openExternal(
+                  context,
+                  ref,
+                  AppConstants.shopSupplementsUrl,
+                ),
+              ),
+              PatientTile(
+                title: cardTitles[3],
+                subtitle: 'Common questions',
+                icon: Icons.help_outline,
+                onTap: () => context.push(AppRoutes.faq),
+              ),
+            ],
           ),
         ],
       ),
@@ -100,49 +99,5 @@ class PatientTabScreen extends ConsumerWidget {
         ),
       );
     }
-  }
-}
-
-class _PatientActionCard extends StatelessWidget {
-  const _PatientActionCard({
-    required this.title,
-    required this.subtitle,
-    required this.icon,
-    required this.onTap,
-  });
-
-  final String title;
-  final String subtitle;
-  final IconData icon;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return AppCard(
-      onTap: onTap,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CircleAvatar(
-            backgroundColor: AppColors.surfaceMuted,
-            child: Icon(icon, color: AppColors.primary),
-          ),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: theme.textTheme.titleMedium),
-                const SizedBox(height: AppSpacing.xxs),
-                Text(subtitle, style: theme.textTheme.bodyMedium),
-              ],
-            ),
-          ),
-          const Icon(Icons.chevron_right),
-        ],
-      ),
-    );
   }
 }

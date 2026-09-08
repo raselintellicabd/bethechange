@@ -63,13 +63,13 @@ void main() {
       await tester.pumpWidget(MaterialApp.router(routerConfig: router));
       await tester.pumpAndSettle();
 
-      expect(find.text('Request an Appointment'), findsOneWidget);
+      expect(find.text('Request an appointment'), findsOneWidget);
       expect(
-        find.text('Requesting for: Frequency Specific Microcurrent Therapy'),
+        find.text('Reason: Frequency Specific Microcurrent Therapy'),
         findsOneWidget,
       );
 
-      await tester.tap(find.text('Request an Appointment'));
+      await tester.tap(find.text('Request an appointment'));
       await tester.pumpAndSettle();
 
       expect(

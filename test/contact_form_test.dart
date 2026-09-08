@@ -98,10 +98,7 @@ void main() {
 
       expect(find.text('Contact'), findsWidgets);
       expect(find.text(AppConstants.clinicName), findsOneWidget);
-      expect(
-        find.text('Phone: ${AppConstants.clinicPhoneDisplay}'),
-        findsOneWidget,
-      );
+      expect(find.text(AppConstants.clinicPhoneDisplay), findsOneWidget);
 
       await tapSend(tester);
 

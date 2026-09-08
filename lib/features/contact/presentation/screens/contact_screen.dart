@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/external_link_handler.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../domain/models/contact_request.dart';
@@ -74,13 +75,60 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
     );
   }
 
+  Future<void> _openDirections() async {
+    final query = Uri.encodeComponent(
+      '${AppConstants.clinicAddressLine1}, ${AppConstants.clinicAddressLine2}',
+    );
+    final opened = await ref
+        .read(externalLinkHandlerProvider)
+        .openExternal('https://maps.google.com/?q=$query');
+    if (!mounted || opened) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Could not open directions.')),
+    );
+  }
+
+  Widget _kv(String label, String value, {VoidCallback? onTap}) {
+    final valueText = Text(
+      value,
+      style: AppTextStyles.bodyMedium.copyWith(
+        color: onTap != null ? AppColors.forest : AppColors.ink,
+        decoration: onTap != null ? TextDecoration.underline : null,
+      ),
+    );
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 72,
+            child: Text(
+              label,
+              style: AppTextStyles.labelMedium.copyWith(
+                color: AppColors.inkMuted,
+              ),
+            ),
+          ),
+          Expanded(
+            child: onTap == null
+                ? valueText
+                : InkWell(onTap: onTap, child: valueText),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(contactControllerProvider);
-    final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Contact')),
+      appBar: AppBar(
+        title: const Text('Contact'),
+        centerTitle: false,
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(
           AppSpacing.md,
@@ -89,48 +137,49 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
           AppSpacing.xxl,
         ),
         children: [
-          Text('Visit or call us', style: theme.textTheme.titleLarge),
+          Text('Clinic', style: AppTextStyles.titleLarge),
           const SizedBox(height: AppSpacing.sm),
-          Card(
-            margin: EdgeInsets.zero,
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.md),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppConstants.clinicName,
-                    style: theme.textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: AppSpacing.xs),
-                  Text(AppConstants.clinicAddressLine1),
-                  Text(AppConstants.clinicAddressLine2),
-                  const SizedBox(height: AppSpacing.sm),
-                  Text('Hours: ${AppConstants.clinicHours}'),
-                  const SizedBox(height: AppSpacing.sm),
-                  InkWell(
-                    onTap: _callClinic,
-                    child: Text(
-                      'Phone: ${AppConstants.clinicPhoneDisplay}',
-                      style: theme.textTheme.bodyLarge?.copyWith(
-                        color: AppColors.primary,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: AppSpacing.xxs),
-                  Text('Fax: ${AppConstants.clinicFaxDisplay}'),
-                ],
-              ),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(AppSpacing.md),
+            decoration: BoxDecoration(
+              color: AppColors.card,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: AppColors.line),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(AppConstants.clinicName, style: AppTextStyles.titleMedium),
+                const SizedBox(height: AppSpacing.sm),
+                _kv(
+                  'Address',
+                  '${AppConstants.clinicAddressLine1}\n${AppConstants.clinicAddressLine2}',
+                ),
+                _kv('Hours', AppConstants.clinicHours),
+                _kv(
+                  'Phone',
+                  AppConstants.clinicPhoneDisplay,
+                  onTap: _callClinic,
+                ),
+                _kv('Fax', AppConstants.clinicFaxDisplay),
+                const SizedBox(height: AppSpacing.xs),
+                AppButton(
+                  label: 'Get directions',
+                  variant: AppButtonVariant.outlined,
+                  icon: Icons.directions_outlined,
+                  onPressed: _openDirections,
+                ),
+              ],
             ),
           ),
           const SizedBox(height: AppSpacing.lg),
-          Text('Send a message', style: theme.textTheme.titleLarge),
+          Text('Send a message', style: AppTextStyles.titleLarge),
           const SizedBox(height: AppSpacing.xs),
           Text(
             'Share your question and our team will follow up.',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: AppColors.textSecondary,
+            style: AppTextStyles.bodyMedium.copyWith(
+              color: AppColors.inkMuted,
             ),
           ),
           const SizedBox(height: AppSpacing.md),
@@ -218,8 +267,8 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
                   const SizedBox(height: AppSpacing.md),
                   Text(
                     state.errorMessage!,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: AppColors.error,
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: AppColors.danger,
                     ),
                   ),
                   const SizedBox(height: AppSpacing.sm),
@@ -228,6 +277,7 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
                     child: AppButton(
                       label: 'Retry',
                       variant: AppButtonVariant.text,
+                      expand: false,
                       onPressed: state.isSubmitting ? null : _submit,
                     ),
                   ),

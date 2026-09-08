@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../domain/models/chat_message.dart';
 import '../providers/chatbot_providers.dart';
@@ -18,6 +19,12 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
   final _controller = TextEditingController();
   final _scrollController = ScrollController();
 
+  static const _suggestions = [
+    'How do I book an appointment?',
+    'Do you take insurance?',
+    'Where are you located?',
+  ];
+
   @override
   void dispose() {
     _controller.dispose();
@@ -25,11 +32,12 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
     super.dispose();
   }
 
-  Future<void> _submit() async {
-    final text = _controller.text;
-    _controller.clear();
+  Future<void> _submit([String? preset]) async {
+    final text = preset ?? _controller.text;
+    if (preset == null) _controller.clear();
     await ref.read(chatbotControllerProvider.notifier).send(text);
     await _scrollToEnd();
+    setState(() {});
   }
 
   Future<void> _scrollToEnd() async {
@@ -55,23 +63,53 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
     });
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Chatbot')),
+      appBar: AppBar(
+        title: const Text('Assistant'),
+        centerTitle: false,
+      ),
       body: Column(
         children: [
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: AppColors.sageLight,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: AppColors.line),
+            ),
+            child: Text(
+              'This assistant shares general clinic information and is not a '
+              'substitute for medical advice.',
+              style: AppTextStyles.bodySmall.copyWith(fontSize: 11),
+            ),
+          ),
           Expanded(
             child: state.messages.isEmpty
-                ? Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(AppSpacing.lg),
-                      child: Text(
-                        'Ask about scheduling, insurance, location, therapies, '
-                        'and more. Type “force error” to simulate a failure.',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: AppColors.textSecondary,
-                            ),
+                ? ListView(
+                    padding: const EdgeInsets.all(AppSpacing.md),
+                    children: [
+                      Text(
+                        'Ask about scheduling, insurance, location, and therapies.',
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: AppColors.inkMuted,
+                        ),
                       ),
-                    ),
+                      const SizedBox(height: AppSpacing.md),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          for (final suggestion in _suggestions)
+                            ActionChip(
+                              label: Text(suggestion),
+                              onPressed: state.isSending
+                                  ? null
+                                  : () => _submit(suggestion),
+                            ),
+                        ],
+                      ),
+                    ],
                   )
                 : ListView.builder(
                     controller: _scrollController,
@@ -89,7 +127,7 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
           ),
           if (state.errorMessage != null)
             Material(
-              color: AppColors.surfaceMuted,
+              color: AppColors.sageLight,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
                   AppSpacing.md,
@@ -102,15 +140,16 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
                     Expanded(
                       child: Text(
                         state.errorMessage!,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: AppColors.error,
-                            ),
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: AppColors.danger,
+                        ),
                       ),
                     ),
                     if (state.canRetry)
                       AppButton(
                         label: 'Retry',
                         variant: AppButtonVariant.text,
+                        expand: false,
                         onPressed: state.isSending
                             ? null
                             : () => ref
@@ -141,7 +180,6 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
                       enabled: !state.isSending,
                       decoration: const InputDecoration(
                         hintText: 'Type your question…',
-                        border: OutlineInputBorder(),
                       ),
                       onChanged: (_) => setState(() {}),
                       onSubmitted: (_) {
@@ -151,7 +189,11 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
                   ),
                   const SizedBox(width: AppSpacing.sm),
                   IconButton.filled(
-                    onPressed: canSend ? _submit : null,
+                    onPressed: canSend ? () => _submit() : null,
+                    style: IconButton.styleFrom(
+                      backgroundColor: AppColors.ochre,
+                      foregroundColor: Colors.white,
+                    ),
                     icon: const Icon(Icons.send),
                     tooltip: 'Send',
                   ),
@@ -173,10 +215,10 @@ class _ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isUser = message.role == ChatMessageRole.user;
-    final align =
-        isUser ? Alignment.centerRight : Alignment.centerLeft;
-    final bg = isUser ? AppColors.primary : AppColors.surfaceMuted;
-    final fg = isUser ? AppColors.textOnPrimary : AppColors.textPrimary;
+    final align = isUser ? Alignment.centerRight : Alignment.centerLeft;
+    final bg = isUser ? AppColors.forest : AppColors.card;
+    final fg = isUser ? Colors.white : AppColors.ink;
+    final border = isUser ? null : Border.all(color: AppColors.line);
 
     return Align(
       alignment: align,
@@ -191,11 +233,12 @@ class _ChatBubble extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: bg,
+          border: border,
           borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
         ),
         child: Text(
           message.text,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: fg),
+          style: AppTextStyles.bodyMedium.copyWith(color: fg),
         ),
       ),
     );
@@ -213,7 +256,7 @@ class _TypingIndicator extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: AppSpacing.sm),
         padding: const EdgeInsets.all(AppSpacing.md),
         decoration: BoxDecoration(
-          color: AppColors.surfaceMuted,
+          color: AppColors.sageLight,
           borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
         ),
         child: const SizedBox(

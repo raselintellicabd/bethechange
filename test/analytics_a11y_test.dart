@@ -97,8 +97,10 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    final semantics = tester.getSemantics(find.byType(ElevatedButton));
+    final semantics = tester.getSemantics(
+      find.bySemanticsLabel(RegExp(r'Request an appointment for Diabetes')),
+    );
     expect(semantics.label, contains('Diabetes'));
-    expect(semantics.label, contains('Request an Appointment'));
+    expect(semantics.label, contains('Request an appointment'));
   });
 }

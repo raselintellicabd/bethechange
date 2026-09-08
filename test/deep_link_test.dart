@@ -75,22 +75,22 @@ void main() {
   testWidgets('deep link /conditions/:id opens condition detail',
       (tester) async {
     final router = await mount(tester);
-    router.go(AppRoutes.conditionDetailPath('diabetes'));
+    router.go('/conditions/diabetes');
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 50));
 
-    expect(pathOf(router), '/conditions/diabetes');
+    expect(pathOf(router), '/explore/conditions/diabetes');
     expect(find.text('Diabetes'), findsWidgets);
     expect(find.textContaining('Diabetes article body'), findsOneWidget);
   });
 
   testWidgets('deep link /services/:id opens service detail', (tester) async {
     final router = await mount(tester);
-    router.go(AppRoutes.serviceDetailPath('fsm'));
+    router.go('/services/fsm');
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 50));
 
-    expect(pathOf(router), '/services/fsm');
+    expect(pathOf(router), '/explore/services/fsm');
     expect(
       find.text('Frequency Specific Microcurrent Therapy'),
       findsWidgets,
@@ -120,7 +120,7 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 50));
 
-    expect(pathOf(router), AppRoutes.about);
+    expect(pathOf(router), AppRoutes.home);
     expect(find.text('Request Appointment'), findsNothing);
   });
 
@@ -138,7 +138,7 @@ void main() {
 
     expect(pathOf(router), AppRoutes.appointment);
     expect(
-      find.text('Requesting appointment for: Diabetes'),
+      find.text('Reason: Diabetes'),
       findsOneWidget,
     );
   });

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/about/presentation/screens/about_screen.dart';
+import '../../features/about/presentation/screens/about_menu_screen.dart';
 import '../../features/appointment/domain/models/source_context.dart';
 import '../../features/appointment/presentation/screens/appointment_screen.dart';
 import '../../features/blog/presentation/screens/blog_detail_screen.dart';
 import '../../features/blog/presentation/screens/blog_list_screen.dart';
 import '../../features/chatbot/presentation/screens/chatbot_screen.dart';
 import '../../features/conditions/presentation/screens/condition_detail_screen.dart';
-import '../../features/conditions/presentation/screens/conditions_list_screen.dart';
 import '../../features/contact/presentation/screens/contact_screen.dart';
+import '../../features/explore/presentation/screens/explore_screen.dart';
 import '../../features/faq/presentation/screens/faq_screen.dart';
+import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/patient/presentation/screens/patient_tab_screen.dart';
 import '../../features/services/presentation/screens/service_detail_screen.dart';
-import '../../features/services/presentation/screens/services_list_screen.dart';
 import '../constants/app_constants.dart';
 import '../theme/app_colors.dart';
 import 'app_routes.dart';
@@ -23,7 +23,25 @@ final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 GoRouter createAppRouter() {
   return GoRouter(
     navigatorKey: rootNavigatorKey,
-    initialLocation: AppRoutes.about,
+    initialLocation: AppRoutes.home,
+    redirect: (context, state) {
+      final path = state.uri.path;
+
+      if (path == AppRoutes.patient) return AppRoutes.patients;
+      if (path == AppRoutes.conditions) return AppRoutes.exploreConditions;
+      if (path == AppRoutes.services) return AppRoutes.exploreServices;
+      if (path == AppRoutes.explore) return AppRoutes.exploreConditions;
+
+      if (path.startsWith('${AppRoutes.conditions}/')) {
+        final id = path.substring(AppRoutes.conditions.length + 1);
+        if (id.isNotEmpty) return AppRoutes.conditionDetailPath(id);
+      }
+      if (path.startsWith('${AppRoutes.services}/')) {
+        final id = path.substring(AppRoutes.services.length + 1);
+        if (id.isNotEmpty) return AppRoutes.serviceDetailPath(id);
+      }
+      return null;
+    },
     routes: [
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -33,45 +51,55 @@ GoRouter createAppRouter() {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: AppRoutes.about,
-                name: 'about',
-                builder: (context, state) => const AboutScreen(),
+                path: AppRoutes.home,
+                name: 'home',
+                builder: (context, state) => const HomeScreen(),
               ),
             ],
           ),
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: AppRoutes.conditions,
-                name: 'conditions',
-                builder: (context, state) => const ConditionsListScreen(),
+                path: AppRoutes.explore,
+                name: 'explore',
+                redirect: (context, state) {
+                  if (state.uri.path == AppRoutes.explore) {
+                    return AppRoutes.exploreConditions;
+                  }
+                  return null;
+                },
                 routes: [
                   GoRoute(
-                    path: ':conditionId',
-                    name: 'conditionDetail',
-                    builder: (context, state) {
-                      final id = state.pathParameters['conditionId']!;
-                      return ConditionDetailScreen(conditionId: id);
-                    },
+                    path: 'conditions',
+                    name: 'exploreConditions',
+                    builder: (context, state) =>
+                        const ExploreScreen(initialSegment: 0),
+                    routes: [
+                      GoRoute(
+                        path: ':conditionId',
+                        name: 'conditionDetail',
+                        builder: (context, state) {
+                          final id = state.pathParameters['conditionId']!;
+                          return ConditionDetailScreen(conditionId: id);
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: AppRoutes.services,
-                name: 'services',
-                builder: (context, state) => const ServicesListScreen(),
-                routes: [
                   GoRoute(
-                    path: ':serviceId',
-                    name: 'serviceDetail',
-                    builder: (context, state) {
-                      final id = state.pathParameters['serviceId']!;
-                      return ServiceDetailScreen(serviceId: id);
-                    },
+                    path: 'services',
+                    name: 'exploreServices',
+                    builder: (context, state) =>
+                        const ExploreScreen(initialSegment: 1),
+                    routes: [
+                      GoRoute(
+                        path: ':serviceId',
+                        name: 'serviceDetail',
+                        builder: (context, state) {
+                          final id = state.pathParameters['serviceId']!;
+                          return ServiceDetailScreen(serviceId: id);
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -99,11 +127,35 @@ GoRouter createAppRouter() {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: AppRoutes.patient,
-                name: 'patient',
+                path: AppRoutes.patients,
+                name: 'patients',
                 builder: (context, state) => const PatientTabScreen(),
               ),
             ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.contact,
+                name: 'contact',
+                builder: (context, state) => const ContactScreen(),
+              ),
+            ],
+          ),
+        ],
+      ),
+      GoRoute(
+        path: AppRoutes.about,
+        name: 'about',
+        builder: (context, state) => const AboutMenuScreen(),
+        routes: [
+          GoRoute(
+            path: ':sectionId',
+            name: 'aboutSection',
+            builder: (context, state) {
+              final id = state.pathParameters['sectionId']!;
+              return AboutSectionScreen(sectionId: id);
+            },
           ),
         ],
       ),
@@ -113,9 +165,8 @@ GoRouter createAppRouter() {
         redirect: (context, state) {
           final raw =
               state.uri.queryParameters[AppConstants.sourceContextQueryParam];
-          // No direct/deep-link entry without a valid SourceContext.
           if (SourceContext.tryParse(raw) == null) {
-            return AppRoutes.about;
+            return AppRoutes.home;
           }
           return null;
         },
@@ -136,11 +187,6 @@ GoRouter createAppRouter() {
         name: 'chatbot',
         builder: (context, state) => const ChatbotScreen(),
       ),
-      GoRoute(
-        path: AppRoutes.contact,
-        name: 'contact',
-        builder: (context, state) => const ContactScreen(),
-      ),
     ],
   );
 }
@@ -152,19 +198,14 @@ class MainShellWidget extends StatelessWidget {
 
   static const _destinations = <_TabDestination>[
     _TabDestination(
-      label: 'About',
-      icon: Icons.info_outline,
-      selectedIcon: Icons.info,
+      label: 'Home',
+      icon: Icons.home_outlined,
+      selectedIcon: Icons.home,
     ),
     _TabDestination(
-      label: 'Conditions',
-      icon: Icons.health_and_safety_outlined,
-      selectedIcon: Icons.health_and_safety,
-    ),
-    _TabDestination(
-      label: 'Services',
-      icon: Icons.medical_services_outlined,
-      selectedIcon: Icons.medical_services,
+      label: 'Explore',
+      icon: Icons.explore_outlined,
+      selectedIcon: Icons.explore,
     ),
     _TabDestination(
       label: 'Blog',
@@ -172,32 +213,40 @@ class MainShellWidget extends StatelessWidget {
       selectedIcon: Icons.article,
     ),
     _TabDestination(
-      label: 'Patient',
-      icon: Icons.person_outline,
-      selectedIcon: Icons.person,
+      label: 'Patients',
+      icon: Icons.people_outline,
+      selectedIcon: Icons.people,
+    ),
+    _TabDestination(
+      label: 'Contact',
+      icon: Icons.mail_outline,
+      selectedIcon: Icons.mail,
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final shellIndex = navigationShell.currentIndex;
+
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
-        selectedIndex: navigationShell.currentIndex,
-        backgroundColor: AppColors.surface,
-        indicatorColor: AppColors.surfaceMuted,
+        selectedIndex: shellIndex,
+        backgroundColor: AppColors.card,
+        indicatorColor: AppColors.sageLight,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         onDestinationSelected: (index) {
           navigationShell.goBranch(
             index,
-            initialLocation: index == navigationShell.currentIndex,
+            initialLocation: index == shellIndex,
           );
         },
         destinations: [
           for (final destination in _destinations)
             NavigationDestination(
-              icon: Icon(destination.icon),
-              selectedIcon: Icon(destination.selectedIcon),
+              icon: Icon(destination.icon, color: AppColors.inkMuted),
+              selectedIcon:
+                  Icon(destination.selectedIcon, color: AppColors.forest),
               label: destination.label,
               tooltip: destination.label,
             ),

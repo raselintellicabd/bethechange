@@ -11,7 +11,7 @@ void main() {
     await EnvConfig.load(AppFlavor.dev);
   });
 
-  testWidgets('About tab loads subtabs from content', (tester) async {
+  testWidgets('Home loads and About menu opens sections', (tester) async {
     await tester.pumpWidget(
       const ProviderScope(
         child: BeTheChangeApp(flavor: AppFlavor.dev),
@@ -19,20 +19,33 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('About'), findsWidgets);
+    expect(find.text('Be The Change'), findsWidgets);
+    expect(find.text('Home'), findsWidgets);
+    expect(find.text('Explore'), findsWidgets);
+    expect(find.text('Patients'), findsWidgets);
+    expect(find.text('Contact'), findsWidgets);
+
+    await tester.tap(find.byTooltip('About'));
+    await tester.pumpAndSettle();
+
     expect(find.text('Our Practice'), findsWidgets);
     expect(find.text('Naturopathic Medicine'), findsOneWidget);
     expect(find.text('Integrative Medicine'), findsOneWidget);
     expect(find.text('Our Process'), findsOneWidget);
-    expect(find.text('About Our Practice'), findsOneWidget);
 
     await tester.tap(find.text('Naturopathic Medicine'));
     await tester.pumpAndSettle();
     expect(find.text('What is Naturopathic Medicine?'), findsOneWidget);
 
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+
     await tester.tap(find.text('Integrative Medicine'));
     await tester.pumpAndSettle();
     expect(find.text('What is Integrative Medicine?'), findsOneWidget);
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
 
     await tester.tap(find.text('Our Process'));
     await tester.pumpAndSettle();
