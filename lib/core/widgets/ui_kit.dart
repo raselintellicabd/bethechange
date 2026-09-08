@@ -246,6 +246,7 @@ class ListRowTile extends StatelessWidget {
     this.thumbColor,
     this.onTap,
     this.leading,
+    this.large = false,
   });
 
   final String title;
@@ -254,12 +255,25 @@ class ListRowTile extends StatelessWidget {
   final VoidCallback? onTap;
   final Widget? leading;
 
+  /// Larger thumb, type, and padding — used by Explore Conditions/Services.
+  final bool large;
+
   @override
   Widget build(BuildContext context) {
+    final thumb = large ? 64.0 : 46.0;
+    final titleSize = large ? 16.0 : 12.5;
+    final subtitleSize = large ? 13.0 : 10.5;
+    final vPad = large ? 16.0 : 10.0;
+    final hPad = large ? 14.0 : 16.0;
+    final gap = large ? 14.0 : 10.0;
+    final chevron = large ? 22.0 : 18.0;
+    final radius = large ? 12.0 : 10.0;
+
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        constraints: large ? const BoxConstraints(minHeight: 92) : null,
+        padding: EdgeInsets.symmetric(horizontal: hPad, vertical: vPad),
         decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(color: AppColors.line)),
         ),
@@ -267,35 +281,37 @@ class ListRowTile extends StatelessWidget {
           children: [
             leading ??
                 Container(
-                  width: 46,
-                  height: 46,
+                  width: thumb,
+                  height: thumb,
                   decoration: BoxDecoration(
                     color: thumbColor ?? AppColors.sage,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(radius),
                   ),
                 ),
-            const SizedBox(width: 10),
+            SizedBox(width: gap),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: AppTextStyles.labelLarge.copyWith(fontSize: 12.5),
+                    style: AppTextStyles.labelLarge.copyWith(fontSize: titleSize),
                   ),
                   if (subtitle != null) ...[
-                    const SizedBox(height: 2),
+                    SizedBox(height: large ? 4 : 2),
                     Text(
                       subtitle!,
-                      maxLines: 2,
+                      maxLines: large ? 3 : 2,
                       overflow: TextOverflow.ellipsis,
-                      style: AppTextStyles.bodySmall.copyWith(fontSize: 10.5),
+                      style: AppTextStyles.bodySmall.copyWith(
+                        fontSize: subtitleSize,
+                      ),
                     ),
                   ],
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: AppColors.inkMuted, size: 18),
+            Icon(Icons.chevron_right, color: AppColors.inkMuted, size: chevron),
           ],
         ),
       ),
@@ -413,30 +429,39 @@ class PatientTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(14),
         side: const BorderSide(color: AppColors.line),
       ),
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(14),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(12, 14, 12, 14),
+          padding: const EdgeInsets.all(12),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                width: 34,
-                height: 34,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: AppColors.sageLight,
-                  borderRadius: BorderRadius.circular(9),
+              Expanded(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: AppColors.sageLight,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Center(
+                    child: Icon(icon, size: 40, color: AppColors.forest),
+                  ),
                 ),
-                child: Icon(icon, size: 18, color: AppColors.forest),
               ),
-              const SizedBox(height: 8),
-              Text(title, style: AppTextStyles.labelLarge.copyWith(fontSize: 12)),
-              const SizedBox(height: 3),
+              const SizedBox(height: 12),
+              Text(
+                title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: AppTextStyles.labelLarge.copyWith(fontSize: 14),
+              ),
+              const SizedBox(height: 4),
               Text(
                 subtitle,
-                style: AppTextStyles.bodySmall.copyWith(fontSize: 9.5),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: AppTextStyles.bodySmall.copyWith(fontSize: 11.5),
               ),
             ],
           ),
@@ -445,4 +470,5 @@ class PatientTile extends StatelessWidget {
     );
   }
 }
+
 

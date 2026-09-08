@@ -30,7 +30,7 @@ class PatientTabScreen extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.md),
         children: [
-          const SectionTitle('Patient resources'),
+          SectionTitle('Patient resources'),
           const SizedBox(height: AppSpacing.xs),
           Text(
             'Portal access, booking, supplements, and answers.',
@@ -43,7 +43,7 @@ class PatientTabScreen extends ConsumerWidget {
             physics: const NeverScrollableScrollPhysics(),
             mainAxisSpacing: 12,
             crossAxisSpacing: 12,
-            childAspectRatio: 1.05,
+            childAspectRatio: 0.92,
             children: [
               PatientTile(
                 title: cardTitles[0],

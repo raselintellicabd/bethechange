@@ -96,6 +96,7 @@ class _ConditionsExploreList extends ConsumerWidget {
           itemBuilder: (context, index) {
             final condition = catalog.conditions[index];
             return ListRowTile(
+              large: true,
               title: condition.name,
               subtitle: condition.summary,
               thumbColor:
@@ -137,6 +138,7 @@ class _ServicesExploreList extends ConsumerWidget {
           itemBuilder: (context, index) {
             final service = catalog.services[index];
             return ListRowTile(
+              large: true,
               title: service.name,
               subtitle: service.summary,
               thumbColor: AppColors.thumbPalette[

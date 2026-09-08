@@ -52,7 +52,7 @@ class AboutContentView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (final block in section.blocks) ...[
-                _AboutBlockWidget(block: block),
+                AboutBlockWidget(block: block),
                 const SizedBox(height: AppSpacing.md),
               ],
             ],
@@ -134,8 +134,8 @@ class AboutContentView extends StatelessWidget {
   }
 }
 
-class _AboutBlockWidget extends StatelessWidget {
-  const _AboutBlockWidget({required this.block});
+class AboutBlockWidget extends StatelessWidget {
+  const AboutBlockWidget({super.key, required this.block});
 
   final AboutContentBlock block;
 
@@ -238,5 +238,25 @@ class _AboutBlockWidget extends StatelessWidget {
               caption: block.caption ?? block.title,
             ),
     };
+  }
+}
+
+/// Non-scrolling about section body for embedding in parent scroll views.
+class AboutSectionBlocks extends StatelessWidget {
+  const AboutSectionBlocks({super.key, required this.section});
+
+  final AboutSection section;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (final block in section.blocks) ...[
+          AboutBlockWidget(block: block),
+          const SizedBox(height: AppSpacing.md),
+        ],
+      ],
+    );
   }
 }
