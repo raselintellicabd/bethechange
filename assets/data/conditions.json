@@ -1,0 +1,370 @@
+{
+  "conditions": [
+    {
+      "id": "diabetes",
+      "name": "Diabetes",
+      "summary": "We can help prevent and manage diabetes by using holistic therapies to support your metabolism and blood sugar balance.",
+      "articleBody": "Naturopathic and integrative medicine services at Be The Change Wellness Center can help to prevent and manage diabetes by using holistic therapies to support your metabolism and blood sugar balance.\n\nThere are 3 main types of diabetes. Type 1 diabetes involves autoimmune damage to the pancreas so the body cannot produce insulin. Type 2 diabetes is marked by insulin resistance. Gestational diabetes occurs during pregnancy.\n\nAll types of diabetes lead to elevated blood sugar levels. If not managed well, elevated blood sugar can damage your health over time—potentially leading to heart attack, stroke, kidney failure, nerve damage, or blindness.",
+      "symptoms": [
+        { "label": "Fatigue" },
+        { "label": "Increased Hunger" },
+        { "label": "Increased Thirst" },
+        { "label": "Weight Gain or Loss" },
+        { "label": "Blood Sugar Swings" },
+        { "label": "Irritability" },
+        { "label": "Slow Wound Healing" },
+        { "label": "Numbness of Hands or Feet" }
+      ],
+      "contributingFactors": [
+        { "label": "High Sugar Diet" },
+        { "label": "Nutritional Deficiencies" },
+        { "label": "Lack of Exercise" },
+        { "label": "Stress or Sleep Issues" },
+        { "label": "Hormonal Imbalances" },
+        { "label": "Environmental Toxins" }
+      ],
+      "integrativeApproach": {
+        "title": "Our Integrative Approach to Diabetes",
+        "body": "The conventional approach to diabetes relies on managing blood sugar levels with insulin or medications.\n\nIf your pancreas is unable to produce insulin, you will still need some form of insulin. However, our approach differs because we focus on dietary and lifestyle changes that minimize your need for insulin.\n\nWe also use testing to look for underlying factors that might be disrupting your metabolism—making it easier for you to manage your diabetes."
+      },
+      "benefits": [
+        { "label": "Natural Approaches" },
+        { "label": "Blood Sugar Balance" },
+        { "label": "Sustained Energy" },
+        { "label": "Decreased Medications" },
+        { "label": "Better Mood & Sleep" },
+        { "label": "Weight Management" },
+        { "label": "Reduced Long-Term Risks" },
+        { "label": "Overall Improved Health" }
+      ],
+      "treatmentMethods": [
+        {
+          "label": "Naturopathic & Integrative Medicine",
+          "description": "Our naturopathic doctor and osteopathic physician will guide you in choosing the most appropriate therapies for your diabetes, including nutritional supplements, IV nutritional infusions, infrared sauna therapy, and other holistic therapies."
+        },
+        {
+          "label": "Personalized Wellness Plans",
+          "description": "Comprehensive plans that provide a foundation in nutrition and physical activity so you can achieve your optimal potential."
+        },
+        {
+          "label": "Wellness Classes",
+          "description": "Community learning opportunities such as our popular blood sugar balancing class."
+        }
+      ],
+      "recommendedBooks": [
+        {
+      "title": "The Blood Sugar Solution",
+      "author": "Dr. Mark Hyman"
+    },
+    {
+      "title": "Ultrametabolism",
+      "author": "Dr. Mark Hyman"
+    }
+      ]
+    },
+    {
+      "id": "obesity",
+      "name": "Obesity",
+      "summary": "We work with you as you complete an individualized medical weight loss plan, including regular appointments and personalized diet planning.",
+      "articleBody": "Attempting to lose weight on your own can be disheartening, especially if you can't see or feel any results.\n\nAt Be The Change Health & Wellness Center, Sultana Afrooz, DO, and the team can work with you as you complete an individualized medical weight loss plan, including regular appointments and personalized diet planning.\n\nMedical weight loss is the process of losing weight and keeping it off with the help of your doctor. Personalized plans don't just aim to bring down the number on the scale—they help you adopt lifelong changes that promote better overall health.",
+      "symptoms": [
+        { "label": "Difficulty Losing Weight" },
+        { "label": "Low Energy" },
+        { "label": "Increased Disease Risk" }
+      ],
+      "contributingFactors": [
+        { "label": "Dietary Patterns" },
+        { "label": "Limited Physical Activity" },
+        { "label": "Hormonal Factors" },
+        { "label": "Stress and Sleep" },
+        { "label": "Medical History" }
+      ],
+      "integrativeApproach": {
+        "title": "Our Integrative Approach to Obesity",
+        "body": "Your personalized medical weight loss plan is complex and includes multiple guided components. After the initial consultation, you check in every two weeks to track progress.\n\nUsing information from your consultation and medical history, your provider chooses necessary supplements, an appropriate exercise plan, and a diet according to your needs—such as keto, intermittent fasting, gluten-free, or autoimmune paleo approaches."
+      },
+      "benefits": [
+        { "label": "Lower Hypertension Risk" },
+        { "label": "Reduced Heart Disease Risk" },
+        { "label": "Better Cholesterol Balance" },
+        { "label": "Lower Stroke Risk" },
+        { "label": "Type 2 Diabetes Prevention Support" },
+        { "label": "Improved Sleep Apnea Risk Profile" }
+      ],
+      "treatmentMethods": [
+        {
+          "label": "Dietary Changes",
+          "description": "Grocery lists, recipes, and smart eating choices tailored to your goals."
+        },
+        {
+          "label": "Exercise Plan",
+          "description": "Beginner through advanced guidance via desktop and mobile support."
+        },
+        {
+          "label": "Ongoing Support",
+          "description": "Regular appointments, progress tracking, and nutritional supplements when appropriate."
+        }
+      ],
+      "recommendedBooks": []
+    },
+    {
+      "id": "heart-disease",
+      "name": "Heart Disease",
+      "summary": "Holistic wellness plans that can reduce your risk of heart disease and heart disease complications.",
+      "articleBody": "Nearly half of all adults in the United States have at least one major risk factor for heart disease, like hypertension or high cholesterol.\n\nHeart disease is a term that encompasses the many conditions that can impact your heart's functioning. Some forms are present from birth, while others develop over time due to behaviors, habits, and genetic predispositions.\n\nHeart attack, heart failure, and arrhythmia are all common forms of heart disease, which can cause troublesome symptoms like palpitations, chest pain, shortness of breath, and widespread swelling.\n\nYour providers at Be The Change Health & Wellness Center can direct you to behavioral changes and wellness therapies that improve cardiovascular functioning as well as your overall health.",
+      "symptoms": [
+        { "label": "Palpitations" },
+        { "label": "Chest Pain" },
+        { "label": "Shortness of Breath" },
+        { "label": "Widespread Swelling" }
+      ],
+      "contributingFactors": [
+        {
+          "label": "Hypertension",
+          "description": "High blood pressure related to disease, plaque buildup, lack of exercise, or unbalanced diet."
+        },
+        {
+          "label": "High Cholesterol",
+          "description": "Wax-like lipids build up in your bloodstream because of poor diet, smoking, and other unhealthy behaviors."
+        },
+        {
+          "label": "Smoking",
+          "description": "Smoking and tobacco use increase your risk for heart disease."
+        }
+      ],
+      "integrativeApproach": {
+        "title": "Our Integrative Approach to Heart Disease",
+        "body": "Be The Change Health & Wellness Center can help you manage or treat your heart disease with personalized wellness services. Your provider works with you to create a custom wellness plan that helps you manage your weight, lower your blood pressure, and reduce the likelihood of heart failure or a heart attack.\n\nThe practice also provides testing so you can gain more information about important factors influencing your health, like your blood chemistry and genetics."
+      },
+      "benefits": [
+        { "label": "Weight Management Support" },
+        { "label": "Blood Pressure Support" },
+        { "label": "Reduced Heart Attack Risk Focus" },
+        { "label": "Improved Overall Cardiovascular Wellness" }
+      ],
+      "treatmentMethods": [
+        { "label": "Dietary Changes" },
+        { "label": "An Exercise Plan" },
+        { "label": "Habit Changes" },
+        { "label": "Regular Visits for Monitoring" },
+        { "label": "Hyperbaric Oxygen Therapy" },
+        { "label": "Supplements" },
+        {
+          "label": "Medical Testing",
+          "description": "Blood chemistry and genetics insights to customize your heart health wellness plan."
+        }
+      ],
+      "recommendedBooks": []
+    },
+    {
+      "id": "chronic-fatigue",
+      "name": "Chronic Fatigue",
+      "summary": "We treat chronic fatigue and fibromyalgia with a holistic approach and can reduce your need for pharmaceutical medications.",
+      "articleBody": "Chronic fatigue and fibromyalgia are very similar conditions that can cause widespread pain and unrelenting tiredness.\n\nChronic fatigue, or chronic fatigue syndrome, can affect your sleep, memory, concentration, productivity, and many other aspects of life and wellness. Its primary symptom is extreme tiredness that doesn't go away, even with more sleep or rest.\n\nFibromyalgia presents similarly and is a chronic condition causing musculoskeletal pain and fatigue along with symptoms like insomnia, depression and anxiety, brain fog, and more.",
+      "symptoms": [
+        { "label": "Extreme Tiredness" },
+        { "label": "Memory and Concentration Problems" },
+        { "label": "Frequent Headaches" },
+        { "label": "Musculoskeletal Pain" },
+        { "label": "Swollen Lymph Nodes" },
+        { "label": "Insomnia" },
+        { "label": "Brain Fog" }
+      ],
+      "contributingFactors": [
+        { "label": "Stress" },
+        { "label": "Past Viral Infections" },
+        { "label": "Nervous System Pain Signaling Changes" }
+      ],
+      "integrativeApproach": {
+        "title": "Our Integrative Approach to Chronic Fatigue",
+        "body": "Be The Change Health & Wellness Center can help you manage chronic pain and tiredness from chronic fatigue or fibromyalgia. Your provider works closely with you to develop a treatment plan that coincides with your schedule. As you complete your plan, you can make regular visits for progress tracking and adjustments."
+      },
+      "benefits": [
+        { "label": "Reduced Pharmaceutical Dependence Focus" },
+        { "label": "Improved Energy Support" },
+        { "label": "Better Sleep Support" },
+        { "label": "Personalized Progress Tracking" }
+      ],
+      "treatmentMethods": [
+        { "label": "Personalized Nutrition and Wellness Plan" },
+        { "label": "IV Therapy" },
+        { "label": "Hyperbaric Oxygen Therapy" },
+        { "label": "Frequency Specific Microcurrent (FSM) Therapy" },
+        { "label": "Supplements or Essential Oils" }
+      ],
+      "recommendedBooks": []
+    },
+    {
+      "id": "chronic-pain",
+      "name": "Chronic Pain",
+      "summary": "We offer Frequency Specific Microcurrent (FSM) therapy to effectively reduce pain using low-level electromagnetic pulses.",
+      "articleBody": "Relieving your pain doesn't just mean less pain: it can also improve your sleep, energy, and productivity.\n\nBe The Change Health & Wellness Center offers Frequency Specific Microcurrent (FSM) therapy to reduce pain using low-level electromagnetic pulses. The FSM machine emits vibrations at a frequency that affects certain tissues throughout your body, helping stabilize tissue chemistry and reduce inflammation.\n\nWithin your cells, FSM increases ATP production to support repair and decreases inflammatory cytokines to reduce pain.",
+      "symptoms": [
+        { "label": "Long-Lasting Pain" },
+        { "label": "Nerve Pain" },
+        { "label": "Musculoskeletal Pain" },
+        { "label": "Inflammation-Related Discomfort" }
+      ],
+      "contributingFactors": [
+        { "label": "Tendinitis" },
+        { "label": "Disc Injuries" },
+        { "label": "Fibromyalgia" },
+        { "label": "Muscle Soreness" },
+        { "label": "Concussions and Brain Injuries" },
+        { "label": "Irritable Bowel Syndrome (IBS)" }
+      ],
+      "integrativeApproach": {
+        "title": "Our Integrative Approach to Chronic Pain",
+        "body": "If FSM isn't the right choice for you, your provider might recommend a personalized wellness plan to ease your pain. Supplements, dietary changes, and exercise can all improve wellness if you have long-lasting or severe pain.\n\nDuring FSM treatment, warm damp towels are placed strategically and connected to the machine for a painless 30–120 minute session."
+      },
+      "benefits": [
+        { "label": "Reduced Inflammation" },
+        { "label": "Improved Sleep Potential" },
+        { "label": "Better Energy and Productivity" },
+        { "label": "Non-Pharmaceutical Pain Support Options" }
+      ],
+      "treatmentMethods": [
+        {
+          "label": "Frequency Specific Microcurrent (FSM)",
+          "description": "Low-level electromagnetic pulses to stabilize tissues and reduce inflammation."
+        },
+        {
+          "label": "Personalized Wellness Plan",
+          "description": "Supplements, dietary changes, and exercise guidance for lasting relief."
+        }
+      ],
+      "recommendedBooks": []
+    },
+    {
+      "id": "hormone-imbalance",
+      "name": "Hormone Imbalance",
+      "summary": "Achieve hormonal balance through holistic therapies that support health in men and women of all ages.",
+      "articleBody": "Naturopathic and integrative medicine services at Be The Change Wellness Center can help you achieve and maintain hormonal balance by using holistic therapies to support hormonal health in both men and women at all stages of life.\n\nWhether you're a woman transitioning through perimenopause and menopause or a man noticing the effects of hormonal changes with age, shifting hormones can disrupt all aspects of your well-being.\n\nDeclining hormones with age contribute to symptoms that can range from mood changes and insomnia to decreased libido or challenges with sexual health. Hormonal changes can even put you at an increased risk for some chronic illnesses, such as heart disease and osteoporosis.",
+      "symptoms": [
+        { "label": "Mood Changes" },
+        { "label": "Insomnia" },
+        { "label": "Decreased Libido" },
+        { "label": "Energy Changes" },
+        { "label": "Painful Periods" }
+      ],
+      "contributingFactors": [
+        { "label": "Low-Grade Inflammation" },
+        { "label": "Poor Gut Health" },
+        { "label": "Nutritional Deficiencies" },
+        { "label": "Unrecognized Food Sensitivities" },
+        { "label": "Prolonged or Excessive Stress" },
+        { "label": "Environmental Toxins" }
+      ],
+      "integrativeApproach": {
+        "title": "Our Integrative Approach to Hormone Imbalance",
+        "body": "The conventional approach to hormone balance relies primarily on hormone replacement therapy.\n\nRather than prescribing synthetic hormones alone, we use bioidentical hormones along with other holistic therapies to support your body in achieving natural hormone balance."
+      },
+      "benefits": [
+        { "label": "Natural Hormone Support" },
+        { "label": "Improved Mood and Sleep Potential" },
+        { "label": "Whole-Person Care" },
+        { "label": "Stage-of-Life Personalized Plans" }
+      ],
+      "treatmentMethods": [
+        {
+          "label": "Bioidentical Hormones",
+          "description": "Bio-identical hormones in an organic base for supportive hormone options."
+        },
+        {
+          "label": "Holistic Therapies",
+          "description": "Integrative and naturopathic therapies tailored to menopause, andropause, and related concerns."
+        },
+        {
+          "label": "Infrared Sauna Therapy",
+          "description": "Supports circulation and detoxification for healing and recovery."
+        }
+      ],
+      "recommendedBooks": []
+    },
+    {
+      "id": "detoxification",
+      "name": "Detoxification",
+      "summary": "Detoxification is the process of removing toxins that can build up in your body and lead to pain, discomfort, and other ambiguous symptoms.",
+      "articleBody": "If you're experiencing unusual symptoms with no apparent cause, Be The Change Health & Wellness Center offers toxin testing and ion foot detoxification services.\n\nSometimes toxins come from within. Your body produces natural hormonal by-products that can also contribute to toxin buildup. Detoxification is the process of removing toxins that can build up in your body and lead to pain, discomfort, and other ambiguous symptoms.\n\nWe test for toxins and remove them through ion foot detoxing and nutrition plans—either as a stand-alone treatment or as part of a larger personal wellness plan.",
+      "symptoms": [
+        { "label": "Unexplained Pain or Discomfort" },
+        { "label": "Low Energy" },
+        { "label": "Ambiguous or Unexplained Symptoms" }
+      ],
+      "contributingFactors": [
+        { "label": "Environmental Chemical Exposures" },
+        { "label": "Products and Airborne Chemicals" },
+        { "label": "Foods or Substances Consumed" },
+        { "label": "Internal Hormonal By-Products" }
+      ],
+      "integrativeApproach": {
+        "title": "Our Integrative Approach to Detoxification",
+        "body": "When you come to the office, your provider might recommend detoxification as a stand-alone treatment or as part of a larger, comprehensive personal wellness plan. Testing helps identify toxin burden so your plan can be more targeted."
+      },
+      "benefits": [
+        { "label": "Weight Loss Support" },
+        { "label": "Increased Energy" },
+        { "label": "Improved Sleep" },
+        { "label": "Better Circulation" },
+        { "label": "Skin Clarity" },
+        { "label": "Fewer Allergy Symptoms" },
+        { "label": "Better Immunity" },
+        { "label": "Better Digestion" }
+      ],
+      "treatmentMethods": [
+        {
+          "label": "Ion Foot Detox",
+          "description": "Sit comfortably with feet in purified water with sea salt for about 30 minutes while the IonCleanse system supports toxin removal."
+        },
+        {
+          "label": "Toxin Testing",
+          "description": "Identify toxin burden to guide your wellness plan."
+        },
+        {
+          "label": "Nutrition Plans",
+          "description": "Dietary support that complements detoxification sessions."
+        }
+      ],
+      "recommendedBooks": []
+    },
+    {
+      "id": "concussion",
+      "name": "Concussion",
+      "summary": "We can treat brain injuries like concussions with hyperbaric oxygen therapy or Frequency Specific Microcurrent (FSM) therapy.",
+      "articleBody": "A concussion is a mild type of traumatic brain injury that happens when your brain shakes rapidly back and forth inside your skull. If your brain hits the inside of your skull, it causes chemical changes and can lead to brain cell damage. While concussions usually aren't life-threatening, the lasting effects can be very serious.\n\nAt Be The Change Health & Wellness Center, Sultana Afrooz, DO, and the team can treat brain injuries like concussions with hyperbaric oxygen therapy or Frequency Specific Microcurrent (FSM) therapy.",
+      "symptoms": [
+        { "label": "Headache" },
+        { "label": "Confusion" },
+        { "label": "Memory Issues" },
+        { "label": "Dizziness" },
+        { "label": "Sensitivity to Light or Sound" }
+      ],
+      "contributingFactors": [
+        { "label": "Impact or Whiplash Injury" },
+        { "label": "Sports-Related Trauma" },
+        { "label": "Falls or Accidents" }
+      ],
+      "integrativeApproach": {
+        "title": "Our Integrative Approach to Concussion",
+        "body": "We focus on therapies that support tissue repair, reduce inflammation, and promote recovery of brain function after concussion or related brain injury."
+      },
+      "benefits": [
+        { "label": "Inflammation Support" },
+        { "label": "Tissue Repair Focus" },
+        { "label": "Brain Function Support" },
+        { "label": "Non-Invasive Therapy Options" }
+      ],
+      "treatmentMethods": [
+        {
+          "label": "Hyperbaric Oxygen Therapy",
+          "description": "A pressurized chamber delivers a high concentration of oxygen to support tissue regeneration, repair, and reduced inflammation."
+        },
+        {
+          "label": "Frequency Specific Microcurrent (FSM) Therapy",
+          "description": "Electromagnetic pulses help stabilize tissue chemistry, improve repair, and decrease inflammation."
+        }
+      ],
+      "recommendedBooks": []
+    }
+  ]
+}

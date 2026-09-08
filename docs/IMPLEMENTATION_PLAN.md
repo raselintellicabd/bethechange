@@ -66,7 +66,7 @@ Phase 0 + Phase 1 from the original plan are **complete** in this repo:
 | A | Brand tokens + content strategy lock | 🟨 A.2 + A.3 done; A.1 pending |
 | B | About tab | ✅ Done |
 | C | Shared content models + Appointment contract | ✅ Done |
-| D | Conditions tab | ⬜ Not started |
+| D | Conditions tab | ✅ Done |
 | E | Services tab | ⬜ Not started |
 | F | Appointment booking flow | ⬜ Not started |
 | G | Blog tab | ⬜ Not started |

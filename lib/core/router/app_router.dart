@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/about/presentation/screens/about_screen.dart';
 import '../../features/appointment/domain/models/source_context.dart';
+import '../../features/conditions/presentation/screens/condition_detail_screen.dart';
+import '../../features/conditions/presentation/screens/conditions_list_screen.dart';
 import '../constants/app_constants.dart';
 import '../theme/app_colors.dart';
 import '../widgets/placeholder_screen.dart';
@@ -34,20 +36,14 @@ GoRouter createAppRouter() {
               GoRoute(
                 path: AppRoutes.conditions,
                 name: 'conditions',
-                builder: (context, state) => const PlaceholderScreen(
-                  title: 'Conditions',
-                  details: 'Conditions list placeholder',
-                ),
+                builder: (context, state) => const ConditionsListScreen(),
                 routes: [
                   GoRoute(
                     path: ':conditionId',
                     name: 'conditionDetail',
                     builder: (context, state) {
                       final id = state.pathParameters['conditionId']!;
-                      return PlaceholderScreen(
-                        title: 'Condition',
-                        details: 'Condition detail placeholder ($id)',
-                      );
+                      return ConditionDetailScreen(conditionId: id);
                     },
                   ),
                 ],
