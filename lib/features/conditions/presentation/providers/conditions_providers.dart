@@ -1,11 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/network/api_client.dart';
 import '../../data/conditions_repository.dart';
 import '../../domain/models/condition.dart';
 import '../../domain/models/conditions_catalog.dart';
 
 final conditionsRepositoryProvider = Provider<ConditionsRepository>((ref) {
-  return ConditionsRepository();
+  return ConditionsRepository(ref.watch(apiClientProvider));
 });
 
 final conditionsCatalogProvider = FutureProvider<ConditionsCatalog>((ref) async {
@@ -18,10 +19,10 @@ final conditionsCatalogProvider = FutureProvider<ConditionsCatalog>((ref) async 
 
 final conditionByIdProvider =
     FutureProvider.family<Condition, String>((ref, id) async {
-  final catalog = await ref.watch(conditionsCatalogProvider.future);
-  final condition = catalog.byId(id);
-  if (condition == null) {
-    throw Exception('Condition "$id" was not found.');
-  }
-  return condition;
+  final result =
+      await ref.watch(conditionsRepositoryProvider).getConditionById(id);
+  return result.when(
+    success: (data) => data,
+    failure: (message, _) => throw Exception(message),
+  );
 });

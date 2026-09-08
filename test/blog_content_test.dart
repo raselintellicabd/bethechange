@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:bethechange/core/network/api_result.dart';
-import 'package:bethechange/core/utils/asset_loader.dart';
 import 'package:bethechange/features/blog/data/blog_repository.dart';
 import 'package:bethechange/features/blog/domain/models/blog_article.dart';
 import 'package:bethechange/features/blog/domain/models/blog_catalog.dart';
@@ -9,12 +8,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'helpers/mock_api_client.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('BlogCatalog', () {
     test('parses bundled blog.json with 5+ articles', () async {
-      final repository = BlogRepository();
+      final repository = BlogRepository(createMockApiClient());
       final result = await repository.getArticles();
 
       expect(result, isA<ApiSuccess<BlogCatalog>>());
@@ -69,14 +70,14 @@ void main() {
     });
 
     test('getArticleById returns failure for unknown id', () async {
-      final result =
-          await BlogRepository().getArticleById('does-not-exist');
+      final result = await BlogRepository(createMockApiClient())
+          .getArticleById('does-not-exist');
       expect(result, isA<ApiFailure>());
     });
 
     test('repository surfaces asset load failures', () async {
       final repository = BlogRepository(
-        assetLoader: AssetLoader(bundle: _MissingAssetBundle()),
+        createMockApiClient(bundle: _MissingAssetBundle()),
       );
 
       final result = await repository.getArticles();

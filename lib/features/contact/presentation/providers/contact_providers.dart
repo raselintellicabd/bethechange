@@ -1,12 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/analytics/analytics_service.dart';
+import '../../../../core/network/api_client.dart';
+import '../../data/contact_api_repository.dart';
 import '../../data/contact_repository.dart';
-import '../../data/mock_contact_repository.dart';
 import '../../domain/models/contact_request.dart';
 
 final contactRepositoryProvider = Provider<ContactRepository>((ref) {
-  return MockContactRepository();
+  return ContactApiRepository(ref.watch(apiClientProvider));
 });
 
 class ContactFormState {

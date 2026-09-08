@@ -29,7 +29,8 @@ class SourceContext {
 
   final SourceContextType type;
 
-  /// Stable content id (e.g. `diabetes`, `fsm`). May be empty for [SourceContextType.other].
+  /// Stable content id (e.g. `diabetes`, `frequency-specific-microcurrent`).
+  /// May be empty for [SourceContextType.other].
   final String id;
 
   /// Human-readable label shown in the appointment header.

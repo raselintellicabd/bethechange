@@ -1,8 +1,8 @@
 import 'package:bethechange/core/network/api_result.dart';
 import 'package:bethechange/core/router/app_router.dart';
 import 'package:bethechange/core/router/app_routes.dart';
-import 'package:bethechange/features/chatbot/data/mock_chatbot_repository.dart';
 import 'package:bethechange/features/chatbot/domain/models/chat_message.dart';
+import 'package:bethechange/features/chatbot/domain/models/chatbot_config.dart';
 import 'package:bethechange/features/chatbot/presentation/providers/chatbot_providers.dart';
 import 'package:bethechange/features/faq/data/faq_repository.dart';
 import 'package:bethechange/features/faq/domain/models/faq_catalog.dart';
@@ -12,12 +12,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'helpers/mock_api_client.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('FaqCatalog', () {
     test('parses bundled faq.json', () async {
-      final result = await FaqRepository().getFaq();
+      final result = await FaqRepository(createMockApiClient()).getFaq();
       expect(result, isA<ApiSuccess<FaqCatalog>>());
       final catalog = (result as ApiSuccess<FaqCatalog>).data;
       expect(catalog.items.length, greaterThanOrEqualTo(9));
@@ -28,12 +30,9 @@ void main() {
     });
   });
 
-  group('MockChatbotRepository', () {
+  group('ChatbotApiRepository', () {
     test('returns reply and conversationId for common prompts', () async {
-      final repo = MockChatbotRepository(
-        apiKey: 'test-key',
-        delay: Duration.zero,
-      );
+      final repo = createMockChatbotRepository();
 
       const prompts = [
         'hello',
@@ -66,10 +65,8 @@ void main() {
     });
 
     test('force error simulates failure', () async {
-      final result = await MockChatbotRepository(
-        apiKey: 'test-key',
-        delay: Duration.zero,
-      ).sendMessage(message: 'please force error now');
+      final result = await createMockChatbotRepository()
+          .sendMessage(message: 'please force error now');
 
       expect(result, isA<ApiFailure>());
     });
@@ -80,7 +77,7 @@ void main() {
       final container = ProviderContainer(
         overrides: [
           chatbotRepositoryProvider.overrideWithValue(
-            MockChatbotRepository(apiKey: 'test-key', delay: Duration.zero),
+            createMockChatbotRepository(),
           ),
         ],
       );
@@ -123,6 +120,18 @@ void main() {
       ],
     );
 
+    const sampleConfig = ChatbotConfig(
+      suggestions: [
+        'How do I book an appointment?',
+        'Do you take insurance?',
+        'Where are you located?',
+      ],
+      disclaimer:
+          'This assistant shares general clinic information and is not a '
+          'substitute for medical advice.',
+      emptyPrompt: 'Ask about scheduling, insurance, location, and therapies.',
+    );
+
     testWidgets('FAQ expands and opens chatbot', (tester) async {
       final router = createAppRouter();
 
@@ -131,8 +140,9 @@ void main() {
           overrides: [
             faqCatalogProvider.overrideWith((ref) async => sampleCatalog),
             chatbotRepositoryProvider.overrideWithValue(
-              MockChatbotRepository(apiKey: 'test-key', delay: Duration.zero),
+              createMockChatbotRepository(),
             ),
+            chatbotConfigProvider.overrideWith((ref) async => sampleConfig),
           ],
           child: MaterialApp.router(routerConfig: router),
         ),
@@ -169,8 +179,9 @@ void main() {
         ProviderScope(
           overrides: [
             chatbotRepositoryProvider.overrideWithValue(
-              MockChatbotRepository(apiKey: 'test-key', delay: Duration.zero),
+              createMockChatbotRepository(),
             ),
+            chatbotConfigProvider.overrideWith((ref) async => sampleConfig),
           ],
           child: MaterialApp.router(routerConfig: router),
         ),
@@ -189,7 +200,8 @@ void main() {
 
       await tester.tap(send);
       await tester.pump();
-      await tester.pump(const Duration(milliseconds: 50));
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pump(const Duration(milliseconds: 400));
 
       expect(find.text('Retry'), findsOneWidget);
       expect(find.textContaining('Unable to reach the chatbot'), findsOneWidget);

@@ -35,6 +35,9 @@ void main() {
       ProviderScope(
         overrides: [
           blogCatalogProvider.overrideWith((ref) async => sampleCatalog),
+          blogArticleByIdProvider.overrideWith(
+            (ref, id) async => sampleCatalog.byId(id)!,
+          ),
         ],
         child: MaterialApp.router(routerConfig: router),
       ),

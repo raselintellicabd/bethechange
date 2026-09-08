@@ -8,11 +8,22 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('AssetLoader', () {
-    test('loads sample.json object and list items', () async {
-      final loader = AssetLoader();
+    test('loads JSON object and list items from a fake bundle', () async {
+      final bundle = _FakeAssetBundle({
+        'assets/data/demo.json': '''
+{
+  "version": 1,
+  "name": "BeTheChange sample content",
+  "items": [
+    { "id": "demo", "title": "Demo Item" }
+  ]
+}
+''',
+      });
+      final loader = AssetLoader(bundle: bundle);
 
       final objectResult = await loader.loadJsonObject<Map<String, dynamic>>(
-        'assets/data/sample.json',
+        'assets/data/demo.json',
         parser: (json) => json,
       );
 
@@ -22,7 +33,7 @@ void main() {
       expect(object['name'], 'BeTheChange sample content');
 
       final listResult = await loader.loadJsonList<_SampleItem>(
-        'assets/data/sample.json',
+        'assets/data/demo.json',
         listKey: 'items',
         parser: _SampleItem.fromJson,
       );

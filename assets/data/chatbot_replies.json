@@ -1,0 +1,56 @@
+{
+  "suggestions": [
+    "How do I book an appointment?",
+    "Do you take insurance?",
+    "Where are you located?"
+  ],
+  "disclaimer": "This assistant shares general clinic information and is not a substitute for medical advice.",
+  "emptyPrompt": "Ask about scheduling, insurance, location, and therapies.",
+  "replies": [
+    {
+      "keywords": ["hello", "hi", "hey"],
+      "reply": "Hello! I can help with scheduling, insurance, location, therapies, and other clinic questions. What would you like to know?"
+    },
+    {
+      "keywords": ["schedule", "book", "appointment", "visit"],
+      "reply": "To schedule, fill out the new patient form and our team will call or text you. The process usually takes about 5–10 minutes. You can also browse Services in the app and request an appointment from a specific service page."
+    },
+    {
+      "keywords": ["insurance", "cover", "reimburse"],
+      "reply": "We are an out-of-network provider and do not bill insurance directly. After visits we provide an invoice with codes so you can submit for possible reimbursement. Coverage is not guaranteed."
+    },
+    {
+      "keywords": ["where", "location", "address", "located"],
+      "reply": "We are at 8808 Centre Park Drive, Suite 301, Columbia, MD 21045."
+    },
+    {
+      "keywords": ["hour", "open", "closed"],
+      "reply": "Clinic hours can vary by day—please call 301-970-9724 or check with our front desk for the latest schedule."
+    },
+    {
+      "keywords": ["therap", "service", "microcurrent", "sauna", "hyperbaric", "ozone", "iv"],
+      "reply": "We offer therapies such as FSM, infrared sauna, HBOT, nutritional IVs, ozone therapy, ion foot detox, and more. Open the Services tab for details, or ask about a specific therapy."
+    },
+    {
+      "keywords": ["portal", "login", "records"],
+      "reply": "Use the Patient tab → Patient Portal to open the secure portal in your browser."
+    },
+    {
+      "keywords": ["supplement", "fullscript", "shop"],
+      "reply": "Recommended supplements are ordered through Fullscript. Open Patient → Shop Supplements to visit our dispensary."
+    },
+    {
+      "keywords": ["cost", "price", "fee", "how much", "pricing"],
+      "reply": "Visit length and clinician affect pricing. See the FAQ for Dr. Afrooz and Dr. Needle appointment ranges, or ask our new patient team for a transparent quote when you schedule."
+    },
+    {
+      "keywords": ["doctor", "afrooz", "needle", "physician"],
+      "reply": "Our clinicians include Dr. Sultana Afrooz and Dr. Needle. See the About tab for practice background, or the FAQ for visit pricing."
+    },
+    {
+      "keywords": ["faq", "question"],
+      "reply": "You can browse the FAQ screen for common answers, or keep asking me here and I will do my best to help."
+    }
+  ],
+  "defaultReply": "Thanks for your message. I am a clinic assistant and can help with scheduling, insurance, location, therapies, the patient portal, and supplements. Try rephrasing, or browse the FAQ for detailed answers."
+}

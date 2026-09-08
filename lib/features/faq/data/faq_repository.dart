@@ -1,19 +1,17 @@
+import '../../../core/network/api_client.dart';
+import '../../../core/network/api_paths.dart';
 import '../../../core/network/api_result.dart';
-import '../../../core/utils/asset_loader.dart';
 import '../domain/models/faq_catalog.dart';
 
 class FaqRepository {
-  FaqRepository({AssetLoader? assetLoader})
-      : _assetLoader = assetLoader ?? AssetLoader();
+  FaqRepository(this._client);
 
-  static const String assetPath = 'assets/data/faq.json';
-
-  final AssetLoader _assetLoader;
+  final ApiClient _client;
 
   Future<ApiResult<FaqCatalog>> getFaq() {
-    return _assetLoader.loadJsonObject(
-      assetPath,
-      parser: FaqCatalog.fromJson,
+    return _client.get(
+      ApiPaths.faq,
+      parser: (data) => FaqCatalog.fromJson(data as Map<String, dynamic>),
     );
   }
 }

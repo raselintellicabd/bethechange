@@ -13,6 +13,16 @@ class AppointmentRequest {
   final TimeSlot slot;
   final PatientDetails patient;
 
+  factory AppointmentRequest.fromJson(Map<String, dynamic> json) {
+    return AppointmentRequest(
+      sourceContext: SourceContext.fromJson(
+        json['sourceContext'] as Map<String, dynamic>,
+      ),
+      slot: TimeSlot.fromJson(json['slot'] as Map<String, dynamic>),
+      patient: PatientDetails.fromJson(json['patient'] as Map<String, dynamic>),
+    );
+  }
+
   Map<String, dynamic> toJson() => {
         'sourceContext': sourceContext.toJson(),
         'slot': slot.toJson(),

@@ -1,5 +1,4 @@
 import 'package:bethechange/core/network/api_result.dart';
-import 'package:bethechange/features/appointment/data/mock_appointment_repository.dart';
 import 'package:bethechange/features/appointment/domain/models/appointment_request.dart';
 import 'package:bethechange/features/appointment/domain/models/patient_details.dart';
 import 'package:bethechange/features/appointment/domain/models/source_context.dart';
@@ -7,9 +6,13 @@ import 'package:bethechange/features/appointment/domain/models/time_slot.dart';
 import 'package:bethechange/features/appointment/presentation/providers/appointment_providers.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'helpers/mock_api_client.dart';
+
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   final now = DateTime(2026, 9, 8, 10); // Monday
-  final repository = MockAppointmentRepository(now: now);
+  final repository = createMockAppointmentRepository(now: now);
 
   const sourceContext = SourceContext(
     type: SourceContextType.condition,
@@ -17,7 +20,7 @@ void main() {
     name: 'Diabetes',
   );
 
-  group('MockAppointmentRepository', () {
+  group('AppointmentApiRepository', () {
     test('returns weekday availability excluding past dates', () async {
       final result = await repository.getAvailableDates(year: 2026, month: 9);
       expect(result, isA<ApiSuccess<List<DateTime>>>());
@@ -89,7 +92,7 @@ void main() {
         now: now,
       );
 
-      await Future<void>.delayed(const Duration(milliseconds: 250));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
       expect(controller.state.availableDates, isNotEmpty);
 
       final date = controller.state.availableDates
@@ -122,7 +125,7 @@ void main() {
         sourceContext: sourceContext,
         now: now,
       );
-      await Future<void>.delayed(const Duration(milliseconds: 250));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
 
       final date = controller.state.availableDates
           .firstWhere((d) => d.weekday != DateTime.friday);

@@ -11,6 +11,15 @@ class PatientDetails {
   final String phone;
   final String notes;
 
+  factory PatientDetails.fromJson(Map<String, dynamic> json) {
+    return PatientDetails(
+      name: (json['name'] as String?)?.trim() ?? '',
+      email: (json['email'] as String?)?.trim() ?? '',
+      phone: (json['phone'] as String?)?.trim() ?? '',
+      notes: (json['notes'] as String?)?.trim() ?? '',
+    );
+  }
+
   Map<String, dynamic> toJson() => {
         'name': name,
         'email': email,

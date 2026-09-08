@@ -1,9 +1,10 @@
-import 'package:bethechange/core/constants/app_constants.dart';
+import 'package:bethechange/core/network/api_client.dart';
 import 'package:bethechange/core/network/api_result.dart';
 import 'package:bethechange/core/router/app_router.dart';
 import 'package:bethechange/core/router/app_routes.dart';
 import 'package:bethechange/core/utils/external_link_handler.dart';
-import 'package:bethechange/features/contact/data/mock_contact_repository.dart';
+import 'package:bethechange/features/clinic/domain/models/clinic_info.dart';
+import 'package:bethechange/features/clinic/presentation/providers/clinic_providers.dart';
 import 'package:bethechange/features/contact/domain/models/contact_request.dart';
 import 'package:bethechange/features/contact/presentation/providers/contact_providers.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'helpers/mock_api_client.dart';
+
+const _clinic = ClinicInfo(
+  name: 'Be The Change Health & Wellness Center',
+  addressLine1: '8808 Centre Park Drive, Suite 301',
+  addressLine2: 'Columbia, MD 21045',
+  phoneDisplay: '301-970-9724',
+  phoneTel: 'tel:3019709724',
+  faxDisplay: '301-359-1986',
+  hours: 'Monday–Friday (call to confirm today’s hours)',
+  patientPortalUrl: 'https://be-the-change-portal.md-hq.com/',
+  shopSupplementsUrl: 'https://us.fullscript.com//welcome/safrooz',
+);
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('MockContactRepository', () {
+  group('ContactApiRepository', () {
     test('submits successfully and returns id', () async {
-      final result = await MockContactRepository(delay: Duration.zero).submit(
+      final result = await createMockContactRepository().submit(
         const ContactRequest(
           name: 'Alex Patient',
           email: 'alex@example.com',
@@ -33,7 +48,7 @@ void main() {
     });
 
     test('force error in subject/message fails', () async {
-      final result = await MockContactRepository(delay: Duration.zero).submit(
+      final result = await createMockContactRepository().submit(
         const ContactRequest(
           name: 'Alex Patient',
           email: 'alex@example.com',
@@ -58,7 +73,7 @@ void main() {
         },
       );
 
-      final ok = await handler.openExternal(AppConstants.clinicPhoneTel);
+      final ok = await handler.openExternal(_clinic.phoneTel);
       expect(ok, isTrue);
       expect(launched?.scheme, 'tel');
     });
@@ -72,9 +87,11 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
+            apiClientProvider.overrideWithValue(createMockApiClient()),
             contactRepositoryProvider.overrideWithValue(
-              MockContactRepository(delay: Duration.zero),
+              createMockContactRepository(),
             ),
+            clinicInfoProvider.overrideWith((ref) async => _clinic),
           ],
           child: MaterialApp.router(routerConfig: router),
         ),
@@ -97,8 +114,8 @@ void main() {
       await openContact(tester);
 
       expect(find.text('Contact'), findsWidgets);
-      expect(find.text(AppConstants.clinicName), findsOneWidget);
-      expect(find.text(AppConstants.clinicPhoneDisplay), findsOneWidget);
+      expect(find.text(_clinic.name), findsOneWidget);
+      expect(find.text(_clinic.phoneDisplay), findsOneWidget);
 
       await tapSend(tester);
 

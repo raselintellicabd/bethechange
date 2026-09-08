@@ -27,7 +27,7 @@ This is the working build guide for migrating the website into a Flutter mobile 
 | Framework | Flutter (latest stable), Dart null-safety |
 | State | Riverpod (`flutter_riverpod`) |
 | Navigation | `go_router` (declarative + deep links) |
-| Networking | `dio` + interceptors (auth/logging) |
+| Networking | `dio` + interceptors; content via `ApiClient` paths; mock JSON when `USE_MOCK_API=true` (see [MOCK_API.md](MOCK_API.md)) |
 | Structure | Feature-first: `lib/features/<feature>/{data,domain,presentation}` |
 | Design tokens | All colors/fonts/spacing in `lib/core/theme/` — **no hardcoded hex in widgets** |
 | Naming | Screens end in `Screen`; reusable widgets end in `Widget` or descriptive nouns |

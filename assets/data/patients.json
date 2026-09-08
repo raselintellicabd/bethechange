@@ -1,0 +1,46 @@
+{
+  "sectionTitle": "Patient resources",
+  "sectionSubtitle": "Portal access, booking, supplements, and answers.",
+  "tiles": [
+    {
+      "id": "portal",
+      "title": "Patient Portal",
+      "subtitle": "Records & messages",
+      "icon": "account_circle_outlined",
+      "action": {
+        "type": "externalUrlKey",
+        "urlKey": "patientPortalUrl"
+      }
+    },
+    {
+      "id": "book-service",
+      "title": "Book a service",
+      "subtitle": "Browse therapies",
+      "icon": "medical_services_outlined",
+      "action": {
+        "type": "route",
+        "route": "/explore/services"
+      }
+    },
+    {
+      "id": "shop",
+      "title": "Shop",
+      "subtitle": "Fullscript shop",
+      "icon": "shopping_bag_outlined",
+      "action": {
+        "type": "externalUrlKey",
+        "urlKey": "shopSupplementsUrl"
+      }
+    },
+    {
+      "id": "faq",
+      "title": "FAQ",
+      "subtitle": "Common questions",
+      "icon": "help_outline",
+      "action": {
+        "type": "route",
+        "route": "/faq"
+      }
+    }
+  ]
+}

@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:bethechange/core/network/api_result.dart';
-import 'package:bethechange/core/utils/asset_loader.dart';
 import 'package:bethechange/features/about/data/about_repository.dart';
 import 'package:bethechange/features/about/domain/models/about_content.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'helpers/mock_api_client.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +15,7 @@ void main() {
   group('AboutContent', () {
     test('parses bundled about.json with 4 sections, doctors, and reviews',
         () async {
-      final repository = AboutRepository();
+      final repository = AboutRepository(createMockApiClient());
       final result = await repository.getAboutContent();
 
       expect(result, isA<ApiSuccess<AboutContent>>());
@@ -75,9 +76,7 @@ void main() {
 
     test('repository surfaces asset load failures', () async {
       final repository = AboutRepository(
-        assetLoader: AssetLoader(
-          bundle: _MissingAssetBundle(),
-        ),
+        createMockApiClient(bundle: _MissingAssetBundle()),
       );
 
       final result = await repository.getAboutContent();

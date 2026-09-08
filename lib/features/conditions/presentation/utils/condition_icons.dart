@@ -8,7 +8,7 @@ IconData conditionIconFor(String conditionId) {
     'chronic-fatigue' => Icons.battery_alert_outlined,
     'chronic-pain' => Icons.healing_outlined,
     'hormone-imbalance' => Icons.science_outlined,
-    'detoxification' => Icons.spa_outlined,
+    'toxins' => Icons.spa_outlined,
     'concussion' => Icons.psychology_outlined,
     _ => Icons.health_and_safety_outlined,
   };

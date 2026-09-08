@@ -1,3 +1,4 @@
+import 'package:bethechange/core/network/api_client.dart';
 import 'package:bethechange/core/router/app_router.dart';
 import 'package:bethechange/core/router/app_routes.dart';
 import 'package:bethechange/features/appointment/domain/models/source_context.dart';
@@ -14,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+
+import 'helpers/mock_api_client.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +35,7 @@ void main() {
   const sampleServices = ServicesCatalog(
     services: [
       Service(
-        id: 'fsm',
+        id: 'frequency-specific-microcurrent',
         name: 'Frequency Specific Microcurrent Therapy',
         summary: 'FSM summary.',
         articleBody: 'FSM article body for deep link tests.',
@@ -52,9 +55,19 @@ void main() {
   );
 
   List<Override> overrides() => [
+        apiClientProvider.overrideWithValue(createMockApiClient()),
         conditionsCatalogProvider.overrideWith((ref) async => sampleConditions),
         servicesCatalogProvider.overrideWith((ref) async => sampleServices),
         blogCatalogProvider.overrideWith((ref) async => sampleBlog),
+        conditionByIdProvider.overrideWith(
+          (ref, id) async => sampleConditions.byId(id)!,
+        ),
+        serviceByIdProvider.overrideWith(
+          (ref, id) async => sampleServices.byId(id)!,
+        ),
+        blogArticleByIdProvider.overrideWith(
+          (ref, id) async => sampleBlog.byId(id)!,
+        ),
       ];
 
   Future<GoRouter> mount(WidgetTester tester) async {
@@ -86,11 +99,14 @@ void main() {
 
   testWidgets('deep link /services/:id opens service detail', (tester) async {
     final router = await mount(tester);
-    router.go('/services/fsm');
+    router.go('/services/frequency-specific-microcurrent');
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 50));
 
-    expect(pathOf(router), '/explore/services/fsm');
+    expect(
+      pathOf(router),
+      '/explore/services/frequency-specific-microcurrent',
+    );
     expect(
       find.text('Frequency Specific Microcurrent Therapy'),
       findsWidgets,

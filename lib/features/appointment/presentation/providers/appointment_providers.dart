@@ -1,8 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/analytics/analytics_service.dart';
+import '../../../../core/network/api_client.dart';
+import '../../data/appointment_api_repository.dart';
 import '../../data/appointment_repository.dart';
-import '../../data/mock_appointment_repository.dart';
 import '../../domain/models/appointment_booking_result.dart';
 import '../../domain/models/appointment_request.dart';
 import '../../domain/models/patient_details.dart';
@@ -77,7 +78,7 @@ class AppointmentBookingState {
 }
 
 final appointmentRepositoryProvider = Provider<AppointmentRepository>((ref) {
-  return MockAppointmentRepository();
+  return AppointmentApiRepository(ref.watch(apiClientProvider));
 });
 
 final appointmentControllerProvider = StateNotifierProvider.autoDispose

@@ -30,7 +30,7 @@ void main() {
         (tester) async {
       const sourceContext = SourceContext(
         type: SourceContextType.service,
-        id: 'fsm',
+        id: 'frequency-specific-microcurrent',
         name: 'Frequency Specific Microcurrent Therapy',
       );
 
@@ -74,7 +74,7 @@ void main() {
 
       expect(
         find.text(
-          'service:fsm:Frequency Specific Microcurrent Therapy',
+          'service:frequency-specific-microcurrent:Frequency Specific Microcurrent Therapy',
         ),
         findsOneWidget,
       );

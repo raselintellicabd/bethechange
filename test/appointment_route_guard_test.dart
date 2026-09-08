@@ -1,9 +1,12 @@
+import 'package:bethechange/core/network/api_client.dart';
 import 'package:bethechange/core/router/app_routes.dart';
 import 'package:bethechange/core/router/app_router.dart';
 import 'package:bethechange/features/appointment/domain/models/source_context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'helpers/mock_api_client.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +17,9 @@ void main() {
 
     await tester.pumpWidget(
       ProviderScope(
+        overrides: [
+          apiClientProvider.overrideWithValue(createMockApiClient()),
+        ],
         child: MaterialApp.router(routerConfig: router),
       ),
     );
@@ -31,12 +37,17 @@ void main() {
     final router = createAppRouter();
     const context = SourceContext(
       type: SourceContextType.service,
-      id: 'fsm',
+      id: 'frequency-specific-microcurrent',
       name: 'Frequency Specific Microcurrent Therapy',
     );
 
     await tester.pumpWidget(
       ProviderScope(
+        overrides: [
+          apiClientProvider.overrideWithValue(
+            createMockApiClient(now: DateTime(2026, 9, 8, 10)),
+          ),
+        ],
         child: MaterialApp.router(routerConfig: router),
       ),
     );

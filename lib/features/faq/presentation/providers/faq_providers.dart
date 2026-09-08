@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/network/api_client.dart';
 import '../../data/faq_repository.dart';
 import '../../domain/models/faq_catalog.dart';
 
 final faqRepositoryProvider = Provider<FaqRepository>((ref) {
-  return FaqRepository();
+  return FaqRepository(ref.watch(apiClientProvider));
 });
 
 final faqCatalogProvider = FutureProvider<FaqCatalog>((ref) async {

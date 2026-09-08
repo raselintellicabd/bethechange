@@ -1,19 +1,20 @@
 import 'package:bethechange/core/analytics/analytics_service.dart';
 import 'package:bethechange/core/widgets/appointment_cta_bar.dart';
-import 'package:bethechange/features/appointment/data/mock_appointment_repository.dart';
 import 'package:bethechange/features/appointment/domain/models/patient_details.dart';
 import 'package:bethechange/features/appointment/domain/models/source_context.dart';
 import 'package:bethechange/features/appointment/presentation/providers/appointment_providers.dart';
-import 'package:bethechange/features/chatbot/data/mock_chatbot_repository.dart';
 import 'package:bethechange/features/chatbot/presentation/providers/chatbot_providers.dart';
-import 'package:bethechange/features/contact/data/mock_contact_repository.dart';
 import 'package:bethechange/features/contact/domain/models/contact_request.dart';
 import 'package:bethechange/features/contact/presentation/providers/contact_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'helpers/mock_api_client.dart';
+
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   test('AnalyticsEvents does not include membership', () {
     for (final name in AnalyticsEvents.allowed) {
       expect(name.toLowerCase(), isNot(contains('membership')));
@@ -24,12 +25,12 @@ void main() {
     final analytics = RecordingAnalyticsService();
     const source = SourceContext(
       type: SourceContextType.service,
-      id: 'fsm',
+      id: 'frequency-specific-microcurrent',
       name: 'FSM',
     );
     // Fixed Tuesday so mock availability includes the day.
     final now = DateTime(2026, 9, 8, 10);
-    final repository = MockAppointmentRepository(now: now);
+    final repository = createMockAppointmentRepository(now: now);
 
     final appointment = AppointmentController(
       repository: repository,
@@ -37,11 +38,11 @@ void main() {
       analytics: analytics,
       now: now,
     );
-    await Future<void>.delayed(const Duration(milliseconds: 250));
+    await Future<void>.delayed(const Duration(milliseconds: 50));
     expect(analytics.hasEvent(AnalyticsEvents.appointmentStarted), isTrue);
 
     await appointment.selectDate(DateTime(2026, 9, 8));
-    await Future<void>.delayed(const Duration(milliseconds: 250));
+    await Future<void>.delayed(const Duration(milliseconds: 50));
     expect(appointment.state.slots, isNotEmpty);
     appointment.selectSlot(appointment.state.slots.first);
     appointment.continueToDetails();
@@ -53,11 +54,11 @@ void main() {
       ),
     );
     await appointment.confirmBooking();
-    await Future<void>.delayed(const Duration(milliseconds: 250));
+    await Future<void>.delayed(const Duration(milliseconds: 50));
     expect(analytics.hasEvent(AnalyticsEvents.appointmentCompleted), isTrue);
 
     final contact = ContactController(
-      MockContactRepository(delay: Duration.zero),
+      createMockContactRepository(),
       analytics,
     );
     await contact.submit(
@@ -72,7 +73,7 @@ void main() {
     expect(analytics.hasEvent(AnalyticsEvents.contactSubmitted), isTrue);
 
     final chatbot = ChatbotController(
-      MockChatbotRepository(apiKey: 'test', delay: Duration.zero),
+      createMockChatbotRepository(),
       analytics,
     );
     await chatbot.send('hello');
@@ -80,6 +81,8 @@ void main() {
   });
 
   testWidgets('appointment CTA exposes accessible label', (tester) async {
+    final handle = tester.ensureSemantics();
+
     await tester.pumpWidget(
       const ProviderScope(
         child: MaterialApp(
@@ -95,12 +98,14 @@ void main() {
         ),
       ),
     );
-    await tester.pumpAndSettle();
 
-    final semantics = tester.getSemantics(
-      find.bySemanticsLabel(RegExp(r'Request an appointment for Diabetes')),
+    expect(find.text('Request an appointment'), findsOneWidget);
+    expect(find.text('Reason: Diabetes'), findsOneWidget);
+    final semantics = tester.getSemantics(find.byType(AppointmentCtaBar));
+    expect(
+      semantics.label,
+      contains('Request an appointment for Diabetes'),
     );
-    expect(semantics.label, contains('Diabetes'));
-    expect(semantics.label, contains('Request an appointment'));
+    handle.dispose();
   });
 }

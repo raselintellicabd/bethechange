@@ -1,12 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/analytics/analytics_service.dart';
+import '../../../../core/network/api_client.dart';
+import '../../data/chatbot_api_repository.dart';
 import '../../data/chatbot_repository.dart';
-import '../../data/mock_chatbot_repository.dart';
 import '../../domain/models/chat_message.dart';
+import '../../domain/models/chatbot_config.dart';
 
 final chatbotRepositoryProvider = Provider<ChatbotRepository>((ref) {
-  return MockChatbotRepository();
+  return ChatbotApiRepository(ref.watch(apiClientProvider));
+});
+
+final chatbotConfigProvider = FutureProvider<ChatbotConfig>((ref) async {
+  final result = await ref.watch(chatbotRepositoryProvider).getConfig();
+  return result.when(
+    success: (data) => data,
+    failure: (message, _) => throw Exception(message),
+  );
 });
 
 class ChatbotUiState {

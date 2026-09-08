@@ -1,7 +1,7 @@
 {
   "services": [
     {
-      "id": "fsm",
+      "id": "frequency-specific-microcurrent",
       "name": "Frequency Specific Microcurrent Therapy",
       "summary": "Gentle electromagnetic pulses that resonate with specific tissues to support pain relief, mobility, and tissue repair.",
       "articleBody": "Frequency Specific Microcurrent (FSM) uses electromagnetic pulses on two channels firing at the same time for more specific and targeted therapy. The electrical current is very gentle at one millionth of an ampere.\n\nFrequency specific treatment vibrates a frequency that resonates with specific tissue enough to change its chemical structure, from one that causes tension, pain, and immobility, to a more stable state with greater movement and decreased pain.\n\nSpecific frequencies have been clinically observed to address over 200 conditions involving inflammation, tissue repair, and pain. FSM is known to significantly increase the body's production of ATP in injured tissues and beta-endorphins, and to decrease inflammatory cytokines and substance P.",
@@ -43,7 +43,7 @@
       ]
     },
     {
-      "id": "infrared-sauna",
+      "id": "infrared-sauna-therapy",
       "name": "Infrared Sauna Therapy",
       "summary": "A powerful tool to help your body liberate stored toxins through sweat while supporting cellular energy production.",
       "articleBody": "Infrared sauna therapy is one of our most powerful tools to help your body liberate toxins that are stored in the tissues and eliminate them through the sweat. It works by increasing your core body temperature to promote energy production and the release of toxins at the cellular level.",
@@ -69,7 +69,7 @@
       "recommendedBooks": []
     },
     {
-      "id": "hbot",
+      "id": "hyperbaric-oxygen-therapy",
       "name": "Hyperbaric Oxygen Therapy",
       "summary": "Breathe pure oxygen in a pressurized chamber to enhance healing, reduce inflammation, and support recovery.",
       "articleBody": "Hyperbaric oxygen therapy (HBOT) is a medical treatment that involves breathing pure oxygen in a pressurized chamber, which allows the lungs to take in more oxygen than under normal atmospheric conditions.\n\nThis increased oxygen concentration significantly enhances the body's ability to heal and fight infections, making it beneficial for conditions such as chronic non-healing wounds, certain infections, and recovery support after injuries including concussions.",
@@ -98,7 +98,7 @@
       "recommendedBooks": []
     },
     {
-      "id": "nutritional-iv",
+      "id": "iv-nutritional-infusions",
       "name": "Nutritional IV Therapy",
       "summary": "Rapid hydration and nutrient delivery directly into the bloodstream for faster absorption and support.",
       "articleBody": "IV therapy provides rapid hydration and nutrient delivery directly into the bloodstream, ensuring faster absorption and immediate effects. It can also aid in recovery from illness, enhance athletic performance, and support overall wellness by addressing nutrient deficiencies efficiently.\n\nWe offer a wide variety of IV Therapy for different conditions and wellness goals.",
@@ -125,7 +125,7 @@
       "recommendedBooks": []
     },
     {
-      "id": "liquivida-iv",
+      "id": "liquivida-iv-therapy",
       "name": "LIQUIVIDA IV Therapy",
       "summary": "IV options focused on hydration, nutrient absorption, immunity support, and overall wellness.",
       "articleBody": "LIQUIVIDA IV Therapy offers a range of benefits, including rapid hydration, enhanced nutrient absorption, and increased energy levels, making it an effective solution for recovering from dehydration, boosting immunity, and promoting overall wellness.",
@@ -152,7 +152,7 @@
       "recommendedBooks": []
     },
     {
-      "id": "ozone",
+      "id": "ozone-therapy",
       "name": "Ozone Therapy",
       "summary": "Therapeutic oxygen (O3) support aimed at circulation, immune activation, and tissue oxygenation.",
       "articleBody": "Ozone is a gas consisting of 3 oxygen molecules (O3) which can dissolve in the bloodstream for therapeutic and preventive effects. It improves blood circulation and oxygen delivery to damaged tissues, decreases age-related cellular stress, inhibits the growth of bacteria and fungi, and activates the immune system.\n\nOzone therapy has been used in patients with diverse conditions including coronary artery disease, multiple sclerosis, hepatitis, ulcers, and arthritis.",

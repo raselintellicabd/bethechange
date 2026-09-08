@@ -16,6 +16,8 @@ import '../../../../features/about/domain/models/about_content.dart';
 import '../../../../features/about/domain/models/doctor_profile.dart';
 import '../../../../features/about/presentation/providers/about_providers.dart';
 import '../../../../features/about/presentation/widgets/about_content_view.dart';
+import '../../domain/models/home_content.dart';
+import '../providers/home_providers.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -30,6 +32,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final aboutAsync = ref.watch(aboutContentProvider);
+    final homeAsync = ref.watch(homeContentProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -40,15 +43,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         loading: () => const LoadingIndicator(message: 'Loading…'),
         error: (error, _) => ErrorStateWidget(
           message: error.toString().replaceFirst('Exception: ', ''),
-          onRetry: () => ref.invalidate(aboutContentProvider),
-        ),
-        data: (content) => _HomeBody(
-          content: content,
-          aboutSegment: _aboutSegment,
-          onAboutSegmentChanged: (index) {
-            setState(() => _aboutSegment = index);
+          onRetry: () {
+            ref.invalidate(aboutContentProvider);
+            ref.invalidate(homeContentProvider);
           },
         ),
+        data: (content) {
+          return homeAsync.when(
+            loading: () => const LoadingIndicator(message: 'Loading…'),
+            error: (error, _) => ErrorStateWidget(
+              message: error.toString().replaceFirst('Exception: ', ''),
+              onRetry: () => ref.invalidate(homeContentProvider),
+            ),
+            data: (home) => _HomeBody(
+              content: content,
+              home: home,
+              aboutSegment: _aboutSegment,
+              onAboutSegmentChanged: (index) {
+                setState(() => _aboutSegment = index);
+              },
+            ),
+          );
+        },
       ),
     );
   }
@@ -57,23 +73,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 class _HomeBody extends StatelessWidget {
   const _HomeBody({
     required this.content,
+    required this.home,
     required this.aboutSegment,
     required this.onAboutSegmentChanged,
   });
 
   final AboutContent content;
+  final HomeContent home;
   final int aboutSegment;
   final ValueChanged<int> onAboutSegmentChanged;
-
-  static String _aboutSegmentLabel(String id, String title) {
-    return switch (id) {
-      'our-practice' => 'Practice',
-      'naturopathic-medicine' => 'Naturopathic',
-      'integrative-medicine' => 'Integrative',
-      'our-process' => 'Process',
-      _ => title.split(' ').first,
-    };
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,15 +93,16 @@ class _HomeBody extends StatelessWidget {
 
     return ListView(
       children: [
-        const AppHeroBanner(
-          tag: 'Integrative & naturopathic care',
-          title: 'Get to the root cause of your health concerns.',
+        AppHeroBanner(
+          tag: home.heroTag,
+          title: home.heroTitle,
           height: 190,
         ),
         if (sections.isNotEmpty) ...[
           SegmentControl(
             labels: [
-              for (final s in sections) _aboutSegmentLabel(s.id, s.title),
+              for (final s in sections)
+                home.segmentLabel(s.id, s.title),
             ],
             selectedIndex: safeIndex,
             onChanged: onAboutSegmentChanged,
@@ -178,7 +187,6 @@ class _DoctorsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Two (or one) cards should fill the row; more than two stay scrollable.
     if (doctors.length <= 2) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -285,4 +293,3 @@ class _DoctorTile extends StatelessWidget {
     );
   }
 }
-

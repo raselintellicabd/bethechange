@@ -32,7 +32,10 @@ class ApiException implements Exception {
         );
       case DioExceptionType.badResponse:
         return ApiException(
-          message: _messageForStatusCode(statusCode),
+          message: _messageFromBody(error.response?.data) ??
+              (error.message?.trim().isNotEmpty == true
+                  ? error.message!.trim()
+                  : _messageForStatusCode(statusCode)),
           statusCode: statusCode,
           originalError: error,
         );
@@ -57,6 +60,16 @@ class ApiException implements Exception {
     }
   }
 
+  static String? _messageFromBody(Object? data) {
+    if (data is Map) {
+      final message = data['message'];
+      if (message is String && message.trim().isNotEmpty) {
+        return message.trim();
+      }
+    }
+    return null;
+  }
+
   static String _messageForStatusCode(int? statusCode) {
     return switch (statusCode) {
       400 => 'Invalid request. Please check your input.',
@@ -64,6 +77,7 @@ class ApiException implements Exception {
       403 => 'You do not have permission to do that.',
       404 => 'The requested resource was not found.',
       408 => 'Request timed out. Please try again.',
+      409 => 'That request could not be completed. Please try again.',
       429 => 'Too many requests. Please wait and try again.',
       500 => 'Server error. Please try again later.',
       502 || 503 || 504 => 'Service temporarily unavailable.',

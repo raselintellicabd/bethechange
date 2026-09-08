@@ -6,17 +6,21 @@ import '../config/env_config.dart';
 import '../constants/app_constants.dart';
 import 'api_exception.dart';
 import 'api_result.dart';
+import 'mock_api_interceptor.dart';
 
 final apiClientProvider = Provider<ApiClient>((ref) {
   return ApiClient();
 });
 
 class ApiClient {
-  ApiClient({Dio? dio})
-      : _dio = dio ??
+  ApiClient({
+    Dio? dio,
+    bool? useMockApi,
+    MockApiInterceptor? mockInterceptor,
+  }) : _dio = dio ??
             Dio(
               BaseOptions(
-                baseUrl: EnvConfig.apiBaseUrl,
+                baseUrl: _safeBaseUrl(),
                 connectTimeout: AppConstants.connectTimeout,
                 receiveTimeout: AppConstants.receiveTimeout,
                 sendTimeout: AppConstants.sendTimeout,
@@ -26,6 +30,8 @@ class ApiClient {
                 },
               ),
             ) {
+    final enableMock = useMockApi ?? _safeUseMockApi();
+
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
@@ -38,7 +44,11 @@ class ApiClient {
       ),
     );
 
-    if (kDebugMode && EnvConfig.flavor.isDev) {
+    if (enableMock) {
+      _dio.interceptors.add(mockInterceptor ?? MockApiInterceptor());
+    }
+
+    if (kDebugMode && _safeIsDev()) {
       _dio.interceptors.add(
         LogInterceptor(
           requestBody: true,
@@ -52,6 +62,30 @@ class ApiClient {
   final Dio _dio;
 
   Dio get dio => _dio;
+
+  static String _safeBaseUrl() {
+    try {
+      return EnvConfig.apiBaseUrl;
+    } catch (_) {
+      return 'https://mock.local';
+    }
+  }
+
+  static bool _safeUseMockApi() {
+    try {
+      return EnvConfig.useMockApi;
+    } catch (_) {
+      return true;
+    }
+  }
+
+  static bool _safeIsDev() {
+    try {
+      return EnvConfig.flavor.isDev;
+    } catch (_) {
+      return false;
+    }
+  }
 
   Future<ApiResult<T>> get<T>(
     String path, {

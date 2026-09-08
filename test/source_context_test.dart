@@ -43,7 +43,7 @@ void main() {
     test('appointmentPath includes encoded sourceContext query', () {
       const context = SourceContext(
         type: SourceContextType.service,
-        id: 'fsm',
+        id: 'frequency-specific-microcurrent',
         name: 'Frequency Specific Microcurrent Therapy',
       );
 

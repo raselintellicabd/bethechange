@@ -5,12 +5,14 @@ import 'package:bethechange/features/conditions/data/conditions_repository.dart'
 import 'package:bethechange/features/conditions/domain/models/conditions_catalog.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'helpers/mock_api_client.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('ConditionsCatalog', () {
     test('parses all 8 conditions from bundled JSON', () async {
-      final repository = ConditionsRepository();
+      final repository = ConditionsRepository(createMockApiClient());
       final result = await repository.getConditions();
 
       expect(result, isA<ApiSuccess<ConditionsCatalog>>());
@@ -26,7 +28,7 @@ void main() {
           'chronic-fatigue',
           'chronic-pain',
           'hormone-imbalance',
-          'detoxification',
+          'toxins',
           'concussion',
         ],
       );
@@ -34,7 +36,7 @@ void main() {
 
     test('diabetes and heart-disease are fully populated', () async {
       final catalog =
-          ((await ConditionsRepository().getConditions())
+          ((await ConditionsRepository(createMockApiClient()).getConditions())
                   as ApiSuccess<ConditionsCatalog>)
               .data;
 
@@ -62,14 +64,14 @@ void main() {
     });
 
     test('getConditionById returns failure for unknown id', () async {
-      final result =
-          await ConditionsRepository().getConditionById('does-not-exist');
+      final result = await ConditionsRepository(createMockApiClient())
+          .getConditionById('does-not-exist');
       expect(result, isA<ApiFailure>());
     });
 
     test('each condition builds a unique appointment SourceContext', () async {
       final catalog =
-          ((await ConditionsRepository().getConditions())
+          ((await ConditionsRepository(createMockApiClient()).getConditions())
                   as ApiSuccess<ConditionsCatalog>)
               .data;
 

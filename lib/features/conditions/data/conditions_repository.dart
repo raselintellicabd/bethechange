@@ -1,37 +1,26 @@
+import '../../../core/network/api_client.dart';
+import '../../../core/network/api_paths.dart';
 import '../../../core/network/api_result.dart';
-import '../../../core/utils/asset_loader.dart';
 import '../domain/models/condition.dart';
 import '../domain/models/conditions_catalog.dart';
 
 class ConditionsRepository {
-  ConditionsRepository({AssetLoader? assetLoader})
-      : _assetLoader = assetLoader ?? AssetLoader();
+  ConditionsRepository(this._client);
 
-  static const String assetPath = 'assets/data/conditions.json';
-
-  final AssetLoader _assetLoader;
+  final ApiClient _client;
 
   Future<ApiResult<ConditionsCatalog>> getConditions() {
-    return _assetLoader.loadJsonObject(
-      assetPath,
-      parser: ConditionsCatalog.fromJson,
+    return _client.get(
+      ApiPaths.conditions,
+      parser: (data) =>
+          ConditionsCatalog.fromJson(data as Map<String, dynamic>),
     );
   }
 
-  Future<ApiResult<Condition>> getConditionById(String id) async {
-    final catalogResult = await getConditions();
-    return catalogResult.when(
-      success: (catalog) {
-        final condition = catalog.byId(id);
-        if (condition == null) {
-          return ApiFailure(message: 'Condition "$id" was not found.');
-        }
-        return ApiSuccess(condition);
-      },
-      failure: (message, statusCode) => ApiFailure(
-        message: message,
-        statusCode: statusCode,
-      ),
+  Future<ApiResult<Condition>> getConditionById(String id) {
+    return _client.get(
+      ApiPaths.condition(id),
+      parser: (data) => Condition.fromJson(data as Map<String, dynamic>),
     );
   }
 }
