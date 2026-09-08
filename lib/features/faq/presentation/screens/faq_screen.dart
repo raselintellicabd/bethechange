@@ -18,7 +18,15 @@ class FaqScreen extends ConsumerWidget {
     final catalogAsync = ref.watch(faqCatalogProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('FAQ')),
+      appBar: AppBar(
+        title: const Text('FAQ'),
+        actions: [
+          TextButton(
+            onPressed: () => context.push(AppRoutes.contact),
+            child: const Text('Contact'),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.push(AppRoutes.chatbot),
         icon: const Icon(Icons.chat_bubble_outline),

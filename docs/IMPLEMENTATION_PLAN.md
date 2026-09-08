@@ -72,7 +72,7 @@ Phase 0 + Phase 1 from the original plan are **complete** in this repo:
 | G | Blog tab | ✅ Done |
 | H | Patient tab (3 cards only) | ✅ Done |
 | I | FAQ + Chatbot | ✅ Done |
-| J | Contact form | ⬜ Not started |
+| J | Contact form | ✅ Done |
 | K | Cross-cutting (a11y, deep links, analytics) | ⬜ Not started |
 | L | Final QA + store release | ⬜ Not started |
 

@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Be The Change — App UI Mockups</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#1E3A2B;
+    --forest-dark:#132A1E;
+    --sage:#7C9473;
+    --sage-light:#E7ECE0;
+    --paper:#F3F5EF;
+    --card:#FFFFFF;
+    --ochre:#C08A34;
+    --ochre-dark:#96691F;
+    --ink:#1B231C;
+    --ink-muted:#5C6B5C;
+    --line:#DDE3D6;
+    --danger:#B4482F;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:#EAEFE4;
+    background-image:radial-gradient(circle, #D9E1CE 1px, transparent 1px);
+    background-size:22px 22px;
+    font-family:'Work Sans', sans-serif;
+    color:var(--ink);
+    padding:48px 40px 120px;
+  }
+  .board-header{
+    max-width:1400px;
+    margin:0 auto 40px;
+  }
+  .board-header .eyebrow{
+    font-size:13px;
+    letter-spacing:.02em;
+    color:var(--ochre-dark);
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .board-header h1{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:34px;
+    margin:0 0 10px;
+    color:var(--forest-dark);
+  }
+  .board-header p{
+    max-width:640px;
+    color:var(--ink-muted);
+    line-height:1.6;
+    font-size:15px;
+    margin:0;
+  }
+  .board{
+    max-width:1400px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    gap:56px;
+    align-items:flex-start;
+  }
+  .frame-wrap{
+    width:320px;
+  }
+  .frame-label{
+    font-size:13px;
+    font-weight:600;
+    color:var(--forest-dark);
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .frame-label .num{
+    width:20px;height:20px;
+    border-radius:50%;
+    background:var(--forest);
+    color:#fff;
+    font-size:11px;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:600;
+  }
+  .phone{
+    width:320px;
+    height:680px;
+    background:var(--paper);
+    border-radius:34px;
+    border:8px solid #14201A;
+    box-shadow:0 18px 40px rgba(20,32,26,.28);
+    overflow:hidden;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+  }
+  .statusbar{
+    height:26px;
+    background:var(--paper);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 18px;
+    font-size:11px;
+    font-weight:600;
+    color:var(--ink);
+    flex-shrink:0;
+  }
+  .appbar{
+    padding:10px 16px 12px;
+    background:var(--paper);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-shrink:0;
+    border-bottom:1px solid var(--line);
+  }
+  .appbar .title{
+    font-family:'Fraunces', serif;
+    font-size:17px;
+    font-weight:500;
+    color:var(--forest-dark);
+  }
+  .appbar .icon-btn{
+    width:30px;height:30px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--sage-light);
+    color:var(--forest-dark);
+    font-size:14px;
+  }
+  .scroll{
+    flex:1;
+    overflow-y:auto;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .scroll::-webkit-scrollbar{display:none;}
+  .bottomnav{
+    height:62px;
+    background:var(--card);
+    border-top:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    flex-shrink:0;
+    padding-bottom:4px;
+  }
+  .navitem{
+    display:flex;flex-direction:column;align-items:center;gap:3px;
+    font-size:10px;
+    color:var(--ink-muted);
+    font-weight:500;
+  }
+  .navitem.active{color:var(--forest);}
+  .navitem .dot{
+    width:20px;height:20px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:14px;
+  }
+
+  /* content elements */
+  .px{padding-left:16px;padding-right:16px;}
+  .hero{
+    position:relative;
+    height:190px;
+    background:linear-gradient(180deg, rgba(19,42,30,.05) 0%, rgba(19,42,30,.75) 100%), #B7C4A3;
+    background-size:cover;
+    display:flex;
+    align-items:flex-end;
+    padding:18px 16px;
+  }
+  .hero.diabetes{background:linear-gradient(180deg, rgba(19,42,30,.1) 0%, rgba(19,42,30,.8) 100%), #C7A15A;}
+  .hero .tag{
+    display:inline-block;
+    background:rgba(255,255,255,.9);
+    color:var(--forest-dark);
+    font-size:10px;
+    font-weight:600;
+    padding:3px 9px;
+    border-radius:20px;
+    margin-bottom:8px;
+  }
+  .hero h2{
+    font-family:'Fraunces', serif;
+    color:#fff;
+    font-size:22px;
+    font-weight:500;
+    margin:0;
+    line-height:1.2;
+  }
+  .section{padding:18px 16px 4px;}
+  .section-title{
+    font-family:'Fraunces', serif;
+    font-size:15px;
+    font-weight:500;
+    color:var(--forest-dark);
+    margin:0 0 10px;
+  }
+  .body-text{
+    font-size:12.5px;
+    line-height:1.65;
+    color:var(--ink-muted);
+    margin:0 0 12px;
+  }
+  .btn-primary{
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    background:var(--ochre);
+    color:#fff;
+    font-size:13px;
+    font-weight:600;
+    padding:12px 18px;
+    border-radius:10px;
+    width:100%;
+    border:none;
+  }
+  .btn-secondary{
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    background:transparent;
+    color:var(--forest);
+    font-size:13px;
+    font-weight:600;
+    padding:11px 18px;
+    border-radius:10px;
+    width:100%;
+    border:1.5px solid var(--forest);
+  }
+  .chip{
+    display:inline-flex;align-items:center;gap:5px;
+    background:var(--sage-light);
+    color:var(--forest-dark);
+    font-size:11px;
+    font-weight:500;
+    padding:6px 11px;
+    border-radius:20px;
+    margin:0 6px 6px 0;
+  }
+  .chip-row{display:flex;flex-wrap:wrap;padding:0 16px 6px;}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:12px;
+    margin-bottom:10px;
+  }
+  .hcards{
+    display:flex;gap:10px;overflow-x:auto;padding:0 16px 6px;
+  }
+  .hcard{
+    flex:0 0 128px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+  }
+  .hcard .thumb{height:76px;background:#C7CFB8;}
+  .hcard .thumb.d1{background:#C7A15A;}
+  .hcard .thumb.d2{background:#A7716A;}
+  .hcard .thumb.d3{background:#8FA1C4;}
+  .hcard .thumb.d4{background:#9FB48B;}
+  .hcard .cap{padding:8px;}
+  .hcard .cap .t{font-size:11px;font-weight:600;color:var(--forest-dark);margin:0 0 2px;}
+  .hcard .cap .s{font-size:9.5px;color:var(--ink-muted);margin:0;}
+  .listrow{
+    display:flex;gap:10px;align-items:center;
+    padding:10px 16px;
+    border-bottom:1px solid var(--line);
+  }
+  .listrow .thumb{
+    width:46px;height:46px;border-radius:10px;background:var(--sage);flex-shrink:0;
+  }
+  .listrow .txt .t{font-size:12.5px;font-weight:600;color:var(--forest-dark);margin:0 0 2px;}
+  .listrow .txt .s{font-size:10.5px;color:var(--ink-muted);margin:0;line-height:1.4;}
+  .listrow .chev{margin-left:auto;color:var(--ink-muted);font-size:14px;}
+  .segctrl{
+    display:flex;background:var(--sage-light);border-radius:10px;padding:3px;margin:12px 16px;
+  }
+  .segctrl .seg{
+    flex:1;text-align:center;font-size:12px;font-weight:600;padding:8px 0;border-radius:8px;color:var(--ink-muted);
+  }
+  .segctrl .seg.on{background:var(--forest);color:#fff;}
+  .avatar{
+    width:38px;height:38px;border-radius:50%;background:var(--sage);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:600;
+  }
+  .review{padding:10px 0;border-bottom:1px solid var(--line);}
+  .review .top{display:flex;gap:8px;align-items:center;margin-bottom:5px;}
+  .review .name{font-size:11.5px;font-weight:600;color:var(--forest-dark);}
+  .review .stars{color:var(--ochre);font-size:10px;}
+  .review .txt{font-size:11px;color:var(--ink-muted);line-height:1.55;}
+  .stepper{display:flex;align-items:center;gap:6px;padding:14px 16px 6px;}
+  .stepper .sdot{
+    width:26px;height:26px;border-radius:50%;background:var(--forest);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;
+  }
+  .stepper .sdot.off{background:var(--sage-light);color:var(--ink-muted);}
+  .stepper .sline{flex:1;height:2px;background:var(--line);}
+  .cal{padding:10px 16px;}
+  .cal .calhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+  .cal .calhead .m{font-size:13px;font-weight:600;color:var(--forest-dark);}
+  .cal .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+  .cal .dow{font-size:9px;color:var(--ink-muted);text-align:center;font-weight:600;}
+  .cal .day{
+    aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+    font-size:11px;border-radius:8px;color:var(--ink);
+  }
+  .cal .day.mut{color:#B9C2AE;}
+  .cal .day.sel{background:var(--forest);color:#fff;font-weight:600;}
+  .cal .day.avail{background:var(--sage-light);}
+  .slots{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px;}
+  .slot{
+    padding:8px 12px;border-radius:9px;border:1.3px solid var(--line);font-size:11px;font-weight:600;color:var(--ink);
+  }
+  .slot.sel{background:var(--ochre);border-color:var(--ochre);color:#fff;}
+  .field{padding:0 16px 12px;}
+  .field label{display:block;font-size:10.5px;font-weight:600;color:var(--forest-dark);margin-bottom:5px;}
+  .field .input{
+    background:#fff;border:1.3px solid var(--line);border-radius:9px;padding:10px 12px;font-size:12px;color:var(--ink);
+  }
+  .field .input.area{height:64px;}
+  .locked-chip{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--sage-light);color:var(--forest-dark);
+    font-size:11px;font-weight:600;padding:8px 12px;border-radius:9px;margin:0 16px 12px;
+  }
+  .divider-label{
+    font-size:10px;font-weight:700;letter-spacing:.03em;color:var(--ink-muted);
+    padding:14px 16px 6px;
+  }
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 10px;}
+  .tile{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 12px;
+  }
+  .tile .ic{
+    width:34px;height:34px;border-radius:9px;background:var(--sage-light);color:var(--forest);
+    display:flex;align-items:center;justify-content:center;font-size:15px;margin-bottom:8px;
+  }
+  .tile .t{font-size:12px;font-weight:600;color:var(--forest-dark);margin:0 0 3px;}
+  .tile .s{font-size:9.5px;color:var(--ink-muted);margin:0;line-height:1.4;}
+  .faqitem{
+    border-bottom:1px solid var(--line);padding:12px 16px;
+  }
+  .faqitem .q{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:600;color:var(--forest-dark);}
+  .faqitem .a{font-size:11px;color:var(--ink-muted);line-height:1.55;margin-top:8px;}
+  .fab{
+    position:absolute;right:16px;bottom:78px;
+    background:var(--forest);color:#fff;
+    padding:10px 16px;border-radius:24px;font-size:11.5px;font-weight:600;
+    display:flex;align-items:center;gap:6px;
+    box-shadow:0 8px 18px rgba(19,42,30,.3);
+  }
+  .chat-wrap{padding:12px 14px;}
+  .bubble{max-width:78%;padding:10px 13px;border-radius:14px;font-size:11.5px;line-height:1.5;margin-bottom:10px;}
+  .bubble.agent{background:var(--card);border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:4px;}
+  .bubble.user{background:var(--forest);color:#fff;margin-left:auto;border-bottom-right-radius:4px;}
+  .suggest-row{display:flex;flex-wrap:wrap;gap:6px;padding:2px 14px 10px;}
+  .suggest{
+    font-size:10.5px;font-weight:600;color:var(--forest);background:var(--sage-light);
+    padding:7px 11px;border-radius:20px;
+  }
+  .chatinput{
+    display:flex;align-items:center;gap:8px;padding:10px 14px;border-top:1px solid var(--line);background:#fff;
+  }
+  .chatinput .box{flex:1;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:9px 14px;font-size:11.5px;color:var(--ink-muted);}
+  .chatinput .send{width:34px;height:34px;border-radius:50%;background:var(--ochre);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+  .disclaimer{
+    font-size:9.5px;color:var(--ink-muted);background:var(--sage-light);
+    padding:8px 12px;margin:8px 14px;border-radius:9px;line-height:1.4;
+  }
+  .confirm-box{
+    margin:20px 16px;padding:22px 16px;background:var(--card);border:1px solid var(--line);border-radius:16px;text-align:center;
+  }
+  .confirm-box .ic{
+    width:52px;height:52px;border-radius:50%;background:var(--sage-light);color:var(--forest);
+    display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 14px;
+  }
+  .confirm-box h3{font-family:'Fraunces', serif;font-size:16px;color:var(--forest-dark);margin:0 0 6px;font-weight:500;}
+  .confirm-box p{font-size:11.5px;color:var(--ink-muted);line-height:1.5;margin:0 0 4px;}
+  .kv{display:flex;justify-content:space-between;font-size:11px;padding:6px 0;border-bottom:1px solid var(--line);}
+  .kv span:first-child{color:var(--ink-muted);}
+  .kv span:last-child{font-weight:600;color:var(--forest-dark);}
+</style>
+</head>
+<body>
+
+<div class="board-header">
+  <div class="eyebrow">Mobile UI/UX — visual mockup board</div>
+  <h1>Be The Change — app screens</h1>
+  <p>Flutter app screens mirroring the website's content and flow: Home, Explore (Conditions/Services), a Condition detail, the appointment booking flow, Blog, Patients hub, FAQ + chatbot, and Contact. One consistent design system runs across every screen — forest green + warm ochre, Fraunces for headings, Work Sans for body/UI.</p>
+</div>
+
+<div class="board">
+
+  <!-- 1. HOME -->
+  <div class="frame-wrap">
+    <div class="frame-label"><span class="num">1</span>Home</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●●  📶  🔋</span></div>
+      <div class="appbar"><span class="title">Be The Change</span><span class="icon-btn">☰</span></div>
+      <div class="scroll">
+        <div class="hero">
+          <div>
+            <span class="tag">Integrative &amp; naturopathic care</span>
+            <h2>Get to the root cause of your health concerns.</h2>
+          </div>
+        </div>
+        <div class="section" style="padding-top:16px;">
+          <button class="btn-primary">Request an appointment</button>
+        </div>
+        <div class="section">
+          <p class="section-title">Conditions we treat</p>
+        </div>
+        <div class="hcards">
+          <div class="hcard"><div class="thumb d1"></div><div class="cap"><p class="t">Diabetes</p><p class="s">Blood sugar balance</p></div></div>
+          <div class="hcard"><div class="thumb d2"></div><div class="cap"><p class="t">Heart disease</p><p class="s">Lower your risk</p></div></div>
+          <div class="hcard"><div class="thumb d3"></div><div class="cap"><p class="t">Chronic fatigue</p><p class="s">Restore energy</p></div></div>
+        </div>
+        <div class="section">
+          <p class="section-title">Featured therapies</p>
+        </div>
+        <div class="hcards">
+          <div class="hcard"><div class="thumb d4"></div><div class="cap"><p class="t">Infrared sauna</p><p class="s">Detox therapy</p></div></div>
+          <div class="hcard"><div class="thumb d1"></div><div class="cap"><p class="t">IV infusions</p><p class="s">Nutrient support</p></div></div>
+        </div>
+        <div class="section">
+          <p class="section-title">Meet our doctors</p>
+        </div>
+        <div class="px" style="display:flex; gap:10px; padding-bottom:10px;">
+          <div class="card" style="flex:1; text-align:center;">
+            <div class="avatar" style="margin:0 auto 8px;">SA</div>
+            <p style="font-size:11.5px;font-weight:600;margin:0;color:var(--forest-dark);">Sultana Afrooz, D.O.</p>
+            <p style="font-size:9.5px;color:var(--ink-muted);margin:2px 0 0;">Integrative Family Medicine</p>
+          </div>
+          <div class="card" style="flex:1; text-align:center;">
+            <div class="avatar" style="margin:0 auto 8px;">JN</div>
+            <p style="font-size:11.5px;font-weight:600;margin:0;color:var(--forest-dark);">Jessica Needle, N.D.</p>
+            <p style="font-size:9.5px;color:var(--ink-muted);margin:2px 0 0;">Naturopathic Doctor</p>
+          </div>
+        </div>
+        <div class="section">
+          <p class="section-title">What our patients say</p>
+          <div class="review">
+            <div class="top"><div class="avatar" style="width:26px;height:26px;font-size:10px;">E</div><span class="name">Elle</span><span class="stars">★★★★★</span></div>
+            <p class="txt">Dr. Afrooz gets to know her patients well and always knows what to look for and test for...</p>
+          </div>
+        </div>
+      </div>
+      <div class="bottomnav">
+        <div class="navitem active"><span class="dot">⌂</span>Home</div>
+        <div class="navitem"><span class="dot">◎</span>Explore</div>
+        <div class="navitem"><span class="dot">▤</span>Blog</div>
+        <div class="navitem"><span class="dot">♥</span>Patients</div>
+        <div class="navitem"><span class="dot">✉</span>Contact</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. EXPLORE -->
+  <div class="frame-wrap">
+    <div class="frame-label"><span class="num">2</span>Explore — Conditions / Services</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●●  📶  🔋</span></div>
+      <div class="appbar"><span class="title">Explore</span><span class="icon-btn">⌕</span></div>
+      <div class="segctrl">
+        <div class="seg on">Conditions</div>
+        <div class="seg">Services</div>
+      </div>
+      <div class="scroll">
+        <div class="listrow"><div class="thumb" style="background:#C7A15A;"></div><div class="txt"><p class="t">Diabetes</p><p class="s">Support metabolism and blood sugar balance</p></div><span class="chev">›</span></div>
+        <div class="listrow"><div class="thumb" style="background:#A7716A;"></div><div class="txt"><p class="t">Heart disease</p><p class="s">Reduce risk and complications</p></div><span class="chev">›</span></div>
+        <div class="listrow"><div class="thumb" style="background:#8FA1C4;"></div><div class="txt"><p class="t">Concussion</p><p class="s">Hyperbaric oxygen &amp; FSM therapy</p></div><span class="chev">›</span></div>
+        <div class="listrow"><div class="thumb" style="background:#9FB48B;"></div><div class="txt"><p class="t">Chronic fatigue</p><p class="s">Holistic energy restoration</p></div><span class="chev">›</span></div>
+        <div class="listrow"><div class="thumb" style="background:#C79A6A;"></div><div class="txt"><p class="t">Obesity</p><p class="s">Personalized weight-loss plans</p></div><span class="chev">›</span></div>
+        <div class="listrow"><div class="thumb" style="background:#B08585;"></div><div class="txt"><p class="t">Chronic pain</p><p class="s">Frequency Specific Microcurrent</p></div><span class="chev">›</span></div>
+        <div class="listrow"><div class="thumb" style="background:#7C9473;"></div><div class="txt"><p class="t">Toxins</p><p class="s">Detoxification support</p></div><span class="chev">›</span></div>
+        <div class="listrow"><div class="thumb" style="background:#A98FB0;"></div><div class="txt"><p class="t">Hormone imbalance</p><p class="s">Balance for men and women</p></div><span class="chev">›</span></div>
+      </div>
+      <div class="bottomnav">
+        <div class="navitem"><span class="dot">⌂</span>Home</div>
+        <div class="navitem active"><span class="dot">◎</span>Explore</div>
+        <div class="navitem"><span class="dot">▤</span>Blog</div>
+        <div class="navitem"><span class="dot">♥</span>Patients</div>
+        <div class="navitem"><span class="dot">✉</span>Contact</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. CONDITION DETAIL -->
+  <div class="frame-wrap">
+    <div class="frame-label"><span class="num">3</span>Condition detail — Diabetes</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●●  📶  🔋</span></div>
+      <div class="scroll">
+        <div class="hero diabetes" style="height:170px;">
+          <h2>Diabetes</h2>
+        </div>
+        <div class="section">
+          <p class="body-text">Naturopathic and integrative medicine can help prevent and manage diabetes using holistic therapies that support metabolism and blood sugar balance.</p>
+          <button class="btn-primary">Request an appointment</button>
+        </div>
+        <div class="section">
+          <p class="section-title">Common symptoms</p>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Fatigue</span><span class="chip">Increased thirst</span><span class="chip">Weight change</span><span class="chip">Blood sugar swings</span><span class="chip">Slow healing</span>
+        </div>
+        <div class="section">
+          <p class="section-title">Factors that contribute</p>
+          <p class="body-text">High-sugar diet, nutritional deficiencies, lack of exercise, stress, hormonal imbalances, and environmental toxins.</p>
+        </div>
+        <div class="section">
+          <p class="section-title">Our integrative approach</p>
+          <p class="body-text">We focus on dietary and lifestyle changes that minimize your need for insulin, using testing to find underlying metabolic disruptors.</p>
+        </div>
+        <div class="section">
+          <p class="section-title">Benefits of integrative medicine</p>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Blood sugar balance</span><span class="chip">Sustained energy</span><span class="chip">Fewer medications</span><span class="chip">Weight management</span>
+        </div>
+        <div class="px" style="padding:14px 16px 4px;">
+          <button class="btn-primary">Request an appointment</button>
+        </div>
+        <div class="section">
+          <p class="section-title">Ways we can treat diabetes</p>
+        </div>
+        <div class="px">
+          <div class="card">
+            <p style="font-size:12px;font-weight:600;color:var(--forest-dark);margin:0 0 4px;">Naturopathic &amp; integrative medicine</p>
+            <p class="body-text" style="margin:0;">IV nutritional infusions, infrared sauna, and other natural therapies chosen with you.</p>
+          </div>
+          <div class="card">
+            <p style="font-size:12px;font-weight:600;color:var(--forest-dark);margin:0 0 4px;">Personalized wellness plans</p>
+            <p class="body-text" style="margin:0;">A nutrition and activity foundation built around your goals.</p>
+          </div>
+        </div>
+        <div class="section">
+          <p class="section-title">Recommended books</p>
+        </div>
+        <div class="hcards" style="padding-bottom:16px;">
+          <div class="hcard"><div class="thumb" style="background:#C7A15A;"></div><div class="cap"><p class="t">The Blood Sugar Solution</p><p class="s">Dr. Mark Hyman</p></div></div>
+          <div class="hcard"><div class="thumb" style="background:#9FB48B;"></div><div class="cap"><p class="t">UltraMetabolism</p><p class="s">Dr. Mark Hyman</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. APPOINTMENT -->
+  <div class="frame-wrap">
+    <div class="frame-label"><span class="num">4</span>Appointment booking</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●●  📶  🔋</span></div>
+      <div class="appbar"><span class="icon-btn">‹</span><span class="title">Request appointment</span><span style="width:30px;"></span></div>
+      <div class="stepper">
+        <div class="sdot">1</div><div class="sline"></div>
+        <div class="sdot">2</div><div class="sline"></div>
+        <div class="sdot off">3</div>
+      </div>
+      <div class="scroll">
+        <div class="locked-chip">🩺 Reason: Diabetes (from condition page)</div>
+        <p class="divider-label">Select a date</p>
+        <div class="cal">
+          <div class="calhead"><span>‹</span><span class="m">September 2026</span><span>›</span></div>
+          <div class="grid">
+            <span class="dow">S</span><span class="dow">M</span><span class="dow">T</span><span class="dow">W</span><span class="dow">T</span><span class="dow">F</span><span class="dow">S</span>
+            <span class="day mut">30</span><span class="day mut">31</span><span class="day avail">1</span><span class="day avail">2</span><span class="day avail">3</span><span class="day avail">4</span><span class="day mut">5</span>
+            <span class="day mut">6</span><span class="day avail">7</span><span class="day sel">8</span><span class="day avail">9</span><span class="day avail">10</span><span class="day avail">11</span><span class="day mut">12</span>
+          </div>
+        </div>
+        <p class="divider-label">Available times — Sep 8</p>
+        <div class="slots">
+          <span class="slot">9:00 AM</span><span class="slot sel">10:30 AM</span><span class="slot">1:00 PM</span><span class="slot">2:30 PM</span><span class="slot">4:00 PM</span>
+        </div>
+        <p class="divider-label">Your details</p>
+        <div class="field"><label>Full name</label><div class="input">Jordan Lee</div></div>
+        <div class="field"><label>Email</label><div class="input">jordan@email.com</div></div>
+        <div class="field"><label>Phone</label><div class="input">(301) 555-0134</div></div>
+        <div class="field"><label>Notes (optional)</label><div class="input area">Diagnosed type 2, currently on metformin...</div></div>
+      </div>
+      <div style="padding:12px 16px;border-top:1px solid var(--line);">
+        <button class="btn-primary">Confirm appointment</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. BLOG -->
+  <div class="frame-wrap">
+    <div class="frame-label"><span class="num">5</span>Blog</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●●  📶  🔋</span></div>
+      <div class="appbar"><span class="title">Blog</span><span class="icon-btn">⌕</span></div>
+      <div class="scroll">
+        <div class="px" style="padding-top:12px;">
+          <div class="card" style="padding:0; overflow:hidden;">
+            <div class="thumb" style="height:120px;background:#9FB48B;"></div>
+            <div style="padding:12px;">
+              <p style="font-size:9px;color:var(--ochre-dark);font-weight:700;margin:0 0 4px;">WELLNESS · SEP 2, 2026</p>
+              <p style="font-size:13px;font-weight:600;color:var(--forest-dark);margin:0 0 4px;">5 ways to support your metabolism this fall</p>
+              <p class="body-text" style="margin:0;">Small seasonal shifts that make a real difference in energy and blood sugar...</p>
+            </div>
+          </div>
+          <div class="card" style="padding:0; overflow:hidden;">
+            <div class="thumb" style="height:120px;background:#C7A15A;"></div>
+            <div style="padding:12px;">
+              <p style="font-size:9px;color:var(--ochre-dark);font-weight:700;margin:0 0 4px;">DETOX · AUG 22, 2026</p>
+              <p style="font-size:13px;font-weight:600;color:var(--forest-dark);margin:0 0 4px;">What is ion foot detox, really?</p>
+              <p class="body-text" style="margin:0;">A look at how this popular therapy works and what to expect at your first session...</p>
+            </div>
+          </div>
+          <div class="card" style="padding:0; overflow:hidden;">
+            <div class="thumb" style="height:120px;background:#8FA1C4;"></div>
+            <div style="padding:12px;">
+              <p style="font-size:9px;color:var(--ochre-dark);font-weight:700;margin:0 0 4px;">HORMONES · AUG 10, 2026</p>
+              <p style="font-size:13px;font-weight:600;color:var(--forest-dark);margin:0 0 4px;">Signs your hormones may be out of balance</p>
+              <p class="body-text" style="margin:0;">Fatigue, mood swings, and sleep issues can all trace back to one root cause...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottomnav">
+        <div class="navitem"><span class="dot">⌂</span>Home</div>
+        <div class="navitem"><span class="dot">◎</span>Explore</div>
+        <div class="navitem active"><span class="dot">▤</span>Blog</div>
+        <div class="navitem"><span class="dot">♥</span>Patients</div>
+        <div class="navitem"><span class="dot">✉</span>Contact</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. PATIENTS HUB -->
+  <div class="frame-wrap">
+    <div class="frame-label"><span class="num">6</span>Patients hub</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●●  📶  🔋</span></div>
+      <div class="appbar"><span class="title">Patients</span><span style="width:30px;"></span></div>
+      <div class="scroll">
+        <div class="grid2" style="padding-top:14px;">
+          <div class="tile"><div class="ic">⛁</div><p class="t">Patient portal</p><p class="s">View records &amp; messages (opens externally)</p></div>
+          <div class="tile"><div class="ic">📅</div><p class="t">Book a service</p><p class="s">Online scheduling (opens externally)</p></div>
+          <div class="tile"><div class="ic">🛒</div><p class="t">Shop supplements</p><p class="s">Our online dispensary</p></div>
+          <div class="tile"><div class="ic">?</div><p class="t">FAQ</p><p class="s">New patient answers</p></div>
+        </div>
+        <div class="section">
+          <p class="section-title">Need something else?</p>
+          <p class="body-text">Our assistant can answer common questions any time, or you can reach the office directly from the Contact tab.</p>
+        </div>
+      </div>
+      <div class="bottomnav">
+        <div class="navitem"><span class="dot">⌂</span>Home</div>
+        <div class="navitem"><span class="dot">◎</span>Explore</div>
+        <div class="navitem"><span class="dot">▤</span>Blog</div>
+        <div class="navitem active"><span class="dot">♥</span>Patients</div>
+        <div class="navitem"><span class="dot">✉</span>Contact</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. FAQ -->
+  <div class="frame-wrap">
+    <div class="frame-label"><span class="num">7</span>FAQ</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●●  📶  🔋</span></div>
+      <div class="appbar"><span class="icon-btn">‹</span><span class="title">FAQ</span><span style="width:30px;"></span></div>
+      <div class="px" style="padding-top:12px;">
+        <div class="field" style="padding:0;"><div class="input">Search questions...</div></div>
+      </div>
+      <div class="scroll" style="position:relative;">
+        <div class="faqitem"><div class="q">Do you accept insurance? <span>⌄</span></div></div>
+        <div class="faqitem">
+          <div class="q">What should I bring to my first visit? <span>⌃</span></div>
+          <div class="a">Please bring a photo ID, a list of current medications and supplements, and any recent lab results if available.</div>
+        </div>
+        <div class="faqitem"><div class="q">How long is a new patient appointment? <span>⌄</span></div></div>
+        <div class="faqitem"><div class="q">Do you offer telehealth visits? <span>⌄</span></div></div>
+        <div class="faqitem"><div class="q">What is Frequency Specific Microcurrent? <span>⌄</span></div></div>
+        <div class="fab">💬 Ask assistant</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. CHATBOT -->
+  <div class="frame-wrap">
+    <div class="frame-label"><span class="num">8</span>Chatbot</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●●  📶  🔋</span></div>
+      <div class="appbar"><span class="icon-btn">‹</span><span class="title">Assistant</span><span style="width:30px;"></span></div>
+      <div class="disclaimer">General information only — not a substitute for medical advice.</div>
+      <div class="scroll">
+        <div class="chat-wrap">
+          <div class="bubble agent">Hi! I can help answer common questions about our clinic, conditions we treat, or booking. What's on your mind?</div>
+          <div class="bubble user">Do you treat chronic fatigue?</div>
+          <div class="bubble agent">Yes — we treat chronic fatigue and fibromyalgia with a holistic approach that can reduce your need for medications. Want me to open that condition page or help you request an appointment?</div>
+        </div>
+        <div class="suggest-row">
+          <span class="suggest">Open Chronic Fatigue page</span>
+          <span class="suggest">Request an appointment</span>
+        </div>
+      </div>
+      <div class="chatinput"><div class="box">Type a message...</div><div class="send">↑</div></div>
+    </div>
+  </div>
+
+  <!-- 9. CONTACT -->
+  <div class="frame-wrap">
+    <div class="frame-label"><span class="num">9</span>Contact</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●●  📶  🔋</span></div>
+      <div class="appbar"><span class="title">Contact</span><span style="width:30px;"></span></div>
+      <div class="scroll">
+        <div class="px" style="padding-top:14px;">
+          <div class="card">
+            <div class="kv"><span>Phone</span><span>301-970-9724</span></div>
+            <div class="kv"><span>Address</span><span>Columbia, MD</span></div>
+            <div class="kv" style="border-bottom:none;"><span>Hours</span><span>Mon–Fri 9–6</span></div>
+          </div>
+          <button class="btn-secondary" style="margin-bottom:14px;">Get directions</button>
+        </div>
+        <p class="divider-label">Send a message</p>
+        <div class="field"><label>Name</label><div class="input">Full name</div></div>
+        <div class="field"><label>Email</label><div class="input">name@email.com</div></div>
+        <div class="field"><label>Phone</label><div class="input">(301) 555-0100</div></div>
+        <div class="field"><label>Subject</label><div class="input">General question ⌄</div></div>
+        <div class="field"><label>Message</label><div class="input area">How can we help?</div></div>
+        <div class="px" style="padding-bottom:16px;"><button class="btn-primary">Send message</button></div>
+      </div>
+      <div class="bottomnav">
+        <div class="navitem"><span class="dot">⌂</span>Home</div>
+        <div class="navitem"><span class="dot">◎</span>Explore</div>
+        <div class="navitem"><span class="dot">▤</span>Blog</div>
+        <div class="navitem"><span class="dot">♥</span>Patients</div>
+        <div class="navitem active"><span class="dot">✉</span>Contact</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

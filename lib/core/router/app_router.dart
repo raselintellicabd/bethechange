@@ -9,13 +9,13 @@ import '../../features/blog/presentation/screens/blog_list_screen.dart';
 import '../../features/chatbot/presentation/screens/chatbot_screen.dart';
 import '../../features/conditions/presentation/screens/condition_detail_screen.dart';
 import '../../features/conditions/presentation/screens/conditions_list_screen.dart';
+import '../../features/contact/presentation/screens/contact_screen.dart';
 import '../../features/faq/presentation/screens/faq_screen.dart';
 import '../../features/patient/presentation/screens/patient_tab_screen.dart';
 import '../../features/services/presentation/screens/service_detail_screen.dart';
 import '../../features/services/presentation/screens/services_list_screen.dart';
 import '../constants/app_constants.dart';
 import '../theme/app_colors.dart';
-import '../widgets/placeholder_screen.dart';
 import 'app_routes.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -139,10 +139,7 @@ GoRouter createAppRouter() {
       GoRoute(
         path: AppRoutes.contact,
         name: 'contact',
-        builder: (context, state) => const PlaceholderScreen(
-          title: 'Contact',
-          details: 'Contact placeholder',
-        ),
+        builder: (context, state) => const ContactScreen(),
       ),
     ],
   );

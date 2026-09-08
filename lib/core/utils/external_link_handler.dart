@@ -3,9 +3,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 /// Central policy for opening external destinations from the app.
 ///
-/// Phase H decisions: Patient Portal and Shop Supplements always open in an
-/// **external browser** (`LaunchMode.externalApplication`). In-app WebView is
-/// not used for these links.
+/// Patient Portal and Shop Supplements open in an **external browser**.
+/// Clinic phone uses the `tel:` scheme.
 class ExternalLinkHandler {
   ExternalLinkHandler({
     Future<bool> Function(Uri uri)? canLaunch,
@@ -18,12 +17,14 @@ class ExternalLinkHandler {
   final Future<bool> Function(Uri uri) _canLaunch;
   final Future<bool> Function(Uri uri, {required LaunchMode mode}) _launch;
 
-  /// Opens [url] in an external browser when possible.
+  static const _allowedSchemes = {'http', 'https', 'tel', 'mailto'};
+
+  /// Opens [url] externally when the scheme is allowed.
   ///
   /// Returns `true` if a launch was attempted successfully.
   Future<bool> openExternal(String url) async {
     final uri = Uri.tryParse(url.trim());
-    if (uri == null || !(uri.isScheme('http') || uri.isScheme('https'))) {
+    if (uri == null || !_allowedSchemes.contains(uri.scheme.toLowerCase())) {
       return false;
     }
 

@@ -31,6 +31,10 @@ class PatientTabScreen extends ConsumerWidget {
             onPressed: () => context.push(AppRoutes.faq),
             child: const Text('FAQ'),
           ),
+          TextButton(
+            onPressed: () => context.push(AppRoutes.contact),
+            child: const Text('Contact'),
+          ),
         ],
       ),
       body: ListView(
