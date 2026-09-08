@@ -12,6 +12,7 @@ abstract final class AppRoutes {
   static const String patient = '/patient';
   static const String appointment = '/appointment';
   static const String faq = '/faq';
+  static const String chatbot = '/chatbot';
   static const String contact = '/contact';
 
   static String conditionDetailPath(String conditionId) =>

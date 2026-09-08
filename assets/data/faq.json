@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "id": "how-do-i-schedule",
+      "question": "How do I schedule?",
+      "answer": "Please fill out the new patient form, and our new patient representative will contact you via phone and text. The scheduling process is very simple and takes about 5–10 minutes.\n\nThe representative will determine the length of your first appointment based on your health goals and medical history and provide a transparent pricing breakdown. Afterwards, we usually review office policies, and our staff will send email links to complete your new patient questionnaires and submit a deposit to hold your appointment time.\n\nYou do not need to get labs done before your appointment—our doctors will most likely order customized lab work based on your initial evaluation."
+    },
+    {
+      "id": "after-first-appointment",
+      "question": "What can I expect to receive after my first appointment?",
+      "answer": "You can expect a treatment plan based on your symptoms that will be adjusted once lab results come in and tailored to your medical history.\n\nThorough lab work is typically sent to Quest or LabCorp, depending on your evaluation. Our staff may also recommend specialty lab work after the initial consultation as needed.\n\nSupplements are available through our online dispensary (Fullscript), and prescriptions are sent to your pharmacy. Follow-up appointments are available at an additional cost to track your progress."
+    },
+    {
+      "id": "skeptical-about-care",
+      "question": "I have been to other medical offices, which has made me skeptical about the medical care I will receive.",
+      "answer": "We completely understand how frustrating the modern-day healthcare system can be—from feeling unheard to short appointments that do not address the root cause.\n\nIf you want to get a feel for our doctors, you are welcome to request a free 10-minute discovery call after filling out our new patient inquiry form. After the call, there is no obligation to schedule if you are not comfortable, and you will have a better idea of how our physicians can support your healing journey."
+    },
+    {
+      "id": "do-we-accept-insurance",
+      "question": "Do we accept insurance?",
+      "answer": "We are classified as an out-of-network provider and do not bill insurance directly. We have chosen this model because insurance often limits our ability to tailor protocols to patients' needs.\n\nAfter your appointment, we provide an invoice with codes so you can submit it to your insurance for possible out-of-network reimbursement. We do not guarantee coverage—this depends on your plan and benefits.\n\nTo check benefits, ask your insurer whether your plan offers out-of-network reimbursement for medical visits and related services."
+    },
+    {
+      "id": "where-are-we-located",
+      "question": "Where are we located?",
+      "answer": "Be The Change Health & Wellness Center\n8808 Centre Park Drive, Suite 301\nColumbia, MD 21045"
+    },
+    {
+      "id": "dr-afrooz-pricing",
+      "question": "How much do appointments with Dr. Afrooz cost?",
+      "answer": "First appointment pricing depends on visit length and complexity:\n\n• 30 min — $250 (for example, bioidentical hormone replacement without other major concerns)\n• 60 min — $450 (healthy patient checkup, patients 15 and younger, or similar)\n• 90 min — $525 (feeling unwell for roughly 3–6 years)\n• 120 min — $625 (unwell for 6+ years or a very complicated medical history)\n\nFollow-ups are usually about 8 weeks after the initial visit to review how you are feeling and lab results (earlier if needed). Follow-ups typically range 30–45 minutes; ask our team for the current follow-up rates when you schedule."
+    },
+    {
+      "id": "dr-needle-pricing",
+      "question": "How much do appointments with Dr. Needle cost?",
+      "answer": "Dr. Needle's standard initial consult is typically 60 minutes for $300.\n\nFollow-ups are usually about 8 weeks after the initial visit to review how you are feeling and lab results (earlier if needed). A 30-minute follow-up is $150 and a 45-minute follow-up is $200."
+    },
+    {
+      "id": "what-therapies",
+      "question": "What therapies do you offer?",
+      "answer": "We offer a wide range of therapies, including nutritional IVs, EBOO, frequency specific microcurrent (FSM), infrared sauna therapy, red light therapy, ionic foot detox, hyperbaric oxygen therapy, ozone IV, ozone ear insufflation, NAD IV, methylene blue IV, and more.\n\nWe continue expanding available therapies to better meet patient needs. Browse the Services tab in the app for details on individual offerings."
+    },
+    {
+      "id": "appointment-for-therapies",
+      "question": "Do I need an appointment to receive some of these therapies?",
+      "answer": "Most of our therapies are generally available without a full new-patient medical appointment. You are welcome to book a 15-minute consultation with Dr. Afrooz or Dr. Needle for $60 to determine which therapies best suit your health goals.\n\nA short evaluation may be required to clear you for certain therapies such as high-dose vitamin C, EBOO, or IV methylene blue, or if you have a more sensitive medical history."
+    }
+  ]
+}

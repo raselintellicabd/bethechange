@@ -24,7 +24,15 @@ class PatientTabScreen extends ConsumerWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Patient')),
+      appBar: AppBar(
+        title: const Text('Patient'),
+        actions: [
+          TextButton(
+            onPressed: () => context.push(AppRoutes.faq),
+            child: const Text('FAQ'),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.md),
         children: [

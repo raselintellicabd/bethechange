@@ -6,8 +6,10 @@ import '../../features/appointment/domain/models/source_context.dart';
 import '../../features/appointment/presentation/screens/appointment_screen.dart';
 import '../../features/blog/presentation/screens/blog_detail_screen.dart';
 import '../../features/blog/presentation/screens/blog_list_screen.dart';
+import '../../features/chatbot/presentation/screens/chatbot_screen.dart';
 import '../../features/conditions/presentation/screens/condition_detail_screen.dart';
 import '../../features/conditions/presentation/screens/conditions_list_screen.dart';
+import '../../features/faq/presentation/screens/faq_screen.dart';
 import '../../features/patient/presentation/screens/patient_tab_screen.dart';
 import '../../features/services/presentation/screens/service_detail_screen.dart';
 import '../../features/services/presentation/screens/services_list_screen.dart';
@@ -127,10 +129,12 @@ GoRouter createAppRouter() {
       GoRoute(
         path: AppRoutes.faq,
         name: 'faq',
-        builder: (context, state) => const PlaceholderScreen(
-          title: 'FAQ',
-          details: 'FAQ placeholder',
-        ),
+        builder: (context, state) => const FaqScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.chatbot,
+        name: 'chatbot',
+        builder: (context, state) => const ChatbotScreen(),
       ),
       GoRoute(
         path: AppRoutes.contact,
