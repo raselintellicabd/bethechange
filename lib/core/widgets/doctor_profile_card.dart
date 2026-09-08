@@ -53,8 +53,6 @@ class DoctorProfileCard extends StatelessWidget {
                   Text(
                     bio!,
                     style: theme.textTheme.bodyMedium,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ],

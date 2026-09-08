@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/about/presentation/screens/about_screen.dart';
 import '../../features/appointment/domain/models/source_context.dart';
 import '../constants/app_constants.dart';
 import '../theme/app_colors.dart';
@@ -24,10 +25,7 @@ GoRouter createAppRouter() {
               GoRoute(
                 path: AppRoutes.about,
                 name: 'about',
-                builder: (context, state) => const PlaceholderScreen(
-                  title: 'About',
-                  details: 'About feature placeholder',
-                ),
+                builder: (context, state) => const AboutScreen(),
               ),
             ],
           ),

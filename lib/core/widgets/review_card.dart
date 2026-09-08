@@ -46,7 +46,12 @@ class ReviewCard extends StatelessWidget {
             }),
           ),
           const SizedBox(height: AppSpacing.sm),
-          Text(reviewText, style: theme.textTheme.bodyMedium),
+          Text(
+            reviewText,
+            style: theme.textTheme.bodyMedium,
+            maxLines: 8,
+            overflow: TextOverflow.ellipsis,
+          ),
         ],
       ),
     );
