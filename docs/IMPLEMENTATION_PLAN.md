@@ -69,7 +69,7 @@ Phase 0 + Phase 1 from the original plan are **complete** in this repo:
 | D | Conditions tab | ✅ Done |
 | E | Services tab | ✅ Done |
 | F | Appointment booking flow | ✅ Done |
-| G | Blog tab | ⬜ Not started |
+| G | Blog tab | ✅ Done |
 | H | Patient tab (3 cards only) | ⬜ Not started |
 | I | FAQ + Chatbot | ⬜ Not started |
 | J | Contact form | ⬜ Not started |

@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../../features/about/presentation/screens/about_screen.dart';
 import '../../features/appointment/domain/models/source_context.dart';
 import '../../features/appointment/presentation/screens/appointment_screen.dart';
+import '../../features/blog/presentation/screens/blog_detail_screen.dart';
+import '../../features/blog/presentation/screens/blog_list_screen.dart';
 import '../../features/conditions/presentation/screens/condition_detail_screen.dart';
 import '../../features/conditions/presentation/screens/conditions_list_screen.dart';
 import '../../features/services/presentation/screens/service_detail_screen.dart';
@@ -77,20 +79,14 @@ GoRouter createAppRouter() {
               GoRoute(
                 path: AppRoutes.blog,
                 name: 'blog',
-                builder: (context, state) => const PlaceholderScreen(
-                  title: 'Blog',
-                  details: 'Blog list placeholder',
-                ),
+                builder: (context, state) => const BlogListScreen(),
                 routes: [
                   GoRoute(
                     path: ':articleId',
                     name: 'blogDetail',
                     builder: (context, state) {
                       final id = state.pathParameters['articleId']!;
-                      return PlaceholderScreen(
-                        title: 'Article',
-                        details: 'Blog article placeholder ($id)',
-                      );
+                      return BlogDetailScreen(articleId: id);
                     },
                   ),
                 ],
