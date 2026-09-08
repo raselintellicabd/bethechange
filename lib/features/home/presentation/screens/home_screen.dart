@@ -7,8 +7,8 @@ import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
-import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_app_bar.dart';
+import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/review_card.dart';
@@ -29,6 +29,22 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   int _aboutSegment = 0;
+  final _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onAboutSegmentChanged(int index) {
+    if (index == _aboutSegment) return;
+    setState(() => _aboutSegment = index);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_scrollController.hasClients) return;
+      _scrollController.jumpTo(0);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +73,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               content: content,
               home: home,
               aboutSegment: _aboutSegment,
-              onAboutSegmentChanged: (index) {
-                setState(() => _aboutSegment = index);
-              },
+              scrollController: _scrollController,
+              onAboutSegmentChanged: _onAboutSegmentChanged,
             ),
           );
         },
@@ -73,12 +88,14 @@ class _HomeBody extends StatelessWidget {
     required this.content,
     required this.home,
     required this.aboutSegment,
+    required this.scrollController,
     required this.onAboutSegmentChanged,
   });
 
   final AboutContent content;
   final HomeContent home;
   final int aboutSegment;
+  final ScrollController scrollController;
   final ValueChanged<int> onAboutSegmentChanged;
 
   @override
@@ -88,15 +105,14 @@ class _HomeBody extends StatelessWidget {
         ? 0
         : aboutSegment.clamp(0, sections.length - 1);
     final section = sections.isEmpty ? null : sections[safeIndex];
+    final segmentLabel = section == null
+        ? ''
+        : home.segmentLabel(section.id, section.title);
 
-    return ListView(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        AppHeroBanner(
-          tag: home.heroTag,
-          title: home.heroTitle,
-          height: 190,
-        ),
-        if (sections.isNotEmpty) ...[
+        if (sections.isNotEmpty)
           SegmentControl(
             labels: [
               for (final s in sections)
@@ -105,72 +121,174 @@ class _HomeBody extends StatelessWidget {
             selectedIndex: safeIndex,
             onChanged: onAboutSegmentChanged,
           ),
-          if (section != null)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-              child: AboutSectionBlocks(section: section),
-            ),
-        ],
-        if (content.doctors.isNotEmpty) ...[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 10),
-            child: SectionTitle('Meet our doctors'),
-          ),
-          if (content.doctorsIntro != null &&
-              content.doctorsIntro!.trim().isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
-              child: Text(
-                content.doctorsIntro!,
-                style: AppTextStyles.bodySmall,
-              ),
-            ),
-          _DoctorsRow(doctors: content.doctors),
-        ],
-        if (content.reviews.isNotEmpty) ...[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 20, 16, 10),
-            child: SectionTitle('What our patients say'),
-          ),
-          if (content.reviewSummaryLabel != null)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
-              child: Text(
-                content.reviewCount == null
-                    ? content.reviewSummaryLabel!
-                    : '${content.reviewSummaryLabel} · Based on ${content.reviewCount} reviews',
-                style: AppTextStyles.bodySmall.copyWith(
-                  color: AppColors.inkMuted,
+        Expanded(
+          child: ListView(
+            controller: scrollController,
+            children: [
+              if (section != null) ...[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                  child: _SectionImageSlot(
+                    label: segmentLabel,
+                    sectionId: section.id,
+                    imageUrl: home.sectionImageUrl(section.id),
+                  ),
                 ),
-              ),
-            ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 24),
-            child: SizedBox(
-              height: 220,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: content.reviews.length,
-                separatorBuilder: (_, _) => const SizedBox(width: 10),
-                itemBuilder: (context, index) {
-                  final review = content.reviews[index];
-                  return SizedBox(
-                    width: MediaQuery.sizeOf(context).width * 0.78,
-                    child: ReviewCard(
-                      reviewerName: review.reviewerName,
-                      reviewText: review.reviewText,
-                      rating: review.rating,
-                      dateLabel: review.dateLabel,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                  child: AboutSectionBlocks(section: section),
+                ),
+              ],
+              if (content.doctors.isNotEmpty) ...[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 10),
+                  child: SectionTitle('Meet our doctors'),
+                ),
+                if (content.doctorsIntro != null &&
+                    content.doctorsIntro!.trim().isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+                    child: Text(
+                      content.doctorsIntro!,
+                      style: AppTextStyles.bodySmall,
                     ),
-                  );
-                },
-              ),
-            ),
+                  ),
+                _DoctorsRow(doctors: content.doctors),
+              ],
+              if (content.reviews.isNotEmpty) ...[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 20, 16, 10),
+                  child: SectionTitle('What our patients say'),
+                ),
+                if (content.reviewSummaryLabel != null)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+                    child: Text(
+                      content.reviewCount == null
+                          ? content.reviewSummaryLabel!
+                          : '${content.reviewSummaryLabel} · Based on ${content.reviewCount} reviews',
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.inkMuted,
+                      ),
+                    ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 24),
+                  child: SizedBox(
+                    height: 220,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      itemCount: content.reviews.length,
+                      separatorBuilder: (_, _) => const SizedBox(width: 10),
+                      itemBuilder: (context, index) {
+                        final review = content.reviews[index];
+                        return SizedBox(
+                          width: MediaQuery.sizeOf(context).width * 0.78,
+                          child: ReviewCard(
+                            reviewerName: review.reviewerName,
+                            reviewText: review.reviewText,
+                            rating: review.rating,
+                            dateLabel: review.dateLabel,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ] else
+                const SizedBox(height: AppSpacing.lg),
+            ],
           ),
-        ] else
-          const SizedBox(height: AppSpacing.lg),
+        ),
       ],
+    );
+  }
+}
+
+class _SectionImageSlot extends StatelessWidget {
+  const _SectionImageSlot({
+    required this.label,
+    required this.sectionId,
+    this.imageUrl,
+  });
+
+  final String label;
+  final String sectionId;
+  final String? imageUrl;
+
+  static const double _height = 168;
+
+  Color get _placeholderColor {
+    return switch (sectionId) {
+      'our-practice' => AppColors.ochre,
+      'naturopathic-medicine' => AppColors.sage,
+      'integrative-medicine' => AppColors.forest,
+      'our-process' => AppColors.ochreDark,
+      _ => AppColors.sageLight,
+    };
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final url = imageUrl;
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: SizedBox(
+        height: _height,
+        width: double.infinity,
+        child: url != null
+            ? CachedNetworkImage(
+                imageUrl: url,
+                fit: BoxFit.cover,
+                placeholder: (context, _) => _Placeholder(
+                  label: label,
+                  color: _placeholderColor,
+                ),
+                errorWidget: (context, _, _) => _Placeholder(
+                  label: label,
+                  color: _placeholderColor,
+                ),
+              )
+            : _Placeholder(
+                label: label,
+                color: _placeholderColor,
+              ),
+      ),
+    );
+  }
+}
+
+class _Placeholder extends StatelessWidget {
+  const _Placeholder({
+    required this.label,
+    required this.color,
+  });
+
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    final onColor = color.computeLuminance() > 0.55
+        ? AppColors.forestDark
+        : AppColors.textOnPrimary;
+
+    return ColoredBox(
+      color: color,
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.image_outlined, size: 36, color: onColor),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              style: AppTextStyles.labelLarge.copyWith(color: onColor),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
