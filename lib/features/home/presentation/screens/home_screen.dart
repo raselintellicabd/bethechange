@@ -140,7 +140,7 @@ class _HomeBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 24),
             child: SizedBox(
-              height: 200,
+              height: 220,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
