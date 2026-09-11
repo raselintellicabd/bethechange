@@ -88,13 +88,12 @@ class _BlogDetailBody extends StatelessWidget {
 
   bool get _hasMeta =>
       (article.author != null && article.author!.isNotEmpty) ||
-      (article.publishedAt != null && article.publishedAt!.isNotEmpty);
+      article.publishedLabel != null;
 
   String get _metaLine {
     final parts = <String>[
       if (article.author != null && article.author!.isNotEmpty) article.author!,
-      if (article.publishedAt != null && article.publishedAt!.isNotEmpty)
-        article.publishedAt!,
+      if (article.publishedLabel != null) article.publishedLabel!,
     ];
     return parts.join(' · ');
   }

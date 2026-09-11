@@ -1,13 +1,17 @@
 import 'blog_article.dart';
 
 class BlogCatalog {
-  const BlogCatalog({required this.articles});
+  const BlogCatalog({
+    required this.articles,
+    this.title = '',
+  });
 
+  final String title;
   final List<BlogArticle> articles;
 
   BlogArticle? byId(String id) {
     for (final article in articles) {
-      if (article.id == id) return article;
+      if (article.id == id || article.slug == id) return article;
     }
     return null;
   }
@@ -16,6 +20,9 @@ class BlogCatalog {
     final articles = (json['articles'] as List<dynamic>? ?? const [])
         .map((item) => BlogArticle.fromJson(item as Map<String, dynamic>))
         .toList();
-    return BlogCatalog(articles: articles);
+    return BlogCatalog(
+      title: (json['title'] as String?)?.trim() ?? '',
+      articles: articles,
+    );
   }
 }

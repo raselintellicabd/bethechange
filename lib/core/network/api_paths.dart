@@ -8,7 +8,7 @@ class ApiPaths {
   static const String about = '/about';
   static const String conditions = '/api/v1/conditions';
   static const String services = '/api/v1/services';
-  static const String blog = '/blog';
+  static const String blog = '/api/v1/blog';
   static const String faq = '/faq';
   static const String clinic = '/clinic';
   static const String home = '/api/v1/home';

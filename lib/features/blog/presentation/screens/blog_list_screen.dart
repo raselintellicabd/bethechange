@@ -44,14 +44,17 @@ class BlogListScreen extends ConsumerWidget {
             child: ListView.separated(
               physics: const AlwaysScrollableScrollPhysics(),
               padding: const EdgeInsets.all(AppSpacing.md),
-              itemCount: catalog.articles.length,
+              itemCount: catalog.articles.length + 1,
               separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
               itemBuilder: (context, index) {
-                final article = catalog.articles[index];
+                if (index == 0) {
+                  return _BlogCatalogHeader(title: catalog.title);
+                }
+                final article = catalog.articles[index - 1];
                 return _BlogArticleCard(
                   article: article,
                   thumbColor: AppColors.thumbPalette[
-                      index % AppColors.thumbPalette.length],
+                      (index - 1) % AppColors.thumbPalette.length],
                 );
               },
             ),
@@ -60,6 +63,27 @@ class BlogListScreen extends ConsumerWidget {
       ),
     );
   }
+}
+
+class _BlogCatalogHeader extends StatelessWidget {
+  const _BlogCatalogHeader({required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    final heading = _titleCase(title);
+    if (heading.isEmpty) return const SizedBox.shrink();
+
+    return Text(heading, style: AppTextStyles.titleLarge);
+  }
+}
+
+String _titleCase(String input) {
+  return input.trim().split(RegExp(r'\s+')).where((word) => word.isNotEmpty).map((word) {
+    final lower = word.toLowerCase();
+    return '${lower[0].toUpperCase()}${lower.substring(1)}';
+  }).join(' ');
 }
 
 class _BlogArticleCard extends StatelessWidget {
@@ -76,8 +100,7 @@ class _BlogArticleCard extends StatelessWidget {
     final imageUrl = article.imageUrl;
     final eyebrow = [
       if (article.author != null && article.author!.isNotEmpty) article.author!,
-      if (article.publishedAt != null && article.publishedAt!.isNotEmpty)
-        article.publishedAt!,
+      if (article.publishedLabel != null) article.publishedLabel!,
     ].join(' · ');
 
     return Material(
@@ -88,7 +111,7 @@ class _BlogArticleCard extends StatelessWidget {
       ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () => context.push(AppRoutes.blogDetailPath(article.id)),
+        onTap: () => context.push(AppRoutes.blogDetailPath(article.routeId)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

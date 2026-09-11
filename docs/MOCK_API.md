@@ -24,8 +24,8 @@ API_BASE_URL=https://api-dev.example.com
 | GET | `/api/v1/conditions/{slug}` | item from conditions list |
 | GET | `/api/v1/services` | `assets/data/services.json` (list shape) |
 | GET | `/api/v1/services/{slug}` | item from services list |
-| GET | `/blog` | `assets/data/blog.json` |
-| GET | `/blog/{id}` | item from articles list |
+| GET | `/api/v1/blog` | `assets/data/blog.json` (list shape) |
+| GET | `/api/v1/blog/{slug}` | item from articles list |
 | GET | `/faq` | `assets/data/faq.json` |
 | GET | `/clinic` | `assets/data/clinic.json` |
 | GET | `/api/v1/home` | `assets/data/home.json` |

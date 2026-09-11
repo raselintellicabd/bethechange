@@ -121,7 +121,7 @@ class MockApiInterceptor extends Interceptor {
       case ApiPaths.services:
         return _servicesListPayload();
       case ApiPaths.blog:
-        return _loadObject(MockApiAssets.blog);
+        return _blogListPayload();
       case ApiPaths.faq:
         return _loadObject(MockApiAssets.faq);
       case ApiPaths.clinic:
@@ -167,6 +167,7 @@ class MockApiInterceptor extends Interceptor {
         listKey: 'articles',
         id: articleId,
         notFoundLabel: 'Article',
+        alternateIdKey: 'slug',
       );
     }
 
@@ -393,6 +394,30 @@ class MockApiInterceptor extends Interceptor {
           'title': '${map['title'] ?? map['name'] ?? ''}'.trim(),
           'description': '${map['description'] ?? map['summary'] ?? ''}'.trim(),
           'heroImage': '${map['heroImage'] ?? map['heroImageUrl'] ?? ''}'.trim(),
+          'slug': '${map['slug'] ?? id}'.trim(),
+        };
+      }).toList(),
+    };
+  }
+
+  Future<Map<String, dynamic>> _blogListPayload() async {
+    final root = await _loadObject(MockApiAssets.blog);
+    final list = root['articles'] as List<dynamic>? ?? const [];
+    return {
+      'title': (root['title'] as String?)?.trim().isNotEmpty == true
+          ? root['title']
+          : 'be the change blog',
+      'articles': list.whereType<Map>().map((item) {
+        final map = item.map((key, value) => MapEntry('$key', value));
+        final id = '${map['id'] ?? map['slug'] ?? ''}'.trim();
+        final image = '${map['heroImage'] ?? map['imageUrl'] ?? ''}'.trim();
+        return {
+          'id': id,
+          'title': '${map['title'] ?? ''}'.trim(),
+          'subtitle': '${map['subtitle'] ?? map['summary'] ?? ''}'.trim(),
+          'heroImage': image,
+          'imageUrl': image,
+          'publishedAt': '${map['publishedAt'] ?? map['date'] ?? ''}'.trim(),
           'slug': '${map['slug'] ?? id}'.trim(),
         };
       }).toList(),
