@@ -4,7 +4,7 @@ import 'package:bethechange/core/router/app_router.dart';
 import 'package:bethechange/core/router/app_routes.dart';
 import 'package:bethechange/core/utils/external_link_handler.dart';
 import 'package:bethechange/features/clinic/domain/models/clinic_info.dart';
-import 'package:bethechange/features/clinic/presentation/providers/clinic_providers.dart';
+import 'package:bethechange/features/contact/domain/models/contact_page.dart';
 import 'package:bethechange/features/contact/domain/models/contact_request.dart';
 import 'package:bethechange/features/contact/presentation/providers/contact_providers.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +13,33 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'helpers/mock_api_client.dart';
+
+const _page = ContactPage(
+  title: 'Interested in An Appointment?',
+  content: 'Please text the clinic.',
+  location: ContactLocation(
+    title: 'Our Location',
+    name: 'Be The Change Health & Wellness Center',
+    addressLine1: '8808 Centre Park Drive, Suite 301',
+    addressLine2: 'Columbia, MD 21045',
+    phone: '301-970-9724',
+    phoneTel: 'tel:3019709724',
+    fax: '301-359-1986',
+    hours: 'Mon–Fri: 10:00 AM – 5:00 PM',
+    mapsUrl: 'https://maps.example.com/clinic',
+  ),
+  form: ContactFormContent(
+    eyebrow: 'Contact',
+    heading: 'Send Us A Message',
+    submitLabel: 'Send Message',
+    fields: [
+      ContactFormField(name: 'name', label: 'Your Name', required: true),
+      ContactFormField(name: 'email', label: 'Email Address', required: true),
+      ContactFormField(name: 'phone', label: 'Phone Number', required: true),
+      ContactFormField(name: 'message', label: 'Your Message', required: true),
+    ],
+  ),
+);
 
 const _clinic = ClinicInfo(
   name: 'Be The Change Health & Wellness Center',
@@ -30,6 +57,15 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('ContactApiRepository', () {
+    test('loads the contact page', () async {
+      final result = await createMockContactRepository().getContactPage();
+      expect(result, isA<ApiSuccess<ContactPage>>());
+      final page = (result as ApiSuccess<ContactPage>).data;
+      expect(page.title, 'Interested in An Appointment?');
+      expect(page.form.submitLabel, 'Send Message');
+      expect(page.location.phone, '301-970-9724');
+    });
+
     test('submits successfully and returns id', () async {
       final result = await createMockContactRepository().submit(
         const ContactRequest(
@@ -43,11 +79,8 @@ void main() {
       expect(result, isA<ApiSuccess<ContactSubmissionResult>>());
       final data = (result as ApiSuccess<ContactSubmissionResult>).data;
       expect(data.id, isNotEmpty);
-      expect(data.name, 'Alex Patient');
-      expect(data.email, 'alex@example.com');
-      expect(data.isRead, isFalse);
-      expect(data.createdAt, isNotNull);
-      expect(data.conversation, isNotNull);
+      expect(data.status, 'received');
+      expect(data.statusLabel, 'Received');
     });
 
     test('force error in the message fails', () async {
@@ -63,24 +96,37 @@ void main() {
       expect(result, isA<ApiFailure>());
     });
 
-    test('fromJson accepts the contact message response', () {
-      final result = ContactSubmissionResult.fromJson({
-        'id': 12,
-        'name': 'Rasel Rahman',
-        'email': 'rasel.intellicabd@gmail.com',
-        'phone': '01703266722',
-        'message': 'I, testing from swagger',
-        'is_read': false,
-        'created_at': '2026-09-11T06:54:04.655004Z',
-        'conversation': 3,
+    test('fromJson accepts the contact response', () {
+      final page = ContactPage.fromJson({
+        'title': 'Interested in An Appointment?',
+        'content': 'Please text us.',
+        'location': {
+          'title': 'Our Location',
+          'name': 'Be The Change Health & Wellness Center',
+          'phone': '301-970-9724',
+          'phoneTel': 'tel:3019709724',
+          'mapsUrl': 'https://maps.example.com/clinic',
+        },
+        'form': {
+          'heading': 'Send Us A Message',
+          'submitLabel': 'Send Message',
+          'fields': [
+            {'name': 'name', 'label': 'Your Name', 'required': true},
+          ],
+        },
       });
 
-      expect(result.id, '12');
-      expect(result.email, 'rasel.intellicabd@gmail.com');
-      expect(result.isRead, isFalse);
-      expect(result.conversation, 3);
-      expect(result.receivedLabel, isNotEmpty);
-      expect(result.statusLabel, 'Waiting for our team to reply');
+      expect(page.title, 'Interested in An Appointment?');
+      expect(page.location.directionsUrl, 'https://maps.example.com/clinic');
+      expect(page.form.fields.single.label, 'Your Name');
+
+      final result = ContactSubmissionResult.fromJson({
+        'id': '14',
+        'status': 'received',
+      });
+
+      expect(result.id, '14');
+      expect(result.statusLabel, 'Received');
     });
   });
 
@@ -113,19 +159,21 @@ void main() {
             contactRepositoryProvider.overrideWithValue(
               createMockContactRepository(),
             ),
-            clinicInfoProvider.overrideWith((ref) async => _clinic),
+            contactPageProvider.overrideWith((ref) async => _page),
           ],
           child: MaterialApp.router(routerConfig: router),
         ),
       );
       await tester.pump();
+      await tester.pump();
       router.go(AppRoutes.contact);
       await tester.pump();
-      await tester.pump(const Duration(milliseconds: 50));
+      await tester.pump();
+      await tester.pump();
     }
 
     Future<void> tapSend(WidgetTester tester) async {
-      final send = find.text('Send message');
+      final send = find.widgetWithText(ElevatedButton, 'Send Message');
       await tester.ensureVisible(send);
       await tester.pump();
       await tester.tap(send);
@@ -136,13 +184,14 @@ void main() {
       await openContact(tester);
 
       expect(find.text('Contact'), findsWidgets);
-      expect(find.text(_clinic.name), findsOneWidget);
-      expect(find.text(_clinic.phoneDisplay), findsOneWidget);
+      expect(find.text(_page.location.name), findsOneWidget);
+      expect(find.text(_page.location.phone), findsOneWidget);
 
       await tapSend(tester);
 
-      expect(find.text('Name is required'), findsOneWidget);
-      expect(find.text('Email is required'), findsOneWidget);
+      expect(find.text('Your Name is required'), findsOneWidget);
+      expect(find.text('Email Address is required'), findsOneWidget);
+      await tester.pump(const Duration(milliseconds: 1));
     });
 
     testWidgets('success clears form; failure shows retry', (tester) async {
@@ -169,7 +218,7 @@ void main() {
 
       expect(find.text('Message sent'), findsOneWidget);
       expect(find.textContaining('Thanks, Alex Patient'), findsOneWidget);
-      expect(find.text('Waiting for our team to reply'), findsOneWidget);
+      expect(find.text('Received'), findsOneWidget);
       expect(find.text('Send another message'), findsOneWidget);
     });
   });

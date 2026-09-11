@@ -10,6 +10,7 @@ class MockApiAssets {
   static const String clinic = 'assets/data/clinic.json';
   static const String home = 'assets/data/home.json';
   static const String patients = 'assets/data/patients.json';
+  static const String contact = 'assets/data/contact.json';
   static const String chatbotReplies = 'assets/data/chatbot_replies.json';
   static const String appointmentConfig = 'assets/data/appointment_config.json';
 }

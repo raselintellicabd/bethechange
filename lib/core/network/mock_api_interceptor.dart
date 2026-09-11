@@ -130,6 +130,8 @@ class MockApiInterceptor extends Interceptor {
         return _loadObject(MockApiAssets.home);
       case ApiPaths.patients:
         return _loadObject(MockApiAssets.patients);
+      case ApiPaths.contact:
+        return _loadObject(MockApiAssets.contact);
       case ApiPaths.chatbotConfig:
         return _chatbotConfigPayload();
       case ApiPaths.appointmentsAvailability:
@@ -208,14 +210,8 @@ class MockApiInterceptor extends Interceptor {
 
     final id = ++_contactCounter;
     return {
-      'id': id,
-      'name': name,
-      'email': email,
-      'phone': phone,
-      'message': message,
-      'is_read': data['is_read'] == true,
-      'created_at': DateTime.now().toUtc().toIso8601String(),
-      'conversation': id,
+      'id': '$id',
+      'status': 'received',
     };
   }
 

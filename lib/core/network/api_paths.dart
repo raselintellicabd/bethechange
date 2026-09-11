@@ -13,7 +13,7 @@ class ApiPaths {
   static const String clinic = '/clinic';
   static const String home = '/api/v1/home';
   static const String patients = '/patients';
-  static const String contact = '/api/v1/contact-messages';
+  static const String contact = '/api/v1/contact';
   static const String chatbotMessage = '/chatbot/message';
   static const String chatbotConfig = '/chatbot/config';
   static const String appointmentsAvailability = '/appointments/availability';

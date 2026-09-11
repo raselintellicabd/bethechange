@@ -1,0 +1,27 @@
+{
+  "title": "Interested in An Appointment?",
+  "content": "To request an appointment, please TEXT the number below. We will have our new patient coordinator contact you.\nText/Phone: 301-970-9724\nFax: 301-359-1986\nHours: Mon–Fri: 10:00 AM – 5:00 PM",
+  "location": {
+    "title": "Our Location",
+    "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3090.73539625594!2d-76.81853252404727!3d39.22617487165578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c821ae5e08abb9%3A0xcaf037902d1b4262!2sBe%20The%20Change%20Health%20%26%20Wellness%20Center!5e0!3m2!1sen!2sus!4v1740424957679!5m2!1sen!2sus",
+    "name": "Be The Change Health & Wellness Center",
+    "addressLine1": "8808 Centre Park Drive, Suite 301",
+    "addressLine2": "Columbia, MD 21045",
+    "phone": "301-970-9724",
+    "phoneTel": "tel:3019709724",
+    "fax": "301-359-1986",
+    "hours": "Mon–Fri: 10:00 AM – 5:00 PM",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Be+The+Change+Health+&+Wellness+Center+8808+Centre+Park+Drive,+Suite+301+Columbia,+MD+21045"
+  },
+  "form": {
+    "eyebrow": "Contact",
+    "heading": "Send Us A Message",
+    "submitLabel": "Send Message",
+    "fields": [
+      { "name": "name", "label": "Your Name", "required": true },
+      { "name": "email", "label": "Email Address", "required": true },
+      { "name": "phone", "label": "Phone Number", "required": true },
+      { "name": "message", "label": "Your Message", "required": true }
+    ]
+  }
+}

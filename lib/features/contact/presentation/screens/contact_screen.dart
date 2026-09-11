@@ -7,8 +7,9 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/external_link_handler.dart';
 import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/app_button.dart';
-import '../../../clinic/domain/models/clinic_info.dart';
-import '../../../clinic/presentation/providers/clinic_providers.dart';
+import '../../../../core/widgets/error_state_widget.dart';
+import '../../../../core/widgets/loading_indicator.dart';
+import '../../domain/models/contact_page.dart';
 import '../../domain/models/contact_request.dart';
 import '../providers/contact_providers.dart';
 
@@ -56,28 +57,142 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
     _messageController.clear();
   }
 
-  Future<void> _callClinic(ClinicInfo clinic) async {
-    final opened = await ref
-        .read(externalLinkHandlerProvider)
-        .openExternal(clinic.phoneTel);
+  Future<void> _openExternal(String url, String failureMessage) async {
+    if (url.trim().isEmpty) return;
+    final opened =
+        await ref.read(externalLinkHandlerProvider).openExternal(url);
     if (!mounted || opened) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Could not open the phone dialer.')),
+      SnackBar(content: Text(failureMessage)),
     );
   }
 
-  Future<void> _openDirections(ClinicInfo clinic) async {
-    final query = Uri.encodeComponent(clinic.fullAddress);
-    final opened = await ref
-        .read(externalLinkHandlerProvider)
-        .openExternal('https://maps.google.com/?q=$query');
-    if (!mounted || opened) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Could not open directions.')),
+  @override
+  Widget build(BuildContext context) {
+    final pageAsync = ref.watch(contactPageProvider);
+    final state = ref.watch(contactControllerProvider);
+
+    return Scaffold(
+      appBar: AppAppBar.text('Contact'),
+      body: pageAsync.when(
+        loading: () => const LoadingIndicator(message: 'Loading…'),
+        error: (error, _) => ErrorStateWidget(
+          message: error.toString().replaceFirst('Exception: ', ''),
+          onRetry: () => ref.invalidate(contactPageProvider),
+        ),
+        data: (page) => ListView(
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.md,
+            AppSpacing.md,
+            AppSpacing.md,
+            AppSpacing.xxl,
+          ),
+          children: [
+            if (page.title.isNotEmpty)
+              Text(page.title, style: AppTextStyles.titleLarge),
+            if (page.content.trim().isNotEmpty) ...[
+              const SizedBox(height: AppSpacing.sm),
+              Text(page.content.trim(), style: AppTextStyles.bodyMedium),
+            ],
+            const SizedBox(height: AppSpacing.lg),
+            _LocationCard(
+              location: page.location,
+              onCall: () => _openExternal(
+                page.location.dialUrl,
+                'Could not open the phone dialer.',
+              ),
+              onDirections: () => _openExternal(
+                page.location.directionsUrl,
+                'Could not open directions.',
+              ),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            if (state.submission != null)
+              _ContactSuccessCard(
+                result: state.submission!,
+                onSendAnother: () {
+                  ref.read(contactControllerProvider.notifier).clearFeedback();
+                },
+              )
+            else
+              _ContactForm(
+                formKey: _formKey,
+                form: page.form,
+                nameController: _nameController,
+                emailController: _emailController,
+                phoneController: _phoneController,
+                messageController: _messageController,
+                errorMessage: state.errorMessage,
+                isSubmitting: state.isSubmitting,
+                onSubmit: _submit,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LocationCard extends StatelessWidget {
+  const _LocationCard({
+    required this.location,
+    required this.onCall,
+    required this.onDirections,
+  });
+
+  final ContactLocation location;
+  final VoidCallback onCall;
+  final VoidCallback onDirections;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (location.title.isNotEmpty)
+          Text(location.title, style: AppTextStyles.titleLarge),
+        const SizedBox(height: AppSpacing.sm),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(AppSpacing.md),
+          decoration: BoxDecoration(
+            color: AppColors.card,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: AppColors.line),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (location.name.isNotEmpty)
+                Text(location.name, style: AppTextStyles.titleMedium),
+              const SizedBox(height: AppSpacing.sm),
+              _kv(
+                'Address',
+                [location.addressLine1, location.addressLine2]
+                    .where((line) => line.trim().isNotEmpty)
+                    .join('\n'),
+              ),
+              _kv('Hours', location.hours),
+              _kv('Phone', location.phone, onTap: location.dialUrl.isEmpty ? null : onCall),
+              _kv('Fax', location.fax),
+              if (location.directionsUrl.isNotEmpty) ...[
+                const SizedBox(height: AppSpacing.xs),
+                AppButton(
+                  label: 'Get directions',
+                  variant: AppButtonVariant.outlined,
+                  icon: Icons.directions_outlined,
+                  onPressed: onDirections,
+                ),
+              ],
+            ],
+          ),
+        ),
+      ],
     );
   }
 
   Widget _kv(String label, String value, {VoidCallback? onTap}) {
+    if (value.trim().isEmpty) return const SizedBox.shrink();
     final valueText = Text(
       value,
       style: AppTextStyles.bodyMedium.copyWith(
@@ -108,186 +223,142 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
       ),
     );
   }
+}
+
+class _ContactForm extends StatelessWidget {
+  const _ContactForm({
+    required this.formKey,
+    required this.form,
+    required this.nameController,
+    required this.emailController,
+    required this.phoneController,
+    required this.messageController,
+    required this.errorMessage,
+    required this.isSubmitting,
+    required this.onSubmit,
+  });
+
+  final GlobalKey<FormState> formKey;
+  final ContactFormContent form;
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
+  final TextEditingController messageController;
+  final String? errorMessage;
+  final bool isSubmitting;
+  final VoidCallback onSubmit;
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(contactControllerProvider);
-    final clinicAsync = ref.watch(clinicInfoProvider);
-
-    return Scaffold(
-      appBar: AppAppBar.text('Contact'),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(
-          AppSpacing.md,
-          AppSpacing.md,
-          AppSpacing.md,
-          AppSpacing.xxl,
-        ),
+    return Form(
+      key: formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          clinicAsync.when(
-            loading: () => const SizedBox.shrink(),
-            error: (_, _) => const SizedBox.shrink(),
-            data: (clinic) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Clinic', style: AppTextStyles.titleLarge),
-                const SizedBox(height: AppSpacing.sm),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(AppSpacing.md),
-                  decoration: BoxDecoration(
-                    color: AppColors.card,
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: AppColors.line),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(clinic.name, style: AppTextStyles.titleMedium),
-                      const SizedBox(height: AppSpacing.sm),
-                      _kv(
-                        'Address',
-                        '${clinic.addressLine1}\n${clinic.addressLine2}',
-                      ),
-                      _kv('Hours', clinic.hours),
-                      _kv(
-                        'Phone',
-                        clinic.phoneDisplay,
-                        onTap: () => _callClinic(clinic),
-                      ),
-                      _kv('Fax', clinic.faxDisplay),
-                      const SizedBox(height: AppSpacing.xs),
-                      AppButton(
-                        label: 'Get directions',
-                        variant: AppButtonVariant.outlined,
-                        icon: Icons.directions_outlined,
-                        onPressed: () => _openDirections(clinic),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-              ],
-            ),
-          ),
-          if (state.submission != null)
-            _ContactSuccessCard(
-              result: state.submission!,
-              onSendAnother: () {
-                ref.read(contactControllerProvider.notifier).clearFeedback();
-              },
-            )
-          else ...[
-            Text('Send a message', style: AppTextStyles.titleLarge),
-            const SizedBox(height: AppSpacing.xs),
+          if (form.eyebrow.isNotEmpty)
             Text(
-              'Share your question and our team will follow up.',
-              style: AppTextStyles.bodyMedium.copyWith(
+              form.eyebrow.toUpperCase(),
+              style: AppTextStyles.labelSmall.copyWith(
+                letterSpacing: 0.6,
                 color: AppColors.inkMuted,
               ),
             ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(form.heading, style: AppTextStyles.titleLarge),
+          const SizedBox(height: AppSpacing.md),
+          for (final field in form.fields) ...[
+            _field(field),
             const SizedBox(height: AppSpacing.md),
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TextFormField(
-                    controller: _nameController,
-                    textCapitalization: TextCapitalization.words,
-                    textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(labelText: 'Full name'),
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'Name is required';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                  TextFormField(
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(labelText: 'Email'),
-                    validator: (value) {
-                      final email = value?.trim() ?? '';
-                      if (email.isEmpty) return 'Email is required';
-                      if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$')
-                          .hasMatch(email)) {
-                        return 'Enter a valid email';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                  TextFormField(
-                    controller: _phoneController,
-                    keyboardType: TextInputType.phone,
-                    textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(labelText: 'Phone'),
-                    validator: (value) {
-                      final phone = value?.trim() ?? '';
-                      if (phone.isEmpty) return 'Phone is required';
-                      if (phone.replaceAll(RegExp(r'\D'), '').length < 10) {
-                        return 'Enter a valid phone number';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                  TextFormField(
-                    controller: _messageController,
-                    minLines: 4,
-                    maxLines: 8,
-                    textCapitalization: TextCapitalization.sentences,
-                    decoration: const InputDecoration(
-                      labelText: 'Message',
-                      alignLabelWithHint: true,
-                    ),
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'Message is required';
-                      }
-                      if (value.trim().length < 10) {
-                        return 'Please add a bit more detail';
-                      }
-                      return null;
-                    },
-                  ),
-                  if (state.errorMessage != null) ...[
-                    const SizedBox(height: AppSpacing.md),
-                    Text(
-                      state.errorMessage!,
-                      style: AppTextStyles.bodyMedium.copyWith(
-                        color: AppColors.danger,
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.sm),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: AppButton(
-                        label: 'Retry',
-                        variant: AppButtonVariant.text,
-                        expand: false,
-                        onPressed: state.isSubmitting ? null : _submit,
-                      ),
-                    ),
-                  ],
-                  const SizedBox(height: AppSpacing.lg),
-                  AppButton(
-                    label: 'Send message',
-                    isLoading: state.isSubmitting,
-                    expand: true,
-                    onPressed: state.isSubmitting ? null : _submit,
-                  ),
-                ],
+          ],
+          if (errorMessage != null) ...[
+            Text(
+              errorMessage!,
+              style: AppTextStyles.bodyMedium.copyWith(color: AppColors.danger),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: AppButton(
+                label: 'Retry',
+                variant: AppButtonVariant.text,
+                expand: false,
+                onPressed: isSubmitting ? null : onSubmit,
               ),
             ),
-            ],
+            const SizedBox(height: AppSpacing.sm),
           ],
-        ),
+          AppButton(
+            label: form.submitLabel,
+            isLoading: isSubmitting,
+            expand: true,
+            onPressed: isSubmitting ? null : onSubmit,
+          ),
+        ],
+      ),
     );
+  }
+
+  Widget _field(ContactFormField field) {
+    return switch (field.name) {
+      'name' => TextFormField(
+          controller: nameController,
+          textCapitalization: TextCapitalization.words,
+          textInputAction: TextInputAction.next,
+          decoration: InputDecoration(labelText: field.label),
+          validator: (value) => _required(field, value),
+        ),
+      'email' => TextFormField(
+          controller: emailController,
+          keyboardType: TextInputType.emailAddress,
+          textInputAction: TextInputAction.next,
+          decoration: InputDecoration(labelText: field.label),
+          validator: (value) {
+            final required = _required(field, value);
+            if (required != null) return required;
+            final email = value?.trim() ?? '';
+            if (email.isNotEmpty &&
+                !RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email)) {
+              return 'Enter a valid email';
+            }
+            return null;
+          },
+        ),
+      'phone' => TextFormField(
+          controller: phoneController,
+          keyboardType: TextInputType.phone,
+          textInputAction: TextInputAction.next,
+          decoration: InputDecoration(labelText: field.label),
+          validator: (value) {
+            final required = _required(field, value);
+            if (required != null) return required;
+            final digits = (value ?? '').replaceAll(RegExp(r'\D'), '');
+            if (digits.isNotEmpty && digits.length < 10) {
+              return 'Enter a valid phone number';
+            }
+            return null;
+          },
+        ),
+      'message' => TextFormField(
+          controller: messageController,
+          minLines: 4,
+          maxLines: 8,
+          textCapitalization: TextCapitalization.sentences,
+          decoration: InputDecoration(
+            labelText: field.label,
+            alignLabelWithHint: true,
+          ),
+          validator: (value) => _required(field, value),
+        ),
+      _ => const SizedBox.shrink(),
+    };
+  }
+
+  String? _required(ContactFormField field, String? value) {
+    if (!field.required) return null;
+    if (value == null || value.trim().isEmpty) {
+      return '${field.label} is required';
+    }
+    return null;
   }
 }
 
@@ -326,8 +397,6 @@ class _ContactSuccessCard extends StatelessWidget {
           const SizedBox(height: AppSpacing.md),
           _receiptRow('Email', result.email),
           _receiptRow('Phone', result.phone),
-          if (result.receivedLabel.isNotEmpty)
-            _receiptRow('Received', result.receivedLabel),
           _receiptRow('Reference', result.id),
           _receiptRow('Status', result.statusLabel),
           if (result.message.isNotEmpty) ...[

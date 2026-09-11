@@ -4,10 +4,19 @@ import '../../../../core/analytics/analytics_service.dart';
 import '../../../../core/network/api_client.dart';
 import '../../data/contact_api_repository.dart';
 import '../../data/contact_repository.dart';
+import '../../domain/models/contact_page.dart';
 import '../../domain/models/contact_request.dart';
 
 final contactRepositoryProvider = Provider<ContactRepository>((ref) {
   return ContactApiRepository(ref.watch(apiClientProvider));
+});
+
+final contactPageProvider = FutureProvider<ContactPage>((ref) async {
+  final result = await ref.watch(contactRepositoryProvider).getContactPage();
+  return result.when(
+    success: (data) => data,
+    failure: (message, _) => throw Exception(message),
+  );
 });
 
 class ContactFormState {
@@ -63,7 +72,7 @@ class ContactController extends StateNotifier<ContactFormState> {
         );
         state = state.copyWith(
           isSubmitting: false,
-          submission: data,
+          submission: data.confirmedWith(request),
           clearError: true,
         );
         return true;
