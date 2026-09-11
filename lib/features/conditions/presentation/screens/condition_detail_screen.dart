@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/domain/models/content_block.dart';
+import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/app_app_bar.dart';
+import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/appointment_cta_bar.dart';
 import '../../../../core/widgets/bullet_or_icon_list_section.dart';
 import '../../../../core/widgets/content_block_view.dart';
@@ -16,7 +19,10 @@ import '../../../../core/widgets/recommended_books_section.dart';
 import '../../../../core/widgets/section_header.dart';
 import '../../../../core/widgets/ui_kit.dart';
 import '../../../../features/appointment/domain/models/source_context.dart';
+import '../../../blog/domain/models/blog_html.dart';
+import '../../../blog/presentation/widgets/blog_html_view.dart';
 import '../../domain/models/condition.dart';
+import '../../domain/models/condition_section.dart';
 import '../providers/conditions_providers.dart';
 
 class ConditionDetailScreen extends ConsumerWidget {
@@ -65,17 +71,25 @@ class _ConditionDetailBody extends StatelessWidget {
   bool get _showQuote {
     final quote = condition.quote?.trim() ?? '';
     if (quote.isEmpty) return false;
-    return !condition.articleBody.contains(quote);
+    if (condition.articleBody.contains(quote)) return false;
+    return !condition.sections.any(
+      (section) => section.title.trim().toLowerCase() == quote.toLowerCase(),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final useSections = condition.sections.isNotEmpty;
     final approach = condition.integrativeApproach;
+    final intro = blogContentBlocks(
+      contentHtml: condition.contentHtml,
+      subtitle: condition.summary,
+    );
     final chipLabels = <String>[
-      if (condition.symptoms.isNotEmpty) 'Symptoms',
-      if (condition.treatmentMethods.isNotEmpty) 'Treatments',
-      if (condition.benefits.isNotEmpty) 'Benefits',
+      if (!useSections && condition.symptoms.isNotEmpty) 'Symptoms',
+      if (!useSections && condition.treatmentMethods.isNotEmpty) 'Treatments',
+      if (!useSections && condition.benefits.isNotEmpty) 'Benefits',
     ];
 
     return Scaffold(
@@ -121,6 +135,17 @@ class _ConditionDetailBody extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (useSections) ...[
+                  if (intro.isNotEmpty) ...[
+                    BlogHtmlView(blocks: intro),
+                    const SizedBox(height: AppSpacing.lg),
+                  ],
+                  for (final section in condition.sections)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: AppSpacing.lg),
+                      child: _ConditionSectionView(section: section),
+                    ),
+                ] else ...[
                 if (condition.articleBody.trim().isNotEmpty ||
                     condition.overviewImageUrl != null) ...[
                   const SectionHeader(title: 'Overview'),
@@ -206,6 +231,7 @@ class _ConditionDetailBody extends StatelessWidget {
                     const SizedBox(height: AppSpacing.sm),
                   ],
                 ],
+                ],
                 const SizedBox(height: AppSpacing.lg),
                 AppointmentCtaBar(
                   sourceContext: _sourceContext,
@@ -216,6 +242,160 @@ class _ConditionDetailBody extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _ConditionSectionView extends StatelessWidget {
+  const _ConditionSectionView({required this.section});
+
+  final ConditionSection section;
+
+  @override
+  Widget build(BuildContext context) {
+    final blocks = blogContentBlocks(
+      contentHtml: section.contentHtml,
+      body: section.content,
+      subtitle: section.title,
+    );
+    final image = section.imageUrl?.trim();
+    final hasImage = image != null && image.isNotEmpty;
+    final cards = section.isChipGroup
+        ? const <ConditionSectionItem>[]
+        : section.items.where((item) => item.title.trim().isNotEmpty).toList();
+    final bookItems = section.isBooks ? cards : const <ConditionSectionItem>[];
+    final stackedCards =
+        section.isBooks ? const <ConditionSectionItem>[] : cards;
+
+    final text = blocks.isEmpty
+        ? const SizedBox.shrink()
+        : BlogHtmlView(blocks: blocks);
+    final imageWidget = hasImage
+        ? Padding(
+            padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+            child: _SectionImage(imageUrl: image),
+          )
+        : const SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (section.title.trim().isNotEmpty) ...[
+          SectionHeader(title: section.title),
+          const SizedBox(height: AppSpacing.sm),
+        ],
+        if (section.imageOnRight) ...[
+          text,
+          if (blocks.isNotEmpty && hasImage) const SizedBox(height: AppSpacing.sm),
+          imageWidget,
+        ] else ...[
+          imageWidget,
+          text,
+        ],
+        if (section.isChipGroup) ...[
+          const SizedBox(height: AppSpacing.sm),
+          Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            children: [
+              for (final item in section.items)
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: AppColors.sageLight,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    item.title,
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                ),
+            ],
+          ),
+        ],
+        if (bookItems.isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.sm),
+          SizedBox(
+            height: 320,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: bookItems.length,
+              separatorBuilder: (_, _) => const SizedBox(width: AppSpacing.sm),
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  width: 220,
+                  height: 320,
+                  child: _SectionItemCard(item: bookItems[index], compact: true),
+                );
+              },
+            ),
+          ),
+        ],
+        if (stackedCards.isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.sm),
+          for (final item in stackedCards) ...[
+            _SectionItemCard(item: item),
+            const SizedBox(height: AppSpacing.sm),
+          ],
+        ],
+      ],
+    );
+  }
+}
+
+class _SectionItemCard extends StatelessWidget {
+  const _SectionItemCard({required this.item, this.compact = false});
+
+  final ConditionSectionItem item;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    final blocks = blogContentBlocks(
+      contentHtml: item.contentHtml,
+      body: item.content,
+    );
+    final contactPath = item.inAppContactPath;
+
+    final blurb = blocks
+        .map((block) => switch (block) {
+              BlogParagraph(:final text) => text,
+              BlogHeading(:final text) => text,
+              BlogBulletList(:final items) => items.join('\n'),
+            })
+        .where((text) => text.trim().isNotEmpty)
+        .join('\n');
+
+    return _ImageTextCard(
+      title: item.title,
+      imageUrl: item.imageUrl,
+      compact: compact,
+      child: compact
+          ? (blurb.isEmpty
+              ? null
+              : Text(
+                  blurb,
+                  style: Theme.of(context).textTheme.bodySmall,
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
+                ))
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (blocks.isNotEmpty) BlogHtmlView(blocks: blocks),
+                if (contactPath != null) ...[
+                  const SizedBox(height: AppSpacing.sm),
+                  AppButton(
+                    label: item.linkLabel?.trim().isNotEmpty == true
+                        ? item.linkLabel!.trim()
+                        : 'Request an appointment',
+                    variant: AppButtonVariant.text,
+                    expand: false,
+                    onPressed: () => context.push(AppRoutes.contact),
+                  ),
+                ],
+              ],
+            ),
     );
   }
 }
@@ -236,11 +416,15 @@ class _ImageTextCard extends StatelessWidget {
     required this.title,
     this.body,
     this.imageUrl,
+    this.child,
+    this.compact = false,
   });
 
   final String title;
   final String? body;
   final String? imageUrl;
+  final Widget? child;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
@@ -260,7 +444,7 @@ class _ImageTextCard extends StatelessWidget {
           children: [
             if (url != null && url.isNotEmpty)
               SizedBox(
-                height: 160,
+                height: compact ? 148 : 160,
                 width: double.infinity,
                 child: CachedNetworkImage(
                   imageUrl: url,
@@ -278,8 +462,18 @@ class _ImageTextCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: theme.textTheme.titleMedium),
-                  if (body != null && body!.trim().isNotEmpty) ...[
+                  Text(
+                    title,
+                    style: compact
+                        ? theme.textTheme.titleSmall
+                        : theme.textTheme.titleMedium,
+                    maxLines: compact ? 3 : null,
+                    overflow: compact ? TextOverflow.ellipsis : null,
+                  ),
+                  if (child != null) ...[
+                    const SizedBox(height: 6),
+                    child!,
+                  ] else if (body != null && body!.trim().isNotEmpty) ...[
                     const SizedBox(height: 6),
                     Text(body!, style: theme.textTheme.bodyMedium),
                   ],

@@ -1,3 +1,4 @@
+import 'condition_section.dart';
 import '../../../../core/domain/models/content_block.dart';
 import '../../../../core/domain/models/labeled_list_item.dart';
 import '../../../../core/domain/models/recommended_book.dart';
@@ -31,6 +32,8 @@ class Condition {
     this.symptomsImageUrl,
     this.factorsImageUrl,
     this.gettingStarted = const [],
+    this.contentHtml,
+    this.sections = const [],
   });
 
   final String id;
@@ -65,6 +68,10 @@ class Condition {
   final String? symptomsImageUrl;
   final String? factorsImageUrl;
   final List<LabeledListItem> gettingStarted;
+  final String? contentHtml;
+
+  /// Ordered page sections. Preferred over the structured fields when present.
+  final List<ConditionSection> sections;
 
   String get routeId {
     final value = slug.trim();
@@ -99,6 +106,7 @@ class Condition {
       name: name,
       summary: _text(json, const ['summary', 'description', 'content']),
       articleBody: _text(json, const ['articleBody']),
+      contentHtml: _nullableText(json, const ['content_html', 'contentHtml']),
       heroImageUrl: _url(json, const ['heroImageUrl', 'heroImage', 'img-url']),
       quote: _nullableText(json, const ['quote']),
       ctaLabel: _nullableText(json, const ['cta-label', 'ctaLabel']),
@@ -124,6 +132,7 @@ class Condition {
       symptomsImageUrl: _sectionImage(sections, 'symptoms'),
       factorsImageUrl: _sectionImage(sections, 'factors'),
       gettingStarted: _sectionCards(sections, 'getting_started'),
+      sections: sections.map(ConditionSection.fromJson).toList(),
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:bethechange/core/network/api_result.dart';
 import 'package:bethechange/core/widgets/appointment_cta_bar.dart';
 import 'package:bethechange/features/appointment/domain/models/source_context.dart';
 import 'package:bethechange/features/conditions/data/conditions_repository.dart';
+import 'package:bethechange/features/blog/domain/models/blog_html.dart';
 import 'package:bethechange/features/conditions/domain/models/condition.dart';
 import 'package:bethechange/features/conditions/domain/models/conditions_catalog.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -107,6 +108,79 @@ void main() {
       );
       expect(detail.symptomsImageUrl, 'http://example.com/symptoms.jpg');
       expect(detail.treatmentMethods.single.iconUrl, 'http://example.com/treat.jpg');
+    });
+
+    test('content_html sections keep lists, headings, and skip website links', () {
+      final detail = Condition.fromJson({
+        'id': 'diabetes',
+        'name': 'Diabetes',
+        'summary': 'Short summary',
+        'content_html': '<p>Intro from HTML.</p>',
+        'sections': [
+          {
+            'type': 'image_text',
+            'layout': 'symptoms',
+            'title': 'Common Symptoms Caused by Diabetes',
+            'content_html':
+                '<ul><li>Fatigue</li><li>Increased Hunger</li></ul><ul><li>Irritability</li></ul>',
+            'img-url': 'http://example.com/symptoms.jpg',
+          },
+          {
+            'type': 'image_text',
+            'title': 'What is medical weight loss?',
+            'content_html':
+                '<p>What is medical weight loss?</p><ul><li>Hypertension</li><p>Heart disease</p><p>Stroke</p></ul>',
+          },
+          {
+            'type': 'cards',
+            'layout': 'treat_dark',
+            'title': 'Ways We Can Treat Diabetes',
+            'items': [
+              {
+                'title': 'Naturopathic & Integrative Medicine',
+                'content_html': '<p>Options might include nutritional supplements.</p>',
+                'link-url': '/contact/',
+                'link-label': 'Request Appointment',
+              },
+              {
+                'title': 'Wellness Classes',
+                'content_html': '<p>Blood sugar balancing class.</p>',
+                'link-url': '/wellness-classes/',
+                'link-label': 'Explore Classes',
+              },
+              {
+                'title': 'Choose A Membership',
+                'content_html': '<p><em>Optional</em> membership text.</p>',
+                'link-url': '/membership/',
+              },
+            ],
+          },
+        ],
+      });
+
+      expect(detail.contentHtml, contains('<p>'));
+      expect(detail.sections, hasLength(3));
+      final symptoms = blogContentBlocks(
+        contentHtml: detail.sections.first.contentHtml,
+      );
+      expect(
+        symptoms.whereType<BlogBulletList>().expand((list) => list.items),
+        ['Fatigue', 'Increased Hunger', 'Irritability'],
+      );
+
+      final weight = blogContentBlocks(
+        contentHtml: detail.sections[1].contentHtml,
+        subtitle: detail.sections[1].title,
+      );
+      expect(weight.whereType<BlogParagraph>(), isEmpty);
+      expect(
+        weight.whereType<BlogBulletList>().single.items,
+        ['Hypertension', 'Heart disease', 'Stroke'],
+      );
+
+      expect(detail.sections.last.items[0].inAppContactPath, '/contact');
+      expect(detail.sections.last.items[1].inAppContactPath, isNull);
+      expect(detail.sections.last.items[2].inAppContactPath, isNull);
     });
 
     test('diabetes detail is fully populated from the item endpoint', () async {

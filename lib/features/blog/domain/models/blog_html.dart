@@ -53,12 +53,12 @@ List<BlogContentBlock> parseBlogHtml(String html) {
     final inner = match.group(3) ?? '';
     if (tag == 'ul' || tag == 'ol') {
       final items = RegExp(
-        r'<li\b[^>]*>(.*?)</li>',
+        r'<(li|p)\b[^>]*>(.*?)</\1>',
         caseSensitive: false,
         dotAll: true,
       )
           .allMatches(inner)
-          .map((item) => _plainText(item.group(1) ?? ''))
+          .map((item) => _plainText(item.group(2) ?? ''))
           .where((item) => item.isNotEmpty)
           .toList();
       if (items.isNotEmpty) blocks.add(BlogBulletList(items));
