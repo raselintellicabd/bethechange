@@ -117,7 +117,7 @@ class MockApiInterceptor extends Interceptor {
       case ApiPaths.about:
         return _loadObject(MockApiAssets.about);
       case ApiPaths.conditions:
-        return _loadObject(MockApiAssets.conditions);
+        return _conditionsListPayload();
       case ApiPaths.services:
         return _loadObject(MockApiAssets.services);
       case ApiPaths.blog:
@@ -145,6 +145,7 @@ class MockApiInterceptor extends Interceptor {
         listKey: 'conditions',
         id: conditionId,
         notFoundLabel: 'Condition',
+        alternateIdKey: 'slug',
       );
     }
 
@@ -375,16 +376,41 @@ class MockApiInterceptor extends Interceptor {
     return _loadObject(MockApiAssets.appointmentConfig);
   }
 
+  Future<Map<String, dynamic>> _conditionsListPayload() async {
+    final root = await _loadObject(MockApiAssets.conditions);
+    final list = root['conditions'] as List<dynamic>? ?? const [];
+    return {
+      'title': (root['title'] as String?)?.trim().isNotEmpty == true
+          ? root['title']
+          : 'conditions we treat',
+      'content': root['content'] ?? '',
+      'conditions': list.whereType<Map>().map((item) {
+        final map = item.map((key, value) => MapEntry('$key', value));
+        final id = '${map['id'] ?? map['slug'] ?? ''}'.trim();
+        return {
+          'id': id,
+          'title': '${map['title'] ?? map['name'] ?? ''}'.trim(),
+          'description': '${map['description'] ?? map['summary'] ?? ''}'.trim(),
+          'heroImage': '${map['heroImage'] ?? map['heroImageUrl'] ?? ''}'.trim(),
+          'slug': '${map['slug'] ?? id}'.trim(),
+        };
+      }).toList(),
+    };
+  }
+
   Future<Map<String, dynamic>> _itemById(
     String assetPath, {
     required String listKey,
     required String id,
     required String notFoundLabel,
+    String alternateIdKey = '',
   }) async {
     final root = await _loadObject(assetPath);
     final list = root[listKey] as List<dynamic>? ?? const [];
     for (final entry in list) {
-      if (entry is Map<String, dynamic> && entry['id'] == id) {
+      if (entry is Map<String, dynamic> &&
+          (entry['id'] == id ||
+              (alternateIdKey.isNotEmpty && entry[alternateIdKey] == id))) {
         return entry;
       }
     }

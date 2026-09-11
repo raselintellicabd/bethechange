@@ -6,7 +6,7 @@ class ApiPaths {
   ApiPaths._();
 
   static const String about = '/about';
-  static const String conditions = '/conditions';
+  static const String conditions = '/api/v1/conditions';
   static const String services = '/services';
   static const String blog = '/blog';
   static const String faq = '/faq';

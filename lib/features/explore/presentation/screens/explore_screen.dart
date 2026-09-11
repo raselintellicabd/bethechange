@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
@@ -90,17 +92,28 @@ class _ConditionsExploreList extends ConsumerWidget {
         }
 
         return ListView.builder(
-          itemCount: catalog.conditions.length,
+          itemCount: catalog.conditions.length + 1,
           itemBuilder: (context, index) {
-            final condition = catalog.conditions[index];
+            if (index == 0) {
+              return _CatalogIntro(
+                title: catalog.title,
+                content: catalog.content,
+              );
+            }
+            final condition = catalog.conditions[index - 1];
             return ListRowTile(
               large: true,
               title: condition.name,
               subtitle: condition.summary,
               thumbColor:
                   AppColors.thumbPalette[index % AppColors.thumbPalette.length],
+              leading: _ExploreThumb(
+                imageUrl: condition.heroImageUrl,
+                color: AppColors
+                    .thumbPalette[(index - 1) % AppColors.thumbPalette.length],
+              ),
               onTap: () => context.push(
-                AppRoutes.conditionDetailPath(condition.id),
+                AppRoutes.conditionDetailPath(condition.routeId),
               ),
             );
           },
@@ -108,6 +121,78 @@ class _ConditionsExploreList extends ConsumerWidget {
       },
     );
   }
+}
+
+class _CatalogIntro extends StatelessWidget {
+  const _CatalogIntro({required this.title, required this.content});
+
+  final String title;
+  final String content;
+
+  @override
+  Widget build(BuildContext context) {
+    final heading = _titleCase(title);
+    if (heading.isEmpty && content.trim().isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (heading.isNotEmpty)
+            Text(heading, style: AppTextStyles.titleLarge),
+          if (content.trim().isNotEmpty) ...[
+            const SizedBox(height: 6),
+            Text(content.trim(), style: AppTextStyles.bodyMedium),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _ExploreThumb extends StatelessWidget {
+  const _ExploreThumb({required this.color, this.imageUrl});
+
+  final String? imageUrl;
+  final Color color;
+
+  static const double _size = 72;
+
+  @override
+  Widget build(BuildContext context) {
+    final url = imageUrl?.trim();
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: SizedBox(
+        width: _size,
+        height: _size,
+        child: url == null || url.isEmpty
+            ? ColoredBox(color: color)
+            : CachedNetworkImage(
+                imageUrl: url,
+                width: _size,
+                height: _size,
+                fit: BoxFit.cover,
+                memCacheWidth: 216,
+                placeholder: (_, _) => ColoredBox(color: color),
+                errorWidget: (_, _, _) => ColoredBox(
+                  color: color,
+                  child: const Icon(Icons.image_outlined, color: Colors.white),
+                ),
+              ),
+      ),
+    );
+  }
+}
+
+String _titleCase(String input) {
+  return input.trim().split(RegExp(r'\s+')).where((word) => word.isNotEmpty).map((word) {
+    final lower = word.toLowerCase();
+    return '${lower[0].toUpperCase()}${lower.substring(1)}';
+  }).join(' ');
 }
 
 class _ServicesExploreList extends ConsumerWidget {

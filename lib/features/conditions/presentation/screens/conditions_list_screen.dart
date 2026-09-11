@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -44,16 +45,36 @@ class ConditionsListScreen extends ConsumerWidget {
               return AppCard(
                 semanticLabel: 'Open ${condition.name} details',
                 onTap: () => context.push(
-                  AppRoutes.conditionDetailPath(condition.id),
+                  AppRoutes.conditionDetailPath(condition.routeId),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CircleAvatar(
-                      backgroundColor: AppColors.surfaceMuted,
-                      child: Icon(
-                        conditionIconFor(condition.id),
-                        color: AppColors.primary,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: SizedBox(
+                        width: 64,
+                        height: 64,
+                        child: condition.heroImageUrl == null
+                            ? ColoredBox(
+                                color: AppColors.surfaceMuted,
+                                child: Icon(
+                                  conditionIconFor(condition.id),
+                                  color: AppColors.primary,
+                                ),
+                              )
+                            : CachedNetworkImage(
+                                imageUrl: condition.heroImageUrl!,
+                                width: 64,
+                                height: 64,
+                                fit: BoxFit.cover,
+                                placeholder: (_, _) =>
+                                    const ColoredBox(color: AppColors.surfaceMuted),
+                                errorWidget: (_, _, _) => Icon(
+                                  conditionIconFor(condition.id),
+                                  color: AppColors.primary,
+                                ),
+                              ),
                       ),
                     ),
                     const SizedBox(width: AppSpacing.md),

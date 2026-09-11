@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../domain/models/labeled_list_item.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_spacing.dart';
+import 'image_with_caption.dart';
 import 'section_header.dart';
 
 class BulletOrIconListSection extends StatelessWidget {
@@ -12,11 +13,13 @@ class BulletOrIconListSection extends StatelessWidget {
     required this.title,
     required this.items,
     this.subtitle,
+    this.imageUrl,
     this.fallbackIcon = Icons.check_circle_outline,
   });
 
   final String title;
   final String? subtitle;
+  final String? imageUrl;
   final List<LabeledListItem> items;
   final IconData fallbackIcon;
 
@@ -28,6 +31,10 @@ class BulletOrIconListSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionHeader(title: title, subtitle: subtitle),
+        if (imageUrl != null && imageUrl!.trim().isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.sm),
+          ImageWithCaption(imageUrl: imageUrl!),
+        ],
         const SizedBox(height: AppSpacing.sm),
         for (var i = 0; i < items.length; i++) ...[
           _LabeledListItemTile(
