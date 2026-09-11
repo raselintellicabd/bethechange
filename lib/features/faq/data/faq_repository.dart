@@ -10,7 +10,7 @@ class FaqRepository {
 
   Future<ApiResult<FaqCatalog>> getFaq() {
     return _client.get(
-      ApiPaths.faq,
+      '${ApiPaths.faq}/',
       parser: (data) => FaqCatalog.fromJson(data as Map<String, dynamic>),
     );
   }

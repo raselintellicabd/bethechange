@@ -26,7 +26,7 @@ API_BASE_URL=https://api-dev.example.com
 | GET | `/api/v1/services/{slug}` | item from services list |
 | GET | `/api/v1/blog` | `assets/data/blog.json` (list shape) |
 | GET | `/api/v1/blog/{slug}` | item from articles list |
-| GET | `/faq` | `assets/data/faq.json` |
+| GET | `/api/v1/faq/` | `assets/data/faq.json` |
 | GET | `/clinic` | `assets/data/clinic.json` |
 | GET | `/api/v1/home` | `assets/data/home.json` |
 | GET | `/patients` | unused; patient cards load from `assets/data/patients.json` |

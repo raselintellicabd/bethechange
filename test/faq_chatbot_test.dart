@@ -22,7 +22,33 @@ void main() {
       final result = await FaqRepository(createMockApiClient()).getFaq();
       expect(result, isA<ApiSuccess<FaqCatalog>>());
       final catalog = (result as ApiSuccess<FaqCatalog>).data;
+      expect(catalog.title, 'FAQ');
       expect(catalog.items.length, greaterThanOrEqualTo(9));
+      expect(catalog.sections.map((section) => section.id), [
+        'appointments',
+        'therapies',
+      ]);
+      expect(
+        catalog.sections.first.title,
+        'Common Questions About Our Appointments',
+      );
+      expect(catalog.policies?.title, 'Office Policies');
+      expect(catalog.policies?.content, contains('\$100 deposit'));
+      expect(
+        catalog.buttonLabel,
+        'Click Here to Get started on Your healing journey',
+      );
+      expect(catalog.buttonUrl, contains('/contact/'));
+      expect(catalog.reviews, isNotEmpty);
+      expect(catalog.reviews.first.reviewerName, 'Elle');
+      expect(catalog.reviews.first.imageUrl, isNotNull);
+      expect(catalog.displaySections, isNotEmpty);
+      expect(
+        catalog.displaySections
+            .expand((section) => section.items)
+            .any((item) => item.id == catalog.policies!.id),
+        isFalse,
+      );
       for (final item in catalog.items) {
         expect(item.question, isNotEmpty);
         expect(item.answer, isNotEmpty);

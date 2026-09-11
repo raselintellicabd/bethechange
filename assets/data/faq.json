@@ -1,49 +1,191 @@
 {
+  "title": "FAQ",
   "items": [
     {
       "id": "how-do-i-schedule",
       "question": "How do I schedule?",
-      "answer": "Please fill out the new patient form, and our new patient representative will contact you via phone and text. The scheduling process is very simple and takes about 5–10 minutes.\n\nThe representative will determine the length of your first appointment based on your health goals and medical history and provide a transparent pricing breakdown. Afterwards, we usually review office policies, and our staff will send email links to complete your new patient questionnaires and submit a deposit to hold your appointment time.\n\nYou do not need to get labs done before your appointment—our doctors will most likely order customized lab work based on your initial evaluation."
+      "answer": "Please fill out this new patient form, and our new patient representative will contact you via phone and text. The scheduling process is very simple and takes about 5–10 minutes. The new patient representative will determine the length of your first appointment based on your health goals and medical history and provide you with a transparent pricing breakdown. Afterwards, we usually review office policies and afterwards our staff will send you email links to complete your set of new patient questionnaires before your appointment, and submit a deposit to hold your appointment time.\n\nYOU DO NOT need to get labs done before your appointment, as our doctors will most likely order customized lab work based on your initial evaluation.",
+      "section": "appointments"
     },
     {
-      "id": "after-first-appointment",
+      "id": "what-can-i-expect-to-receive-after-my-first-appointment",
       "question": "What can I expect to receive after my first appointment?",
-      "answer": "You can expect a treatment plan based on your symptoms that will be adjusted once lab results come in and tailored to your medical history.\n\nThorough lab work is typically sent to Quest or LabCorp, depending on your evaluation. Our staff may also recommend specialty lab work after the initial consultation as needed.\n\nSupplements are available through our online dispensary (Fullscript), and prescriptions are sent to your pharmacy. Follow-up appointments are available at an additional cost to track your progress."
+      "answer": "A treatment plan based on your symptoms that will be adjusted once your lab work results come in and will be tailored to your medical history.\n\nThorough lab work is typically sent to Quest or LabCorp, depending on your evaluation. Our staff will also make recommendations for Specialty Lab Work after the initial consultation as needed to evaluate your medical condition.\n\nYour Supplements will be sent to you via our online dispensary and your prescriptions will be sent to your pharmacy.\n\nA list of medical-grade supplements emailed to you for purchase on Fullscript.\n\nFollow-up appointments are available at an additional cost to track your progress.",
+      "section": "appointments"
     },
     {
-      "id": "skeptical-about-care",
+      "id": "i-have-been-to-other-medical-offices-which-has-made-me-skeptical-about-the-medic",
       "question": "I have been to other medical offices, which has made me skeptical about the medical care I will receive.",
-      "answer": "We completely understand how frustrating the modern-day healthcare system can be—from feeling unheard to short appointments that do not address the root cause.\n\nIf you want to get a feel for our doctors, you are welcome to request a free 10-minute discovery call after filling out our new patient inquiry form. After the call, there is no obligation to schedule if you are not comfortable, and you will have a better idea of how our physicians can support your healing journey."
+      "answer": "We completely understand how infuriating the modern-day healthcare system can be, everything from doctors who don’t listen to you when you say you’re not feeling well, to 15-minute appointments that leave you feeling unheard while not addressing the root cause. If you want to get a feel for our doctors, you are welcome to request a FREE 10-minute discovery call to see if our doctors seem likely to meet your needs. This can be scheduled with our new patient care\n\ncoordinator after filling out our new patient inquiry form. After the call, there is NO OBLIGATION to schedule if you are not comfortable, and you will have a better idea of how our physicians can support you on your healing journey.",
+      "section": "appointments"
     },
     {
       "id": "do-we-accept-insurance",
       "question": "Do we accept insurance?",
-      "answer": "We are classified as an out-of-network provider and do not bill insurance directly. We have chosen this model because insurance often limits our ability to tailor protocols to patients' needs.\n\nAfter your appointment, we provide an invoice with codes so you can submit it to your insurance for possible out-of-network reimbursement. We do not guarantee coverage—this depends on your plan and benefits.\n\nTo check benefits, ask your insurer whether your plan offers out-of-network reimbursement for medical visits and related services."
+      "answer": "We are classified as an out-of-network provider and do not directly deal with insurance. We have chosen this model because insurance limits our ability to tailor our protocols to our patients’ needs. Our focus is to provide a patient centered approach to care and our emphasis relies on putting the patient first in all circumstances. After your appointment, we will provide you with an invoice with codes so you can individually submit it to your insurance to see if they will cover any costs. However, we do NOT guarantee that insurance will cover our appointments or treatments—this depends on your out-of-network benefits and your insurance provider.\n\nTo check your benefits, you may want to contact your insurance provider and ask:\n\nDoes my plan offer out-of-network reimbursement for medical visits?\n\nWhat percentage of the visit cost will be reimbursed?\n\nDo I need pre-authorization or a referral for reimbursement?\n\nWe do accept CareCredit. We also accept FSA cards.",
+      "section": "appointments"
     },
     {
       "id": "where-are-we-located",
       "question": "Where are we located?",
-      "answer": "Be The Change Health & Wellness Center\n8808 Centre Park Drive, Suite 301\nColumbia, MD 21045"
+      "answer": "Our Office Address:\n\n8808 Centre Park Drive Suite 301\n\nColumbia, MD 21045",
+      "section": "appointments"
     },
     {
-      "id": "dr-afrooz-pricing",
+      "id": "how-much-do-appointments-with-dr-afrooz-cost",
       "question": "How much do appointments with Dr. Afrooz cost?",
-      "answer": "First appointment pricing depends on visit length and complexity:\n\n• 30 min — $250 (for example, bioidentical hormone replacement without other major concerns)\n• 60 min — $450 (healthy patient checkup, patients 15 and younger, or similar)\n• 90 min — $525 (feeling unwell for roughly 3–6 years)\n• 120 min — $625 (unwell for 6+ years or a very complicated medical history)\n\nFollow-ups are usually about 8 weeks after the initial visit to review how you are feeling and lab results (earlier if needed). Follow-ups typically range 30–45 minutes; ask our team for the current follow-up rates when you schedule."
+      "answer": "Dr. Afrooz‘s First Appointment Prices\n\nIf they want bioidentical hormone replacement therapy and don’t have other health concerns\n\nHealthy Patient General Checkup\n\nIf the patient is 15 and younger\n\nHas been healthy until recently\n\nMold or Lyme is not significantly affecting the quality of life\n\nWants to do hormone replacement therapy\n\nA patient who has been feeling unwell for 3-6 years\n\nHas been unwell for 6+ years\n\nVery complicated medical history\n\nDr. Afrooz’s Follow-Up Prices\n\nFollow-ups are usually 8 weeks after initial appointments in order to go over how you’re feeling and your lab results. You may be seen earlier as needed. Follow-ups range between 30-45 minutes, and the price also ranges between 170 – 200 dollars.",
+      "section": "appointments"
     },
     {
-      "id": "dr-needle-pricing",
+      "id": "how-much-do-appointments-with-dr-needle-cost",
       "question": "How much do appointments with Dr. Needle cost?",
-      "answer": "Dr. Needle's standard initial consult is typically 60 minutes for $300.\n\nFollow-ups are usually about 8 weeks after the initial visit to review how you are feeling and lab results (earlier if needed). A 30-minute follow-up is $150 and a 45-minute follow-up is $200."
+      "answer": "Dr. Needle’s First Appointment Prices\n\nStandard initial consult time. Click here to learn more about whether you would be a good fit for Dr. Needle.\n\nDr. Needle’s Follow-Up Prices\n\nFollow-ups are usually 8 weeks after initial appointments in order to go over how you’re feeling and your lab results. You may be seen earlier as needed. Follow-ups range between 30-45 minutes. A 30-minute follow-up would be 150 dollars and a 45-minute follow-up would be 200.",
+      "section": "appointments"
     },
     {
-      "id": "what-therapies",
+      "id": "what-therapies-do-you-offer",
       "question": "What therapies do you offer?",
-      "answer": "We offer a wide range of therapies, including nutritional IVs, EBOO, frequency specific microcurrent (FSM), infrared sauna therapy, red light therapy, ionic foot detox, hyperbaric oxygen therapy, ozone IV, ozone ear insufflation, NAD IV, methylene blue IV, and more.\n\nWe continue expanding available therapies to better meet patient needs. Browse the Services tab in the app for details on individual offerings."
+      "answer": "We currently offer a wide range of therapies, including:\n\nNutritional IVs\n\nEBOO\n\nFSM\n\nInfrared Sauna Therapy\n\nRed Light Therapy\n\nIonic Foot Detox\n\nHyperbaric Oxygen Therapy\n\nOzone IV\n\nOzone Ear Insufflation\n\nNutritional IV Infusions\n\nNAD IV\n\nMethylene Blue IV\n\n…and many more!\n\nWe are always expanding our available therapies to better meet the needs of our patients.",
+      "section": "therapies"
     },
     {
-      "id": "appointment-for-therapies",
+      "id": "do-i-need-an-appointment-to-receive-some-of-these-therapies",
       "question": "Do I need an appointment to receive some of these therapies?",
-      "answer": "Most of our therapies are generally available without a full new-patient medical appointment. You are welcome to book a 15-minute consultation with Dr. Afrooz or Dr. Needle for $60 to determine which therapies best suit your health goals.\n\nA short evaluation may be required to clear you for certain therapies such as high-dose vitamin C, EBOO, or IV methylene blue, or if you have a more sensitive medical history."
+      "answer": "No, most of our therapies are generally available to everyone. However, you are welcome to book a 15-minute consultation with Dr. Afrooz or Dr. Needle for $60 to determine which therapies best suit your current health goals.\n\nThis 15-minute evaluation may be mandatory to clear you for certain therapies such as High-Dose Vitamin C, EBOO, IV Methylene Blue or if you have a more sensitive medical history that may interfere with any of the therapies listed above.",
+      "section": "therapies"
+    },
+    {
+      "id": "office-policies",
+      "question": "Office Policies",
+      "answer": "Intake and Follow-up Visits\n\nNormally, our intake new patient first visit is 1-2 hours long.",
+      "section": "policies"
+    }
+  ],
+  "sections": [
+    {
+      "id": "appointments",
+      "title": "Common Questions About Our Appointments",
+      "items": [
+        {
+          "id": "how-do-i-schedule",
+          "question": "How do I schedule?",
+          "answer": "Please fill out this new patient form, and our new patient representative will contact you via phone and text. The scheduling process is very simple and takes about 5–10 minutes. The new patient representative will determine the length of your first appointment based on your health goals and medical history and provide you with a transparent pricing breakdown. Afterwards, we usually review office policies and afterwards our staff will send you email links to complete your set of new patient questionnaires before your appointment, and submit a deposit to hold your appointment time.\n\nYOU DO NOT need to get labs done before your appointment, as our doctors will most likely order customized lab work based on your initial evaluation.",
+          "section": "appointments"
+        },
+        {
+          "id": "what-can-i-expect-to-receive-after-my-first-appointment",
+          "question": "What can I expect to receive after my first appointment?",
+          "answer": "A treatment plan based on your symptoms that will be adjusted once your lab work results come in and will be tailored to your medical history.\n\nThorough lab work is typically sent to Quest or LabCorp, depending on your evaluation. Our staff will also make recommendations for Specialty Lab Work after the initial consultation as needed to evaluate your medical condition.\n\nYour Supplements will be sent to you via our online dispensary and your prescriptions will be sent to your pharmacy.\n\nA list of medical-grade supplements emailed to you for purchase on Fullscript.\n\nFollow-up appointments are available at an additional cost to track your progress.",
+          "section": "appointments"
+        },
+        {
+          "id": "i-have-been-to-other-medical-offices-which-has-made-me-skeptical-about-the-medic",
+          "question": "I have been to other medical offices, which has made me skeptical about the medical care I will receive.",
+          "answer": "We completely understand how infuriating the modern-day healthcare system can be, everything from doctors who don’t listen to you when you say you’re not feeling well, to 15-minute appointments that leave you feeling unheard while not addressing the root cause. If you want to get a feel for our doctors, you are welcome to request a FREE 10-minute discovery call to see if our doctors seem likely to meet your needs. This can be scheduled with our new patient care\n\ncoordinator after filling out our new patient inquiry form. After the call, there is NO OBLIGATION to schedule if you are not comfortable, and you will have a better idea of how our physicians can support you on your healing journey.",
+          "section": "appointments"
+        },
+        {
+          "id": "do-we-accept-insurance",
+          "question": "Do we accept insurance?",
+          "answer": "We are classified as an out-of-network provider and do not directly deal with insurance. We have chosen this model because insurance limits our ability to tailor our protocols to our patients’ needs. Our focus is to provide a patient centered approach to care and our emphasis relies on putting the patient first in all circumstances. After your appointment, we will provide you with an invoice with codes so you can individually submit it to your insurance to see if they will cover any costs. However, we do NOT guarantee that insurance will cover our appointments or treatments—this depends on your out-of-network benefits and your insurance provider.\n\nTo check your benefits, you may want to contact your insurance provider and ask:\n\nDoes my plan offer out-of-network reimbursement for medical visits?\n\nWhat percentage of the visit cost will be reimbursed?\n\nDo I need pre-authorization or a referral for reimbursement?\n\nWe do accept CareCredit. We also accept FSA cards.",
+          "section": "appointments"
+        },
+        {
+          "id": "where-are-we-located",
+          "question": "Where are we located?",
+          "answer": "Our Office Address:\n\n8808 Centre Park Drive Suite 301\n\nColumbia, MD 21045",
+          "section": "appointments"
+        },
+        {
+          "id": "how-much-do-appointments-with-dr-afrooz-cost",
+          "question": "How much do appointments with Dr. Afrooz cost?",
+          "answer": "Dr. Afrooz‘s First Appointment Prices\n\nIf they want bioidentical hormone replacement therapy and don’t have other health concerns\n\nHealthy Patient General Checkup\n\nIf the patient is 15 and younger\n\nHas been healthy until recently\n\nMold or Lyme is not significantly affecting the quality of life\n\nWants to do hormone replacement therapy\n\nA patient who has been feeling unwell for 3-6 years\n\nHas been unwell for 6+ years\n\nVery complicated medical history\n\nDr. Afrooz’s Follow-Up Prices\n\nFollow-ups are usually 8 weeks after initial appointments in order to go over how you’re feeling and your lab results. You may be seen earlier as needed. Follow-ups range between 30-45 minutes, and the price also ranges between 170 – 200 dollars.",
+          "section": "appointments"
+        },
+        {
+          "id": "how-much-do-appointments-with-dr-needle-cost",
+          "question": "How much do appointments with Dr. Needle cost?",
+          "answer": "Dr. Needle’s First Appointment Prices\n\nStandard initial consult time. Click here to learn more about whether you would be a good fit for Dr. Needle.\n\nDr. Needle’s Follow-Up Prices\n\nFollow-ups are usually 8 weeks after initial appointments in order to go over how you’re feeling and your lab results. You may be seen earlier as needed. Follow-ups range between 30-45 minutes. A 30-minute follow-up would be 150 dollars and a 45-minute follow-up would be 200.",
+          "section": "appointments"
+        }
+      ]
+    },
+    {
+      "id": "therapies",
+      "title": "Common Questions About Our Therapies",
+      "items": [
+        {
+          "id": "what-therapies-do-you-offer",
+          "question": "What therapies do you offer?",
+          "answer": "We currently offer a wide range of therapies, including:\n\nNutritional IVs\n\nEBOO\n\nFSM\n\nInfrared Sauna Therapy\n\nRed Light Therapy\n\nIonic Foot Detox\n\nHyperbaric Oxygen Therapy\n\nOzone IV\n\nOzone Ear Insufflation\n\nNutritional IV Infusions\n\nNAD IV\n\nMethylene Blue IV\n\n…and many more!\n\nWe are always expanding our available therapies to better meet the needs of our patients.",
+          "section": "therapies"
+        },
+        {
+          "id": "do-i-need-an-appointment-to-receive-some-of-these-therapies",
+          "question": "Do I need an appointment to receive some of these therapies?",
+          "answer": "No, most of our therapies are generally available to everyone. However, you are welcome to book a 15-minute consultation with Dr. Afrooz or Dr. Needle for $60 to determine which therapies best suit your current health goals.\n\nThis 15-minute evaluation may be mandatory to clear you for certain therapies such as High-Dose Vitamin C, EBOO, IV Methylene Blue or if you have a more sensitive medical history that may interfere with any of the therapies listed above.",
+          "section": "therapies"
+        }
+      ]
+    }
+  ],
+  "policies": {
+    "id": "office-policies",
+    "title": "Office Policies",
+    "content": "Intake and Follow-up Visits\n\nNormally, our intake new patient first visit is 1-2 hours long. This is all time you will get one-on-one with the doctor, where she will review symptoms of your various systems, and review any relevant environmental history. The length of the visit depends mainly on the complexity of the symptoms, the age of the patient, and the length of time the patient has had symptoms.\n\nFollow up visits can be done as office visits. We also offer phone consults if reaching the office is logistically difficult. The length of the appointment depends on the individual; their complexity of treatment, age, progress, and place of residence. Duration of these visits varies between 30, 45, and 60 minutes. We understand some patient may prefer phone consultations, especially finding it difficult to travel while being sick, however, we do need to see you for an in-office visit at least once every 6 months to be able to evaluate you and adjust your treatment plan when needed.\n\nWe are unable to send in blood work orders or request tests before your first intake visit. Dr. Afrooz prefers to evaluate to see you first, evaluate your symptoms, do the physical exam, so she is able to better determine what laboratory tests need to be ordered.\n\nOnce you have made the decision to become our patient, we would get you set up with a patient portal, where you can communicate with the doctors and the office staff, update your demographic information, complete intake questionnaires, and if you already have relevant lab results and medical records, you can upload them to your portal or bring a copy with you to your visit.\n\nThe length of the treatment, the frequency of follow-up visits, and the nature of a treatment plan varies based on the patient’s severity and duration of symptoms, test results, age, among many other factors. Therefore, we will be able to give you more answers to these questions after the doctor evaluates you.\n\nInsurance Free Practice\n\nWe are an insurance free practice and classified as an out-of-network provider. We do not file for insurance reimbursement. However, we will provide an invoice you can submit to your insurance, to help you get as much of your visit covered. Unfortunately, we cannot guarantee your insurance would reimburse you for your visits. We do offer payment plans if needed.\n\nFees and Charges\n\nWhen scheduling your first visit, we require a $100 deposit to hold your appointment. This goes towards your first visit, and is fully refundable if appointments are canceled or rescheduled 3 business days prior to the visit."
+  },
+  "button-label": "Click Here to Get started on Your healing journey",
+  "button-url": "http://192.168.1.160:8000/contact/",
+  "reviews": [
+    {
+      "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+      "name": "Elle",
+      "date": "2025-02-25",
+      "star": 5,
+      "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way."
+    },
+    {
+      "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+      "name": "Manzur Ahmed",
+      "date": "2024-07-05",
+      "star": 5,
+      "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I was always feeling very tired and lethargic and I was thinking that maybe I had long covid."
+    },
+    {
+      "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+      "name": "Muhammad Haroon",
+      "date": "2024-06-27",
+      "star": 5,
+      "comment": "This is one of the most convenient doctor offices that I have been to. The staff and workers really make me feel cared for."
+    },
+    {
+      "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWTxx2WN13zQJY8yBCCHsv9s-9mCkVXOQeJLkm0XXD79QTARPgEQg=s120-c-rp-mo-br100",
+      "name": "Samson Zewde",
+      "date": "2024-06-27",
+      "star": 5,
+      "comment": "Great place! I felt well taken care of and left feeling revitalized after treatment."
+    },
+    {
+      "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXVhyyBMpfz7uCiGqz3lpZ8jfqwwk-NuKXmwhjchhSp_9mYRNfd=s120-c-rp-mo-ba2-br100",
+      "name": "Nas Moha",
+      "date": "2024-06-27",
+      "star": 5,
+      "comment": "Doctors and staff are personable and friendly that provides excellent care. Best care so far around the area"
+    },
+    {
+      "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWetJi7ZC30xKr9f_Et3sjo0MU-PtbJxY_MJW8ATsz1I44J_gjo=s120-c-rp-mo-ba3-br100",
+      "name": "Oxana Oleson",
+      "date": "2024-06-26",
+      "star": 5,
+      "comment": "I have known Dr. Afrooz for the past 8 years. Besides her knowledge and care she put in helping patients with different complex health issues, she is also one of the nicest people I know."
+    },
+    {
+      "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUfWn8Nlmr9OTvD94Q-8w8MLmPpA7gWKZDCa-j1BUcZNfT9_ns=s120-c-rp-mo-br100",
+      "name": "sumaiyah khan",
+      "date": "2024-05-11",
+      "star": 5,
+      "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely."
     }
   ]
 }
