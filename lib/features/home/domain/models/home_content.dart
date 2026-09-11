@@ -1,15 +1,29 @@
+import '../../../about/domain/models/about_section.dart';
+import '../../../about/domain/models/doctor_profile.dart';
+import '../../../about/domain/models/review.dart';
+import 'home_api_mapper.dart';
+
 class HomeContent {
   const HomeContent({
-    required this.heroTag,
-    required this.heroTitle,
+    required this.sections,
+    required this.doctors,
+    required this.reviews,
     this.aboutSegmentLabels = const {},
     this.sectionImages = const {},
   });
 
-  final String heroTag;
-  final String heroTitle;
+  final List<AboutSection> sections;
+  final List<DoctorProfile> doctors;
+  final List<Review> reviews;
   final Map<String, String> aboutSegmentLabels;
   final Map<String, String> sectionImages;
+
+  DoctorProfile? doctorById(String id) {
+    for (final doctor in doctors) {
+      if (doctor.id == id) return doctor;
+    }
+    return null;
+  }
 
   String segmentLabel(String id, String fallbackTitle) {
     final label = aboutSegmentLabels[id];
@@ -25,27 +39,13 @@ class HomeContent {
   }
 
   factory HomeContent.fromJson(Map<String, dynamic> json) {
-    final rawLabels = json['aboutSegmentLabels'];
-    final labels = <String, String>{};
-    if (rawLabels is Map) {
-      for (final entry in rawLabels.entries) {
-        labels['${entry.key}'] = '${entry.value}';
-      }
-    }
-
-    final rawImages = json['sectionImages'];
-    final images = <String, String>{};
-    if (rawImages is Map) {
-      for (final entry in rawImages.entries) {
-        images['${entry.key}'] = '${entry.value}';
-      }
-    }
-
+    final payload = HomeApiMapper.parse(json);
     return HomeContent(
-      heroTag: (json['heroTag'] as String?)?.trim() ?? '',
-      heroTitle: (json['heroTitle'] as String?)?.trim() ?? '',
-      aboutSegmentLabels: labels,
-      sectionImages: images,
+      sections: payload.sections,
+      doctors: payload.doctors,
+      reviews: payload.reviews,
+      aboutSegmentLabels: payload.aboutSegmentLabels,
+      sectionImages: payload.sectionImages,
     );
   }
 }

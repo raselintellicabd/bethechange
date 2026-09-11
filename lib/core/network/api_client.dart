@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config/env_config.dart';
 import '../constants/app_constants.dart';
 import 'api_exception.dart';
+import 'api_log_interceptor.dart';
 import 'api_result.dart';
 import 'mock_api_interceptor.dart';
 
@@ -32,6 +33,10 @@ class ApiClient {
             ) {
     final enableMock = useMockApi ?? _safeUseMockApi();
 
+    if (kDebugMode) {
+      _dio.interceptors.add(ApiLogInterceptor());
+    }
+
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
@@ -46,16 +51,6 @@ class ApiClient {
 
     if (enableMock) {
       _dio.interceptors.add(mockInterceptor ?? MockApiInterceptor());
-    }
-
-    if (kDebugMode && _safeIsDev()) {
-      _dio.interceptors.add(
-        LogInterceptor(
-          requestBody: true,
-          responseBody: true,
-          error: true,
-        ),
-      );
     }
   }
 
@@ -76,14 +71,6 @@ class ApiClient {
       return EnvConfig.useMockApi;
     } catch (_) {
       return true;
-    }
-  }
-
-  static bool _safeIsDev() {
-    try {
-      return EnvConfig.flavor.isDev;
-    } catch (_) {
-      return false;
     }
   }
 

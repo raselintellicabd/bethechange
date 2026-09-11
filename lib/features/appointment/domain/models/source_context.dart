@@ -4,6 +4,7 @@ import 'dart:convert';
 enum SourceContextType {
   condition,
   service,
+  doctor,
   blog,
   other;
 

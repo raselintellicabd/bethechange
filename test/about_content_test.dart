@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bethechange/core/network/api_result.dart';
 import 'package:bethechange/features/about/data/about_repository.dart';
 import 'package:bethechange/features/about/domain/models/about_content.dart';
+import 'package:bethechange/features/about/domain/models/doctor_profile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -43,6 +44,31 @@ void main() {
         expect(section.blocks, isNotEmpty);
         expect(section.title, isNotEmpty);
       }
+    });
+
+    test('doctorForRoute maps a numeric home id onto the about bio', () {
+      final about = AboutContent.fromJson({
+        'sections': [],
+        'doctors': [
+          {
+            'id': 'sultana-afrooz',
+            'name': 'Sultana Afrooz, D.O.',
+            'title': 'Osteopathic Physician',
+            'detailParagraphs': ['Bio'],
+          },
+        ],
+        'reviews': [],
+      });
+      final homeDoctor = DoctorProfile.fromJson({
+        'id': 1,
+        'name': 'Sultana Afrooz, D.O.',
+        'designation': 'Integrative Family Medicine Physician',
+      });
+
+      final resolved = about.doctorForRoute('1', homeDoctor: homeDoctor);
+
+      expect(resolved?.id, 'sultana-afrooz');
+      expect(resolved?.detailParagraphs, ['Bio']);
     });
 
     test('fromJson maps nested blocks', () {

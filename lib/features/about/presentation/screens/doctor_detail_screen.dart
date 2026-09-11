@@ -7,12 +7,15 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/app_button.dart';
+import '../../../../core/widgets/appointment_cta_bar.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/review_card.dart';
 import '../../../../core/widgets/ui_kit.dart';
 import '../../domain/models/doctor_profile.dart';
 import '../../domain/models/review.dart';
+import '../../../appointment/domain/models/source_context.dart';
+import '../../../home/presentation/providers/home_providers.dart';
 import '../providers/about_providers.dart';
 
 class DoctorDetailScreen extends ConsumerWidget {
@@ -37,22 +40,52 @@ class DoctorDetailScreen extends ConsumerWidget {
         ),
       ),
       data: (content) {
-        final doctor = content.doctorById(doctorId);
-        if (doctor == null) {
-          return Scaffold(
+        final direct = content.doctorById(doctorId);
+        if (direct != null) {
+          return _DoctorDetailBody(
+            doctor: direct,
+            sourceId: doctorId,
+            reviewSummaryLabel: content.reviewSummaryLabel,
+            reviewCount: content.reviewCount,
+            reviews: content.reviews,
+          );
+        }
+
+        final homeAsync = ref.watch(homeContentProvider);
+        return homeAsync.when(
+          loading: () => Scaffold(
+            appBar: AppAppBar.text('Doctor'),
+            body: const LoadingIndicator(message: 'Loading…'),
+          ),
+          error: (_, _) => Scaffold(
             appBar: AppAppBar.text('Doctor'),
             body: const ErrorStateWidget(
               title: 'Not found',
               message: 'That doctor profile could not be found.',
             ),
-          );
-        }
-
-        return _DoctorDetailBody(
-          doctor: doctor,
-          reviewSummaryLabel: content.reviewSummaryLabel,
-          reviewCount: content.reviewCount,
-          reviews: content.reviews,
+          ),
+          data: (home) {
+            final doctor = content.doctorForRoute(
+              doctorId,
+              homeDoctor: home.doctorById(doctorId),
+            );
+            if (doctor == null) {
+              return Scaffold(
+                appBar: AppAppBar.text('Doctor'),
+                body: const ErrorStateWidget(
+                  title: 'Not found',
+                  message: 'That doctor profile could not be found.',
+                ),
+              );
+            }
+            return _DoctorDetailBody(
+              doctor: doctor,
+              sourceId: doctorId,
+              reviewSummaryLabel: content.reviewSummaryLabel,
+              reviewCount: content.reviewCount,
+              reviews: content.reviews,
+            );
+          },
         );
       },
     );
@@ -62,15 +95,23 @@ class DoctorDetailScreen extends ConsumerWidget {
 class _DoctorDetailBody extends StatelessWidget {
   const _DoctorDetailBody({
     required this.doctor,
+    required this.sourceId,
     required this.reviews,
     this.reviewSummaryLabel,
     this.reviewCount,
   });
 
   final DoctorProfile doctor;
+  final String sourceId;
   final List<Review> reviews;
   final String? reviewSummaryLabel;
   final int? reviewCount;
+
+  SourceContext get _sourceContext => SourceContext(
+        type: SourceContextType.doctor,
+        id: sourceId,
+        name: doctor.name,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +159,8 @@ class _DoctorDetailBody extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
+                AppointmentCtaBar(sourceContext: _sourceContext),
+                const SizedBox(height: 20),
                 Text(
                   doctor.aboutHeading ?? 'About',
                   style: AppTextStyles.titleLarge,
@@ -163,6 +206,7 @@ class _DoctorDetailBody extends StatelessWidget {
                       reviewText: review.reviewText,
                       rating: review.rating,
                       dateLabel: review.dateLabel,
+                      avatarUrl: review.imageUrl,
                     ),
                   );
                 },
@@ -170,6 +214,10 @@ class _DoctorDetailBody extends StatelessWidget {
             ),
           ] else
             const SizedBox(height: AppSpacing.lg),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+            child: AppointmentCtaBar(sourceContext: _sourceContext),
+          ),
         ],
       ),
     );

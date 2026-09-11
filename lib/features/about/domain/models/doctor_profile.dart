@@ -41,14 +41,39 @@ class DoctorProfile {
       if (legacy != null && legacy.isNotEmpty) paragraphs.add(legacy);
     }
 
+    final name = (json['name'] as String?)?.trim() ?? '';
+    final explicitId = _id(json['id']);
+    final title = (json['title'] as String?)?.trim() ??
+        (json['designation'] as String?)?.trim() ??
+        '';
+    final imageUrl = (json['imageUrl'] as String?)?.trim() ??
+        (json['img-url'] as String?)?.trim();
+
     return DoctorProfile(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      title: json['title'] as String,
-      imageUrl: json['imageUrl'] as String?,
+      id: (explicitId != null && explicitId.isNotEmpty)
+          ? explicitId
+          : slugFromName(name),
+      name: name,
+      title: title,
+      imageUrl: imageUrl == null || imageUrl.isEmpty ? null : imageUrl,
       bio: json['bio'] as String?,
       aboutHeading: json['aboutHeading'] as String?,
       detailParagraphs: paragraphs,
     );
+  }
+
+  static String? _id(Object? raw) {
+    if (raw == null) return null;
+    final text = '$raw'.trim();
+    return text.isEmpty ? null : text;
+  }
+
+  /// Turns `Sultana Afrooz, D.O.` into `sultana-afrooz`.
+  static String slugFromName(String name) {
+    final base = name.split(',').first.trim().toLowerCase();
+    final slug = base
+        .replaceAll(RegExp(r'[^a-z0-9]+'), '-')
+        .replaceAll(RegExp(r'^-+|-+$'), '');
+    return slug.isEmpty ? 'doctor' : slug;
   }
 }

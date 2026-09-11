@@ -28,7 +28,7 @@ API_BASE_URL=https://api-dev.example.com
 | GET | `/blog/{id}` | item from articles list |
 | GET | `/faq` | `assets/data/faq.json` |
 | GET | `/clinic` | `assets/data/clinic.json` |
-| GET | `/home` | `assets/data/home.json` |
+| GET | `/api/v1/home` | `assets/data/home.json` |
 | GET | `/patients` | `assets/data/patients.json` |
 | GET | `/chatbot/config` | suggestions/disclaimer from `chatbot_replies.json` |
 | POST | `/chatbot/message` | keyword replies from `chatbot_replies.json` |

@@ -34,6 +34,15 @@ class AboutContent {
     return null;
   }
 
+  /// Home `/api/v1/home/` doctor ids are numeric. Bios still live on About,
+  /// keyed by name slug, until that endpoint shares the same id.
+  DoctorProfile? doctorForRoute(String routeId, {DoctorProfile? homeDoctor}) {
+    final direct = doctorById(routeId);
+    if (direct != null) return direct;
+    if (homeDoctor == null) return null;
+    return doctorById(DoctorProfile.slugFromName(homeDoctor.name)) ?? homeDoctor;
+  }
+
   factory AboutContent.fromJson(Map<String, dynamic> json) {
     return AboutContent(
       doctorsIntro: json['doctorsIntro'] as String?,

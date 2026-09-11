@@ -50,7 +50,7 @@ class MockApiInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) {
     _handle(options).then((response) {
-      handler.resolve(response);
+      handler.resolve(response, true);
     }).catchError((Object error, StackTrace stackTrace) {
       if (error is _MockHttpError) {
         handler.reject(
@@ -65,6 +65,7 @@ class MockApiInterceptor extends Interceptor {
             message: error.message,
             stackTrace: stackTrace,
           ),
+          true,
         );
         return;
       }
@@ -76,6 +77,7 @@ class MockApiInterceptor extends Interceptor {
           stackTrace: stackTrace,
           message: error.toString(),
         ),
+        true,
       );
     });
   }

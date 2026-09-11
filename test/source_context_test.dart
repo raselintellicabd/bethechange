@@ -40,6 +40,19 @@ void main() {
       expect(SourceContext.tryParse(context.encode()), context);
     });
 
+    test('doctor type round-trips for appointment requests', () {
+      const context = SourceContext(
+        type: SourceContextType.doctor,
+        id: '1',
+        name: 'Sultana Afrooz, D.O.',
+      );
+
+      final parsed = SourceContext.tryParse(context.encode());
+
+      expect(parsed, context);
+      expect(parsed?.type, SourceContextType.doctor);
+    });
+
     test('appointmentPath includes encoded sourceContext query', () {
       const context = SourceContext(
         type: SourceContextType.service,

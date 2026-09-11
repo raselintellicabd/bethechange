@@ -11,7 +11,7 @@ class ApiPaths {
   static const String blog = '/blog';
   static const String faq = '/faq';
   static const String clinic = '/clinic';
-  static const String home = '/home';
+  static const String home = '/api/v1/home';
   static const String patients = '/patients';
   static const String contact = '/contact';
   static const String chatbotMessage = '/chatbot/message';

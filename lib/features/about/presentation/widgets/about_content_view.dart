@@ -125,6 +125,7 @@ class AboutContentView extends StatelessWidget {
                             reviewText: review.reviewText,
                             rating: review.rating,
                             dateLabel: review.dateLabel,
+                            avatarUrl: review.imageUrl,
                           ),
                         );
                       },

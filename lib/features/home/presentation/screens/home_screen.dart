@@ -13,9 +13,7 @@ import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/review_card.dart';
 import '../../../../core/widgets/ui_kit.dart';
-import '../../../../features/about/domain/models/about_content.dart';
 import '../../../../features/about/domain/models/doctor_profile.dart';
-import '../../../../features/about/presentation/providers/about_providers.dart';
 import '../../../../features/about/presentation/widgets/about_content_view.dart';
 import '../../domain/models/home_content.dart';
 import '../providers/home_providers.dart';
@@ -48,36 +46,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final aboutAsync = ref.watch(aboutContentProvider);
     final homeAsync = ref.watch(homeContentProvider);
 
     return Scaffold(
       appBar: AppAppBar.text('Be The Change'),
-      body: aboutAsync.when(
+      body: homeAsync.when(
         loading: () => const LoadingIndicator(message: 'Loading…'),
         error: (error, _) => ErrorStateWidget(
           message: error.toString().replaceFirst('Exception: ', ''),
-          onRetry: () {
-            ref.invalidate(aboutContentProvider);
-            ref.invalidate(homeContentProvider);
-          },
+          onRetry: () => ref.invalidate(homeContentProvider),
         ),
-        data: (content) {
-          return homeAsync.when(
-            loading: () => const LoadingIndicator(message: 'Loading…'),
-            error: (error, _) => ErrorStateWidget(
-              message: error.toString().replaceFirst('Exception: ', ''),
-              onRetry: () => ref.invalidate(homeContentProvider),
-            ),
-            data: (home) => _HomeBody(
-              content: content,
-              home: home,
-              aboutSegment: _aboutSegment,
-              scrollController: _scrollController,
-              onAboutSegmentChanged: _onAboutSegmentChanged,
-            ),
-          );
-        },
+        data: (home) => _HomeBody(
+          home: home,
+          aboutSegment: _aboutSegment,
+          scrollController: _scrollController,
+          onAboutSegmentChanged: _onAboutSegmentChanged,
+        ),
       ),
     );
   }
@@ -85,14 +69,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
 class _HomeBody extends StatelessWidget {
   const _HomeBody({
-    required this.content,
     required this.home,
     required this.aboutSegment,
     required this.scrollController,
     required this.onAboutSegmentChanged,
   });
 
-  final AboutContent content;
   final HomeContent home;
   final int aboutSegment;
   final ScrollController scrollController;
@@ -100,7 +82,7 @@ class _HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sections = content.sections;
+    final sections = home.sections;
     final safeIndex = sections.isEmpty
         ? 0
         : aboutSegment.clamp(0, sections.length - 1);
@@ -139,39 +121,18 @@ class _HomeBody extends StatelessWidget {
                   child: AboutSectionBlocks(section: section),
                 ),
               ],
-              if (content.doctors.isNotEmpty) ...[
+              if (home.doctors.isNotEmpty) ...[
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 10),
                   child: SectionTitle('Meet our doctors'),
                 ),
-                if (content.doctorsIntro != null &&
-                    content.doctorsIntro!.trim().isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
-                    child: Text(
-                      content.doctorsIntro!,
-                      style: AppTextStyles.bodySmall,
-                    ),
-                  ),
-                _DoctorsRow(doctors: content.doctors),
+                _DoctorsRow(doctors: home.doctors),
               ],
-              if (content.reviews.isNotEmpty) ...[
+              if (home.reviews.isNotEmpty) ...[
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 20, 16, 10),
                   child: SectionTitle('What our patients say'),
                 ),
-                if (content.reviewSummaryLabel != null)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
-                    child: Text(
-                      content.reviewCount == null
-                          ? content.reviewSummaryLabel!
-                          : '${content.reviewSummaryLabel} · Based on ${content.reviewCount} reviews',
-                      style: AppTextStyles.bodySmall.copyWith(
-                        color: AppColors.inkMuted,
-                      ),
-                    ),
-                  ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 24),
                   child: SizedBox(
@@ -179,10 +140,10 @@ class _HomeBody extends StatelessWidget {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: content.reviews.length,
+                      itemCount: home.reviews.length,
                       separatorBuilder: (_, _) => const SizedBox(width: 10),
                       itemBuilder: (context, index) {
-                        final review = content.reviews[index];
+                        final review = home.reviews[index];
                         return SizedBox(
                           width: MediaQuery.sizeOf(context).width * 0.78,
                           child: ReviewCard(
@@ -190,6 +151,7 @@ class _HomeBody extends StatelessWidget {
                             reviewText: review.reviewText,
                             rating: review.rating,
                             dateLabel: review.dateLabel,
+                            avatarUrl: review.imageUrl,
                           ),
                         );
                       },
