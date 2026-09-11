@@ -66,7 +66,6 @@ void main() {
         name: 'Alex',
         email: 'alex@example.com',
         phone: '3015551212',
-        subject: 'Hello',
         message: 'This is a detailed enough message.',
       ),
     );

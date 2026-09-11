@@ -14,26 +14,26 @@ class ContactFormState {
   const ContactFormState({
     this.isSubmitting = false,
     this.errorMessage,
-    this.successId,
+    this.submission,
   });
 
   final bool isSubmitting;
   final String? errorMessage;
-  final String? successId;
+  final ContactSubmissionResult? submission;
 
-  bool get isSuccess => successId != null;
+  bool get isSuccess => submission != null;
 
   ContactFormState copyWith({
     bool? isSubmitting,
     String? errorMessage,
-    String? successId,
+    ContactSubmissionResult? submission,
     bool clearError = false,
     bool clearSuccess = false,
   }) {
     return ContactFormState(
       isSubmitting: isSubmitting ?? this.isSubmitting,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
-      successId: clearSuccess ? null : (successId ?? this.successId),
+      submission: clearSuccess ? null : (submission ?? this.submission),
     );
   }
 }
@@ -63,7 +63,7 @@ class ContactController extends StateNotifier<ContactFormState> {
         );
         state = state.copyWith(
           isSubmitting: false,
-          successId: data.id,
+          submission: data,
           clearError: true,
         );
         return true;

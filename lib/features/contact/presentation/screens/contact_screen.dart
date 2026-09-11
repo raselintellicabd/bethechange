@@ -7,8 +7,6 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/external_link_handler.dart';
 import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/app_button.dart';
-import '../../../../core/widgets/error_state_widget.dart';
-import '../../../../core/widgets/loading_indicator.dart';
 import '../../../clinic/domain/models/clinic_info.dart';
 import '../../../clinic/presentation/providers/clinic_providers.dart';
 import '../../domain/models/contact_request.dart';
@@ -26,7 +24,6 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
-  final _subjectController = TextEditingController();
   final _messageController = TextEditingController();
 
   @override
@@ -34,7 +31,6 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
     _nameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
-    _subjectController.dispose();
     _messageController.dispose();
     super.dispose();
   }
@@ -48,25 +44,16 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
             name: _nameController.text.trim(),
             email: _emailController.text.trim(),
             phone: _phoneController.text.trim(),
-            subject: _subjectController.text.trim(),
             message: _messageController.text.trim(),
           ),
         );
 
-    if (!mounted) return;
-    if (ok) {
-      _formKey.currentState?.reset();
-      _nameController.clear();
-      _emailController.clear();
-      _phoneController.clear();
-      _subjectController.clear();
-      _messageController.clear();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Thanks — your message was sent successfully.'),
-        ),
-      );
-    }
+    if (!mounted || !ok) return;
+    _formKey.currentState?.reset();
+    _nameController.clear();
+    _emailController.clear();
+    _phoneController.clear();
+    _messageController.clear();
   }
 
   Future<void> _callClinic(ClinicInfo clinic) async {
@@ -129,57 +116,68 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
 
     return Scaffold(
       appBar: AppAppBar.text('Contact'),
-      body: clinicAsync.when(
-        loading: () => const LoadingIndicator(message: 'Loading…'),
-        error: (error, _) => ErrorStateWidget(
-          message: error.toString().replaceFirst('Exception: ', ''),
-          onRetry: () => ref.invalidate(clinicInfoProvider),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.md,
+          AppSpacing.md,
+          AppSpacing.md,
+          AppSpacing.xxl,
         ),
-        data: (clinic) => ListView(
-          padding: const EdgeInsets.fromLTRB(
-            AppSpacing.md,
-            AppSpacing.md,
-            AppSpacing.md,
-            AppSpacing.xxl,
-          ),
-          children: [
-            Text('Clinic', style: AppTextStyles.titleLarge),
-            const SizedBox(height: AppSpacing.sm),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(AppSpacing.md),
-              decoration: BoxDecoration(
-                color: AppColors.card,
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: AppColors.line),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(clinic.name, style: AppTextStyles.titleMedium),
-                  const SizedBox(height: AppSpacing.sm),
-                  _kv(
-                    'Address',
-                    '${clinic.addressLine1}\n${clinic.addressLine2}',
+        children: [
+          clinicAsync.when(
+            loading: () => const SizedBox.shrink(),
+            error: (_, _) => const SizedBox.shrink(),
+            data: (clinic) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Clinic', style: AppTextStyles.titleLarge),
+                const SizedBox(height: AppSpacing.sm),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(AppSpacing.md),
+                  decoration: BoxDecoration(
+                    color: AppColors.card,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: AppColors.line),
                   ),
-                  _kv('Hours', clinic.hours),
-                  _kv(
-                    'Phone',
-                    clinic.phoneDisplay,
-                    onTap: () => _callClinic(clinic),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(clinic.name, style: AppTextStyles.titleMedium),
+                      const SizedBox(height: AppSpacing.sm),
+                      _kv(
+                        'Address',
+                        '${clinic.addressLine1}\n${clinic.addressLine2}',
+                      ),
+                      _kv('Hours', clinic.hours),
+                      _kv(
+                        'Phone',
+                        clinic.phoneDisplay,
+                        onTap: () => _callClinic(clinic),
+                      ),
+                      _kv('Fax', clinic.faxDisplay),
+                      const SizedBox(height: AppSpacing.xs),
+                      AppButton(
+                        label: 'Get directions',
+                        variant: AppButtonVariant.outlined,
+                        icon: Icons.directions_outlined,
+                        onPressed: () => _openDirections(clinic),
+                      ),
+                    ],
                   ),
-                  _kv('Fax', clinic.faxDisplay),
-                  const SizedBox(height: AppSpacing.xs),
-                  AppButton(
-                    label: 'Get directions',
-                    variant: AppButtonVariant.outlined,
-                    icon: Icons.directions_outlined,
-                    onPressed: () => _openDirections(clinic),
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(height: AppSpacing.lg),
+              ],
             ),
-            const SizedBox(height: AppSpacing.lg),
+          ),
+          if (state.submission != null)
+            _ContactSuccessCard(
+              result: state.submission!,
+              onSendAnother: () {
+                ref.read(contactControllerProvider.notifier).clearFeedback();
+              },
+            )
+          else ...[
             Text('Send a message', style: AppTextStyles.titleLarge),
             const SizedBox(height: AppSpacing.xs),
             Text(
@@ -239,19 +237,6 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
                   ),
                   const SizedBox(height: AppSpacing.md),
                   TextFormField(
-                    controller: _subjectController,
-                    textCapitalization: TextCapitalization.sentences,
-                    textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(labelText: 'Subject'),
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'Subject is required';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                  TextFormField(
                     controller: _messageController,
                     minLines: 4,
                     maxLines: 8,
@@ -299,8 +284,88 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
                 ],
               ),
             ),
+            ],
           ],
         ),
+    );
+  }
+}
+
+class _ContactSuccessCard extends StatelessWidget {
+  const _ContactSuccessCard({
+    required this.result,
+    required this.onSendAnother,
+  });
+
+  final ContactSubmissionResult result;
+  final VoidCallback onSendAnother;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppSpacing.md),
+      decoration: BoxDecoration(
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.line),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.check_circle_outline, color: AppColors.success),
+          const SizedBox(height: AppSpacing.sm),
+          Text('Message sent', style: AppTextStyles.titleLarge),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            result.name.isEmpty
+                ? 'Thanks. We received your message and will follow up.'
+                : 'Thanks, ${result.name}. We received your message and will follow up.',
+            style: AppTextStyles.bodyMedium,
+          ),
+          const SizedBox(height: AppSpacing.md),
+          _receiptRow('Email', result.email),
+          _receiptRow('Phone', result.phone),
+          if (result.receivedLabel.isNotEmpty)
+            _receiptRow('Received', result.receivedLabel),
+          _receiptRow('Reference', result.id),
+          _receiptRow('Status', result.statusLabel),
+          if (result.message.isNotEmpty) ...[
+            const SizedBox(height: AppSpacing.sm),
+            Text('Your message', style: AppTextStyles.labelMedium),
+            const SizedBox(height: AppSpacing.xxs),
+            Text(result.message, style: AppTextStyles.bodyMedium),
+          ],
+          const SizedBox(height: AppSpacing.lg),
+          AppButton(
+            label: 'Send another message',
+            variant: AppButtonVariant.outlined,
+            expand: true,
+            onPressed: onSendAnother,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _receiptRow(String label, String value) {
+    if (value.trim().isEmpty) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 88,
+            child: Text(
+              label,
+              style: AppTextStyles.labelMedium.copyWith(
+                color: AppColors.inkMuted,
+              ),
+            ),
+          ),
+          Expanded(child: Text(value, style: AppTextStyles.bodyMedium)),
+        ],
       ),
     );
   }

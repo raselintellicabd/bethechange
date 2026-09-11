@@ -4,7 +4,7 @@ import '../../../core/network/api_result.dart';
 import '../domain/models/contact_request.dart';
 import 'contact_repository.dart';
 
-/// Contact form networking via `POST /contact`.
+/// Contact form networking via `POST /api/v1/contact-messages`.
 class ContactApiRepository implements ContactRepository {
   ContactApiRepository(this._client);
 
@@ -13,7 +13,7 @@ class ContactApiRepository implements ContactRepository {
   @override
   Future<ApiResult<ContactSubmissionResult>> submit(ContactRequest request) {
     return _client.post(
-      ApiPaths.contact,
+      '${ApiPaths.contact}/',
       data: request.toJson(),
       parser: (data) =>
           ContactSubmissionResult.fromJson(data as Map<String, dynamic>),

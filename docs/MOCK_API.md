@@ -35,7 +35,7 @@ API_BASE_URL=https://api-dev.example.com
 | GET | `/appointments/availability` | generated from `appointment_config.json` |
 | GET | `/appointments/slots` | generated from `appointment_config.json` |
 | POST | `/appointments` | in-memory confirmation |
-| POST | `/contact` | in-memory received id |
+| POST | `/api/v1/contact-messages/` | in-memory received message |
 
 ## Django slug alignment
 
@@ -43,6 +43,6 @@ Service and condition IDs in JSON match Django CMS slugs (e.g. `frequency-specif
 
 ## QA hooks
 
-- Contact / chatbot: put `force error` in the message (or contact subject) to simulate failure.
+- Contact / chatbot: put `force error` in the message to simulate failure.
 - Appointment: patient notes `force error` simulates a 409 slot conflict.
 - Fridays return no appointment slots (empty-state testing).

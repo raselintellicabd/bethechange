@@ -190,31 +190,32 @@ class MockApiInterceptor extends Interceptor {
   }
 
   Future<Map<String, dynamic>> _submitContact(Map<String, dynamic> data) async {
-    final name = (data['name'] as String?)?.trim() ?? '';
-    final email = (data['email'] as String?)?.trim() ?? '';
-    final phone = (data['phone'] as String?)?.trim() ?? '';
-    final subject = (data['subject'] as String?)?.trim() ?? '';
-    final message = (data['message'] as String?)?.trim() ?? '';
+    final name = '${data['name'] ?? ''}'.trim();
+    final email = '${data['email'] ?? ''}'.trim();
+    final phone = '${data['phone'] ?? ''}'.trim();
+    final message = '${data['message'] ?? ''}'.trim();
 
-    final haystack = '$subject $message'.toLowerCase();
-    if (haystack.contains('force error')) {
+    if (message.toLowerCase().contains('force error')) {
       throw const _MockHttpError(
         503,
         'Unable to send your message. Please try again.',
       );
     }
 
-    if (name.isEmpty ||
-        email.isEmpty ||
-        phone.isEmpty ||
-        subject.isEmpty ||
-        message.isEmpty) {
+    if (name.isEmpty || email.isEmpty || phone.isEmpty || message.isEmpty) {
       throw const _MockHttpError(400, 'All contact fields are required.');
     }
 
+    final id = ++_contactCounter;
     return {
-      'id': 'contact-${++_contactCounter}',
-      'status': 'received',
+      'id': id,
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'message': message,
+      'is_read': data['is_read'] == true,
+      'created_at': DateTime.now().toUtc().toIso8601String(),
+      'conversation': id,
     };
   }
 

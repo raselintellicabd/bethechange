@@ -36,7 +36,6 @@ void main() {
           name: 'Alex Patient',
           email: 'alex@example.com',
           phone: '3015551212',
-          subject: 'Question about hours',
           message: 'What time do you open on Fridays?',
         ),
       );
@@ -44,21 +43,44 @@ void main() {
       expect(result, isA<ApiSuccess<ContactSubmissionResult>>());
       final data = (result as ApiSuccess<ContactSubmissionResult>).data;
       expect(data.id, isNotEmpty);
-      expect(data.status, 'received');
+      expect(data.name, 'Alex Patient');
+      expect(data.email, 'alex@example.com');
+      expect(data.isRead, isFalse);
+      expect(data.createdAt, isNotNull);
+      expect(data.conversation, isNotNull);
     });
 
-    test('force error in subject/message fails', () async {
+    test('force error in the message fails', () async {
       final result = await createMockContactRepository().submit(
         const ContactRequest(
           name: 'Alex Patient',
           email: 'alex@example.com',
           phone: '3015551212',
-          subject: 'force error',
-          message: 'Please fail this request for testing.',
+          message: 'Please force error this request for testing.',
         ),
       );
 
       expect(result, isA<ApiFailure>());
+    });
+
+    test('fromJson accepts the contact message response', () {
+      final result = ContactSubmissionResult.fromJson({
+        'id': 12,
+        'name': 'Rasel Rahman',
+        'email': 'rasel.intellicabd@gmail.com',
+        'phone': '01703266722',
+        'message': 'I, testing from swagger',
+        'is_read': false,
+        'created_at': '2026-09-11T06:54:04.655004Z',
+        'conversation': 3,
+      });
+
+      expect(result.id, '12');
+      expect(result.email, 'rasel.intellicabd@gmail.com');
+      expect(result.isRead, isFalse);
+      expect(result.conversation, 3);
+      expect(result.receivedLabel, isNotEmpty);
+      expect(result.statusLabel, 'Waiting for our team to reply');
     });
   });
 
@@ -126,40 +148,29 @@ void main() {
     testWidgets('success clears form; failure shows retry', (tester) async {
       await openContact(tester);
 
-      Future<void> fillForm({
-        required String subject,
-        required String message,
-      }) async {
+      Future<void> fillForm({required String message}) async {
         await tester.enterText(fieldAt(0), 'Alex Patient');
         await tester.enterText(fieldAt(1), 'alex@example.com');
         await tester.enterText(fieldAt(2), '3015551212');
-        await tester.enterText(fieldAt(3), subject);
-        await tester.enterText(fieldAt(4), message);
+        await tester.enterText(fieldAt(3), message);
         await tester.pump();
       }
 
-      await fillForm(
-        subject: 'force error',
-        message: 'Please fail this submission path.',
-      );
+      await fillForm(message: 'Please force error this submission path.');
       await tapSend(tester);
       await tester.pump(const Duration(milliseconds: 50));
 
       expect(find.textContaining('Unable to send your message'), findsOneWidget);
       expect(find.text('Retry'), findsOneWidget);
 
-      await fillForm(
-        subject: 'Hours question',
-        message: 'What time do you open on Fridays?',
-      );
+      await fillForm(message: 'What time do you open on Fridays?');
       await tapSend(tester);
       await tester.pump(const Duration(milliseconds: 50));
 
-      expect(
-        find.text('Thanks — your message was sent successfully.'),
-        findsOneWidget,
-      );
-      expect(tester.widget<TextFormField>(fieldAt(0)).controller?.text, isEmpty);
+      expect(find.text('Message sent'), findsOneWidget);
+      expect(find.textContaining('Thanks, Alex Patient'), findsOneWidget);
+      expect(find.text('Waiting for our team to reply'), findsOneWidget);
+      expect(find.text('Send another message'), findsOneWidget);
     });
   });
 }
