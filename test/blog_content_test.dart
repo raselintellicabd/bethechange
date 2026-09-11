@@ -4,6 +4,7 @@ import 'package:bethechange/core/network/api_result.dart';
 import 'package:bethechange/features/blog/data/blog_repository.dart';
 import 'package:bethechange/features/blog/domain/models/blog_article.dart';
 import 'package:bethechange/features/blog/domain/models/blog_catalog.dart';
+import 'package:bethechange/features/blog/domain/models/blog_html.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -120,6 +121,50 @@ void main() {
       expect(detail.author, 'Be The Change Health & Wellness Center');
       expect(detail.body, 'Full article body.');
       expect(detail.publishedLabel, 'February 24, 2025');
+    });
+
+    test('content_html keeps headings and lists separate from body', () {
+      final article = BlogArticle.fromJson({
+        'id': 'what-is-hyperbaric-oxygen-therapy',
+        'title': 'What is Hyperbaric Oxygen Therapy?',
+        'subtitle':
+            'Hyperbaric oxygen therapy has been used for many years to treat a variety of conditions.',
+        'body':
+            'Hyperbaric oxygen therapy has been used for many years.What conditions can it help?Carbon monoxide poisoning',
+        'content_html':
+            '<p>Hyperbaric oxygen therapy has been used for many years to treat a variety of conditions.</p>'
+            '<h3>What conditions can it help?</h3>'
+            '<p>Hyperbaric oxygen therapy can help treat many different conditions.</p>'
+            '<h3>HBOT provides the following benefits:</h3>'
+            '<ul><li>Increased stem cell production</li><li>Wound healing</li></ul>'
+            '<h6>Conclusion</h6>'
+            '<p>It is a safe, noninvasive treatment.</p>',
+        'heroImage': 'http://example.com/hbot.jpg',
+        'author': 'Be The Change Health & Wellness Center',
+        'publishedAt': '2025-02-24',
+        'slug': 'what-is-hyperbaric-oxygen-therapy',
+      });
+
+      expect(article.contentHtml, contains('<h3>'));
+      final blocks = blogContentBlocks(
+        contentHtml: article.contentHtml,
+        body: article.body,
+        subtitle: article.subtitle,
+      );
+
+      expect(blocks.whereType<BlogHeading>().map((block) => block.text), [
+        'What conditions can it help?',
+        'HBOT provides the following benefits:',
+        'Conclusion',
+      ]);
+      expect(
+        blocks.whereType<BlogBulletList>().single.items,
+        ['Increased stem cell production', 'Wound healing'],
+      );
+      expect(
+        blocks.whereType<BlogParagraph>().map((block) => block.text),
+        isNot(contains(article.subtitle)),
+      );
     });
 
     test('getArticleById returns failure for unknown id', () async {

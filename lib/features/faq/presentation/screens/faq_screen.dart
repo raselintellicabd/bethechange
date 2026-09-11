@@ -7,7 +7,6 @@ import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
-import '../../../../core/utils/external_link_handler.dart';
 import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_state_widget.dart';
@@ -70,23 +69,10 @@ class _FaqScreenState extends ConsumerState<FaqScreen> {
             query: _query,
             searchController: _searchController,
             onQueryChanged: (value) => setState(() => _query = value.trim()),
-            onCta: () => _openCta(catalog.buttonUrl),
           );
         },
       ),
     );
-  }
-
-  Future<void> _openCta(String? url) async {
-    final path = _inAppPath(url);
-    if (path != null) {
-      if (!mounted) return;
-      context.push(path);
-      return;
-    }
-    final raw = url?.trim() ?? '';
-    if (raw.isEmpty || raw.toLowerCase().contains('membership')) return;
-    await ref.read(externalLinkHandlerProvider).openExternal(raw);
   }
 }
 
@@ -96,14 +82,12 @@ class _FaqBody extends StatelessWidget {
     required this.query,
     required this.searchController,
     required this.onQueryChanged,
-    required this.onCta,
   });
 
   final FaqCatalog catalog;
   final String query;
   final TextEditingController searchController;
   final ValueChanged<String> onQueryChanged;
-  final VoidCallback onCta;
 
   @override
   Widget build(BuildContext context) {
@@ -169,10 +153,6 @@ class _FaqBody extends StatelessWidget {
         if (policies != null) ...[
           const SizedBox(height: AppSpacing.sm),
           _PoliciesTile(policies: policies),
-        ],
-        if (showPageChrome && catalog.buttonLabel != null) ...[
-          const SizedBox(height: AppSpacing.lg),
-          _CtaButton(label: catalog.buttonLabel!, onPressed: onCta),
         ],
         if (showPageChrome && catalog.reviews.isNotEmpty) ...[
           const SizedBox(height: AppSpacing.xl),
@@ -322,48 +302,6 @@ class _PoliciesTile extends StatelessWidget {
       ),
     );
   }
-}
-
-class _CtaButton extends StatelessWidget {
-  const _CtaButton({required this.label, required this.onPressed});
-
-  final String label;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Semantics(
-        button: true,
-        label: label,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          child: Text(
-            label,
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-String? _inAppPath(String? url) {
-  final raw = url?.trim() ?? '';
-  if (raw.isEmpty) return AppRoutes.contact;
-  if (raw.toLowerCase().contains('membership')) return null;
-
-  final uri = Uri.tryParse(raw);
-  if (uri == null) return AppRoutes.contact;
-  var path = uri.path;
-  if (path.length > 1 && path.endsWith('/')) {
-    path = path.substring(0, path.length - 1);
-  }
-  if (path == AppRoutes.contact || path == '/contact') {
-    return AppRoutes.contact;
-  }
-  return null;
 }
 
 String? _reviewDate(Review review) {

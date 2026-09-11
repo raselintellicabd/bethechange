@@ -7,6 +7,7 @@ class BlogArticle {
     required this.title,
     required this.subtitle,
     required this.body,
+    this.contentHtml,
     this.slug = '',
     this.imageUrl,
     this.author,
@@ -18,6 +19,9 @@ class BlogArticle {
   final String title;
   final String subtitle;
   final String body;
+
+  /// Detail HTML from the API (`content_html`). Preferred over [body].
+  final String? contentHtml;
   final String? imageUrl;
   final String? author;
 
@@ -59,6 +63,7 @@ class BlogArticle {
       title: title,
       subtitle: _text(json, const ['subtitle', 'summary', 'description']),
       body: _text(json, const ['body', 'articleBody', 'content']),
+      contentHtml: _nullableText(json, const ['content_html', 'contentHtml']),
       imageUrl: _url(json, const ['heroImage', 'imageUrl', 'img-url']),
       author: _nullableText(json, const ['author']),
       publishedAt: _nullableText(json, const ['publishedAt', 'date']),

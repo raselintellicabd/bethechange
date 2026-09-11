@@ -8,7 +8,9 @@ import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/image_with_caption.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../domain/models/blog_article.dart';
+import '../../domain/models/blog_html.dart';
 import '../providers/blog_providers.dart';
+import '../widgets/blog_html_view.dart';
 
 class BlogDetailScreen extends ConsumerWidget {
   const BlogDetailScreen({super.key, required this.articleId});
@@ -44,11 +46,11 @@ class _BlogDetailBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final paragraphs = article.body
-        .split(RegExp(r'\n\s*\n'))
-        .map((part) => part.trim())
-        .where((part) => part.isNotEmpty)
-        .toList();
+    final blocks = blogContentBlocks(
+      contentHtml: article.contentHtml,
+      body: article.body,
+      subtitle: article.subtitle,
+    );
 
     return Scaffold(
       appBar: AppAppBar(title: Text(article.title)),
@@ -76,10 +78,9 @@ class _BlogDetailBody extends StatelessWidget {
               ),
             ),
           ],
-          const SizedBox(height: AppSpacing.lg),
-          for (var i = 0; i < paragraphs.length; i++) ...[
-            if (i > 0) const SizedBox(height: AppSpacing.md),
-            Text(paragraphs[i], style: theme.textTheme.bodyLarge),
+          if (blocks.isNotEmpty) ...[
+            const SizedBox(height: AppSpacing.lg),
+            BlogHtmlView(blocks: blocks),
           ],
         ],
       ),
