@@ -88,13 +88,6 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
             AppSpacing.xxl,
           ),
           children: [
-            if (page.title.isNotEmpty)
-              Text(page.title, style: AppTextStyles.titleLarge),
-            if (page.content.trim().isNotEmpty) ...[
-              const SizedBox(height: AppSpacing.sm),
-              Text(page.content.trim(), style: AppTextStyles.bodyMedium),
-            ],
-            const SizedBox(height: AppSpacing.lg),
             _LocationCard(
               location: page.location,
               onCall: () => _openExternal(
