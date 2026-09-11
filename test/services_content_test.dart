@@ -2,6 +2,7 @@ import 'package:bethechange/core/network/api_result.dart';
 import 'package:bethechange/core/widgets/appointment_cta_bar.dart';
 import 'package:bethechange/features/appointment/domain/models/source_context.dart';
 import 'package:bethechange/features/services/data/services_repository.dart';
+import 'package:bethechange/features/services/domain/models/service.dart';
 import 'package:bethechange/features/services/domain/models/services_catalog.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -17,6 +18,7 @@ void main() {
       expect(result, isA<ApiSuccess<ServicesCatalog>>());
       final catalog = (result as ApiSuccess<ServicesCatalog>).data;
 
+      expect(catalog.title.toLowerCase(), 'our services');
       expect(catalog.services, hasLength(8));
       expect(
         catalog.services.map((s) => s.id).toList(),
@@ -34,12 +36,11 @@ void main() {
     });
 
     test('FSM service is fully populated', () async {
-      final catalog =
-          ((await ServicesRepository(createMockApiClient()).getServices())
-                  as ApiSuccess<ServicesCatalog>)
-              .data;
+      final result = await ServicesRepository(createMockApiClient())
+          .getServiceById('frequency-specific-microcurrent');
 
-      final fsm = catalog.byId('frequency-specific-microcurrent')!;
+      expect(result, isA<ApiSuccess<Service>>());
+      final fsm = (result as ApiSuccess<Service>).data;
       expect(fsm.howItWorks, isNotNull);
       expect(fsm.benefits, isNotEmpty);
       expect(fsm.addressedConcerns, isNotEmpty);
@@ -78,6 +79,80 @@ void main() {
         expect(parsed, context);
         expect(parsed?.type, SourceContextType.service);
       }
+    });
+  });
+
+  group('Service API payload', () {
+    test('fromJson accepts the list and detail field names', () {
+      final catalog = ServicesCatalog.fromJson({
+        'title': 'our services',
+        'content': '',
+        'services': [
+          {
+            'id': 'frequency-specific-microcurrent',
+            'title': 'Frequency Specific Microcurrent Therapy',
+            'description': 'Gentle electromagnetic pulses.',
+            'heroImage': 'http://example.com/fsm.jpg',
+            'slug': 'frequency-specific-microcurrent',
+          },
+        ],
+      });
+
+      expect(catalog.title, 'our services');
+      expect(catalog.services.single.name, 'Frequency Specific Microcurrent Therapy');
+      expect(catalog.services.single.heroImageUrl, contains('fsm.jpg'));
+      expect(catalog.services.single.routeId, 'frequency-specific-microcurrent');
+
+      final detail = Service.fromJson({
+        'id': 'frequency-specific-microcurrent',
+        'name': 'Frequency Specific Microcurrent',
+        'title': 'Frequency Specific Microcurrent Therapy',
+        'summary': 'Short summary',
+        'articleBody': 'Long article',
+        'heroImageUrl': 'http://example.com/hero.jpg',
+        'slug': 'frequency-specific-microcurrent',
+        'quote': 'Feel Good, Live Better!',
+        'cta-label': 'Request An Appointment',
+        'reviews': [
+          {'name': 'Elle', 'comment': 'Great', 'star': 5},
+        ],
+        'sections': [
+          {
+            'type': 'image_text',
+            'title': 'What is Frequency Specific Microcurrent Therapy?',
+            'content': 'Longer explanation.',
+            'img-url': 'http://example.com/freq.jpg',
+          },
+          {
+            'type': 'cards',
+            'title': 'What Does Frequency Specific Microcurrent Address?',
+            'items': [
+              {'content': 'Neuropathic pain\nMuscle pain and soreness'},
+            ],
+          },
+          {
+            'type': 'cards',
+            'title': 'Featured Therapies',
+            'items': [
+              {
+                'img-url': 'http://example.com/detox.jpg',
+                'link-url': '/ion-foot-detox/',
+              },
+            ],
+          },
+        ],
+      });
+
+      expect(detail.name, 'Frequency Specific Microcurrent Therapy');
+      expect(detail.heroImageUrl, contains('hero.jpg'));
+      expect(detail.ctaLabel, 'Request An Appointment');
+      expect(detail.sections, hasLength(3));
+      expect(detail.sections.first.imageUrl, contains('freq.jpg'));
+      expect(detail.sections[1].items.single.lines, [
+        'Neuropathic pain',
+        'Muscle pain and soreness',
+      ]);
+      expect(detail.sections.last.items.single.linkSlug, 'ion-foot-detox');
     });
   });
 }

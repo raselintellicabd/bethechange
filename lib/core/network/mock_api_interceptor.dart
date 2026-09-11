@@ -119,7 +119,7 @@ class MockApiInterceptor extends Interceptor {
       case ApiPaths.conditions:
         return _conditionsListPayload();
       case ApiPaths.services:
-        return _loadObject(MockApiAssets.services);
+        return _servicesListPayload();
       case ApiPaths.blog:
         return _loadObject(MockApiAssets.blog);
       case ApiPaths.faq:
@@ -156,6 +156,7 @@ class MockApiInterceptor extends Interceptor {
         listKey: 'services',
         id: serviceId,
         notFoundLabel: 'Service',
+        alternateIdKey: 'slug',
       );
     }
 
@@ -385,6 +386,28 @@ class MockApiInterceptor extends Interceptor {
           : 'conditions we treat',
       'content': root['content'] ?? '',
       'conditions': list.whereType<Map>().map((item) {
+        final map = item.map((key, value) => MapEntry('$key', value));
+        final id = '${map['id'] ?? map['slug'] ?? ''}'.trim();
+        return {
+          'id': id,
+          'title': '${map['title'] ?? map['name'] ?? ''}'.trim(),
+          'description': '${map['description'] ?? map['summary'] ?? ''}'.trim(),
+          'heroImage': '${map['heroImage'] ?? map['heroImageUrl'] ?? ''}'.trim(),
+          'slug': '${map['slug'] ?? id}'.trim(),
+        };
+      }).toList(),
+    };
+  }
+
+  Future<Map<String, dynamic>> _servicesListPayload() async {
+    final root = await _loadObject(MockApiAssets.services);
+    final list = root['services'] as List<dynamic>? ?? const [];
+    return {
+      'title': (root['title'] as String?)?.trim().isNotEmpty == true
+          ? root['title']
+          : 'our services',
+      'content': root['content'] ?? '',
+      'services': list.whereType<Map>().map((item) {
         final map = item.map((key, value) => MapEntry('$key', value));
         final id = '${map['id'] ?? map['slug'] ?? ''}'.trim();
         return {

@@ -217,17 +217,28 @@ class _ServicesExploreList extends ConsumerWidget {
         }
 
         return ListView.builder(
-          itemCount: catalog.services.length,
+          itemCount: catalog.services.length + 1,
           itemBuilder: (context, index) {
-            final service = catalog.services[index];
+            if (index == 0) {
+              return _CatalogIntro(
+                title: catalog.title,
+                content: catalog.content,
+              );
+            }
+            final service = catalog.services[index - 1];
             return ListRowTile(
               large: true,
               title: service.name,
               subtitle: service.summary,
               thumbColor: AppColors.thumbPalette[
-                  (index + 3) % AppColors.thumbPalette.length],
+                  (index + 2) % AppColors.thumbPalette.length],
+              leading: _ExploreThumb(
+                imageUrl: service.heroImageUrl,
+                color: AppColors
+                    .thumbPalette[(index + 2) % AppColors.thumbPalette.length],
+              ),
               onTap: () => context.push(
-                AppRoutes.serviceDetailPath(service.id),
+                AppRoutes.serviceDetailPath(service.routeId),
               ),
             );
           },
