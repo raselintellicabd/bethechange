@@ -3,7 +3,6 @@ import 'package:bethechange/core/router/app_router.dart';
 import 'package:bethechange/core/router/app_routes.dart';
 import 'package:bethechange/core/utils/external_link_handler.dart';
 import 'package:bethechange/features/clinic/domain/models/clinic_info.dart';
-import 'package:bethechange/features/clinic/presentation/providers/clinic_providers.dart';
 import 'package:bethechange/features/patient/domain/models/patients_content.dart';
 import 'package:bethechange/features/patient/presentation/providers/patients_providers.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +124,7 @@ void main() {
     }) {
       return [
         apiClientProvider.overrideWithValue(createMockApiClient()),
-        clinicInfoProvider.overrideWith((ref) async => _clinic),
+        patientClinicLinksProvider.overrideWith((ref) async => _clinic),
         patientsContentProvider.overrideWith((ref) async => _patients),
         externalLinkHandlerProvider.overrideWithValue(
           ExternalLinkHandler(

@@ -1,17 +1,18 @@
-import '../../../core/network/api_client.dart';
-import '../../../core/network/api_paths.dart';
 import '../../../core/network/api_result.dart';
+import '../../../core/network/mock_api_assets.dart';
+import '../../../core/utils/asset_loader.dart';
 import '../domain/models/patients_content.dart';
 
+/// Patient hub content is bundled. There is no patients API yet.
 class PatientsRepository {
-  PatientsRepository(this._client);
+  PatientsRepository({AssetLoader? loader}) : _loader = loader ?? AssetLoader();
 
-  final ApiClient _client;
+  final AssetLoader _loader;
 
   Future<ApiResult<PatientsContent>> getPatientsContent() {
-    return _client.get(
-      ApiPaths.patients,
-      parser: (data) => PatientsContent.fromJson(data as Map<String, dynamic>),
+    return _loader.loadJsonObject(
+      MockApiAssets.patients,
+      parser: PatientsContent.fromJson,
     );
   }
 }

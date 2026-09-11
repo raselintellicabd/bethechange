@@ -11,7 +11,6 @@ import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/ui_kit.dart';
 import '../../../clinic/domain/models/clinic_info.dart';
-import '../../../clinic/presentation/providers/clinic_providers.dart';
 import '../../domain/models/patients_content.dart';
 import '../providers/patients_providers.dart';
 
@@ -22,7 +21,7 @@ class PatientTabScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final patientsAsync = ref.watch(patientsContentProvider);
-    final clinicAsync = ref.watch(clinicInfoProvider);
+    final clinic = ref.watch(patientClinicLinksProvider).asData?.value;
 
     return Scaffold(
       appBar: AppAppBar.text('Patients'),
@@ -30,24 +29,12 @@ class PatientTabScreen extends ConsumerWidget {
         loading: () => const LoadingIndicator(message: 'Loading…'),
         error: (error, _) => ErrorStateWidget(
           message: error.toString().replaceFirst('Exception: ', ''),
-          onRetry: () {
-            ref.invalidate(patientsContentProvider);
-            ref.invalidate(clinicInfoProvider);
-          },
+          onRetry: () => ref.invalidate(patientsContentProvider),
         ),
-        data: (patients) {
-          return clinicAsync.when(
-            loading: () => const LoadingIndicator(message: 'Loading…'),
-            error: (error, _) => ErrorStateWidget(
-              message: error.toString().replaceFirst('Exception: ', ''),
-              onRetry: () => ref.invalidate(clinicInfoProvider),
-            ),
-            data: (clinic) => _PatientsBody(
-              patients: patients,
-              clinic: clinic,
-            ),
-          );
-        },
+        data: (patients) => _PatientsBody(
+          patients: patients,
+          clinic: clinic,
+        ),
       ),
     );
   }
@@ -60,7 +47,7 @@ class _PatientsBody extends ConsumerWidget {
   });
 
   final PatientsContent patients;
-  final ClinicInfo clinic;
+  final ClinicInfo? clinic;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -110,7 +97,9 @@ class _PatientsBody extends ConsumerWidget {
           context.go(route);
         }
       case PatientTileActionType.externalUrlKey:
-        final url = clinic.urlForKey(tile.action.urlKey ?? '');
+        final links = clinic ?? await ref.read(patientClinicLinksProvider.future);
+        if (links == null) return;
+        final url = links.urlForKey(tile.action.urlKey ?? '');
         if (url == null || url.isEmpty) return;
         await _openExternal(context, ref, url);
       case PatientTileActionType.externalUrl:
