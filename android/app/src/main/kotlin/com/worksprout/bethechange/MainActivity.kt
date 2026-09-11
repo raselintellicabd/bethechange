@@ -1,4 +1,4 @@
-package com.example.bethechange
+package com.worksprout.bethechange
 
 import io.flutter.embedding.android.FlutterActivity
 
