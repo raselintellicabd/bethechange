@@ -6,12 +6,14 @@ class ServiceSectionItem {
   const ServiceSectionItem({
     this.title = '',
     this.content = '',
+    this.contentHtml,
     this.imageUrl,
     this.linkUrl,
   });
 
   final String title;
   final String content;
+  final String? contentHtml;
   final String? imageUrl;
   final String? linkUrl;
 
@@ -26,10 +28,11 @@ class ServiceSectionItem {
   /// Path like `/ion-foot-detox/` becomes `ion-foot-detox`.
   String? get linkSlug {
     final raw = linkUrl?.trim() ?? '';
-    if (raw.isEmpty) return null;
+    if (raw.isEmpty || raw.toLowerCase().contains('membership')) return null;
     final path = Uri.tryParse(raw)?.path ?? raw;
     final slug = path.split('/').where((part) => part.isNotEmpty).join('/');
-    return slug.isEmpty ? null : slug;
+    if (slug.isEmpty || slug.toLowerCase().contains('membership')) return null;
+    return slug;
   }
 }
 
@@ -38,15 +41,21 @@ class ServiceSection {
     required this.type,
     this.title = '',
     this.content = '',
+    this.contentHtml,
     this.imageUrl,
+    this.imageSide = 'left',
     this.items = const [],
   });
 
   final String type;
   final String title;
   final String content;
+  final String? contentHtml;
   final String? imageUrl;
+  final String imageSide;
   final List<ServiceSectionItem> items;
+
+  bool get imageOnRight => imageSide.trim().toLowerCase() == 'right';
 
   bool get hasImages =>
       (imageUrl != null && imageUrl!.isNotEmpty) ||
@@ -132,11 +141,16 @@ class Service {
       type: _text(json, const ['type']),
       title: _text(json, const ['title']),
       content: _text(json, const ['content']),
+      contentHtml: _nullableText(json, const ['content_html', 'contentHtml']),
       imageUrl: _url(json, const ['img-url', 'imageUrl', 'heroImage']),
+      imageSide: _text(json, const ['image-side', 'imageSide']).isEmpty
+          ? 'left'
+          : _text(json, const ['image-side', 'imageSide']),
       items: _maps(json['items']).map((item) {
         return ServiceSectionItem(
           title: _text(item, const ['title', 'label']),
           content: _text(item, const ['content', 'description']),
+          contentHtml: _nullableText(item, const ['content_html', 'contentHtml']),
           imageUrl: _url(item, const ['img-url', 'imageUrl', 'iconUrl']),
           linkUrl: _nullableText(item, const ['link-url', 'linkUrl']),
         );

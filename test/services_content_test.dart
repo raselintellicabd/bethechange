@@ -121,13 +121,18 @@ void main() {
             'type': 'image_text',
             'title': 'What is Frequency Specific Microcurrent Therapy?',
             'content': 'Longer explanation.',
+            'content_html': '<p>Frequency Specific Microcurrent uses gentle pulses.</p>',
             'img-url': 'http://example.com/freq.jpg',
+            'image-side': 'left',
           },
           {
             'type': 'cards',
             'title': 'What Does Frequency Specific Microcurrent Address?',
             'items': [
-              {'content': 'Neuropathic pain\nMuscle pain and soreness'},
+              {
+                'content': 'Neuropathic pain\nMuscle pain and soreness',
+                'content_html': '<ul><li>Neuropathic pain</li><li>Muscle pain and soreness</li></ul>',
+              },
             ],
           },
           {
@@ -152,7 +157,13 @@ void main() {
         'Neuropathic pain',
         'Muscle pain and soreness',
       ]);
+      expect(detail.sections.first.contentHtml, contains('<p>'));
+      expect(detail.sections[1].items.single.contentHtml, contains('<ul>'));
       expect(detail.sections.last.items.single.linkSlug, 'ion-foot-detox');
+      expect(
+        const ServiceSectionItem(linkUrl: '/membership/').linkSlug,
+        isNull,
+      );
     });
   });
 }

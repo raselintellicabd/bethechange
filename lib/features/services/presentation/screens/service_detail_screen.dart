@@ -8,6 +8,7 @@ import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/app_app_bar.dart';
+import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/appointment_cta_bar.dart';
 import '../../../../core/widgets/bullet_or_icon_list_section.dart';
 import '../../../../core/widgets/content_block_view.dart';
@@ -18,6 +19,8 @@ import '../../../../core/widgets/recommended_books_section.dart';
 import '../../../../core/widgets/section_header.dart';
 import '../../../../core/widgets/ui_kit.dart';
 import '../../../../features/appointment/domain/models/source_context.dart';
+import '../../../blog/domain/models/blog_html.dart';
+import '../../../blog/presentation/widgets/blog_html_view.dart';
 import '../../domain/models/service.dart';
 import '../providers/services_providers.dart';
 
@@ -130,7 +133,10 @@ class _ServiceDetailBody extends StatelessWidget {
                   ...service.sections.map(
                     (section) => Padding(
                       padding: const EdgeInsets.only(bottom: AppSpacing.lg),
-                      child: _ServiceSectionView(section: section),
+                      child: _ServiceSectionView(
+                        section: section,
+                        skipLead: service.summary,
+                      ),
                     ),
                   )
                 else ...[
@@ -194,17 +200,44 @@ class _ServiceDetailBody extends StatelessWidget {
 }
 
 class _ServiceSectionView extends StatelessWidget {
-  const _ServiceSectionView({required this.section});
+  const _ServiceSectionView({required this.section, this.skipLead});
 
   final ServiceSection section;
+  final String? skipLead;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final html = section.contentHtml?.trim() ?? '';
+    final links = _htmlLinks(html);
+    final blocks = blogContentBlocks(
+      contentHtml: _withoutAnchors(html),
+      body: html.isEmpty ? section.content : '',
+      subtitle: skipLead,
+    );
+    final image = section.imageUrl?.trim();
+    final hasImage = image != null && image.isNotEmpty;
     final imageItems = section.items
         .where((item) => item.imageUrl != null && item.imageUrl!.isNotEmpty)
         .toList();
-    final textItems = section.items.where((item) => item.lines.isNotEmpty).toList();
+    final textItems = section.items
+        .where(
+          (item) =>
+              (item.imageUrl == null || item.imageUrl!.isEmpty) &&
+              (item.contentHtml?.trim().isNotEmpty == true ||
+                  item.content.trim().isNotEmpty ||
+                  item.title.trim().isNotEmpty),
+        )
+        .toList();
+
+    final text = blocks.isEmpty
+        ? const SizedBox.shrink()
+        : BlogHtmlView(blocks: blocks);
+    final imageWidget = hasImage
+        ? Padding(
+            padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+            child: ImageWithCaption(imageUrl: image),
+          )
+        : const SizedBox.shrink();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,50 +246,97 @@ class _ServiceSectionView extends StatelessWidget {
           SectionHeader(title: section.title),
           const SizedBox(height: AppSpacing.sm),
         ],
-        if (section.imageUrl != null && section.imageUrl!.isNotEmpty) ...[
-          ImageWithCaption(imageUrl: section.imageUrl!),
+        if (section.imageOnRight) ...[
+          text,
+          if (blocks.isNotEmpty && hasImage) const SizedBox(height: AppSpacing.sm),
+          imageWidget,
+        ] else ...[
+          imageWidget,
+          text,
+        ],
+        for (final link in links)
+          if (_inAppPath(link.href) != null) ...[
+            const SizedBox(height: AppSpacing.sm),
+            AppButton(
+              label: link.label,
+              variant: AppButtonVariant.outlined,
+              expand: false,
+              onPressed: () => context.push(_inAppPath(link.href)!),
+            ),
+          ],
+        if (textItems.isNotEmpty) ...[
           const SizedBox(height: AppSpacing.sm),
-        ],
-        if (section.content.trim().isNotEmpty)
-          Text(section.content.trim(), style: theme.textTheme.bodyLarge),
-        if (imageItems.isNotEmpty) ...[
-          if (section.content.trim().isNotEmpty)
-            const SizedBox(height: AppSpacing.sm),
-          _FeaturedTherapyGrid(items: imageItems),
-        ],
-        if (textItems.isNotEmpty && imageItems.isEmpty) ...[
-          if (section.content.trim().isNotEmpty)
-            const SizedBox(height: AppSpacing.sm),
           for (final item in textItems) ...[
             if (item.title.trim().isNotEmpty)
-              Text(item.title, style: theme.textTheme.titleSmall),
-            for (final line in item.lines)
               Padding(
                 padding: const EdgeInsets.only(bottom: 6),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(top: 6),
-                      child: Icon(
-                        Icons.circle,
-                        size: 6,
-                        color: AppColors.primary,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(line, style: theme.textTheme.bodyLarge),
-                    ),
-                  ],
+                child: Text(
+                  item.title,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
+            BlogHtmlView(
+              blocks: blogContentBlocks(
+                contentHtml: item.contentHtml,
+                body: item.content,
+              ),
+            ),
             const SizedBox(height: AppSpacing.sm),
           ],
+        ],
+        if (imageItems.isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.sm),
+          _FeaturedTherapyGrid(items: imageItems),
         ],
       ],
     );
   }
+}
+
+class _HtmlLink {
+  const _HtmlLink({required this.href, required this.label});
+
+  final String href;
+  final String label;
+}
+
+List<_HtmlLink> _htmlLinks(String html) {
+  return RegExp(
+    r'''<a\b[^>]*href=["']([^"']+)["'][^>]*>(.*?)</a>''',
+    caseSensitive: false,
+    dotAll: true,
+  ).allMatches(html).map((match) {
+    final label = (match.group(2) ?? '')
+        .replaceAll(RegExp(r'<[^>]+>'), '')
+        .replaceAll('&amp;', '&')
+        .trim();
+    return _HtmlLink(href: match.group(1) ?? '', label: label);
+  }).where((link) => link.label.isNotEmpty && link.href.isNotEmpty).toList();
+}
+
+String _withoutAnchors(String html) {
+  return html.replaceAll(
+    RegExp(r'<a\b[^>]*>.*?</a>', caseSensitive: false, dotAll: true),
+    '',
+  );
+}
+
+/// Maps clinic website links onto in-app routes. Membership stays out.
+String? _inAppPath(String href) {
+  final raw = href.trim();
+  if (raw.isEmpty || raw.toLowerCase().contains('membership')) return null;
+  final uri = Uri.tryParse(raw);
+  var path = uri?.path ?? raw;
+  if (path.length > 1 && path.endsWith('/')) {
+    path = path.substring(0, path.length - 1);
+  }
+  if (path.isEmpty || path == '/' || path == '/services') {
+    return AppRoutes.exploreServices;
+  }
+  if (path == AppRoutes.contact || path == '/contact') return AppRoutes.contact;
+  final parts = path.split('/').where((part) => part.isNotEmpty).toList();
+  if (parts.length == 1) return AppRoutes.serviceDetailPath(parts.first);
+  return null;
 }
 
 class _FeaturedTherapyGrid extends StatelessWidget {
