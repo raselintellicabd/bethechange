@@ -325,7 +325,7 @@ class _DoctorTile extends StatelessWidget {
       ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () => context.push(AppRoutes.doctorDetailPath(doctor.id)),
+        onTap: () => context.push(AppRoutes.doctorDetailPath(doctor.routeId)),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 12, 10, 10),
           child: Column(

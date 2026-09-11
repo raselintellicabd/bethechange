@@ -60,13 +60,7 @@ class AboutSlugScreen extends ConsumerWidget {
         appBar: AppAppBar.text('About'),
         body: const LoadingIndicator(message: 'Loading…'),
       ),
-      error: (error, _) => Scaffold(
-        appBar: AppAppBar.text('About'),
-        body: ErrorStateWidget(
-          message: error.toString().replaceFirst('Exception: ', ''),
-          onRetry: () => ref.invalidate(aboutContentProvider),
-        ),
-      ),
+      error: (_, _) => DoctorDetailScreen(doctorId: slug),
       data: (content) {
         if (content.doctorById(slug) != null) {
           return DoctorDetailScreen(doctorId: slug);

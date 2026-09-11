@@ -162,6 +162,17 @@ class MockApiInterceptor extends Interceptor {
       );
     }
 
+    final doctorId = _matchId(path, ApiPaths.doctors);
+    if (doctorId != null) {
+      return _itemById(
+        MockApiAssets.doctors,
+        listKey: 'doctors',
+        id: doctorId,
+        notFoundLabel: 'Doctor',
+        alternateIdKey: 'slug',
+      );
+    }
+
     final articleId = _matchId(path, ApiPaths.blog);
     if (articleId != null) {
       return _itemById(

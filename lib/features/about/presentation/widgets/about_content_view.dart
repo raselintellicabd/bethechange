@@ -87,7 +87,7 @@ class AboutContentView extends StatelessWidget {
                       imageUrl: doctor.imageUrl,
                       bio: doctor.bio,
                       onTap: () => context.push(
-                        AppRoutes.doctorDetailPath(doctor.id),
+                        AppRoutes.doctorDetailPath(doctor.routeId),
                       ),
                     ),
                     const SizedBox(height: AppSpacing.sm),

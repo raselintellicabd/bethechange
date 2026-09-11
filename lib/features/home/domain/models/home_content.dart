@@ -20,7 +20,9 @@ class HomeContent {
 
   DoctorProfile? doctorById(String id) {
     for (final doctor in doctors) {
-      if (doctor.id == id) return doctor;
+      if (doctor.id == id || doctor.routeId == id || doctor.slug == id) {
+        return doctor;
+      }
     }
     return null;
   }

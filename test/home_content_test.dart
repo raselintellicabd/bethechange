@@ -56,6 +56,7 @@ void main() {
 
       expect(content.doctors, hasLength(2));
       expect(content.doctors.first.id, '1');
+      expect(content.doctors.first.routeId, 'sultana-afrooz');
       expect(content.doctors.first.title, contains('Osteopathic Physician'));
       expect(content.doctors.first.imageUrl, isNotNull);
 

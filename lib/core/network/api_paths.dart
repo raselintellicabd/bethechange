@@ -12,6 +12,7 @@ class ApiPaths {
   static const String faq = '/api/v1/faq';
   static const String clinic = '/clinic';
   static const String home = '/api/v1/home';
+  static const String doctors = '/api/v1/doctors';
   static const String patients = '/patients';
   static const String contact = '/api/v1/contact';
   static const String chatbotMessage = '/chatbot/message';
@@ -23,4 +24,5 @@ class ApiPaths {
   static String condition(String id) => '$conditions/$id';
   static String service(String id) => '$services/$id';
   static String blogArticle(String id) => '$blog/$id';
+  static String doctor(String slug) => '$doctors/$slug';
 }

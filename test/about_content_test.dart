@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bethechange/core/network/api_result.dart';
 import 'package:bethechange/features/about/data/about_repository.dart';
+import 'package:bethechange/features/about/data/doctor_repository.dart';
 import 'package:bethechange/features/about/domain/models/about_content.dart';
 import 'package:bethechange/features/about/domain/models/doctor_profile.dart';
 import 'package:flutter/foundation.dart';
@@ -98,6 +99,34 @@ void main() {
       expect(content.sections.single.blocks, hasLength(2));
       expect(content.sections.single.showDoctors, isTrue);
       expect(content.sections.single.showReviews, isFalse);
+    });
+
+    test('loads a doctor detail by slug', () async {
+      final result = await DoctorRepository(createMockApiClient())
+          .getDoctor('sultana-afrooz');
+
+      expect(result, isA<ApiSuccess<DoctorProfile>>());
+      final doctor = (result as ApiSuccess<DoctorProfile>).data;
+      expect(doctor.routeId, 'sultana-afrooz');
+      expect(doctor.name, 'Sultana Afrooz, D.O.');
+      expect(doctor.title, contains('Osteopathic Physician'));
+      expect(doctor.imageUrl, contains('sa_Z58pbgb.jpg'));
+      expect(doctor.detailParagraphs, isNotEmpty);
+    });
+
+    test('fromJson splits the doctors API description', () {
+      final doctor = DoctorProfile.fromJson({
+        'id': 1,
+        'name': 'Sultana Afrooz, D.O.',
+        'designation': 'Integrative Family Medicine Physician& Osteopathic Physician',
+        'image_url': 'http://192.168.1.160:8000/media/about/sa.jpg',
+        'slug': 'sultana-afrooz',
+        'description': 'First paragraph.\nSecond paragraph.',
+      });
+
+      expect(doctor.id, '1');
+      expect(doctor.routeId, 'sultana-afrooz');
+      expect(doctor.detailParagraphs, ['First paragraph.', 'Second paragraph.']);
     });
 
     test('repository surfaces asset load failures', () async {

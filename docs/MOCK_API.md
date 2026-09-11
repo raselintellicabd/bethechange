@@ -29,6 +29,7 @@ API_BASE_URL=https://api-dev.example.com
 | GET | `/api/v1/faq/` | `assets/data/faq.json` |
 | GET | `/clinic` | `assets/data/clinic.json` |
 | GET | `/api/v1/home` | `assets/data/home.json` |
+| GET | `/api/v1/doctors/{slug}/` | item from `assets/data/doctors.json` |
 | GET | `/patients` | unused; patient cards load from `assets/data/patients.json` |
 | GET | `/chatbot/config` | suggestions/disclaimer from `chatbot_replies.json` |
 | POST | `/chatbot/message` | keyword replies from `chatbot_replies.json` |

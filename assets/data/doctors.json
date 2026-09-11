@@ -1,0 +1,20 @@
+{
+  "doctors": [
+    {
+      "id": 1,
+      "name": "Sultana Afrooz, D.O.",
+      "designation": "Integrative Family Medicine Physician& Osteopathic Physician",
+      "image_url": "http://192.168.1.160:8000/media/about/sa_Z58pbgb.jpg",
+      "slug": "sultana-afrooz",
+      "description": "Sultana Afrooz, DO, is a holistic and integrative medicine physician at Be The Change Health & Wellness, located in Columbia, Maryland. Dr. Afrooz specializes in diagnosing and treating highly complex health challenges confronting many patients and providing them with the in-depth, compassionate, and individualized care they deserve.\nShe has successfully completed the National Board of Osteopathic Medical Examiners NBOME Part I, II, III Boards, the State Osteopathic Licensing Examination, and is licensed to practice medicine in Maryland, Pennsylvania, and Georgia.\nDr. Sultana Afrooz specializes in treating patients who have been chronically ill from the effects of tick-borne infection, mold toxicity, and environmental toxicity."
+    },
+    {
+      "id": 2,
+      "name": "Jessica Needle, N.D.",
+      "designation": "Naturopathic Doctor",
+      "image_url": "http://192.168.1.160:8000/media/about/jn-5_Rn7DvC1.jpg",
+      "slug": "jessica-needle",
+      "description": "Jessica Needle received her bachelor’s degree in psychology from Mills College in Oakland, CA, and her doctorate in naturopathic medicine from Bastyr University in Kenmore, WA.\nShe completed a post-graduate internship at TrueNorth Health Center and later guided patients through nutritional detoxification.\nDr. Needle spent 8 years using her expertise in I.V. and injection therapy to treat people facing cancer and chronic disease."
+    }
+  ]
+}

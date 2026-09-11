@@ -3,6 +3,7 @@ class DoctorProfile {
     required this.id,
     required this.name,
     required this.title,
+    this.slug = '',
     this.imageUrl,
     this.bio,
     this.aboutHeading,
@@ -10,6 +11,9 @@ class DoctorProfile {
   });
 
   final String id;
+
+  /// API path segment, e.g. `sultana-afrooz`.
+  final String slug;
 
   /// Display name including credentials (e.g. `Sultana Afrooz, D.O.`).
   final String name;
@@ -28,6 +32,14 @@ class DoctorProfile {
   /// Full biography paragraphs for the doctor detail screen.
   final List<String> detailParagraphs;
 
+  /// Detail route. Prefers the API slug over a numeric id.
+  String get routeId {
+    final value = slug.trim();
+    if (value.isNotEmpty) return value;
+    if (id.isNotEmpty && int.tryParse(id) == null) return id;
+    return slugFromName(name);
+  }
+
   factory DoctorProfile.fromJson(Map<String, dynamic> json) {
     final paragraphs = <String>[];
     final rawParagraphs = json['detailParagraphs'] as List<dynamic>?;
@@ -37,22 +49,35 @@ class DoctorProfile {
         if (text.isNotEmpty) paragraphs.add(text);
       }
     } else {
-      final legacy = (json['bio'] as String?)?.trim();
-      if (legacy != null && legacy.isNotEmpty) paragraphs.add(legacy);
+      final description = (json['description'] as String?)?.trim();
+      if (description != null && description.isNotEmpty) {
+        paragraphs.addAll(
+          description
+              .split(RegExp(r'\n+'))
+              .map((part) => part.trim())
+              .where((part) => part.isNotEmpty),
+        );
+      } else {
+        final legacy = (json['bio'] as String?)?.trim();
+        if (legacy != null && legacy.isNotEmpty) paragraphs.add(legacy);
+      }
     }
 
     final name = (json['name'] as String?)?.trim() ?? '';
     final explicitId = _id(json['id']);
+    final slug = (json['slug'] as String?)?.trim() ?? '';
     final title = (json['title'] as String?)?.trim() ??
         (json['designation'] as String?)?.trim() ??
         '';
     final imageUrl = (json['imageUrl'] as String?)?.trim() ??
+        (json['image_url'] as String?)?.trim() ??
         (json['img-url'] as String?)?.trim();
 
     return DoctorProfile(
       id: (explicitId != null && explicitId.isNotEmpty)
           ? explicitId
-          : slugFromName(name),
+          : (slug.isNotEmpty ? slug : slugFromName(name)),
+      slug: slug,
       name: name,
       title: title,
       imageUrl: imageUrl == null || imageUrl.isEmpty ? null : imageUrl,
