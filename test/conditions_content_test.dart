@@ -296,6 +296,24 @@ void main() {
       expect(obesity.sections.last.isGettingStarted, isTrue);
       expect(obesity.sections.last.items, hasLength(3));
       expect(obesity.reviews, isNotEmpty);
+
+      final painResult = await repository.getConditionById('chronic-pain');
+      expect(painResult, isA<ApiSuccess<Condition>>());
+      final pain = (painResult as ApiSuccess<Condition>).data;
+      expect(pain.heroHeading, 'chronic pain specialist');
+      expect(pain.headline, contains('less pain'));
+      expect(pain.contentHtml, isNotEmpty);
+      expect(pain.quote, 'Feel Good, Live Better!');
+      expect(pain.quoteBody, contains('Frequency Specific Microcurrent'));
+      expect(pain.symptoms, isEmpty);
+      expect(pain.integrativeApproach, isNull);
+      expect(pain.treatmentMethods, hasLength(13));
+      expect(pain.sections, hasLength(3));
+      expect(pain.sections.first.isDefaultLayout, isTrue);
+      expect(pain.sections[1].isTreatDark, isTrue);
+      expect(pain.sections[1].items, hasLength(13));
+      expect(pain.sections.last.type, 'text');
+      expect(pain.reviews, isNotEmpty);
     });
 
     test('getConditionById returns failure for unknown id', () async {

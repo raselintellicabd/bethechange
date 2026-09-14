@@ -732,43 +732,111 @@
     {
       "id": "chronic-pain",
       "name": "Chronic Pain",
-      "summary": "We offer Frequency Specific Microcurrent (FSM) therapy to effectively reduce pain using low-level electromagnetic pulses.",
-      "articleBody": "Relieving your pain doesn't just mean less pain: it can also improve your sleep, energy, and productivity.\n\nBe The Change Health & Wellness Center offers Frequency Specific Microcurrent (FSM) therapy to reduce pain using low-level electromagnetic pulses. The FSM machine emits vibrations at a frequency that affects certain tissues throughout your body, helping stabilize tissue chemistry and reduce inflammation.\n\nWithin your cells, FSM increases ATP production to support repair and decreases inflammatory cytokines to reduce pain.",
-      "symptoms": [
-        { "label": "Long-Lasting Pain" },
-        { "label": "Nerve Pain" },
-        { "label": "Musculoskeletal Pain" },
-        { "label": "Inflammation-Related Discomfort" }
-      ],
-      "contributingFactors": [
-        { "label": "Tendinitis" },
-        { "label": "Disc Injuries" },
-        { "label": "Fibromyalgia" },
-        { "label": "Muscle Soreness" },
-        { "label": "Concussions and Brain Injuries" },
-        { "label": "Irritable Bowel Syndrome (IBS)" }
-      ],
-      "integrativeApproach": {
-        "title": "Our Integrative Approach to Chronic Pain",
-        "body": "If FSM isn't the right choice for you, your provider might recommend a personalized wellness plan to ease your pain. Supplements, dietary changes, and exercise can all improve wellness if you have long-lasting or severe pain.\n\nDuring FSM treatment, warm damp towels are placed strategically and connected to the machine for a painless 30–120 minute session."
-      },
-      "benefits": [
-        { "label": "Reduced Inflammation" },
-        { "label": "Improved Sleep Potential" },
-        { "label": "Better Energy and Productivity" },
-        { "label": "Non-Pharmaceutical Pain Support Options" }
-      ],
+      "heroHeading": "chronic pain specialist",
+      "headline": "Relieving your pain doesn’t just mean less pain: It can also improve your sleep, energy, and productivity.",
+      "summary": "Be The Change Health & Wellness Center offers Frequency Specific Microcurrent™ (FSM) therapy to reduce pain using low-level electromagnetic pulses.",
+      "articleBody": "Pain relief services are treatments and procedures that reduce pain, especially chronic pain, that can be hard to manage and affects you for a very long time. Be The Change Health & Wellness Center offers Frequency Specific Microcurrent™ (FSM) therapy to reduce pain using low-level electromagnetic pulses.\n\nAbout Frequency Specific Microcurrent™ (FSM)\n\nThe FSM machine emits vibrations at a frequency that affects certain tissues throughout your body.",
+      "content_html": "<p>Pain relief services are treatments and procedures that reduce pain, especially chronic pain, that can be hard to manage and affects you for a very long time. Be The Change Health &amp; Wellness Center offers Frequency Specific Microcurrent™ (FSM) therapy to reduce pain using low-level electromagnetic pulses.</p>",
+      "heroImageUrl": "http://192.168.1.160:8000/media/conditions/Pain-relief-Services_2W3kMbs.jpg",
+      "symptoms": [],
+      "contributingFactors": [],
+      "integrativeApproach": null,
+      "benefits": [],
       "treatmentMethods": [
+        { "label": "Tendinitis" },
+        { "label": "Kidney stones" },
+        { "label": "Disc injuries" },
+        { "label": "Shingles" },
+        { "label": "Herpes" },
+        { "label": "Burns" },
+        { "label": "Wounds" },
+        { "label": "Irritable bowel syndrome (IBS)" },
+        { "label": "Fibromyalgia" },
+        { "label": "Neuromas" },
+        { "label": "Spinal cord injuries" },
+        { "label": "Muscle soreness" },
+        { "label": "Concussions and brain injuries" }
+      ],
+      "recommendedBooks": [],
+      "slug": "chronic-pain",
+      "title": "Chronic Pain",
+      "img-url": "http://192.168.1.160:8000/media/conditions/Pain-relief-Services_2W3kMbs.jpg",
+      "content": "Be The Change Health & Wellness Center offers Frequency Specific Microcurrent™ (FSM) therapy to reduce pain using low-level electromagnetic pulses.",
+      "path": "/chronic-pain/",
+      "quote": "Feel Good, Live Better!",
+      "quoteBody": "If you’re interested in Frequency Specific Microcurrent for pain relief, request an appointment over the phone or book online at Be The Change Health & Wellness Center today.",
+      "quoteHtml": "<p>If you’re interested in Frequency Specific Microcurrent for pain relief, request an appointment over the phone or book online at Be The Change Health &amp; Wellness Center today.</p>",
+      "cta-label": "New Patient – Request An Appointment",
+      "cta-url": "/appointments/?source=%2Fchronic-pain%2F&patient=new",
+      "sections": [
         {
-          "label": "Frequency Specific Microcurrent (FSM)",
-          "description": "Low-level electromagnetic pulses to stabilize tissues and reduce inflammation."
+          "type": "image_text",
+          "layout": "default",
+          "title": "About Frequency Specific Microcurrent™ (FSM)",
+          "content": "The FSM machine emits vibrations at a frequency that affects certain tissues throughout your body. These vibrations stabilize the chemical structure of the tissues to make them more stable and less inflamed.\nWithin your cells, FSM increases adenosine triphosphate (ATP), a molecule that helps convert stored calories into energy. The increase in ATP production helps your body repair damaged cells. FSM also decreases inflammatory cytokines to reduce inflammation, which in turn reduces pain.\nIf FSM isn’t the right choice for you, your provider at Be The Change Health & Wellness Center might recommend a personalized wellness plan to ease your pain. Supplements, dietary changes, and exercise can all improve your wellness if you have long-lasting or severe pain.",
+          "content_html": "<p>The FSM machine emits vibrations at a frequency that affects certain tissues throughout your body. These vibrations stabilize the chemical structure of the tissues to make them more stable and less inflamed.</p><p>Within your cells, FSM increases adenosine triphosphate (ATP), a molecule that helps convert stored calories into energy. The increase in ATP production helps your body repair damaged cells. FSM also decreases inflammatory cytokines to reduce inflammation, which in turn reduces pain.</p><p>If FSM isn’t the right choice for you, your provider at Be The Change Health &amp; Wellness Center might recommend a personalized wellness plan to ease your pain. Supplements, dietary changes, and exercise can all improve your wellness if you have long-lasting or severe pain.</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/fre_J4YyXWH.jpg",
+          "image-side": "left",
+          "items": []
         },
         {
-          "label": "Personalized Wellness Plan",
-          "description": "Supplements, dietary changes, and exercise guidance for lasting relief."
+          "type": "text",
+          "layout": "treat_dark",
+          "title": "What Type Of Pain Can We Treat?",
+          "content": "Pain services like FSM can relieve pain and inflammation linked to numerous common conditions that tend to cause nerve or musculoskeletal pain. You should come in for an FSM consultation if you have pain from any of these common conditions:",
+          "content_html": "<p>Pain services like FSM can relieve pain and inflammation linked to numerous common conditions that tend to cause nerve or musculoskeletal pain. You should come in for an FSM consultation if you have pain from any of these common conditions:</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            { "title": "Tendinitis", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Kidney stones", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Disc injuries", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Shingles", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Herpes", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Burns", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Wounds", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Irritable bowel syndrome (IBS)", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Fibromyalgia", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Neuromas", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Spinal cord injuries", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Muscle soreness", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Concussions and brain injuries", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" }
+          ]
+        },
+        {
+          "type": "text",
+          "layout": "default",
+          "title": "What should I expect during pain relief services?",
+          "content": "It might feel a bit intimidating coming in for your first FSM pain relief treatment at Be The Change Health & Wellness Center. Knowing what to expect can ease some of your anxiety, and your provider can answer all of your questions about FSM before you start.\nYou should arrive for your appointment wearing comfortable clothing. Upon your arrival, you lie on an examination table as your provider places warm, damp towels over various parts of your body, depending on your reasons for needing pain relief services.\nYour provider connects the towels to the FSM machine, which sends low-level currents to your body for 30-120 minutes. You don’t feel any discomfort or pain throughout the FSM procedure, but you might feel some warmth or the sensation of your tissues softening.",
+          "content_html": "<p>It might feel a bit intimidating coming in for your first FSM pain relief treatment at Be The Change Health &amp; Wellness Center. Knowing what to expect can ease some of your anxiety, and your provider can answer all of your questions about FSM before you start.</p><p>You should arrive for your appointment wearing comfortable clothing. Upon your arrival, you lie on an examination table as your provider places warm, damp towels over various parts of your body, depending on your reasons for needing pain relief services.</p><p>Your provider connects the towels to the FSM machine, which sends low-level currents to your body for 30-120 minutes. You don’t feel any discomfort or pain throughout the FSM procedure, but you might feel some warmth or the sensation of your tissues softening.</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": []
         }
       ],
-      "recommendedBooks": []
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I highly recommend her and I feel fortunate to have been able to see her."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to. The staff and workers really make me feel cared for."
+        }
+      ]
     },
     {
       "id": "hormone-imbalance",
