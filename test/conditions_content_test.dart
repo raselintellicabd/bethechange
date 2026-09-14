@@ -259,6 +259,25 @@ void main() {
         'Request Appointment',
       );
       expect(concussion.reviews, isNotEmpty);
+
+      final fatigueResult =
+          await repository.getConditionById('chronic-fatigue');
+      expect(fatigueResult, isA<ApiSuccess<Condition>>());
+      final fatigue = (fatigueResult as ApiSuccess<Condition>).data;
+      expect(fatigue.heroHeading, 'chronic fatigue specialist');
+      expect(fatigue.headline, contains('fibromyalgia'));
+      expect(fatigue.contentHtml, isNotEmpty);
+      expect(fatigue.quote, 'Feel Good, Live Better!');
+      expect(fatigue.contributingFactors, isEmpty);
+      expect(fatigue.integrativeApproach, isNull);
+      expect(fatigue.benefits, isEmpty);
+      expect(fatigue.treatmentMethods, hasLength(5));
+      expect(fatigue.sections, hasLength(3));
+      expect(fatigue.sections.where((s) => s.isSymptoms), hasLength(2));
+      expect(fatigue.sections.last.isTreatDark, isTrue);
+      expect(fatigue.sections.last.items, hasLength(5));
+      expect(fatigue.sections.last.imageUrl, isNotEmpty);
+      expect(fatigue.reviews, isNotEmpty);
     });
 
     test('getConditionById returns failure for unknown id', () async {

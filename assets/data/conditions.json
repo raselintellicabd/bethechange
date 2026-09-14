@@ -454,40 +454,120 @@
     {
       "id": "chronic-fatigue",
       "name": "Chronic Fatigue",
+      "heroHeading": "chronic fatigue specialist",
+      "headline": "Chronic fatigue and fibromyalgia are very similar conditions that can cause widespread pain and unrelenting tiredness.",
       "summary": "We treat chronic fatigue and fibromyalgia with a holistic approach and can reduce your need for pharmaceutical medications.",
-      "articleBody": "Chronic fatigue and fibromyalgia are very similar conditions that can cause widespread pain and unrelenting tiredness.\n\nChronic fatigue, or chronic fatigue syndrome, can affect your sleep, memory, concentration, productivity, and many other aspects of life and wellness. Its primary symptom is extreme tiredness that doesn't go away, even with more sleep or rest.\n\nFibromyalgia presents similarly and is a chronic condition causing musculoskeletal pain and fatigue along with symptoms like insomnia, depression and anxiety, brain fog, and more.",
+      "articleBody": "At Be The Change Health & Wellness Center in Columbia, Maryland, Sultana Afrooz, DO, and the team treat both conditions with a holistic approach and can reduce your need for pharmaceutical medications. Book your consultation by phone or request an appointment online today.",
+      "content_html": "<p>At Be The Change Health &amp; Wellness Center in Columbia, Maryland, Sultana Afrooz, DO, and the team treat both conditions with a holistic approach and can reduce your need for pharmaceutical medications. Book your consultation by phone or request an appointment online today.</p>",
+      "heroImageUrl": "http://192.168.1.160:8000/media/conditions/Chronic-fatigue-1_iU3QNkm.jpg",
       "symptoms": [
-        { "label": "Extreme Tiredness" },
-        { "label": "Memory and Concentration Problems" },
-        { "label": "Frequent Headaches" },
-        { "label": "Musculoskeletal Pain" },
-        { "label": "Swollen Lymph Nodes" },
+        { "label": "Memory and concentration problems" },
+        { "label": "Frequent headaches" },
+        { "label": "Musculoskeletal pain" },
+        { "label": "Swollen lymph nodes" },
         { "label": "Insomnia" },
-        { "label": "Brain Fog" }
+        { "label": "Insomnia" },
+        { "label": "Sleep that isn’t restful" },
+        { "label": "Depression and anxiety" },
+        { "label": "Trouble concentrating" },
+        { "label": "Brain fog" },
+        { "label": "Bladder or bowel issues" }
       ],
-      "contributingFactors": [
-        { "label": "Stress" },
-        { "label": "Past Viral Infections" },
-        { "label": "Nervous System Pain Signaling Changes" }
-      ],
-      "integrativeApproach": {
-        "title": "Our Integrative Approach to Chronic Fatigue",
-        "body": "Be The Change Health & Wellness Center can help you manage chronic pain and tiredness from chronic fatigue or fibromyalgia. Your provider works closely with you to develop a treatment plan that coincides with your schedule. As you complete your plan, you can make regular visits for progress tracking and adjustments."
-      },
-      "benefits": [
-        { "label": "Reduced Pharmaceutical Dependence Focus" },
-        { "label": "Improved Energy Support" },
-        { "label": "Better Sleep Support" },
-        { "label": "Personalized Progress Tracking" }
-      ],
+      "contributingFactors": [],
+      "integrativeApproach": null,
+      "benefits": [],
       "treatmentMethods": [
-        { "label": "Personalized Nutrition and Wellness Plan" },
-        { "label": "IV Therapy" },
-        { "label": "Hyperbaric Oxygen Therapy" },
-        { "label": "Frequency Specific Microcurrent (FSM) Therapy" },
-        { "label": "Supplements or Essential Oils" }
+        { "label": "A personalized nutrition and wellness plan" },
+        { "label": "IV therapy" },
+        { "label": "Hyperbaric oxygen therapy" },
+        { "label": "Frequency Specific Microcurrent (FSM)™ therapy" },
+        { "label": "Supplements or essential oils" }
       ],
-      "recommendedBooks": []
+      "recommendedBooks": [],
+      "slug": "chronic-fatigue",
+      "title": "Chronic Fatigue",
+      "img-url": "http://192.168.1.160:8000/media/conditions/Chronic-fatigue-1_iU3QNkm.jpg",
+      "content": "We treat chronic fatigue and fibromyalgia with a holistic approach and can reduce your need for pharmaceutical medications.",
+      "path": "/chronic-fatigue/",
+      "quote": "Feel Good, Live Better!",
+      "quoteBody": "",
+      "quoteHtml": "",
+      "cta-label": "New Patient – Request An Appointment",
+      "cta-url": "/appointments/?source=%2Fchronic-fatigue%2F&patient=new",
+      "sections": [
+        {
+          "type": "image_text",
+          "layout": "symptoms",
+          "title": "What is chronic fatigue?",
+          "content": "Chronic fatigue, or chronic fatigue syndrome, is an issue that can affect your sleep, memory, concentration, productivity, and lots of other aspects of your life and wellness. Its primary symptom is extreme tiredness that doesn’t go away, even if you sleep more, take naps frequently, or rest throughout the day.\nBeyond general lethargy, other symptoms of chronic fatigue include:\nMemory and concentration problems\nFrequent headaches\nMusculoskeletal pain\nSwollen lymph nodes\nInsomnia\nYour chronic fatigue symptoms can come and go or fluctuate. Factors like stress and past viral infections might contribute to chronic fatigue, but experts don’t fully understand the causes behind the condition.",
+          "content_html": "<p>Chronic fatigue, or chronic fatigue syndrome, is an issue that can affect your sleep, memory, concentration, productivity, and lots of other aspects of your life and wellness. Its primary symptom is extreme tiredness that doesn’t go away, even if you sleep more, take naps frequently, or rest throughout the day.</p><p>Beyond general lethargy, other symptoms of chronic fatigue include:</p><ul><li>Memory and concentration problems</li><li>Frequent headaches</li><li>Musculoskeletal pain</li><li>Swollen lymph nodes</li><li>Insomnia</li></ul><p>Your chronic fatigue symptoms can come and go or fluctuate. Factors like stress and past viral infections might contribute to chronic fatigue, but experts don’t fully understand the causes behind the condition.</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/ss_sPjLmqT.jpg",
+          "image-side": "left",
+          "items": [
+            { "title": "Memory and concentration problems", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Frequent headaches", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Musculoskeletal pain", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Swollen lymph nodes", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Insomnia", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" }
+          ]
+        },
+        {
+          "type": "image_text",
+          "layout": "symptoms",
+          "title": "What is fibromyalgia?",
+          "content": "Fibromyalgia is a condition that presents similarly to chronic fatigue syndrome. It’s a chronic condition causing musculoskeletal pain and fatigue in addition to other symptoms like:\nInsomnia\nSleep that isn’t restful\nDepression and anxiety\nTrouble concentrating\nBrain fog\nBladder or bowel issues\nExperts don’t fully understand fibromyalgia, but they think it affects the way your nerves and brain interpret pain signals. Even stimuli that wouldn’t normally cause any pain can trigger your fibromyalgia symptoms. Women account for most cases of the condition, and the symptoms seem to affect women more severely than they do men.\nIf you have fibromyalgia, you might get pain that is concentrated in small regions called trigger points. Common areas for trigger points are the back of the head, shoulders, upper chest, and joints.",
+          "content_html": "<p>Fibromyalgia is a condition that presents similarly to chronic fatigue syndrome. It’s a chronic condition causing musculoskeletal pain and fatigue in addition to other symptoms like:</p><ul><li>Insomnia</li><li>Sleep that isn’t restful</li><li>Depression and anxiety</li><li>Trouble concentrating</li><li>Brain fog</li><li>Bladder or bowel issues</li></ul><p>Experts don’t fully understand fibromyalgia, but they think it affects the way your nerves and brain interpret pain signals. Even stimuli that wouldn’t normally cause any pain can trigger your fibromyalgia symptoms. Women account for most cases of the condition, and the symptoms seem to affect women more severely than they do men.</p><p>If you have fibromyalgia, you might get pain that is concentrated in small regions called trigger points. Common areas for trigger points are the back of the head, shoulders, upper chest, and joints.</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/Pain-all-over-1024x1024-1_SQFrIdR.jpg",
+          "image-side": "right",
+          "items": [
+            { "title": "Insomnia", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Sleep that isn’t restful", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Depression and anxiety", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Trouble concentrating", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Brain fog", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Bladder or bowel issues", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" }
+          ]
+        },
+        {
+          "type": "image_text",
+          "layout": "treat_dark",
+          "title": "How do we treat chronic fatigue and fibromyalgia?",
+          "content": "Be The Change Health & Wellness Center can help you manage chronic pain and tiredness from either disease. Your provider works closely with you to develop a treatment plan that coincides with your schedule, no matter how busy you are. It might include:\nAs you complete your personalized treatment plan for symptoms of chronic fatigue or fibromyalgia, you can make regular visits to the office for progress tracking. If you’re not experiencing relief, your provider might adjust the plan with additional treatments or lifestyle recommendations to adopt at home.",
+          "content_html": "<p>Be The Change Health &amp; Wellness Center can help you manage chronic pain and tiredness from either disease. Your provider works closely with you to develop a treatment plan that coincides with your schedule, no matter how busy you are. It might include:</p><p>As you complete your personalized treatment plan for symptoms of chronic fatigue or fibromyalgia, you can make regular visits to the office for progress tracking. If you’re not experiencing relief, your provider might adjust the plan with additional treatments or lifestyle recommendations to adopt at home.</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/collage-1_tsLwuC8.jpg",
+          "image-side": "left",
+          "items": [
+            { "title": "A personalized nutrition and wellness plan", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "IV therapy", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Hyperbaric oxygen therapy", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Frequency Specific Microcurrent (FSM)™ therapy", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Supplements or essential oils", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I highly recommend her and I feel fortunate to have been able to see her."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to. The staff and workers really make me feel cared for."
+        }
+      ]
     },
     {
       "id": "chronic-pain",
