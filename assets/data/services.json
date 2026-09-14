@@ -2859,42 +2859,344 @@
     {
       "id": "reflexology",
       "name": "Reflexology",
-      "summary": "A non-invasive foot-focused therapy that stimulates reflex points linked to body systems.",
-      "articleBody": "Reflexology is manual therapy in which every system and organ of the body corresponds to a specific point on the foot (or hand or ear), and thus the entire body can be affected by applying pressure techniques to the feet only.\n\nIt is a non-invasive, complementary health practice applying alternating pressure to reflexes, which stimulates complex neural pathways linking body systems, supporting the body's efforts to function optimally.",
+      "heroHeading": "reflexology",
+      "headline": "What is Reflexology?",
+      "title": "Reflexology",
+      "summary": "Reflexology is manual therapy in which every system and organ of the body corresponds to a specific point on the foot (or hand or ear), and thus the entire body can be affected by applying pressure techniques to the feet only. It is a non-invasive, complementary health practice applying alternating pressure to reflexes, which stimulates complex neural pathways linking body systems, supporting the body’s efforts to function optimally.",
+      "description": "Reflexology is manual therapy in which every system and organ of the body corresponds to a specific point on the foot (or hand or ear), and thus the entire body can be affected by applying pressure techniques to the feet only. It is a non-invasive, complementary health practice applying alternating pressure to reflexes, which stimulates complex neural pathways linking body systems, supporting the body’s efforts to function optimally.",
+      "articleBody": "Reflexology is manual therapy in which every system and organ of the body corresponds to a specific point on the foot (or hand or ear), and thus the entire body can be affected by applying pressure techniques to the feet only. It is a non-invasive, complementary health practice applying alternating pressure to reflexes, which stimulates complex neural pathways linking body systems, supporting the body’s efforts to function optimally.\nReflexology is performed clothed. Only the feet, hands, and face are exposed, so clients feel safe and secure. Reflexology is time-efficient because no undressing/dressing and showering are required. Clients remain on their back throughout the session, maintaining the flow of the session, so they can deeply relax and often fall asleep.\n\nWhat is Reflexology?\n\nReflexology is manual therapy in which every system and organ of the body corresponds to a specific point on the foot (or hand or ear), and thus the entire body can be affected by applying pressure techniques to the feet only. It is a non-invasive, complementary health practice applying alternating pressure to reflexes, which stimulates complex neural pathways linking body systems, supporting the body’s efforts to function optimally.\nReflexology is performed clothed. Only the feet, hands, and face are exposed, so clients feel safe and secure. Reflexology is time-efficient because no undressing/dressing and showering are required. Clients remain on their back throughout the session, maintaining the flow of the session, so they can deeply relax and often fall asleep.",
+      "content_html": "<p>Reflexology is manual therapy in which every system and organ of the body corresponds to a specific point on the foot (or hand or ear), and thus the entire body can be affected by applying pressure techniques to the feet only. It is a non-invasive, complementary health practice applying alternating pressure to reflexes, which stimulates complex neural pathways linking body systems, supporting the body’s efforts to function optimally.</p><p>Reflexology is performed clothed. Only the feet, hands, and face are exposed, so clients feel safe and secure. Reflexology is time-efficient because no undressing/dressing and showering are required. Clients remain on their back throughout the session, maintaining the flow of the session, so they can deeply relax and often fall asleep.</p>",
+      "heroImage": "http://192.168.1.160:8000/media/services/Reflexology_GVljMiA.webp",
+      "slug": "reflexology",
       "howItWorks": {
-        "title": "How Reflexology Works",
-        "body": "Practitioners apply alternating pressure to reflex points on the feet to stimulate neural pathways that correspond to organs and systems throughout the body."
+        "title": "How does reflexology work?",
+        "body": "The mechanism of action that accounts for reflexology’s effects has yet to be elucidated, although there are numerous theories:",
+        "content_html": "<p>The mechanism of action that accounts for reflexology’s effects has yet to be elucidated, although there are numerous theories:</p>",
+        "imageUrl": null
       },
       "benefits": [
         {
-          "label": "Non-Invasive Support"
+          "label": "Those who cannot receive full body massage. (Example: arm in sling)"
         },
         {
-          "label": "Relaxation"
+          "label": "Those who cannot comfortably lie prone or on the side. (Example: pregnancy)"
         },
         {
-          "label": "Whole-Body Reflex Stimulation"
+          "label": "Those who are uncomfortable disrobing."
         },
         {
-          "label": "Complementary Wellness Support"
+          "label": "Those with structural misalignments of the foot, as reflexology restores mobility. (Examples: bunions, plantar fasciitis)"
+        },
+        {
+          "label": "People who stand a lot on the job."
         }
       ],
-      "addressedConcerns": [
+      "addressedConcerns": [],
+      "whatToExpect": null,
+      "recommendedBooks": [],
+      "quote": "Feel Good, Live Better!",
+      "quoteBody": "It’s easy to get started as a new patient…",
+      "quoteHtml": "<p>It’s easy to get started as a new patient…</p>",
+      "cta-label": "Request An Appointment",
+      "cta-url": "/appointments/?source=%2Freflexology%2F&patient=new",
+      "sections": [
         {
-          "label": "Stress and Tension"
+          "type": "image_text",
+          "title": "What is Reflexology?",
+          "content": "Reflexology is manual therapy in which every system and organ of the body corresponds to a specific point on the foot (or hand or ear), and thus the entire body can be affected by applying pressure techniques to the feet only. It is a non-invasive, complementary health practice applying alternating pressure to reflexes, which stimulates complex neural pathways linking body systems, supporting the body’s efforts to function optimally.\nReflexology is performed clothed. Only the feet, hands, and face are exposed, so clients feel safe and secure. Reflexology is time-efficient because no undressing/dressing and showering are required. Clients remain on their back throughout the session, maintaining the flow of the session, so they can deeply relax and often fall asleep.",
+          "content_html": "<p>Reflexology is manual therapy in which every system and organ of the body corresponds to a specific point on the foot (or hand or ear), and thus the entire body can be affected by applying pressure techniques to the feet only. It is a non-invasive, complementary health practice applying alternating pressure to reflexes, which stimulates complex neural pathways linking body systems, supporting the body’s efforts to function optimally.</p><p>Reflexology is performed clothed. Only the feet, hands, and face are exposed, so clients feel safe and secure. Reflexology is time-efficient because no undressing/dressing and showering are required. Clients remain on their back throughout the session, maintaining the flow of the session, so they can deeply relax and often fall asleep.</p>",
+          "img-url": "http://192.168.1.160:8000/media/services/Reflexology_63R7jSx.webp",
+          "image-side": "left",
+          "items": []
         },
         {
-          "label": "General Wellness Support"
+          "type": "cards",
+          "title": "How does reflexology work?",
+          "content": "The mechanism of action that accounts for reflexology’s effects has yet to be elucidated, although there are numerous theories:",
+          "content_html": "<p>The mechanism of action that accounts for reflexology’s effects has yet to be elucidated, although there are numerous theories:</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Energy",
+              "content": "Reflexology supports energy flow within body and between organs via electromagnetic and vibrating waves. Such impulses may be transmitted along fascia.",
+              "content_html": "<p>Reflexology supports energy flow within body and between organs via electromagnetic and vibrating waves. Such impulses may be transmitted along fascia.</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Lactic Acid",
+              "content": "Reflexology breaks up accumulation of micro-crystals deposited in feet allowing better circulation, and therefore communication, via the bloodstream.",
+              "content_html": "<p>Reflexology breaks up accumulation of micro-crystals deposited in feet allowing better circulation, and therefore communication, via the bloodstream.</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Proprioceptive Receptors",
+              "content": "Reflexology facilitates connections between areas on the feet, hands, and ears and the rest of the body using mechanoreceptors in the skin, muscles, and joints.",
+              "content_html": "<p>Reflexology facilitates connections between areas on the feet, hands, and ears and the rest of the body using mechanoreceptors in the skin, muscles, and joints.</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Relaxation Response",
+              "content": "Skillful pressure on the thousands of nerves in the feet, hands, and ears soothes the nervous system.",
+              "content_html": "<p>Skillful pressure on the thousands of nerves in the feet, hands, and ears soothes the nervous system.</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
         },
         {
-          "label": "Complementary Care Alongside Other Therapies"
+          "type": "cards",
+          "title": "Scientific Studies",
+          "content": "A reflexologist’s touch may help to calm the central nervous system, promoting relaxation and other benefits just like any form of massage.\nSo far, there’s evidence that reflexology may help to:\nA 1993 study found that those who received two months of reflexology treatment reported significantly fewer PMS symptoms than the women who did not.\nIn one small study from 2000, researchers looked at the effects of one 30-minute foot reflexology treatment on people being treated for breast or lung cancer. Those who received a reflexology treatment reported lower levels of anxiety than those who received no reflexology treatment.\nIn a 2014 study that was slightly larger, researchers gave people undergoing heart surgery a 20-minute foot reflexology treatment once a day for four days. They found that those who received the reflexology treatment reported significantly lower levels of anxiety than those who didn’t. Touch by another human being is a relaxing, caring, anxiety-reducing action for most people.",
+          "content_html": "<p>A reflexologist’s touch may help to calm the central nervous system, promoting relaxation and other benefits just like any form of massage.</p><p>So far, there’s evidence that reflexology may help to:</p><p>A 1993 study found that those who received two months of reflexology treatment reported significantly fewer PMS symptoms than the women who did not.</p><p>In one small study from 2000, researchers looked at the effects of one 30-minute foot reflexology treatment on people being treated for breast or lung cancer. Those who received a reflexology treatment reported lower levels of anxiety than those who received no reflexology treatment.</p><p>In a 2014 study that was slightly larger, researchers gave people undergoing heart surgery a 20-minute foot reflexology treatment once a day for four days. They found that those who received the reflexology treatment reported significantly lower levels of anxiety than those who didn’t. Touch by another human being is a relaxing, caring, anxiety-reducing action for most people.</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Reduce stress and anxiety",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduce pain",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Lift mood",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improve general well-being",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Who benefits from reflexology?",
+          "content": "Reflexology is a non-invasive, complementary therapy that benefits everyone.”- Reflexology Association of America",
+          "content_html": "<p>Reflexology is a non-invasive, complementary therapy that benefits everyone.”- Reflexology Association of America</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Those who cannot receive full body massage. (Example: arm in sling)",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Those who cannot comfortably lie prone or on the side. (Example: pregnancy)",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Those who are uncomfortable disrobing.",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Those with structural misalignments of the foot, as reflexology restores mobility. (Examples: bunions, plantar fasciitis)",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "People who stand a lot on the job.",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Contraindications",
+          "content": "Resources:\nhttps://www.arcb.net\nhttps://reflexology-usa.org/\nhttps://lauranorman.com/",
+          "content_html": "<p><strong>Resources:</strong></p><ul><li><a href=\"https://www.arcb.net\" rel=\"noopener noreferrer\">https://www.arcb.net</a></li><li><a href=\"https://reflexology-usa.org/\" rel=\"noopener noreferrer\">https://reflexology-usa.org/</a></li><li><a href=\"https://lauranorman.com/\" rel=\"noopener noreferrer\">https://lauranorman.com/</a></li></ul>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Contraindications",
+              "content": "certain foot injuries such as sprains, strains, or stress fractures\npainful skin conditions such as blisters or severe eczema or psoriasis\ncontagious skin conditions such as scabies, chicken pox, or athlete’s foot\ncertain symptoms of diabetes, including non-healing wounds or peripheral neuropathy",
+              "content_html": "<ul><li>certain foot injuries such as sprains, strains, or stress fractures</li><li>painful skin conditions such as blisters or severe eczema or psoriasis</li><li>contagious skin conditions such as scabies, chicken pox, or athlete’s foot</li><li>certain symptoms of diabetes, including non-healing wounds or peripheral neuropathy</li></ul>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Cautions",
+              "content": "circulatory problems in the feet\nblood clots or inflammation of leg veins\ngout\nfoot ulcers\na low platelet count or other blood problems, which can make you bruise and bleed more easily",
+              "content_html": "<ul><li>circulatory problems in the feet</li><li>blood clots or inflammation of leg veins</li><li>gout</li><li>foot ulcers</li><li>a low platelet count or other blood problems, which can make you bruise and bleed more easily</li></ul>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Featured Therapies",
+          "content": "View Our Full List Of Services",
+          "content_html": "<p><a href=\"http://192.168.1.160:8000/services/\" rel=\"noopener noreferrer\">View Our Full List Of Services</a></p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Ion Foot Detox",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/DETOX_M57WD0f.jpg",
+              "link-url": "/ion-foot-detox/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "IV Nutritional Infusions",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/IV_XD7EvP5.jpg",
+              "link-url": "/iv-nutritional-infusions/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "Hyperbaric Oxygen Therapy",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/OX_VG2WOFD.jpg",
+              "link-url": "/hyperbaric-oxygen-therapy/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "Infrared Sauna Therapy",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/SAUNA_HMpl05Z.jpg",
+              "link-url": "/infrared-sauna-therapy/",
+              "link-label": "Learn More"
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Feel Good, Live Better!",
+          "content": "It’s easy to get started as a new patient…",
+          "content_html": "<p>It’s easy to get started as a new patient…</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Request An Appointment",
+              "content": "Your first step is to either call our clinic or complete the online request form for a new patient appointment",
+              "content_html": "<p>Your first step is to either call our clinic or complete the online request form for a new patient appointment</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/1-1_ZiTiW2P.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Experience Our Clinic",
+              "content": "Come to our clinic to receive your integrative consultation or treatment session.",
+              "content_html": "<p>Come to our clinic to receive your integrative consultation or treatment session.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/2-1_aeeTcHs.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Choose A Membership",
+              "content": "Optional (but recommended) – Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.",
+              "content_html": "<p><em>Optional (but recommended) –</em> Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/3-1_3GmaZKt.png",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
         }
       ],
-      "whatToExpect": {
-        "title": "What To Expect",
-        "body": "You remain comfortably seated or reclined while pressure techniques are applied to reflex points on the feet. Sessions are gentle and non-invasive."
-      },
-      "recommendedBooks": []
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way. Even when I was at my darkest, she was there helping from the sidelines. My entire family has all been helped by Dr. Afrooz and her husband. We've made connections and friendships and became familiar with each other in a way that other doctors are usually more one-dimensional with. Dr. Afrooz has changed my life in such a wonderful way! She is worth every penny we've paid and way more!"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I was always feeling very tired and lethargic and I was thinking that maybe I had long covid. But Dr Afrooz knew all the right questions to help identify that my condition is related to tick bites instead from a hiking trip I had gone on. I ask a lot of questions and she seems to not find me to be frustrating and i know that she is straightforward because she’s not afraid to say I don’t know if she does not know the answer to any of my questions. Nor is she dismissive of me whether it be ideas as to what I think could possibly help me or if I tell her something does not feel right. I highly recommend her and I feel fortunate to have been able to see her."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to. The appointments and treatments here are not nearly as atrociously priced as most of my visits to other doctors. The staff and workers really make me feel cared for. I recommend this doctor office over many other ones."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWTxx2WN13zQJY8yBCCHsv9s-9mCkVXOQeJLkm0XXD79QTARPgEQg=s120-c-rp-mo-br100",
+          "name": "Samson Zewde",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Great place! I felt well taken care of and left feeling revitalized after treatment."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXVhyyBMpfz7uCiGqz3lpZ8jfqwwk-NuKXmwhjchhSp_9mYRNfd=s120-c-rp-mo-ba2-br100",
+          "name": "Nas Moha",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Doctors and staff are personable and friendly that provides excellent care. Best care so far around the area"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWetJi7ZC30xKr9f_Et3sjo0MU-PtbJxY_MJW8ATsz1I44J_gjo=s120-c-rp-mo-ba3-br100",
+          "name": "Oxana Oleson",
+          "date": "2024-06-26",
+          "star": 5,
+          "comment": "I have known Dr. Afrooz for the past 8 years. Besides her knowledge and care she put in helping patients with different complex health issues, she is also one of the nicest people I know. She treated me and my family and never gave up on me trying to find a solution for treating chronic Lyme disease. Her office is equipped with lots of helpful tools to get you well. My favorite is a hyperbaric chamber, but there are many more. My daughter also recovered from Lyme disease with help of Dr. Afrooz. At that time, she was only 5 years old.\nI am beyond grateful for her help and knowledge. She is using both-conventional and integrative methods and always keeping up to date on new treatments."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUfWn8Nlmr9OTvD94Q-8w8MLmPpA7gWKZDCa-j1BUcZNfT9_ns=s120-c-rp-mo-br100",
+          "name": "sumaiyah khan",
+          "date": "2024-05-11",
+          "star": 5,
+          "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
+        }
+      ]
     },
     {
       "id": "ion-foot-detox",

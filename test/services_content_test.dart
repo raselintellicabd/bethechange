@@ -161,6 +161,35 @@ void main() {
       expect(liquivida.reviews, isNotEmpty);
     });
 
+    test('Reflexology service is fully populated', () async {
+      final result = await ServicesRepository(createMockApiClient())
+          .getServiceById('reflexology');
+
+      expect(result, isA<ApiSuccess<Service>>());
+      final reflexology = (result as ApiSuccess<Service>).data;
+      expect(reflexology.heroHeading, 'reflexology');
+      expect(reflexology.headline, 'What is Reflexology?');
+      expect(reflexology.contentHtml, contains('manual therapy'));
+      expect(reflexology.ctaLabel, 'Request An Appointment');
+      expect(reflexology.benefits, hasLength(5));
+      expect(reflexology.sections, hasLength(7));
+      expect(reflexology.sections.first.title, 'What is Reflexology?');
+      expect(reflexology.sections.first.imageUrl, isNotEmpty);
+      expect(reflexology.sections[1].title, contains('How does reflexology'));
+      expect(reflexology.sections[1].items, hasLength(4));
+      expect(reflexology.sections[2].title, 'Scientific Studies');
+      expect(reflexology.sections[2].items, hasLength(4));
+      expect(reflexology.sections[3].title, contains('Who benefits'));
+      expect(reflexology.sections[4].title, 'Contraindications');
+      expect(reflexology.sections[4].items, hasLength(2));
+      expect(
+        reflexology.sections.where((s) => s.isFeaturedTherapies),
+        hasLength(1),
+      );
+      expect(reflexology.sections.last.isGettingStarted, isTrue);
+      expect(reflexology.reviews, isNotEmpty);
+    });
+
     test('getServiceById returns failure for unknown id', () async {
       final result = await ServicesRepository(createMockApiClient())
           .getServiceById('missing');
