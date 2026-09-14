@@ -4045,6 +4045,382 @@
           "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
         }
       ]
+    },
+    {
+      "id": "personalized-wellness-plans",
+      "name": "Personalized Wellness Plans",
+      "heroHeading": "personalized wellness plans",
+      "headline": "Personalized Health & Wellness Plans With Doctor Check-Ins",
+      "title": "Personalized Wellness Plans",
+      "summary": "Personalized Health & Wellness Plans With Doctor Check-Ins",
+      "description": "Personalized Health & Wellness Plans With Doctor Check-Ins",
+      "articleBody": "Through Integrative and Naturopathic Medicine practices, we’ve acquired unique and comprehensive plans that will provide your body with necessary nutritional and fitness insight to meet your specific needs. Most plans include doctor check-ins every 2 weeks, amazing recipes, nutritious food options, grocery lists and exercises for you to implement into your lifestyle and reach your health goals.",
+      "content_html": "<p>Through Integrative and Naturopathic Medicine practices, we’ve acquired unique and comprehensive plans that will provide your body with necessary nutritional and fitness insight to meet your specific needs. Most plans include doctor check-ins every 2 weeks, amazing recipes, nutritious food options, grocery lists and exercises for you to implement into your lifestyle and reach your health goals.</p>",
+      "heroImage": "http://192.168.1.160:8000/media/services/P1_vFIByBk.png",
+      "slug": "personalized-wellness-plans",
+      "howItWorks": null,
+      "benefits": [
+        {
+          "label": "Doctor Check-Ins Every 2 Weeks"
+        },
+        {
+          "label": "Grocery Shopping Lists"
+        },
+        {
+          "label": "Delicious Recipes"
+        },
+        {
+          "label": "Database of 100K Foods, Including Restaurants and Your Favorite Brands"
+        },
+        {
+          "label": "Access To Desktop & Mobile App"
+        },
+        {
+          "label": "Beginner & Advanced Exercises"
+        },
+        {
+          "label": "Example Exercise Videos"
+        },
+        {
+          "label": "Secure Messaging Center"
+        },
+        {
+          "label": "Daily Tips & Recommendations"
+        },
+        {
+          "label": "Calorie & Food Tracker"
+        },
+        {
+          "label": "Create Goals & Targets"
+        },
+        {
+          "label": "Track Weight, Measurements & Body Fat"
+        },
+        {
+          "label": "Picture Gallery To Track Progress Visually"
+        }
+      ],
+      "addressedConcerns": [],
+      "whatToExpect": null,
+      "recommendedBooks": [],
+      "quote": "Feel Good, Live Better!",
+      "quoteBody": "It’s easy to get started as a new patient…",
+      "quoteHtml": "<p>It’s easy to get started as a new patient…</p>",
+      "cta-label": "View Wellness Plan",
+      "cta-url": "https://mybodysite.com/sultana-afrooz",
+      "sections": [
+        {
+          "type": "text",
+          "title": "Personalized Health & Wellness Plans With Doctor Check-Ins",
+          "content": "Through Integrative and Naturopathic Medicine practices, we’ve acquired unique and comprehensive plans that will provide your body with necessary nutritional and fitness insight to meet your specific needs. Most plans include doctor check-ins every 2 weeks, amazing recipes, nutritious food options, grocery lists and exercises for you to implement into your lifestyle and reach your health goals.",
+          "content_html": "<p>Through Integrative and Naturopathic Medicine practices, we’ve acquired unique and comprehensive plans that will provide your body with necessary nutritional and fitness insight to meet your specific needs. Most plans include doctor check-ins every 2 weeks, amazing recipes, nutritious food options, grocery lists and exercises for you to implement into your lifestyle and reach your health goals.</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "View Wellness Plan",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "https://mybodysite.com/sultana-afrooz",
+              "link-label": "View Wellness Plan"
+            }
+          ]
+        },
+        {
+          "type": "image_text",
+          "title": "",
+          "content": "",
+          "content_html": "",
+          "img-url": "http://192.168.1.160:8000/media/services/P1_IaYJtil.png",
+          "image-side": "left",
+          "items": []
+        },
+        {
+          "type": "image_text",
+          "title": "",
+          "content": "",
+          "content_html": "",
+          "img-url": "http://192.168.1.160:8000/media/services/p2_VE6hzWB.png",
+          "image-side": "left",
+          "items": []
+        },
+        {
+          "type": "cards",
+          "title": "Our Wellness Plans Include:",
+          "content": "",
+          "content_html": "",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Doctor Check-Ins Every 2 Weeks",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Grocery Shopping Lists",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Delicious Recipes",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Database of 100K Foods, Including Restaurants and Your Favorite Brands",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Access To Desktop & Mobile App",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Beginner & Advanced Exercises",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Example Exercise Videos",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Secure Messaging Center",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Daily Tips & Recommendations",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Calorie & Food Tracker",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Create Goals & Targets",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Track Weight, Measurements & Body Fat",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Picture Gallery To Track Progress Visually",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Our Popular Plans",
+          "content": "",
+          "content_html": "",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "MEDICAL WEIGHTLOSS",
+              "content": "The Clean28 Intermittent Fasting Weight Loss Program is a practical, healthy and safe way to lose weight. It is all about eating healthy foods: lean meats, lots of fruits and vegetables, low carbs, and only fats that are healthy such as avocados, olive oil and nuts. This low-carb, moderate protein, moderate fat diet will help you to lose weight fast and to apply these same principles, for life. Carbs never go over 20% per day. Combines these prinicples with Intermittent Fasting (IF).",
+              "content_html": "<p>The Clean28 Intermittent Fasting Weight Loss Program is a practical, healthy and safe way to lose weight. It is all about eating healthy foods: lean meats, lots of fruits and vegetables, low carbs, and only fats that are healthy such as avocados, olive oil and nuts. This low-carb, moderate protein, moderate fat diet will help you to lose weight fast and to apply these same principles, for life. Carbs never go over 20% per day. Combines these prinicples with Intermittent Fasting (IF).</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/P3_Yrs58Nb.png",
+              "link-url": "https://mybodysite.com/sultana-afrooz/medical-weight-loss-8-week-plan-with-exercise",
+              "link-label": "View Wellness Plan"
+            },
+            {
+              "title": "HEARTY GLUTEN FREE DIET (30 DAY)",
+              "content": "A guide for people who suffer from Celiac Disease or a Gluten Sensitivity. Learn steps to remove gluten from your diet and enjoy delicious recipes that are gluten free.",
+              "content_html": "<p>A guide for people who suffer from Celiac Disease or a Gluten Sensitivity. Learn steps to remove gluten from your diet and enjoy delicious recipes that are gluten free.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/P1_jQDvg0X.jpeg",
+              "link-url": "https://mybodysite.com/sultana-afrooz/gluten-free-diet",
+              "link-label": "View Wellness Plan"
+            },
+            {
+              "title": "TASTY AUTOIMMUNE PALEO PROTOCOL",
+              "content": "Autoimmune Paleo Protocol is used to treat inflammatory disease and reduce inflammation in the intestines which can lead to autoimmune disease.",
+              "content_html": "<p>Autoimmune Paleo Protocol is used to treat inflammatory disease and reduce inflammation in the intestines which can lead to autoimmune disease.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/P2_Dv80UFu.jpeg",
+              "link-url": "https://mybodysite.com/sultana-afrooz/antiinflammatory-autoimmune-paleo-protocol",
+              "link-label": "View Wellness Plan"
+            },
+            {
+              "title": "KETO PLAN",
+              "content": "A ketogenic diet can lead to significant weight loss by promoting fat burning while reducing carbohydrate intake, which encourages the body to enter a state of ketosis. Additionally, it may improve energy levels and mental clarity, as the brain uses ketones from fat as a more efficient fuel source compared to glucose.",
+              "content_html": "<p>A ketogenic diet can lead to significant weight loss by promoting fat burning while reducing carbohydrate intake, which encourages the body to enter a state of ketosis. Additionally, it may improve energy levels and mental clarity, as the brain uses ketones from fat as a more efficient fuel source compared to glucose.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/KETO_nZUqJIY.jpeg",
+              "link-url": "https://mybodysite.com/sultana-afrooz/ketogenic-diet-for-weight-loss",
+              "link-label": "View Keto Plan"
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Exercise and Mindfulness Plans",
+          "content": "",
+          "content_html": "",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "MEN’S 8 WEEK HOME FITNESS",
+              "content": "This wellness plan is for the male patient that reports a lack of energy, fatigue, loss of mental function, weight gain and low libido. This individual may also be a candidate for testosterone therapy as well as possible growth hormone and thyroid hormone, depending on blood work results. This plan involves intermediate fitness training but can be done at home. Requires only some dumbbells, a mat and your own body. If patient has restrictions or limitations, consider the Beginner HRT plan.",
+              "content_html": "<p>This wellness plan is for the male patient that reports a lack of energy, fatigue, loss of mental function, weight gain and low libido. This individual may also be a candidate for testosterone therapy as well as possible growth hormone and thyroid hormone, depending on blood work results. This plan involves intermediate fitness training but can be done at home. Requires only some dumbbells, a mat and your own body. If patient has restrictions or limitations, consider the Beginner HRT plan.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/PP2_iOqupdd.jpg",
+              "link-url": "https://mybodysite.com/sultana-afrooz/exercise-mens-8week-hrt-home-fitness",
+              "link-label": "View Fitness Plan"
+            },
+            {
+              "title": "21 DAYS OF MINDFULNESS W/ JENNIFER GRACE",
+              "content": "Gain helpful and lasting tools to start your own mindfulness and emotional intelligence practice. This plan provides daily guidance to help manage feelings of stress, anxiety, fear, depression… in order to be present and resilient through challenging moments. Find your “peace and ease” through daily mindfulness practice.",
+              "content_html": "<p>Gain helpful and lasting tools to start your own mindfulness and emotional intelligence practice. This plan provides daily guidance to help manage feelings of stress, anxiety, fear, depression… in order to be present and resilient through challenging moments. Find your “peace and ease” through daily mindfulness practice.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/PP1_uCDodDi.jpg",
+              "link-url": "https://mybodysite.com/sultana-afrooz/21-days-of-mindfulness-by-jennifer-grace",
+              "link-label": "View Mindfulness Plan"
+            },
+            {
+              "title": "THE LEAN 13 EXERCISE PROGRAM",
+              "content": "The plan you’re about to begin lasts for 13 weeks and can make an enormous impact on your life in just 20 minutes a day. Since there are 3 workouts per week, you’ll exercise only an hour a week for just 13 total hours in 13 weeks . This is really simple stuff. All you need to do is put on your workout shorts and follow the instructions.",
+              "content_html": "<p>The plan you’re about to begin lasts for 13 weeks and can make an enormous impact on your life in just 20 minutes a day. Since there are 3 workouts per week, you’ll exercise only an hour a week for just 13 total hours in 13 weeks . This is really simple stuff. All you need to do is put on your workout shorts and follow the instructions.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/PP3_qGZGe6c.jpg",
+              "link-url": "https://mybodysite.com/sultana-afrooz/exercise-the-lean-13-exercise-program-get-in-shape-in-20-minutes",
+              "link-label": "View Lean Plan"
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Feel Good, Live Better!",
+          "content": "It’s easy to get started as a new patient…",
+          "content_html": "<p>It’s easy to get started as a new patient…</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Request An Appointment",
+              "content": "Your first step is to either call our clinic or complete the online request form for a new patient appointment",
+              "content_html": "<p>Your first step is to either call our clinic or complete the online request form for a new patient appointment</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/1-1_u6yFkHD.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Experience Our Clinic",
+              "content": "Come to our clinic to receive your integrative consultation or treatment session.",
+              "content_html": "<p>Come to our clinic to receive your integrative consultation or treatment session.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/2-1_5tRWLot.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Choose A Membership",
+              "content": "Optional (but recommended) – Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.",
+              "content_html": "<p><em>Optional (but recommended) –</em> Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/3-1_nRxvUrL.png",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way. Even when I was at my darkest, she was there helping from the sidelines. My entire family has all been helped by Dr. Afrooz and her husband. We've made connections and friendships and became familiar with each other in a way that other doctors are usually more one-dimensional with. Dr. Afrooz has changed my life in such a wonderful way! She is worth every penny we've paid and way more!"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I was always feeling very tired and lethargic and I was thinking that maybe I had long covid. But Dr Afrooz knew all the right questions to help identify that my condition is related to tick bites instead from a hiking trip I had gone on. I ask a lot of questions and she seems to not find me to be frustrating and i know that she is straightforward because she’s not afraid to say I don’t know if she does not know the answer to any of my questions. Nor is she dismissive of me whether it be ideas as to what I think could possibly help me or if I tell her something does not feel right. I highly recommend her and I feel fortunate to have been able to see her."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to. The appointments and treatments here are not nearly as atrociously priced as most of my visits to other doctors. The staff and workers really make me feel cared for. I recommend this doctor office over many other ones."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWTxx2WN13zQJY8yBCCHsv9s-9mCkVXOQeJLkm0XXD79QTARPgEQg=s120-c-rp-mo-br100",
+          "name": "Samson Zewde",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Great place! I felt well taken care of and left feeling revitalized after treatment."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXVhyyBMpfz7uCiGqz3lpZ8jfqwwk-NuKXmwhjchhSp_9mYRNfd=s120-c-rp-mo-ba2-br100",
+          "name": "Nas Moha",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Doctors and staff are personable and friendly that provides excellent care. Best care so far around the area"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWetJi7ZC30xKr9f_Et3sjo0MU-PtbJxY_MJW8ATsz1I44J_gjo=s120-c-rp-mo-ba3-br100",
+          "name": "Oxana Oleson",
+          "date": "2024-06-26",
+          "star": 5,
+          "comment": "I have known Dr. Afrooz for the past 8 years. Besides her knowledge and care she put in helping patients with different complex health issues, she is also one of the nicest people I know. She treated me and my family and never gave up on me trying to find a solution for treating chronic Lyme disease. Her office is equipped with lots of helpful tools to get you well. My favorite is a hyperbaric chamber, but there are many more. My daughter also recovered from Lyme disease with help of Dr. Afrooz. At that time, she was only 5 years old.\nI am beyond grateful for her help and knowledge. She is using both-conventional and integrative methods and always keeping up to date on new treatments."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUfWn8Nlmr9OTvD94Q-8w8MLmPpA7gWKZDCa-j1BUcZNfT9_ns=s120-c-rp-mo-br100",
+          "name": "sumaiyah khan",
+          "date": "2024-05-11",
+          "star": 5,
+          "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
+        }
+      ]
     }
   ]
 }

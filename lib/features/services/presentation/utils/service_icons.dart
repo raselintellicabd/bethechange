@@ -11,6 +11,7 @@ IconData serviceIconFor(String serviceId) {
     'reflexology' => Icons.accessibility_new_outlined,
     'ion-foot-detox' => Icons.spa_outlined,
     'wellness-classes' => Icons.school_outlined,
+    'personalized-wellness-plans' => Icons.assignment_outlined,
     _ => Icons.medical_services_outlined,
   };
 }

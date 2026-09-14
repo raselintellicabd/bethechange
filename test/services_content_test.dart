@@ -268,6 +268,32 @@ void main() {
       expect(wellness.reviews, isNotEmpty);
     });
 
+    test('Personalized Wellness Plans service is fully populated', () async {
+      final result = await ServicesRepository(createMockApiClient())
+          .getServiceById('personalized-wellness-plans');
+
+      expect(result, isA<ApiSuccess<Service>>());
+      final plans = (result as ApiSuccess<Service>).data;
+      expect(plans.heroHeading, 'personalized wellness plans');
+      expect(plans.headline, contains('Doctor Check-Ins'));
+      expect(plans.heroImageUrl, contains('P1_vFIByBk'));
+      expect(plans.ctaLabel, 'View Wellness Plan');
+      expect(plans.benefits, hasLength(13));
+      expect(plans.sections, hasLength(7));
+      expect(plans.sections[0].title, contains('Doctor Check-Ins'));
+      expect(plans.sections[1].imageUrl, isNotEmpty);
+      expect(plans.sections[2].imageUrl, isNotEmpty);
+      expect(plans.sections[3].title, contains('Include'));
+      expect(plans.sections[3].items, hasLength(13));
+      expect(plans.sections[4].title, 'Our Popular Plans');
+      expect(plans.sections[4].items, hasLength(4));
+      expect(plans.sections[4].items.first.imageUrl, isNotEmpty);
+      expect(plans.sections[5].title, contains('Exercise'));
+      expect(plans.sections[5].items, hasLength(3));
+      expect(plans.sections.last.isGettingStarted, isTrue);
+      expect(plans.reviews, isNotEmpty);
+    });
+
     test('getServiceById returns failure for unknown id', () async {
       final result = await ServicesRepository(createMockApiClient())
           .getServiceById('missing');
@@ -288,7 +314,7 @@ void main() {
         );
       }).toList();
 
-      expect(contexts.map((c) => c.id).toSet(), hasLength(9));
+      expect(contexts.map((c) => c.id).toSet(), hasLength(10));
 
       for (final context in contexts) {
         final parsed = SourceContext.tryParse(
