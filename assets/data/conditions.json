@@ -5,8 +5,16 @@
     {
       "id": "diabetes",
       "name": "Diabetes",
+      "heroHeading": "diabetes",
+      "headline": "We Provide Natural Remedies and Alternative Treatments for Diabetes",
       "summary": "We can help prevent and manage diabetes by using holistic therapies to support your metabolism and blood sugar balance.",
-      "articleBody": "Naturopathic and integrative medicine services at Be The Change Wellness Center can help to prevent and manage diabetes by using holistic therapies to support your metabolism and blood sugar balance.\n\nThere are 3 main types of diabetes. Type 1 diabetes involves autoimmune damage to the pancreas so the body cannot produce insulin. Type 2 diabetes is marked by insulin resistance. Gestational diabetes occurs during pregnancy.\n\nAll types of diabetes lead to elevated blood sugar levels. If not managed well, elevated blood sugar can damage your health over time—potentially leading to heart attack, stroke, kidney failure, nerve damage, or blindness.",
+      "articleBody": "Naturopathic and integrative medicine services at Be The Change Wellness Center can help to prevent and manage diabetes by using holistic therapies to support your metabolism and blood sugar balance.",
+      "content_html": "<p>Naturopathic and integrative medicine services at Be The Change Wellness Center can help to prevent and manage diabetes by using holistic therapies to support your metabolism and blood sugar balance.</p>",
+      "heroImageUrl": "http://192.168.1.160:8000/media/conditions/Diabetes_b2IZVbk.jpg",
+      "slug": "diabetes",
+      "quote": "Feel Good, Live Better!",
+      "cta-label": "New Patient – Request An Appointment",
+      "cta-url": "/appointments/?source=%2Fdiabetes%2F&patient=new",
       "symptoms": [
         { "label": "Fatigue" },
         { "label": "Increased Hunger" },
@@ -27,7 +35,8 @@
       ],
       "integrativeApproach": {
         "title": "Our Integrative Approach to Diabetes",
-        "body": "The conventional approach to diabetes relies on managing blood sugar levels with insulin or medications.\n\nIf your pancreas is unable to produce insulin, you will still need some form of insulin. However, our approach differs because we focus on dietary and lifestyle changes that minimize your need for insulin.\n\nWe also use testing to look for underlying factors that might be disrupting your metabolism—making it easier for you to manage your diabetes."
+        "body": "The conventional approach to diabetes relies on managing blood sugar levels with insulin or medications.",
+        "content_html": "<p>The conventional approach to diabetes relies on managing blood sugar levels with insulin or medications.</p>"
       },
       "benefits": [
         { "label": "Natural Approaches" },
@@ -42,26 +51,168 @@
       "treatmentMethods": [
         {
           "label": "Naturopathic & Integrative Medicine",
-          "description": "Our naturopathic doctor and osteopathic physician will guide you in choosing the most appropriate therapies for your diabetes, including nutritional supplements, IV nutritional infusions, infrared sauna therapy, and other holistic therapies."
+          "description": "Our naturopathic doctor and osteopathic physician will guide you in choosing the most appropriate therapies for your diabetes.",
+          "iconUrl": "http://192.168.1.160:8000/media/conditions/Naturopatic-Integrative-medicine-Services_3RMSe9s.jpg"
         },
         {
           "label": "Personalized Wellness Plans",
-          "description": "Comprehensive plans that provide a foundation in nutrition and physical activity so you can achieve your optimal potential."
+          "description": "Comprehensive plans that provide a foundation in nutrition and physical activity.",
+          "iconUrl": "http://192.168.1.160:8000/media/conditions/meal-prrp-1080x675-1_SQvPjFm.jpg"
         },
         {
           "label": "Wellness Classes",
-          "description": "Community learning opportunities such as our popular blood sugar balancing class."
+          "description": "Community learning opportunities such as our popular blood sugar balancing class.",
+          "iconUrl": "http://192.168.1.160:8000/media/conditions/maarten-van-den-heuvel-EzH46XCDQRY-unsplash-scaled-e1676932966706_tHJsvuh.jpg"
         }
       ],
       "recommendedBooks": [
         {
-      "title": "The Blood Sugar Solution",
-      "author": "Dr. Mark Hyman"
-    },
-    {
-      "title": "Ultrametabolism",
-      "author": "Dr. Mark Hyman"
-    }
+          "title": "The Blood Sugar Solution",
+          "author": "Dr. Mark Hyman",
+          "coverUrl": "http://192.168.1.160:8000/media/conditions/Blood-Sugar-Solution_7qICPOz.jpg"
+        },
+        {
+          "title": "Ultrametabolism",
+          "author": "Dr. Mark Hyman",
+          "coverUrl": "http://192.168.1.160:8000/media/conditions/Ultra-Metabolism_uuAr1C0.jpg"
+        }
+      ],
+      "sections": [
+        {
+          "type": "image_text",
+          "layout": "now_control",
+          "title": "NOW is the time to take control of diabetes.",
+          "content_html": "<p>There are 3 main types of diabetes. Type 1 diabetes involves autoimmune damage to the pancreas so the body cannot produce insulin. Type 2 diabetes is marked by insulin resistance. Gestational diabetes occurs during pregnancy.</p><p>All types of diabetes lead to elevated blood sugar levels. If not managed well, elevated blood sugar can damage your health over time—potentially leading to heart attack, stroke, kidney failure, nerve damage, or blindness.</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/types-of-diabetes_ri2Zrqy.jpg",
+          "image-side": "left",
+          "items": []
+        },
+        {
+          "type": "image_text",
+          "layout": "symptoms",
+          "title": "Common Symptoms Caused by Diabetes",
+          "content_html": "<ul><li>Fatigue</li><li>Increased Hunger</li></ul>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/d_CfCGdhx.jpg",
+          "items": [
+            { "title": "Fatigue" },
+            { "title": "Increased Hunger" },
+            { "title": "Increased Thirst" },
+            { "title": "Weight Gain or Loss" },
+            { "title": "Blood Sugar Swings" },
+            { "title": "Irritability" },
+            { "title": "Slow Wound Healing" },
+            { "title": "Numbness of Hands or Feet" }
+          ]
+        },
+        {
+          "type": "image_text",
+          "layout": "factors",
+          "title": "Factors That Contribute to Diabetes",
+          "content_html": "<p>Most people think that diabetes happens because of family history. While type 1 diabetes is strongly linked to genetics, type 2 diabetes depends heavily on environmental factors.</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/diabetes-factor_r5ububF.jpg",
+          "items": [
+            { "title": "High Sugar Diet" },
+            { "title": "Nutritional Deficiencies" },
+            { "title": "Lack of Exercise" },
+            { "title": "Stress or Sleep Issues" },
+            { "title": "Hormonal Imbalances" },
+            { "title": "Environmental Toxins" }
+          ]
+        },
+        {
+          "type": "cards",
+          "layout": "approach_benefits",
+          "title": "Our Integrative Approach to Diabetes",
+          "content_html": "<p>The conventional approach to diabetes relies on managing blood sugar levels with insulin or medications.</p><p>If your pancreas is unable to produce insulin, you will still need some form of insulin. However, our approach differs because we focus on dietary and lifestyle changes that minimize your need for insulin.</p>",
+          "items": [
+            { "title": "Natural Approaches" },
+            { "title": "Blood Sugar Balance" },
+            { "title": "Sustained Energy" },
+            { "title": "Decreased Medications" },
+            { "title": "Better Mood & Sleep" },
+            { "title": "Weight Management" },
+            { "title": "Reduced Long-Term Risks" },
+            { "title": "Overall Improved Health" }
+          ]
+        },
+        {
+          "type": "cards",
+          "layout": "treat_dark",
+          "title": "Ways We Can Treat Diabetes",
+          "items": [
+            {
+              "title": "Naturopathic & Integrative Medicine",
+              "content_html": "<p>Our naturopathic doctor and osteopathic physician will guide you in choosing the most appropriate therapies for your diabetes.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/Naturopatic-Integrative-medicine-Services_3RMSe9s.jpg",
+              "link-url": "/appointments/?source=%2Fdiabetes%2F",
+              "link-label": "Request Appointment"
+            },
+            {
+              "title": "Personalized Wellness Plans",
+              "content_html": "<p>Through integrative and naturopathic medicine principles, we have developed personalized and comprehensive plans.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/meal-prrp-1080x675-1_SQvPjFm.jpg",
+              "link-url": "/personalized-wellness-plans/",
+              "link-label": "Explore Plans"
+            },
+            {
+              "title": "Wellness Classes",
+              "content_html": "<p>One of our most popular wellness classes for those concerned about diabetes is the blood sugar balancing class!</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/maarten-van-den-heuvel-EzH46XCDQRY-unsplash-scaled-e1676932966706_tHJsvuh.jpg",
+              "link-url": "/wellness-classes/",
+              "link-label": "Explore Classes"
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "layout": "books",
+          "title": "Recommended Books for Blood Sugar Balance",
+          "content_html": "<p>We believe that education is empowering and helps you take control of your health!</p>",
+          "items": [
+            {
+              "title": "THE BLOOD SUGAR SOLUTION",
+              "content_html": "<p>Dr. Mark Hyman talks about how Diabetes can be prevented, treated, and reversed.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/Blood-Sugar-Solution_7qICPOz.jpg"
+            },
+            {
+              "title": "ULTRAMETABOLISM",
+              "content_html": "<p>Dr. Mark Hyman talks about the 7 Keys to the New Science of Weight Loss.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/Ultra-Metabolism_uuAr1C0.jpg"
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "layout": "getting_started",
+          "title": "Feel Good, Live Better!",
+          "content_html": "<p>It’s easy to get started as a new patient…</p>",
+          "items": [
+            {
+              "title": "Request An Appointment",
+              "content_html": "<p>Your first step is to either call our clinic or complete the online request form for a new patient appointment</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/1-1_VJpCFdD.png"
+            },
+            {
+              "title": "Experience Our Clinic",
+              "content_html": "<p>Come to our clinic to receive your integrative consultation or treatment session.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/2-1_wYTGc1R.png"
+            },
+            {
+              "title": "Choose A Membership",
+              "content_html": "<p><em>Optional (but recommended) –</em> Choose one of our membership tiers to receive discounted rates and complimentary sessions every month.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/3-1_yQ1VCRA.png"
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and she gets to know her patients well."
+        }
       ]
     },
     {

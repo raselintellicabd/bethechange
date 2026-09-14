@@ -24,6 +24,7 @@ import '../../../blog/presentation/widgets/blog_html_view.dart';
 import '../../domain/models/condition.dart';
 import '../../domain/models/condition_section.dart';
 import '../providers/conditions_providers.dart';
+import 'diabetes_detail_view.dart';
 
 class ConditionDetailScreen extends ConsumerWidget {
   const ConditionDetailScreen({super.key, required this.conditionId});
@@ -46,7 +47,12 @@ class ConditionDetailScreen extends ConsumerWidget {
           onRetry: () => ref.invalidate(conditionByIdProvider(conditionId)),
         ),
       ),
-      data: (condition) => _ConditionDetailBody(condition: condition),
+      data: (condition) {
+        if (condition.routeId == 'diabetes') {
+          return DiabetesDetailView(condition: condition);
+        }
+        return _ConditionDetailBody(condition: condition);
+      },
     );
   }
 }

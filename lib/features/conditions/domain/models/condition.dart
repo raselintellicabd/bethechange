@@ -33,6 +33,11 @@ class Condition {
     this.factorsImageUrl,
     this.gettingStarted = const [],
     this.contentHtml,
+    this.heroHeading,
+    this.headline,
+    this.quoteBody,
+    this.quoteHtml,
+    this.ctaUrl,
     this.sections = const [],
   });
 
@@ -69,6 +74,11 @@ class Condition {
   final String? factorsImageUrl;
   final List<LabeledListItem> gettingStarted;
   final String? contentHtml;
+  final String? heroHeading;
+  final String? headline;
+  final String? quoteBody;
+  final String? quoteHtml;
+  final String? ctaUrl;
 
   /// Ordered page sections. Preferred over the structured fields when present.
   final List<ConditionSection> sections;
@@ -107,6 +117,11 @@ class Condition {
       summary: _text(json, const ['summary', 'description', 'content']),
       articleBody: _text(json, const ['articleBody']),
       contentHtml: _nullableText(json, const ['content_html', 'contentHtml']),
+      heroHeading: _nullableText(json, const ['heroHeading', 'hero_heading']),
+      headline: _nullableText(json, const ['headline']),
+      quoteBody: _nullableText(json, const ['quoteBody', 'quote_body']),
+      quoteHtml: _nullableText(json, const ['quoteHtml', 'quote_html']),
+      ctaUrl: _nullableText(json, const ['cta-url', 'ctaUrl']),
       heroImageUrl: _url(json, const ['heroImageUrl', 'heroImage', 'img-url']),
       quote: _nullableText(json, const ['quote']),
       ctaLabel: _nullableText(json, const ['cta-label', 'ctaLabel']),

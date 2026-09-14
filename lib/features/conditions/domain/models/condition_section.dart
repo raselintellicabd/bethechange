@@ -24,6 +24,20 @@ class ConditionSection {
 
   bool get isBooks => layout.trim().toLowerCase() == 'books';
 
+  bool get isSymptoms => layout.trim().toLowerCase() == 'symptoms';
+
+  bool get isFactors => layout.trim().toLowerCase() == 'factors';
+
+  bool get isApproachBenefits =>
+      layout.trim().toLowerCase() == 'approach_benefits';
+
+  bool get isTreatDark => layout.trim().toLowerCase() == 'treat_dark';
+
+  bool get isGettingStarted =>
+      layout.trim().toLowerCase() == 'getting_started';
+
+  bool get isNowControl => layout.trim().toLowerCase() == 'now_control';
+
   /// Benefit chips are title-only cards with no body or image.
   bool get isChipGroup =>
       items.isNotEmpty && items.every((item) => item.isLabelOnly);

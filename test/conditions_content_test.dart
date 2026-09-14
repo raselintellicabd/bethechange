@@ -115,7 +115,12 @@ void main() {
         'id': 'diabetes',
         'name': 'Diabetes',
         'summary': 'Short summary',
+        'heroHeading': 'diabetes',
+        'headline':
+            'We Provide Natural Remedies and Alternative Treatments for Diabetes',
         'content_html': '<p>Intro from HTML.</p>',
+        'cta-label': 'New Patient – Request An Appointment',
+        'cta-url': '/appointments/?source=%2Fdiabetes%2F&patient=new',
         'sections': [
           {
             'type': 'image_text',
@@ -159,6 +164,12 @@ void main() {
       });
 
       expect(detail.contentHtml, contains('<p>'));
+      expect(detail.heroHeading, 'diabetes');
+      expect(
+        detail.headline,
+        'We Provide Natural Remedies and Alternative Treatments for Diabetes',
+      );
+      expect(detail.ctaLabel, contains('Request An Appointment'));
       expect(detail.sections, hasLength(3));
       final symptoms = blogContentBlocks(
         contentHtml: detail.sections.first.contentHtml,
