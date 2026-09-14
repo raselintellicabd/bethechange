@@ -63,15 +63,16 @@ class InfraredSaunaTherapyDetailView extends StatelessWidget {
           if (faq != null) _FaqAccordion(section: faq),
           if (expect != null)
             _ExpectSection(section: expect, source: _source),
-          if (service.reviews.isNotEmpty)
-            _ReviewsSection(reviews: service.reviews),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 28),
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
             child: AppointmentCtaBar(
               sourceContext: _source,
               label: _ctaLabel,
             ),
           ),
+          if (service.reviews.isNotEmpty)
+            _ReviewsSection(reviews: service.reviews),
+          const SizedBox(height: 28),
         ],
       ),
     );

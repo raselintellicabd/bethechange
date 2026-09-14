@@ -51,15 +51,14 @@ class WellnessClassesDetailView extends StatelessWidget {
             ),
           if (comingSoon != null) _ComingSoonSection(section: comingSoon),
           if (books != null) _BooksSection(section: books),
-          if (service.reviews.isNotEmpty)
-            _ReviewsSection(reviews: service.reviews),
           if (bottomCta.isNotEmpty)
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 28),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
               child: _ExternalCtaButton(item: bottomCta.first),
-            )
-          else
-            const SizedBox(height: 28),
+            ),
+          if (service.reviews.isNotEmpty)
+            _ReviewsSection(reviews: service.reviews),
+          const SizedBox(height: 28),
         ],
       ),
     );

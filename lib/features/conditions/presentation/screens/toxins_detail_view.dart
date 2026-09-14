@@ -76,15 +76,16 @@ class ToxinsDetailView extends StatelessWidget {
             phoneTel: _clinicPhoneTel,
             source: _source,
           ),
-          if (condition.reviews.isNotEmpty)
-            _ReviewsSection(reviews: condition.reviews),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 28),
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
             child: AppointmentCtaBar(
               sourceContext: _source,
               label: _ctaLabel,
             ),
           ),
+          if (condition.reviews.isNotEmpty)
+            _ReviewsSection(reviews: condition.reviews),
+          const SizedBox(height: 28),
         ],
       ),
     );

@@ -120,12 +120,13 @@ class PersonalizedWellnessPlansDetailView extends StatelessWidget {
             ),
           if (started != null)
             _GettingStartedSection(section: started, source: _source),
-          if (service.reviews.isNotEmpty)
-            _ReviewsSection(reviews: service.reviews),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 28),
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
             child: _ExternalCtaButton(item: viewCta),
           ),
+          if (service.reviews.isNotEmpty)
+            _ReviewsSection(reviews: service.reviews),
+          const SizedBox(height: 28),
         ],
       ),
     );
