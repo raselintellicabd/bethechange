@@ -278,6 +278,24 @@ void main() {
       expect(fatigue.sections.last.items, hasLength(5));
       expect(fatigue.sections.last.imageUrl, isNotEmpty);
       expect(fatigue.reviews, isNotEmpty);
+
+      final obesityResult = await repository.getConditionById('obesity');
+      expect(obesityResult, isA<ApiSuccess<Condition>>());
+      final obesity = (obesityResult as ApiSuccess<Condition>).data;
+      expect(obesity.heroHeading, 'obesity specialist');
+      expect(obesity.headline, contains('lose weight'));
+      expect(obesity.contentHtml, isNotEmpty);
+      expect(obesity.symptoms, isEmpty);
+      expect(obesity.integrativeApproach, isNull);
+      expect(obesity.treatmentMethods, hasLength(6));
+      expect(obesity.sections, hasLength(4));
+      expect(obesity.sections.first.isDefaultLayout, isTrue);
+      expect(obesity.sections[1].isTreatDark, isTrue);
+      expect(obesity.sections[1].items, hasLength(6));
+      expect(obesity.sections[2].type, 'text');
+      expect(obesity.sections.last.isGettingStarted, isTrue);
+      expect(obesity.sections.last.items, hasLength(3));
+      expect(obesity.reviews, isNotEmpty);
     });
 
     test('getConditionById returns failure for unknown id', () async {

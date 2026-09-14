@@ -28,6 +28,7 @@ import 'diabetes_detail_view.dart';
 import 'heart_disease_detail_view.dart';
 import 'concussion_detail_view.dart';
 import 'chronic_fatigue_detail_view.dart';
+import 'obesity_detail_view.dart';
 
 class ConditionDetailScreen extends ConsumerWidget {
   const ConditionDetailScreen({super.key, required this.conditionId});
@@ -62,6 +63,9 @@ class ConditionDetailScreen extends ConsumerWidget {
         }
         if (condition.routeId == 'chronic-fatigue') {
           return ChronicFatigueDetailView(condition: condition);
+        }
+        if (condition.routeId == 'obesity') {
+          return ObesityDetailView(condition: condition);
         }
         return _ConditionDetailBody(condition: condition);
       },

@@ -218,47 +218,207 @@
     {
       "id": "obesity",
       "name": "Obesity",
+      "heroHeading": "obesity specialist",
+      "headline": "Attempting to lose weight on your own can be disheartening, especially if you can’t see or feel any results.",
       "summary": "We work with you as you complete an individualized medical weight loss plan, including regular appointments and personalized diet planning.",
-      "articleBody": "Attempting to lose weight on your own can be disheartening, especially if you can't see or feel any results.\n\nAt Be The Change Health & Wellness Center, Sultana Afrooz, DO, and the team can work with you as you complete an individualized medical weight loss plan, including regular appointments and personalized diet planning.\n\nMedical weight loss is the process of losing weight and keeping it off with the help of your doctor. Personalized plans don't just aim to bring down the number on the scale—they help you adopt lifelong changes that promote better overall health.",
-      "symptoms": [
-        { "label": "Difficulty Losing Weight" },
-        { "label": "Low Energy" },
-        { "label": "Increased Disease Risk" }
-      ],
-      "contributingFactors": [
-        { "label": "Dietary Patterns" },
-        { "label": "Limited Physical Activity" },
-        { "label": "Hormonal Factors" },
-        { "label": "Stress and Sleep" },
-        { "label": "Medical History" }
-      ],
-      "integrativeApproach": {
-        "title": "Our Integrative Approach to Obesity",
-        "body": "Your personalized medical weight loss plan is complex and includes multiple guided components. After the initial consultation, you check in every two weeks to track progress.\n\nUsing information from your consultation and medical history, your provider chooses necessary supplements, an appropriate exercise plan, and a diet according to your needs—such as keto, intermittent fasting, gluten-free, or autoimmune paleo approaches."
-      },
-      "benefits": [
-        { "label": "Lower Hypertension Risk" },
-        { "label": "Reduced Heart Disease Risk" },
-        { "label": "Better Cholesterol Balance" },
-        { "label": "Lower Stroke Risk" },
-        { "label": "Type 2 Diabetes Prevention Support" },
-        { "label": "Improved Sleep Apnea Risk Profile" }
-      ],
+      "articleBody": "At Be The Change Health & Wellness Center in Columbia, Maryland, Sultana Afrooz, DO, and the team can work with you as you complete an individualized medical weight loss plan, including regular appointments and personalized diet planning.\nEven if your goal isn’t to lose weight, a custom wellness plan makes you healthier, more energetic, and less at risk for disease. Dr. Afrooz and the team can help you improve your health with a personalized wellness plan. Call the office or request an appointment online today.\n\nWhat is medical weight loss?\n\nMedical weight loss is the process of losing weight and keeping it off with the help of your doctor.",
+      "content_html": "<p>At Be The Change Health &amp; Wellness Center in Columbia, Maryland, Sultana Afrooz, DO, and the team can work with you as you complete an individualized medical weight loss plan, including regular appointments and personalized diet planning.</p><p>Even if your goal isn’t to lose weight, a custom wellness plan makes you healthier, more energetic, and less at risk for disease. Dr. Afrooz and the team can help you improve your health with a personalized wellness plan. Call the office or request an appointment online today.</p>",
+      "heroImageUrl": "http://192.168.1.160:8000/media/conditions/Medical-Weight-Loss_G6i70dw.jpg",
+      "symptoms": [],
+      "contributingFactors": [],
+      "integrativeApproach": null,
+      "benefits": [],
       "treatmentMethods": [
         {
-          "label": "Dietary Changes",
-          "description": "Grocery lists, recipes, and smart eating choices tailored to your goals."
+          "label": "Dietary changes",
+          "description": "Grocery shopping lists and appetizing recipes",
+          "content_html": "<p>Grocery shopping lists and appetizing recipes</p>"
         },
         {
-          "label": "Exercise Plan",
-          "description": "Beginner through advanced guidance via desktop and mobile support."
+          "label": "Smart eating choices",
+          "description": "Access a database of over 100,000 foods, including restaurant menu items",
+          "content_html": "<p>Access a database of over 100,000 foods, including restaurant menu items</p>"
         },
         {
-          "label": "Ongoing Support",
-          "description": "Regular appointments, progress tracking, and nutritional supplements when appropriate."
+          "label": "An exercise plan",
+          "description": "Beginner through advanced exercise videos via a desktop and mobile app",
+          "content_html": "<p>Beginner through advanced exercise videos via a desktop and mobile app</p>"
+        },
+        {
+          "label": "Ongoing support",
+          "description": "Receive daily tips and recommendations through a secure and reliable messaging platform",
+          "content_html": "<p>Receive daily tips and recommendations through a secure and reliable messaging platform</p>"
+        },
+        {
+          "label": "Progress tracking",
+          "description": "A photo gallery to track your progress visually along with a calorie and food tracker",
+          "content_html": "<p>A photo gallery to track your progress visually along with a calorie and food tracker</p>"
+        },
+        {
+          "label": "Nutritional supplements",
+          "description": "Get the right supplements to help you get the weight off faster with proven nutritional supplements",
+          "content_html": "<p>Get the right supplements to help you get the weight off faster with proven nutritional supplements</p>"
         }
       ],
-      "recommendedBooks": []
+      "recommendedBooks": [],
+      "slug": "obesity",
+      "title": "Obesity",
+      "img-url": "http://192.168.1.160:8000/media/conditions/Medical-Weight-Loss_G6i70dw.jpg",
+      "content": "We work with you as you complete an individualized medical weight loss plan, including regular appointments and personalized diet planning.",
+      "path": "/obesity/",
+      "quote": "Feel Good, Live Better!",
+      "quoteBody": "It’s easy to get started as a new patient…",
+      "quoteHtml": "<p>It’s easy to get started as a new patient…</p>",
+      "cta-label": "New Patient – Request An Appointment",
+      "cta-url": "/appointments/?source=%2Fobesity%2F&patient=new",
+      "sections": [
+        {
+          "type": "image_text",
+          "layout": "default",
+          "title": "What is medical weight loss?",
+          "content": "Medical weight loss is the process of losing weight and keeping it off with the help of your doctor. Be The Change Health & Wellness Center can design a weight loss plan with your personal needs in mind and work with you as you apply it in your home life.\nPersonalized medical weight loss plans don’t just aim to bring down the number on the scale. Instead, they help you adopt lifelong changes that promote better overall health. By losing excess body fat during your plan, you can lower your risk for serious diseases like:\nHypertension\nHeart disease\nHigh cholesterol\nStroke\nType 2 diabetes\nCertain cancers\nSleep apnea\nGastroesophageal reflux disease (GERD)",
+          "content_html": "<p>Medical weight loss is the process of losing weight and keeping it off with the help of your doctor. Be The Change Health &amp; Wellness Center can design a weight loss plan with your personal needs in mind and work with you as you apply it in your home life.</p><p>Personalized medical weight loss plans don’t just aim to bring down the number on the scale. Instead, they help you adopt lifelong changes that promote better overall health. By losing excess body fat during your plan, you can lower your risk for serious diseases like:</p><ul><li>Hypertension</li><li>Heart disease</li><li>High cholesterol</li><li>Stroke</li><li>Type 2 diabetes</li><li>Certain cancers</li><li>Sleep apnea</li><li>Gastroesophageal reflux disease (GERD)</li></ul>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/Dont-Lose-Weight-Lose-FAT_o043OCj.jpg",
+          "image-side": "left",
+          "items": [
+            { "title": "Hypertension", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Heart disease", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "High cholesterol", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Stroke", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Type 2 diabetes", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Certain cancers", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Sleep apnea", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Gastroesophageal reflux disease (GERD)", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" }
+          ]
+        },
+        {
+          "type": "cards",
+          "layout": "treat_dark",
+          "title": "What are the components of a medical weight loss plan?",
+          "content": "Your personalized medical weight loss plan at Be The Change Health & Wellness Center is complex and includes multiple guided components. After the initial consultation, you check in at an appointment every two weeks to track your progress. You can observe measurable changes in your weight as well as your general wellness and health.\nYour custom medical weight loss plan includes:",
+          "content_html": "<p>Your personalized medical weight loss plan at Be The Change Health &amp; Wellness Center is complex and includes multiple guided components. After the initial consultation, you check in at an appointment every two weeks to track your progress. You can observe measurable changes in your weight as well as your general wellness and health.</p><p>Your custom medical weight loss plan includes:</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/medical-weight-management-options_XFpscav.png",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Dietary changes",
+              "content": "Grocery shopping lists and appetizing recipes",
+              "content_html": "<p>Grocery shopping lists and appetizing recipes</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Smart eating choices",
+              "content": "Access a database of over 100,000 foods, including restaurant menu items",
+              "content_html": "<p>Access a database of over 100,000 foods, including restaurant menu items</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "An exercise plan",
+              "content": "Beginner through advanced exercise videos via a desktop and mobile app",
+              "content_html": "<p>Beginner through advanced exercise videos via a desktop and mobile app</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Ongoing support",
+              "content": "Receive daily tips and recommendations through a secure and reliable messaging platform",
+              "content_html": "<p>Receive daily tips and recommendations through a secure and reliable messaging platform</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Progress tracking",
+              "content": "A photo gallery to track your progress visually along with a calorie and food tracker",
+              "content_html": "<p>A photo gallery to track your progress visually along with a calorie and food tracker</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Nutritional supplements",
+              "content": "Get the right supplements to help you get the weight off faster with proven nutritional supplements",
+              "content_html": "<p>Get the right supplements to help you get the weight off faster with proven nutritional supplements</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "layout": "default",
+          "title": "What goes into the planning for medical weight loss?",
+          "content": "Medical weight loss plans begin with a consultation. At Be The Change Health & Wellness Center, your provider goes over your medical history and works with you to decide which route to take for your diet.\nUsing information from your consultation and medical history, your provider chooses necessary supplements, an appropriate exercise plan, and a diet according to your needs.\nThey can help you cut carbs with a keto diet, adopt an intermittent fasting schedule, go gluten-free to manage celiac disease, or reduce inflammation with the tasty autoimmune paleo protocol.\nTo set up an initial consultation for holistic medical weight loss, request an appointment at Be The Change Health & Wellness Center by phone or book online today.",
+          "content_html": "<p>Medical weight loss plans begin with a consultation. At Be The Change Health &amp; Wellness Center, your provider goes over your medical history and works with you to decide which route to take for your diet.</p><p>Using information from your consultation and medical history, your provider chooses necessary supplements, an appropriate exercise plan, and a diet according to your needs.</p><p>They can help you cut carbs with a keto diet, adopt an intermittent fasting schedule, go gluten-free to manage celiac disease, or reduce inflammation with the tasty autoimmune paleo protocol.</p><p>To set up an initial consultation for holistic medical weight loss, request an appointment at Be The Change Health &amp; Wellness Center by phone or book online today.</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": []
+        },
+        {
+          "type": "cards",
+          "layout": "getting_started",
+          "title": "Feel Good, Live Better!",
+          "content": "It’s easy to get started as a new patient…",
+          "content_html": "<p>It’s easy to get started as a new patient…</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Request An Appointment",
+              "content": "Your first step is to either call our clinic or complete the online request form for a new patient appointment",
+              "content_html": "<p>Your first step is to either call our clinic or complete the online request form for a new patient appointment</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/1-1_IKhD7MM.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Experience Our Clinic",
+              "content": "Come to our clinic to receive your integrative consultation or treatment session.",
+              "content_html": "<p>Come to our clinic to receive your integrative consultation or treatment session.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/2-1_JGjfMrp.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Choose A Membership",
+              "content": "Optional (but recommended) – Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.",
+              "content_html": "<p><em>Optional (but recommended) –</em> Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/3-1_lqJn2Op.png",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I highly recommend her and I feel fortunate to have been able to see her."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to. The staff and workers really make me feel cared for."
+        }
+      ]
     },
     {
       "id": "heart-disease",
