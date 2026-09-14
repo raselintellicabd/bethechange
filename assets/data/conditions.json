@@ -841,48 +841,297 @@
     {
       "id": "hormone-imbalance",
       "name": "Hormone Imbalance",
-      "summary": "Achieve hormonal balance through holistic therapies that support health in men and women of all ages.",
-      "articleBody": "Naturopathic and integrative medicine services at Be The Change Wellness Center can help you achieve and maintain hormonal balance by using holistic therapies to support hormonal health in both men and women at all stages of life.\n\nWhether you're a woman transitioning through perimenopause and menopause or a man noticing the effects of hormonal changes with age, shifting hormones can disrupt all aspects of your well-being.\n\nDeclining hormones with age contribute to symptoms that can range from mood changes and insomnia to decreased libido or challenges with sexual health. Hormonal changes can even put you at an increased risk for some chronic illnesses, such as heart disease and osteoporosis.",
+      "heroHeading": "hormone imbalance",
+      "headline": "We Provide Natural Remedies and Alternative Treatments to Balance Your Hormones",
+      "summary": "Naturopathic and integrative medicine services at Be The Change Wellness Center can help you achieve and maintain hormonal balance by using holistic therapies to support hormonal health in both men and women at all stages of life.",
+      "articleBody": "Naturopathic and integrative medicine services at Be The Change Wellness Center can help you achieve and maintain hormonal balance by using holistic therapies to support hormonal health in both men and women at all stages of life.\n\nHormonal changes can make you feel like you’re just not yourself.",
+      "content_html": "<p>Naturopathic and integrative medicine services at Be The Change Wellness Center can help you achieve and maintain hormonal balance by using holistic therapies to support hormonal health in both men and women at all stages of life.</p>",
+      "heroImageUrl": "http://192.168.1.160:8000/media/conditions/Hormone_RTq9MiT.jpg",
       "symptoms": [
-        { "label": "Mood Changes" },
+        { "label": "PMS" },
+        { "label": "Exhaustion" },
+        { "label": "Mood Swings" },
+        { "label": "Low Libido" },
         { "label": "Insomnia" },
-        { "label": "Decreased Libido" },
-        { "label": "Energy Changes" },
-        { "label": "Painful Periods" }
+        { "label": "Erectile Dysfunction" },
+        { "label": "Dry or Wrinkled Skin" },
+        { "label": "Anxiety or Depression" },
+        { "label": "Loss of Muscle Mass" },
+        { "label": "Accelerated Aging" }
       ],
       "contributingFactors": [
-        { "label": "Low-Grade Inflammation" },
-        { "label": "Poor Gut Health" },
+        { "label": "Low-grade inflammation" },
+        { "label": "Poor gut health" },
         { "label": "Nutritional Deficiencies" },
         { "label": "Unrecognized Food Sensitivities" },
         { "label": "Prolonged or Excessive Stress" },
         { "label": "Environmental Toxins" }
       ],
       "integrativeApproach": {
-        "title": "Our Integrative Approach to Hormone Imbalance",
-        "body": "The conventional approach to hormone balance relies primarily on hormone replacement therapy.\n\nRather than prescribing synthetic hormones alone, we use bioidentical hormones along with other holistic therapies to support your body in achieving natural hormone balance."
+        "title": "Our Integrative Approach to Hormone Balance",
+        "body": "The conventional approach to hormone balance relies primarily on hormone replacement therapy.\nRather than prescribing synthetic hormones, we use bioidentical hormones along with other holistic therapies to support you body in achieving natural hormone balance.",
+        "content_html": "<p>The conventional approach to hormone balance relies primarily on hormone replacement therapy.</p><p>Rather than prescribing synthetic hormones, we use bioidentical hormones along with other holistic therapies to support you body in achieving natural hormone balance.</p>",
+        "imageUrl": "http://192.168.1.160:8000/media/conditions/Our-Integrative-Approach-to_c8Yo4QV.png"
       },
       "benefits": [
-        { "label": "Natural Hormone Support" },
-        { "label": "Improved Mood and Sleep Potential" },
-        { "label": "Whole-Person Care" },
-        { "label": "Stage-of-Life Personalized Plans" }
+        { "label": "Natural Approaches" },
+        { "label": "Better Sexual Health" },
+        { "label": "Sustained Energy" },
+        { "label": "Decreased Medications" },
+        { "label": "Better Mood & Sleep" },
+        { "label": "Healthy Aging" },
+        { "label": "Reduced Long-Term Risks" },
+        { "label": "Overall Improved Health" }
       ],
       "treatmentMethods": [
         {
-          "label": "Bioidentical Hormones",
-          "description": "Bio-identical hormones in an organic base for supportive hormone options."
-        },
-        {
-          "label": "Holistic Therapies",
-          "description": "Integrative and naturopathic therapies tailored to menopause, andropause, and related concerns."
+          "label": "Naturopathic & Integrative Medicine",
+          "description": "Our naturopathic doctor and osteopathic physician will guide you in choosing the most appropriate therapies for hormone imbalance.",
+          "content_html": "<p>Our naturopathic doctor and osteopathic physician will guide you in choosing the most appropriate therapies for hormone imbalance, ranging from Menopause and Andropause to painful periods. We utilize bio-identical hormones as well as other natural therapies to help you achieve hormonal balance.</p>",
+          "iconUrl": "http://192.168.1.160:8000/media/conditions/bhrt_4RxWX0K.jpg"
         },
         {
           "label": "Infrared Sauna Therapy",
-          "description": "Supports circulation and detoxification for healing and recovery."
+          "description": "Relax and rejuvenate in a peaceful sauna while supporting your body’s circulation and detoxification.",
+          "content_html": "<p>Relax and rejuvenate in a peaceful sauna while supporting your body’s circulation and detoxification for pain relief, healing, muscle recovery, and more. Boost your sauna experience with chromotherapy (colored light) and aromatherapy.</p>",
+          "iconUrl": "http://192.168.1.160:8000/media/conditions/Sauna-966x1024-1_pbA29wL.webp"
+        },
+        {
+          "label": "Personalized Wellness Plans",
+          "description": "Personalized and comprehensive plans that provide a foundation in nutrition and physical activity.",
+          "content_html": "<p>Through integrative and naturopathic medicine principles, we have developed personalized and comprehensive plans that provide a foundation in nutrition and physical activity so that you can achieve your optimal potential.</p>",
+          "iconUrl": "http://192.168.1.160:8000/media/conditions/meal-prrp-1080x675-1_e59cyR6.jpg"
+        },
+        {
+          "label": "Wellness Classes",
+          "description": "One of the most powerful ways to improve your health is through learning and community!",
+          "content_html": "<p>One of the most powerful ways to improve your health is through learning and community!</p>",
+          "iconUrl": "http://192.168.1.160:8000/media/conditions/maarten-van-den-heuvel-EzH46XCDQRY-unsplash-scaled-e1676932966706_rsfT2qF.jpg"
         }
       ],
-      "recommendedBooks": []
+      "recommendedBooks": [
+        {
+          "title": "Estrogen Matters by Avra Bluming, MD and Carol Tavris, MD",
+          "author": "Dr. Bluming",
+          "content_html": "<p>For years, hormone replacement therapy (HRT) was hailed as a miracle.</p>",
+          "coverUrl": "http://192.168.1.160:8000/media/conditions/Estrogen-Matters-by-Avra-Bluming-book_IJ1IjZN.png",
+          "purchaseUrl": null
+        },
+        {
+          "title": "The Hormone Cure: Reclaim Balance, Sleep, Sex Drive and Vitality Naturally with the Gottfried Protocol",
+          "author": "Dr. Mark Hyman",
+          "content_html": "<p>Dr. Mark Hyman talks about the 7 Keys to the New Science of Weight Loss.</p>",
+          "coverUrl": "http://192.168.1.160:8000/media/conditions/The-Hormone-Cure_8VyVGex.png",
+          "purchaseUrl": null
+        }
+      ],
+      "slug": "hormone-imbalance",
+      "title": "Hormone Imbalance",
+      "img-url": "http://192.168.1.160:8000/media/conditions/Hormone_RTq9MiT.jpg",
+      "content": "Naturopathic and integrative medicine services at Be The Change Wellness Center can help you achieve and maintain hormonal balance by using holistic therapies to support hormonal health in both men and women at all stages of life.",
+      "path": "/hormone-imbalance/",
+      "quote": "Feel Good, Live Better!",
+      "quoteBody": "It’s easy to get started as a new patient…",
+      "quoteHtml": "<p>It’s easy to get started as a new patient…</p>",
+      "cta-label": "New Patient – Request An Appointment",
+      "cta-url": "/appointments/?source=%2Fhormone-imbalance%2F&patient=new",
+      "sections": [
+        {
+          "type": "image_text",
+          "layout": "now_control",
+          "title": "Hormonal changes can make you feel like you’re just not yourself.",
+          "content": "Whether you’re a woman transitioning through perimenopause and menopause or a man noticing the effects of hormonal changes with age, shifting hormones can disrupt all aspects of your well-being.\nDeclining hormones with age contribute to symptoms that can range from mood changes and insomnia to decreased libido or challenges with sexual health. Hormonal changes can even put you at an increased risk for some chronic illnesses, such as heart disease and osteoporosis.",
+          "content_html": "<p>Whether you’re a woman transitioning through perimenopause and menopause or a man noticing the effects of hormonal changes with age, shifting hormones can disrupt all aspects of your well-being.</p><p>Declining hormones with age contribute to symptoms that can range from mood changes and insomnia to decreased libido or challenges with sexual health. Hormonal changes can even put you at an increased risk for some chronic illnesses, such as heart disease and osteoporosis.</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/hormones_VT91Kii.jpg",
+          "image-side": "left",
+          "items": []
+        },
+        {
+          "type": "image_text",
+          "layout": "symptoms",
+          "title": "Common Symptoms Caused by Hormonal Changes",
+          "content": "PMS\nExhaustion\nMood Swings\nLow Libido\nInsomnia\nErectile Dysfunction\nDry or Wrinkled Skin\nAnxiety or Depression\nLoss of Muscle Mass\nAccelerated Aging",
+          "content_html": "<ul><li>PMS</li><li>Exhaustion</li><li>Mood Swings</li><li>Low Libido</li><li>Insomnia</li><li>Erectile Dysfunction</li><li>Dry or Wrinkled Skin</li><li>Anxiety or Depression</li><li>Loss of Muscle Mass</li><li>Accelerated Aging</li></ul>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/lowt2_a810ypt.jpg",
+          "image-side": "left",
+          "items": [
+            { "title": "PMS" },
+            { "title": "Exhaustion" },
+            { "title": "Mood Swings" },
+            { "title": "Low Libido" },
+            { "title": "Insomnia" },
+            { "title": "Erectile Dysfunction" },
+            { "title": "Dry or Wrinkled Skin" },
+            { "title": "Anxiety or Depression" },
+            { "title": "Loss of Muscle Mass" },
+            { "title": "Accelerated Aging" }
+          ]
+        },
+        {
+          "type": "image_text",
+          "layout": "factors",
+          "title": "Factors That Contribute to Hormonal Imbalance",
+          "content": "While hormonal changes are normal over the course of a lifetime, there are additional factors that can worsen the effects.",
+          "content_html": "<p>While hormonal changes are normal over the course of a lifetime, there are additional factors that can worsen the effects.</p><ul><li>Low-grade inflammation</li><li>Poor gut health</li><li>Nutritional Deficiencies</li><li>Unrecognized Food Sensitivities</li><li>Prolonged or Excessive Stress</li><li>Environmental Toxins</li></ul>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/Factors-Contributing-to-Hormonal_uVjUOPR.png",
+          "image-side": "left",
+          "items": [
+            { "title": "Low-grade inflammation" },
+            { "title": "Poor gut health" },
+            { "title": "Nutritional Deficiencies" },
+            { "title": "Unrecognized Food Sensitivities" },
+            { "title": "Prolonged or Excessive Stress" },
+            { "title": "Environmental Toxins" }
+          ]
+        },
+        {
+          "type": "cards",
+          "layout": "approach_benefits",
+          "title": "Our Integrative Approach to Hormone Balance",
+          "content": "The conventional approach to hormone balance relies primarily on hormone replacement therapy.\nRather than prescribing synthetic hormones, we use bioidentical hormones along with other holistic therapies to support you body in achieving natural hormone balance.",
+          "content_html": "<p>The conventional approach to hormone balance relies primarily on hormone replacement therapy.</p><p>Rather than prescribing synthetic hormones, we use bioidentical hormones along with other holistic therapies to support you body in achieving natural hormone balance.</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/Our-Integrative-Approach-to_c8Yo4QV.png",
+          "image-side": "right",
+          "items": [
+            { "title": "Natural Approaches" },
+            { "title": "Better Sexual Health" },
+            { "title": "Sustained Energy" },
+            { "title": "Decreased Medications" },
+            { "title": "Better Mood & Sleep" },
+            { "title": "Healthy Aging" },
+            { "title": "Reduced Long-Term Risks" },
+            { "title": "Overall Improved Health" }
+          ]
+        },
+        {
+          "type": "cards",
+          "layout": "treat_dark",
+          "title": "Ways We Can Treat Hormone Imbalance",
+          "content": "",
+          "content_html": "",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Naturopathic & Integrative Medicine",
+              "content": "Our naturopathic doctor and osteopathic physician will guide you in choosing the most appropriate therapies for hormone imbalance, ranging from Menopause and Andropause to painful periods. We utilize bio-identical hormones as well as other natural therapies to help you achieve hormonal balance.",
+              "content_html": "<p>Our naturopathic doctor and osteopathic physician will guide you in choosing the most appropriate therapies for hormone imbalance, ranging from Menopause and Andropause to painful periods. We utilize bio-identical hormones as well as other natural therapies to help you achieve hormonal balance.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/bhrt_4RxWX0K.jpg",
+              "link-url": "/appointments/?source=%2Fhormone-imbalance%2F",
+              "link-label": "Request Appointment"
+            },
+            {
+              "title": "Infrared Sauna Therapy",
+              "content": "Relax and rejuvenate in a peaceful sauna while supporting your body’s circulation and detoxification for pain relief, healing, muscle recovery, and more. Boost your sauna experience with chromotherapy (colored light) and aromatherapy.",
+              "content_html": "<p>Relax and rejuvenate in a peaceful sauna while supporting your body’s circulation and detoxification for pain relief, healing, muscle recovery, and more. Boost your sauna experience with chromotherapy (colored light) and aromatherapy.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/Sauna-966x1024-1_pbA29wL.webp",
+              "link-url": "/appointments/?source=%2Fhormone-imbalance%2F",
+              "link-label": "Request Appointment"
+            },
+            {
+              "title": "Personalized Wellness Plans",
+              "content": "Through integrative and naturopathic medicine principles, we have developed personalized and comprehensive plans that provide a foundation in nutrition and physical activity so that you can achieve your optimal potential.",
+              "content_html": "<p>Through integrative and naturopathic medicine principles, we have developed personalized and comprehensive plans that provide a foundation in nutrition and physical activity so that you can achieve your optimal potential.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/meal-prrp-1080x675-1_e59cyR6.jpg",
+              "link-url": "/personalized-wellness-plans/",
+              "link-label": "Explore Plans"
+            },
+            {
+              "title": "Wellness Classes",
+              "content": "One of the most powerful ways to improve your health is through learning and community!",
+              "content_html": "<p>One of the most powerful ways to improve your health is through learning and community!</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/maarten-van-den-heuvel-EzH46XCDQRY-unsplash-scaled-e1676932966706_rsfT2qF.jpg",
+              "link-url": "/wellness-classes/",
+              "link-label": "Explore Classes"
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "layout": "books",
+          "title": "Recommended Books for Hormone Balance",
+          "content": "We believe that education is empowering and helps you take control of your health! Here are some of our favorite books to learn natural approaches for hormone balance.",
+          "content_html": "<p>We believe that education is empowering and helps you take control of your health! Here are some of our favorite books to learn natural approaches for hormone balance.</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Estrogen Matters by Avra Bluming, MD and Carol Tavris, MD",
+              "content": "For years, hormone replacement therapy (HRT) was hailed as a miracle. Study after study showed that HRT, if initiated at the onset of menopause, could ease symptoms ranging from hot flashes to memory loss; reduce the risk of heart disease, Alzheimer’s, osteoporosis, and some cancers; and even extend a woman’s overall life expectancy. But when a large study by the Women’s Health Initiative announced results showing an uptick in breast cancer among women taking HRT, the winds shifted abruptly, and HRT, officially deemed a carcinogen, was abandoned.\nNow, sixteen years after HRT was left for dead, Dr. Bluming, a medical oncologist, and Dr. Tavris, a social psychologist, track its strange history and present a compelling case for its resurrection.",
+              "content_html": "<p>For years, hormone replacement therapy (HRT) was hailed as a miracle. Study after study showed that HRT, if initiated at the onset of menopause, could ease symptoms ranging from hot flashes to memory loss; reduce the risk of heart disease, Alzheimer’s, osteoporosis, and some cancers; and even extend a woman’s overall life expectancy. But when a large study by the Women’s Health Initiative announced results showing an uptick in breast cancer among women taking HRT, the winds shifted abruptly, and HRT, officially deemed a carcinogen, was abandoned.</p><p>Now, sixteen years after HRT was left for dead, Dr. Bluming, a medical oncologist, and Dr. Tavris, a social psychologist, track its strange history and present a compelling case for its resurrection.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/Estrogen-Matters-by-Avra-Bluming-book_IJ1IjZN.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "The Hormone Cure: Reclaim Balance, Sleep, Sex Drive and Vitality Naturally with the Gottfried Protocol",
+              "content": "Dr. Mark Hyman talks about the 7 Keys to the New Science of Weight Loss. Dr. Hyman discusses how to learn to work with our bodies for weight loss. This books addresses Nutrigenomics, the science of how food talks to our genes.",
+              "content_html": "<p>Dr. Mark Hyman talks about the 7 Keys to the New Science of Weight Loss. Dr. Hyman discusses how to learn to work with our bodies for weight loss. This books addresses Nutrigenomics, the science of how food talks to our genes.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/The-Hormone-Cure_8VyVGex.png",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "layout": "getting_started",
+          "title": "Feel Good, Live Better!",
+          "content": "It’s easy to get started as a new patient…",
+          "content_html": "<p>It’s easy to get started as a new patient…</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Request An Appointment",
+              "content": "Your first step is to either call our clinic or complete the online request form for a new patient appointment",
+              "content_html": "<p>Your first step is to either call our clinic or complete the online request form for a new patient appointment</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/1-1_BqWCrbG.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Experience Our Clinic",
+              "content": "Come to our clinic to receive your integrative consultation or treatment session.",
+              "content_html": "<p>Come to our clinic to receive your integrative consultation or treatment session.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/2-1_u4pUoOF.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Choose A Membership",
+              "content": "Optional (but recommended) – Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.",
+              "content_html": "<p><em>Optional (but recommended) –</em> Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/3-1_wEyPkYm.png",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to."
+        }
+      ]
     },
     {
       "id": "toxins",

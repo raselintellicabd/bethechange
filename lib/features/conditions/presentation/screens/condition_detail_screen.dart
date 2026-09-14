@@ -31,6 +31,7 @@ import 'chronic_fatigue_detail_view.dart';
 import 'obesity_detail_view.dart';
 import 'chronic_pain_detail_view.dart';
 import 'toxins_detail_view.dart';
+import 'hormone_imbalance_detail_view.dart';
 
 class ConditionDetailScreen extends ConsumerWidget {
   const ConditionDetailScreen({super.key, required this.conditionId});
@@ -74,6 +75,9 @@ class ConditionDetailScreen extends ConsumerWidget {
         }
         if (condition.routeId == 'toxins') {
           return ToxinsDetailView(condition: condition);
+        }
+        if (condition.routeId == 'hormone-imbalance') {
+          return HormoneImbalanceDetailView(condition: condition);
         }
         return _ConditionDetailBody(condition: condition);
       },

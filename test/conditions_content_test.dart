@@ -333,6 +333,27 @@ void main() {
       expect(toxins.sections[2].items.single.title, 'IonCleanse Detoxification');
       expect(toxins.sections.last.items, hasLength(8));
       expect(toxins.reviews, isNotEmpty);
+
+      final hormoneResult =
+          await repository.getConditionById('hormone-imbalance');
+      expect(hormoneResult, isA<ApiSuccess<Condition>>());
+      final hormone = (hormoneResult as ApiSuccess<Condition>).data;
+      expect(hormone.heroHeading, 'hormone imbalance');
+      expect(hormone.headline, contains('Balance Your Hormones'));
+      expect(hormone.contentHtml, isNotEmpty);
+      expect(hormone.symptoms, hasLength(10));
+      expect(hormone.contributingFactors, hasLength(6));
+      expect(hormone.benefits, hasLength(8));
+      expect(hormone.treatmentMethods, hasLength(4));
+      expect(hormone.recommendedBooks, hasLength(2));
+      expect(hormone.sections, hasLength(7));
+      expect(hormone.sections.first.isNowControl, isTrue);
+      expect(hormone.sections.where((s) => s.isTreatDark).single.items,
+          hasLength(4));
+      expect(hormone.sections.where((s) => s.isBooks).single.items,
+          hasLength(2));
+      expect(hormone.sections.last.isGettingStarted, isTrue);
+      expect(hormone.reviews, isNotEmpty);
     });
 
     test('getConditionById returns failure for unknown id', () async {
