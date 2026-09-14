@@ -158,7 +158,7 @@ void main() {
       emptyPrompt: 'Ask about scheduling, insurance, location, and therapies.',
     );
 
-    testWidgets('FAQ expands and opens chatbot', (tester) async {
+    testWidgets('FAQ expands answers', (tester) async {
       final router = createAppRouter();
 
       await tester.pumpWidget(
@@ -182,19 +182,12 @@ void main() {
       expect(find.text('FAQ'), findsWidgets);
       expect(find.text('New Patient Questions'), findsNothing);
       expect(find.text('How do I schedule?'), findsOneWidget);
+      expect(find.byType(FloatingActionButton), findsNothing);
 
       await tester.tap(find.text('How do I schedule?'));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 300));
       expect(find.textContaining('new patient form'), findsOneWidget);
-
-      await tester.ensureVisible(find.byType(FloatingActionButton));
-      await tester.tap(find.byType(FloatingActionButton));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 100));
-
-      expect(find.text('Assistant'), findsWidgets);
-      expect(find.byType(TextField), findsOneWidget);
     });
 
     testWidgets('chatbot send disabled when empty; retry after force error',

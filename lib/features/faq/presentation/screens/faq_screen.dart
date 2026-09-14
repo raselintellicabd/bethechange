@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -41,13 +39,14 @@ class _FaqScreenState extends ConsumerState<FaqScreen> {
 
     return Scaffold(
       appBar: AppAppBar.text('FAQ'),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => context.push(AppRoutes.chatbot),
-        backgroundColor: AppColors.forest,
-        foregroundColor: Colors.white,
-        icon: const Icon(Icons.chat_bubble_outline),
-        label: const Text('Ask assistant'),
-      ),
+      // Chat assistant entry is paused until a chat agent is ready.
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () => context.push(AppRoutes.chatbot),
+      //   backgroundColor: AppColors.forest,
+      //   foregroundColor: Colors.white,
+      //   icon: const Icon(Icons.chat_bubble_outline),
+      //   label: const Text('Ask assistant'),
+      // ),
       body: catalogAsync.when(
         loading: () => const LoadingIndicator(message: 'Loading FAQ...'),
         error: (error, _) => ErrorStateWidget(
