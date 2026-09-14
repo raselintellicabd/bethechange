@@ -29,6 +29,7 @@ import 'hyperbaric_oxygen_therapy_detail_view.dart';
 import 'iv_nutritional_infusions_detail_view.dart';
 import 'liquivida_iv_therapy_detail_view.dart';
 import 'reflexology_detail_view.dart';
+import 'ozone_therapy_detail_view.dart';
 
 class ServiceDetailScreen extends ConsumerWidget {
   const ServiceDetailScreen({super.key, required this.serviceId});
@@ -69,6 +70,9 @@ class ServiceDetailScreen extends ConsumerWidget {
         }
         if (service.routeId == 'reflexology') {
           return ReflexologyDetailView(service: service);
+        }
+        if (service.routeId == 'ozone-therapy') {
+          return OzoneTherapyDetailView(service: service);
         }
         return _ServiceDetailBody(service: service);
       },

@@ -2816,45 +2816,275 @@
     {
       "id": "ozone-therapy",
       "name": "Ozone Therapy",
-      "summary": "Therapeutic oxygen (O3) support aimed at circulation, immune activation, and tissue oxygenation.",
-      "articleBody": "Ozone is a gas consisting of 3 oxygen molecules (O3) which can dissolve in the bloodstream for therapeutic and preventive effects. It improves blood circulation and oxygen delivery to damaged tissues, decreases age-related cellular stress, inhibits the growth of bacteria and fungi, and activates the immune system.\n\nOzone therapy has been used in patients with diverse conditions including coronary artery disease, multiple sclerosis, hepatitis, ulcers, and arthritis.",
+      "heroHeading": "ozone therapy",
+      "headline": "What is ozone?",
+      "title": "Ozone Therapy",
+      "summary": "Ozone is a gas consisting of 3 oxygen molecules (O3) which can dissolve in the bloodstream for therapeutic and preventive effects. It improves blood circulation and oxygen delivery to damaged tissues, decreases age-related cellular stress, inhibits the growth of bacteria and fungi, and activates the immune system. Ozone therapy has been used in patients with diverse conditions including coronary artery disease, multiple sclerosis, hepatitis, ulcers, and arthritis.",
+      "description": "Ozone is a gas consisting of 3 oxygen molecules (O3) which can dissolve in the bloodstream for therapeutic and preventive effects. It improves blood circulation and oxygen delivery to damaged tissues, decreases age-related cellular stress, inhibits the growth of bacteria and fungi, and activates the immune system. Ozone therapy has been used in patients with diverse conditions including coronary artery disease, multiple sclerosis, hepatitis, ulcers, and arthritis.",
+      "articleBody": "Ozone is a gas consisting of 3 oxygen molecules (O3) which can dissolve in the bloodstream for therapeutic and preventive effects. It improves blood circulation and oxygen delivery to damaged tissues, decreases age-related cellular stress, inhibits the growth of bacteria and fungi, and activates the immune system. Ozone therapy has been used in patients with diverse conditions including coronary artery disease, multiple sclerosis, hepatitis, ulcers, and arthritis.\nEBOO (extracorporeal blood oxygenation and ozonation) is an advanced form of ozone therapy that externally cleans the blood, boosting energy and well-being while reducing the body’s toxic burden. It requires drawing blood from one arm, filtering and oxygenating it, and returning it to the other arm. People may feel immediate improvements in breathing, clarity, and overall well-being after the treatment.\n\nWhat is ozone?\n\nOzone is a gas consisting of 3 oxygen molecules (O3) which can dissolve in the bloodstream for therapeutic and preventive effects. It improves blood circulation and oxygen delivery to damaged tissues, decreases age-related cellular stress, inhibits the growth of bacteria and fungi, and activates the immune system. Ozone therapy has been used in patients with diverse conditions including coronary artery disease, multiple sclerosis, hepatitis, ulcers, and arthritis.\nEBOO (extracorporeal blood oxygenation and ozonation) is an advanced form of ozone therapy that externally cleans the blood, boosting energy and well-being while reducing the body’s toxic burden. It requires drawing blood from one arm, filtering and oxygenating it, and returning it to the other arm. People may feel immediate improvements in breathing, clarity, and overall well-being after the treatment.",
+      "content_html": "<p>Ozone is a gas consisting of 3 oxygen molecules (O3) which can dissolve in the bloodstream for therapeutic and preventive effects. It improves blood circulation and oxygen delivery to damaged tissues, decreases age-related cellular stress, inhibits the growth of bacteria and fungi, and activates the immune system. Ozone therapy has been used in patients with diverse conditions including coronary artery disease, multiple sclerosis, hepatitis, ulcers, and arthritis.</p><p>EBOO (extracorporeal blood oxygenation and ozonation) is an advanced form of ozone therapy that externally cleans the blood, boosting energy and well-being while reducing the body’s toxic burden. It requires drawing blood from one arm, filtering and oxygenating it, and returning it to the other arm. People may feel immediate improvements in breathing, clarity, and overall well-being after the treatment.</p>",
+      "heroImage": "http://192.168.1.160:8000/media/services/ozone-iv-therapy-phoenix-arizona-naturopathic-doctor_6FF7evx.jpeg",
+      "slug": "ozone-therapy",
       "howItWorks": {
-        "title": "How Ozone Therapy Works",
-        "body": "Medical ozone can be administered using clinic protocols designed to support oxygenation, circulation, and immune activity. Your provider determines whether ozone therapy is appropriate for your goals and history."
+        "title": "How does it work?",
+        "body": "Ozone can be delivered to the body through a vein, nasal passages, rectum, vagina or skin. Once inside the body, ozone reacts with water to form hydrogen peroxide which acts as a moderate oxidative stressor. This stress activates antioxidant enzymes including superoxide dismutase, glutathione peroxidase, catalase, and heme oxygenase-1, all of which help scavenge unstable free radicals. These markers can be measured in the blood to track the effectiveness of treatment. Ozone also activates heat shock proteins, offering protection against inflammation, cancer, and neurodegeneration. The heat shock response breaks down iron, nitric oxide, and carbon monoxide, which can be toxic at high levels.\nBy increasing the flow of oxygen across cell membranes, ozone makes mitochondrial respiration more efficient, increasing the rate of glycolysis and ATP production—the fuel your body uses for energy.",
+        "content_html": "<p>Ozone can be delivered to the body through a vein, nasal passages, rectum, vagina or skin. Once inside the body, ozone reacts with water to form hydrogen peroxide which acts as a moderate oxidative stressor. This stress activates antioxidant enzymes including superoxide dismutase, glutathione peroxidase, catalase, and heme oxygenase-1, all of which help scavenge unstable free radicals. These markers can be measured in the blood to track the effectiveness of treatment. Ozone also activates heat shock proteins, offering protection against inflammation, cancer, and neurodegeneration. The heat shock response breaks down iron, nitric oxide, and carbon monoxide, which can be toxic at high levels.</p><p>By increasing the flow of oxygen across cell membranes, ozone makes mitochondrial respiration more efficient, increasing the rate of glycolysis and ATP production—the fuel your body uses for energy.</p>",
+        "imageUrl": "http://192.168.1.160:8000/media/services/Ozone-Sauna-Health-Benefits_frAlEd4.jpg"
       },
       "benefits": [
         {
-          "label": "Improved Circulation Support"
+          "label": "Orthopedic conditions",
+          "description": "Herniated discs\nSpine and joint osteoarthritis\nSpondylolisthesis\nSpondylolysis",
+          "content_html": "<ul><li>Herniated discs</li><li>Spine and joint osteoarthritis</li><li>Spondylolisthesis</li><li>Spondylolysis</li></ul>"
         },
         {
-          "label": "Oxygen Delivery to Tissues"
+          "label": "Gastrointestinal conditions",
+          "description": "Chronic hepatitis C\nLiver cirrhosis\nGI tract ulcers",
+          "content_html": "<ul><li>Chronic hepatitis C</li><li>Liver cirrhosis</li><li>GI tract ulcers</li></ul>"
         },
         {
-          "label": "Immune System Activation Support"
+          "label": "Genitourinary conditions",
+          "description": "Chronic cystitis\nUrinary tract infections\nRenal complications secondary to hepatitis",
+          "content_html": "<ul><li>Chronic cystitis</li><li>Urinary tract infections</li><li>Renal complications secondary to hepatitis</li></ul>"
         },
         {
-          "label": "Cellular Stress Support"
+          "label": "Neurological conditions",
+          "description": "Refractory headaches\nRadiation-induced brain ischemia\nMultiple sclerosis",
+          "content_html": "<ul><li>Refractory headaches</li><li>Radiation-induced brain ischemia</li><li>Multiple sclerosis</li></ul>"
+        },
+        {
+          "label": "Subcutaneous tissue indications",
+          "description": "Non-healing wounds\nDiabetic foot ulcer",
+          "content_html": "<ul><li>Non-healing wounds</li><li>Diabetic foot ulcer</li></ul>"
+        },
+        {
+          "label": "Vision and hearing indications",
+          "description": "Tinnitus\nNystagmus\nVertigo\nHearing loss\nMacular degeneration",
+          "content_html": "<ul><li>Tinnitus</li><li>Nystagmus</li><li>Vertigo</li><li>Hearing loss</li><li>Macular degeneration</li></ul>"
         }
       ],
-      "addressedConcerns": [
+      "addressedConcerns": [],
+      "whatToExpect": null,
+      "recommendedBooks": [],
+      "quote": "Feel Good, Live Better!",
+      "quoteBody": "It’s easy to get started as a new patient…",
+      "quoteHtml": "<p>It’s easy to get started as a new patient…</p>",
+      "cta-label": "Request An Appointment",
+      "cta-url": "/appointments/?source=%2Fozone-therapy%2F&patient=new",
+      "sections": [
         {
-          "label": "Circulatory Concerns"
+          "type": "image_text",
+          "title": "What is ozone?",
+          "content": "Ozone is a gas consisting of 3 oxygen molecules (O3) which can dissolve in the bloodstream for therapeutic and preventive effects. It improves blood circulation and oxygen delivery to damaged tissues, decreases age-related cellular stress, inhibits the growth of bacteria and fungi, and activates the immune system. Ozone therapy has been used in patients with diverse conditions including coronary artery disease, multiple sclerosis, hepatitis, ulcers, and arthritis.\nEBOO (extracorporeal blood oxygenation and ozonation) is an advanced form of ozone therapy that externally cleans the blood, boosting energy and well-being while reducing the body’s toxic burden. It requires drawing blood from one arm, filtering and oxygenating it, and returning it to the other arm. People may feel immediate improvements in breathing, clarity, and overall well-being after the treatment.",
+          "content_html": "<p>Ozone is a gas consisting of 3 oxygen molecules (O3) which can dissolve in the bloodstream for therapeutic and preventive effects. It improves blood circulation and oxygen delivery to damaged tissues, decreases age-related cellular stress, inhibits the growth of bacteria and fungi, and activates the immune system. Ozone therapy has been used in patients with diverse conditions including coronary artery disease, multiple sclerosis, hepatitis, ulcers, and arthritis.</p><p>EBOO (extracorporeal blood oxygenation and ozonation) is an advanced form of ozone therapy that externally cleans the blood, boosting energy and well-being while reducing the body’s toxic burden. It requires drawing blood from one arm, filtering and oxygenating it, and returning it to the other arm. People may feel immediate improvements in breathing, clarity, and overall well-being after the treatment.</p>",
+          "img-url": "http://192.168.1.160:8000/media/services/ozone-iv-therapy-phoenix-arizona-naturopathic-doctor_JglpRwh.jpeg",
+          "image-side": "left",
+          "items": []
         },
         {
-          "label": "Immune Support Goals"
+          "type": "image_text",
+          "title": "How does it work?",
+          "content": "Ozone can be delivered to the body through a vein, nasal passages, rectum, vagina or skin. Once inside the body, ozone reacts with water to form hydrogen peroxide which acts as a moderate oxidative stressor. This stress activates antioxidant enzymes including superoxide dismutase, glutathione peroxidase, catalase, and heme oxygenase-1, all of which help scavenge unstable free radicals. These markers can be measured in the blood to track the effectiveness of treatment. Ozone also activates heat shock proteins, offering protection against inflammation, cancer, and neurodegeneration. The heat shock response breaks down iron, nitric oxide, and carbon monoxide, which can be toxic at high levels.\nBy increasing the flow of oxygen across cell membranes, ozone makes mitochondrial respiration more efficient, increasing the rate of glycolysis and ATP production—the fuel your body uses for energy.",
+          "content_html": "<p>Ozone can be delivered to the body through a vein, nasal passages, rectum, vagina or skin. Once inside the body, ozone reacts with water to form hydrogen peroxide which acts as a moderate oxidative stressor. This stress activates antioxidant enzymes including superoxide dismutase, glutathione peroxidase, catalase, and heme oxygenase-1, all of which help scavenge unstable free radicals. These markers can be measured in the blood to track the effectiveness of treatment. Ozone also activates heat shock proteins, offering protection against inflammation, cancer, and neurodegeneration. The heat shock response breaks down iron, nitric oxide, and carbon monoxide, which can be toxic at high levels.</p><p>By increasing the flow of oxygen across cell membranes, ozone makes mitochondrial respiration more efficient, increasing the rate of glycolysis and ATP production—the fuel your body uses for energy.</p>",
+          "img-url": "http://192.168.1.160:8000/media/services/Ozone-Sauna-Health-Benefits_frAlEd4.jpg",
+          "image-side": "left",
+          "items": []
         },
         {
-          "label": "Tissue Oxygenation Support"
+          "type": "cards",
+          "title": "Who benefits from ozone?",
+          "content": "Ozone can improve a wide variety of symptoms. Anyone living with the following conditions is a good candidate for ozone therapy.",
+          "content_html": "<p>Ozone can improve a wide variety of symptoms. Anyone living with the following conditions is a good candidate for ozone therapy.</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Orthopedic conditions",
+              "content": "Herniated discs\nSpine and joint osteoarthritis\nSpondylolisthesis\nSpondylolysis",
+              "content_html": "<ul><li>Herniated discs</li><li>Spine and joint osteoarthritis</li><li>Spondylolisthesis</li><li>Spondylolysis</li></ul>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Gastrointestinal conditions",
+              "content": "Chronic hepatitis C\nLiver cirrhosis\nGI tract ulcers",
+              "content_html": "<ul><li>Chronic hepatitis C</li><li>Liver cirrhosis</li><li>GI tract ulcers</li></ul>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Genitourinary conditions",
+              "content": "Chronic cystitis\nUrinary tract infections\nRenal complications secondary to hepatitis",
+              "content_html": "<ul><li>Chronic cystitis</li><li>Urinary tract infections</li><li>Renal complications secondary to hepatitis</li></ul>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Neurological conditions",
+              "content": "Refractory headaches\nRadiation-induced brain ischemia\nMultiple sclerosis",
+              "content_html": "<ul><li>Refractory headaches</li><li>Radiation-induced brain ischemia</li><li>Multiple sclerosis</li></ul>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Subcutaneous tissue indications",
+              "content": "Non-healing wounds\nDiabetic foot ulcer",
+              "content_html": "<ul><li>Non-healing wounds</li><li>Diabetic foot ulcer</li></ul>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Vision and hearing indications",
+              "content": "Tinnitus\nNystagmus\nVertigo\nHearing loss\nMacular degeneration",
+              "content_html": "<ul><li>Tinnitus</li><li>Nystagmus</li><li>Vertigo</li><li>Hearing loss</li><li>Macular degeneration</li></ul>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
         },
         {
-          "label": "Complementary Wellness Care"
+          "type": "text",
+          "title": "For more information",
+          "content": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5674660/",
+          "content_html": "<p><a href=\"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5674660/\" rel=\"noopener noreferrer\">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5674660/</a></p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": []
+        },
+        {
+          "type": "cards",
+          "title": "Featured Therapies",
+          "content": "View Our Full List Of Services",
+          "content_html": "<p><a href=\"http://192.168.1.160:8000/services/\" rel=\"noopener noreferrer\">View Our Full List Of Services</a></p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Ion Foot Detox",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/DETOX_paFFJmr.jpg",
+              "link-url": "/ion-foot-detox/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "IV Nutritional Infusions",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/IV_TE5biCv.jpg",
+              "link-url": "/iv-nutritional-infusions/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "Hyperbaric Oxygen Therapy",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/OX_NdsJVZ6.jpg",
+              "link-url": "/hyperbaric-oxygen-therapy/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "Infrared Sauna Therapy",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/SAUNA_KbIvA03.jpg",
+              "link-url": "/infrared-sauna-therapy/",
+              "link-label": "Learn More"
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Feel Good, Live Better!",
+          "content": "It’s easy to get started as a new patient…",
+          "content_html": "<p>It’s easy to get started as a new patient…</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Request An Appointment",
+              "content": "Your first step is to either call our clinic or complete the online request form for a new patient appointment",
+              "content_html": "<p>Your first step is to either call our clinic or complete the online request form for a new patient appointment</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/1-1_PiQpgHp.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Experience Our Clinic",
+              "content": "Come to our clinic to receive your integrative consultation or treatment session.",
+              "content_html": "<p>Come to our clinic to receive your integrative consultation or treatment session.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/2-1_5BGQxlR.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Choose A Membership",
+              "content": "Optional (but recommended) – Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.",
+              "content_html": "<p><em>Optional (but recommended) –</em> Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/3-1_zJOrzXl.png",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
         }
       ],
-      "whatToExpect": {
-        "title": "What To Expect",
-        "body": "Your provider reviews suitability and explains the selected ozone protocol before treatment so you know what the session involves."
-      },
-      "recommendedBooks": []
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way. Even when I was at my darkest, she was there helping from the sidelines. My entire family has all been helped by Dr. Afrooz and her husband. We've made connections and friendships and became familiar with each other in a way that other doctors are usually more one-dimensional with. Dr. Afrooz has changed my life in such a wonderful way! She is worth every penny we've paid and way more!"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I was always feeling very tired and lethargic and I was thinking that maybe I had long covid. But Dr Afrooz knew all the right questions to help identify that my condition is related to tick bites instead from a hiking trip I had gone on. I ask a lot of questions and she seems to not find me to be frustrating and i know that she is straightforward because she’s not afraid to say I don’t know if she does not know the answer to any of my questions. Nor is she dismissive of me whether it be ideas as to what I think could possibly help me or if I tell her something does not feel right. I highly recommend her and I feel fortunate to have been able to see her."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to. The appointments and treatments here are not nearly as atrociously priced as most of my visits to other doctors. The staff and workers really make me feel cared for. I recommend this doctor office over many other ones."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWTxx2WN13zQJY8yBCCHsv9s-9mCkVXOQeJLkm0XXD79QTARPgEQg=s120-c-rp-mo-br100",
+          "name": "Samson Zewde",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Great place! I felt well taken care of and left feeling revitalized after treatment."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXVhyyBMpfz7uCiGqz3lpZ8jfqwwk-NuKXmwhjchhSp_9mYRNfd=s120-c-rp-mo-ba2-br100",
+          "name": "Nas Moha",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Doctors and staff are personable and friendly that provides excellent care. Best care so far around the area"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWetJi7ZC30xKr9f_Et3sjo0MU-PtbJxY_MJW8ATsz1I44J_gjo=s120-c-rp-mo-ba3-br100",
+          "name": "Oxana Oleson",
+          "date": "2024-06-26",
+          "star": 5,
+          "comment": "I have known Dr. Afrooz for the past 8 years. Besides her knowledge and care she put in helping patients with different complex health issues, she is also one of the nicest people I know. She treated me and my family and never gave up on me trying to find a solution for treating chronic Lyme disease. Her office is equipped with lots of helpful tools to get you well. My favorite is a hyperbaric chamber, but there are many more. My daughter also recovered from Lyme disease with help of Dr. Afrooz. At that time, she was only 5 years old.\nI am beyond grateful for her help and knowledge. She is using both-conventional and integrative methods and always keeping up to date on new treatments."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUfWn8Nlmr9OTvD94Q-8w8MLmPpA7gWKZDCa-j1BUcZNfT9_ns=s120-c-rp-mo-br100",
+          "name": "sumaiyah khan",
+          "date": "2024-05-11",
+          "star": 5,
+          "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
+        }
+      ]
     },
     {
       "id": "reflexology",

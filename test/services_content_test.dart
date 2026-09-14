@@ -190,6 +190,35 @@ void main() {
       expect(reflexology.reviews, isNotEmpty);
     });
 
+    test('Ozone Therapy service is fully populated', () async {
+      final result = await ServicesRepository(createMockApiClient())
+          .getServiceById('ozone-therapy');
+
+      expect(result, isA<ApiSuccess<Service>>());
+      final ozone = (result as ApiSuccess<Service>).data;
+      expect(ozone.heroHeading, 'ozone therapy');
+      expect(ozone.headline, 'What is ozone?');
+      expect(ozone.contentHtml, contains('EBOO'));
+      expect(ozone.ctaLabel, 'Request An Appointment');
+      expect(ozone.benefits, hasLength(6));
+      expect(ozone.benefits.first.description, contains('Herniated discs'));
+      expect(ozone.howItWorks?.imageUrl, contains('Ozone-Sauna'));
+      expect(ozone.sections, hasLength(6));
+      expect(ozone.sections.first.title, 'What is ozone?');
+      expect(ozone.sections.first.imageUrl, isNotEmpty);
+      expect(ozone.sections[1].title, 'How does it work?');
+      expect(ozone.sections[1].imageUrl, isNotEmpty);
+      expect(ozone.sections[2].title, contains('Who benefits'));
+      expect(ozone.sections[2].items, hasLength(6));
+      expect(ozone.sections[3].title, 'For more information');
+      expect(
+        ozone.sections.where((s) => s.isFeaturedTherapies),
+        hasLength(1),
+      );
+      expect(ozone.sections.last.isGettingStarted, isTrue);
+      expect(ozone.reviews, isNotEmpty);
+    });
+
     test('getServiceById returns failure for unknown id', () async {
       final result = await ServicesRepository(createMockApiClient())
           .getServiceById('missing');
