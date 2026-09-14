@@ -42,6 +42,7 @@ class FrequencySpecificMicrocurrentDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     final sections = service.sections;
     final overview = _firstWhere(sections, _isOverview);
+    final extraImages = sections.where(_isImageOnly).toList();
     final address = _firstWhere(sections, (s) => s.isAddressedConcerns) ??
         _fallbackAddressSection();
     final featured = _firstWhere(sections, (s) => s.isFeaturedTherapies);
@@ -57,6 +58,8 @@ class FrequencySpecificMicrocurrentDetailView extends StatelessWidget {
                 service.heroHeading ?? 'frequency specific microcurrent',
           ),
           if (overview != null) _OverviewSection(section: overview),
+          for (final imageSection in extraImages)
+            _ExtraImageSection(section: imageSection),
           if (address != null)
             _AddressSection(
               section: address,
@@ -98,13 +101,29 @@ class FrequencySpecificMicrocurrentDetailView extends StatelessWidget {
   bool _isOverview(ServiceSection section) {
     if (section.isAddressedConcerns ||
         section.isFeaturedTherapies ||
-        section.isGettingStarted) {
+        section.isGettingStarted ||
+        _isImageOnly(section)) {
       return false;
     }
     final type = section.type.trim().toLowerCase();
     if (type == 'image_text') return true;
     final image = section.imageUrl?.trim() ?? '';
-    return image.isNotEmpty;
+    return image.isNotEmpty &&
+        (section.title.trim().isNotEmpty || section.content.trim().isNotEmpty);
+  }
+
+  bool _isImageOnly(ServiceSection section) {
+    if (section.isAddressedConcerns ||
+        section.isFeaturedTherapies ||
+        section.isGettingStarted) {
+      return false;
+    }
+    final image = section.imageUrl?.trim() ?? '';
+    if (image.isEmpty) return false;
+    return section.title.trim().isEmpty &&
+        section.content.trim().isEmpty &&
+        (section.contentHtml == null || section.contentHtml!.trim().isEmpty) &&
+        section.items.isEmpty;
   }
 
   ServiceSection? _firstWhere(
@@ -194,6 +213,23 @@ class _OverviewSection extends StatelessWidget {
           ],
         ],
       ),
+    );
+  }
+}
+
+class _ExtraImageSection extends StatelessWidget {
+  const _ExtraImageSection({required this.section});
+
+  final ServiceSection section;
+
+  @override
+  Widget build(BuildContext context) {
+    final image = section.imageUrl?.trim();
+    if (image == null || image.isEmpty) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+      child: _RoundedImage(url: image, height: 220),
     );
   }
 }
@@ -363,7 +399,6 @@ class _FeaturedTherapiesSection extends StatelessWidget {
     final items = section.items
         .where((item) => (item.imageUrl?.trim().isNotEmpty ?? false))
         .toList();
-    final links = _htmlLinks(section.contentHtml ?? '');
 
     return Column(
       children: [
@@ -388,22 +423,6 @@ class _FeaturedTherapiesSection extends StatelessWidget {
               if (items.isNotEmpty) ...[
                 const SizedBox(height: 18),
                 _FeaturedTherapyGrid(items: items),
-              ],
-              for (final link in links) ...[
-                const SizedBox(height: 16),
-                TextButton(
-                  onPressed: () {
-                    final path = _inAppPath(link.href);
-                    if (path != null) context.push(path);
-                  },
-                  child: Text(
-                    link.label,
-                    style: AppTextStyles.titleMedium.copyWith(
-                      color: AppColors.brandAccent,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
               ],
             ],
           ),
@@ -795,21 +814,4 @@ String _withoutAnchors(String html) {
     RegExp(r'<a\b[^>]*>.*?</a>', caseSensitive: false, dotAll: true),
     '',
   );
-}
-
-String? _inAppPath(String href) {
-  final raw = href.trim();
-  if (raw.isEmpty || raw.toLowerCase().contains('membership')) return null;
-  final uri = Uri.tryParse(raw);
-  var path = uri?.path ?? raw;
-  if (path.length > 1 && path.endsWith('/')) {
-    path = path.substring(0, path.length - 1);
-  }
-  if (path.isEmpty || path == '/' || path == '/services') {
-    return AppRoutes.exploreServices;
-  }
-  if (path == AppRoutes.contact || path == '/contact') return AppRoutes.contact;
-  final parts = path.split('/').where((part) => part.isNotEmpty).toList();
-  if (parts.length == 1) return AppRoutes.serviceDetailPath(parts.first);
-  return null;
 }

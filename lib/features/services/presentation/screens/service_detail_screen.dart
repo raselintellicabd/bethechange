@@ -24,6 +24,7 @@ import '../../../blog/presentation/widgets/blog_html_view.dart';
 import '../../domain/models/service.dart';
 import '../providers/services_providers.dart';
 import 'frequency_specific_microcurrent_detail_view.dart';
+import 'infrared_sauna_therapy_detail_view.dart';
 
 class ServiceDetailScreen extends ConsumerWidget {
   const ServiceDetailScreen({super.key, required this.serviceId});
@@ -49,6 +50,9 @@ class ServiceDetailScreen extends ConsumerWidget {
       data: (service) {
         if (service.routeId == 'frequency-specific-microcurrent') {
           return FrequencySpecificMicrocurrentDetailView(service: service);
+        }
+        if (service.routeId == 'infrared-sauna-therapy') {
+          return InfraredSaunaTherapyDetailView(service: service);
         }
         return _ServiceDetailBody(service: service);
       },

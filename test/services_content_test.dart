@@ -46,16 +46,56 @@ void main() {
       expect(fsm.contentHtml, isNotEmpty);
       expect(fsm.ctaLabel, 'Request An Appointment');
       expect(fsm.addressedConcerns, hasLength(18));
-      expect(fsm.sections, hasLength(4));
+      expect(fsm.sections, hasLength(5));
       expect(fsm.sections.first.type, 'image_text');
       expect(fsm.sections.first.imageUrl, isNotEmpty);
-      expect(fsm.sections[1].isAddressedConcerns, isTrue);
-      expect(fsm.sections[1].items, hasLength(18));
-      expect(fsm.sections[2].isFeaturedTherapies, isTrue);
-      expect(fsm.sections[2].items, hasLength(4));
+      expect(fsm.sections[1].type, 'image_text');
+      expect(fsm.sections[1].title, isEmpty);
+      expect(fsm.sections[1].imageUrl, contains('f2_'));
+      expect(fsm.sections[2].isAddressedConcerns, isTrue);
+      expect(fsm.sections[2].items, hasLength(18));
+      expect(fsm.sections[3].isFeaturedTherapies, isTrue);
+      expect(fsm.sections[3].items, hasLength(4));
       expect(fsm.sections.last.isGettingStarted, isTrue);
       expect(fsm.reviews, isNotEmpty);
       expect(fsm.quote, 'Feel Good, Live Better!');
+    });
+
+    test('Infrared Sauna service is fully populated', () async {
+      final result = await ServicesRepository(createMockApiClient())
+          .getServiceById('infrared-sauna-therapy');
+
+      expect(result, isA<ApiSuccess<Service>>());
+      final sauna = (result as ApiSuccess<Service>).data;
+      expect(sauna.heroHeading, 'Infrared sauna therapy');
+      expect(sauna.headline, contains('Infrared Sauna Therapy can help'));
+      expect(sauna.contentHtml, isNotEmpty);
+      expect(sauna.ctaLabel, 'Request An Appointment');
+      expect(sauna.addressedConcerns, hasLength(9));
+      expect(sauna.benefits, hasLength(8));
+      expect(sauna.sections, hasLength(9));
+      expect(sauna.sections.first.title, contains('struggle'));
+      expect(sauna.sections[1].type, 'image_text');
+      expect(sauna.sections[2].title, contains('Benefits'));
+      expect(sauna.sections[3].title, contains('Options'));
+      expect(sauna.sections[3].items, hasLength(3));
+      expect(
+        sauna.sections[3].items.every(
+          (item) => item.imageUrl == null || item.imageUrl!.isEmpty,
+        ),
+        isTrue,
+      );
+      expect(sauna.sections[4].title, contains('Chromotherapy'));
+      expect(sauna.sections[4].items, hasLength(6));
+      expect(sauna.sections[5].title, isEmpty);
+      expect(sauna.sections[5].imageUrl, contains('Sauna_RedLight2_01'));
+      expect(sauna.sections[6].title, isEmpty);
+      expect(sauna.sections[6].imageUrl, contains('Sauna_RedLight2_02'));
+      expect(sauna.sections[7].title, contains('Frequently Asked'));
+      expect(sauna.sections[7].items, hasLength(5));
+      expect(sauna.sections.last.title, 'What To Expect');
+      expect(sauna.sections.last.items, hasLength(3));
+      expect(sauna.reviews, isNotEmpty);
     });
 
     test('getServiceById returns failure for unknown id', () async {
