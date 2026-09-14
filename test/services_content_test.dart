@@ -219,6 +219,35 @@ void main() {
       expect(ozone.reviews, isNotEmpty);
     });
 
+    test('Ion Foot Detox service is fully populated', () async {
+      final result = await ServicesRepository(createMockApiClient())
+          .getServiceById('ion-foot-detox');
+
+      expect(result, isA<ApiSuccess<Service>>());
+      final detox = (result as ApiSuccess<Service>).data;
+      expect(detox.heroHeading, 'ion foot detox');
+      expect(detox.headline, 'Why Ion Foot Detox?');
+      expect(detox.contentHtml, contains('IonCleanse'));
+      expect(detox.ctaLabel, 'Request An Appointment');
+      expect(detox.benefits, hasLength(6));
+      expect(detox.addressedConcerns, hasLength(4));
+      expect(detox.sections, hasLength(6));
+      expect(detox.sections.first.title, 'Why Ion Foot Detox?');
+      expect(detox.sections.first.imageUrl, isNotEmpty);
+      expect(detox.sections[1].title, contains('Benefits'));
+      expect(detox.sections[1].items, hasLength(6));
+      expect(detox.sections[2].title, contains('Illnesses'));
+      expect(detox.sections[2].items, hasLength(4));
+      expect(detox.sections[3].title, 'Resources');
+      expect(detox.sections[3].items, hasLength(3));
+      expect(
+        detox.sections.where((s) => s.isFeaturedTherapies),
+        hasLength(1),
+      );
+      expect(detox.sections.last.isGettingStarted, isTrue);
+      expect(detox.reviews, isNotEmpty);
+    });
+
     test('getServiceById returns failure for unknown id', () async {
       final result = await ServicesRepository(createMockApiClient())
           .getServiceById('missing');

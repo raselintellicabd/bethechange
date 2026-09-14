@@ -3431,48 +3431,329 @@
     {
       "id": "ion-foot-detox",
       "name": "Ion Foot Detox",
-      "summary": "A comfortable IonCleanse session designed to support reduction of toxic overload symptoms.",
-      "articleBody": "The IonCleanse detoxification system has been shown to reduce symptoms of \"toxic overload\" through a series of detox sessions. Simply relax with your feet in water for about 30 minutes. The procedure is painless and comfortable.\n\nDetoxification may be recommended as a stand-alone treatment or as part of a larger personal wellness plan.",
-      "howItWorks": {
-        "title": "How Ion Foot Detox Works",
-        "body": "You sit comfortably with your feet submerged in purified water with sea salt for about 30 minutes while the IonCleanse system supports the removal of impurities. An array placed in the water helps facilitate the session."
-      },
+      "heroHeading": "ion foot detox",
+      "headline": "Why Ion Foot Detox?",
+      "title": "Ion Foot Detox",
+      "summary": "The IonCleanse detoxification system has been shown to reduce symptoms of “toxic overload” through a series of detox sessions. Simply relax with your feet in water for about 30 minutes. The procedure is painless and comfortable.",
+      "description": "The IonCleanse detoxification system has been shown to reduce symptoms of “toxic overload” through a series of detox sessions. Simply relax with your feet in water for about 30 minutes. The procedure is painless and comfortable.",
+      "articleBody": "In today’s fast-paced, high stress world, we all have a lifetime of toxins built up in our bodies. These are substances that are ingested (alcohol, nicotine, caffeine, refined sugar), inhaled (pesticides, heavy metals from cosmetics, cigarette smoke, dry cleaning and other chemicals) or internally produced (hormonal by-products).\nThese toxins cause symptoms such as acne, rashes, dark circles under the eyes, swollen or painful joints, skin changes, arthritis and everyday aches and pains.\nThe IonCleanse detoxification system has been shown to reduce symptoms of “toxic overload” through a series of detox sessions. Simply relax with your feet in water for about 30 minutes. The procedure is painless and comfortable. We use a basin containing sea salt dissolved in purified water and then place an electrical unit, called an array, in the water. The array generates alternating positive and negative ions around the feet. The ions enter the body through your feet and begin neutralizing the toxins.\n\nWhy Ion Foot Detox?\n\nIn today’s fast-paced, high stress world, we all have a lifetime of toxins built up in our bodies. These are substances that are ingested (alcohol, nicotine, caffeine, refined sugar), inhaled (pesticides, heavy metals from cosmetics, cigarette smoke, dry cleaning and other chemicals) or internally produced (hormonal by-products).\nThese toxins cause symptoms such as acne, rashes, dark circles under the eyes, swollen or painful joints, skin changes, arthritis and everyday aches and pains.\nThe IonCleanse detoxification system has been shown to reduce symptoms of “toxic overload” through a series of detox sessions. Simply relax with your feet in water for about 30 minutes. The procedure is painless and comfortable. We use a basin containing sea salt dissolved in purified water and then place an electrical unit, called an array, in the water. The array generates alternating positive and negative ions around the feet. The ions enter the body through your feet and begin neutralizing the toxins.",
+      "content_html": "<p>In today’s fast-paced, high stress world, we all have a lifetime of toxins built up in our bodies. These are substances that are ingested (alcohol, nicotine, caffeine, refined sugar), inhaled (pesticides, heavy metals from cosmetics, cigarette smoke, dry cleaning and other chemicals) or internally produced (hormonal by-products).</p><p>These toxins cause symptoms such as acne, rashes, dark circles under the eyes, swollen or painful joints, skin changes, arthritis and everyday aches and pains.</p><p>The IonCleanse detoxification system has been shown to reduce symptoms of “toxic overload” through a series of detox sessions. Simply relax with your feet in water for about 30 minutes. The procedure is painless and comfortable. We use a basin containing sea salt dissolved in purified water and then place an electrical unit, called an array, in the water. The array generates alternating positive and negative ions around the feet. The ions enter the body through your feet and begin neutralizing the toxins.</p>",
+      "heroImage": "http://192.168.1.160:8000/media/services/Ion-Foot-Detox1-2_NjnZRvI.jpeg",
+      "slug": "ion-foot-detox",
+      "howItWorks": null,
       "benefits": [
         {
-          "label": "Increased Energy Support"
+          "label": "Increased energy"
         },
         {
-          "label": "Improved Sleep Potential"
+          "label": "Decreased allergy symptoms"
         },
         {
-          "label": "Better Circulation Support"
+          "label": "Clearer skin"
         },
         {
-          "label": "Skin Clarity Support"
+          "label": "Improved sleep patterns"
         },
         {
-          "label": "Digestive Comfort Support"
+          "label": "Weight loss"
         },
         {
-          "label": "Immune Support"
+          "label": "Increased circulation"
         }
       ],
       "addressedConcerns": [
         {
-          "label": "Toxic Overload Symptoms"
+          "label": "Autism"
         },
         {
-          "label": "Environmental Exposure Support"
+          "label": "Autoimmunity"
         },
         {
-          "label": "General Detoxification Goals"
+          "label": "Glyphosate Exposure"
+        },
+        {
+          "label": "Toxic Heavy Metals"
         }
       ],
-      "whatToExpect": {
-        "title": "What To Expect",
-        "body": "Relax for about 30 minutes with your feet in water. The procedure is painless and comfortable, and a series of sessions may be recommended based on your goals."
-      },
-      "recommendedBooks": []
+      "whatToExpect": null,
+      "recommendedBooks": [],
+      "quote": "Feel Good, Live Better!",
+      "quoteBody": "It’s easy to get started as a new patient…",
+      "quoteHtml": "<p>It’s easy to get started as a new patient…</p>",
+      "cta-label": "Request An Appointment",
+      "cta-url": "/appointments/?source=%2Fion-foot-detox%2F&patient=new",
+      "sections": [
+        {
+          "type": "image_text",
+          "title": "Why Ion Foot Detox?",
+          "content": "In today’s fast-paced, high stress world, we all have a lifetime of toxins built up in our bodies. These are substances that are ingested (alcohol, nicotine, caffeine, refined sugar), inhaled (pesticides, heavy metals from cosmetics, cigarette smoke, dry cleaning and other chemicals) or internally produced (hormonal by-products).\nThese toxins cause symptoms such as acne, rashes, dark circles under the eyes, swollen or painful joints, skin changes, arthritis and everyday aches and pains.\nThe IonCleanse detoxification system has been shown to reduce symptoms of “toxic overload” through a series of detox sessions. Simply relax with your feet in water for about 30 minutes. The procedure is painless and comfortable. We use a basin containing sea salt dissolved in purified water and then place an electrical unit, called an array, in the water. The array generates alternating positive and negative ions around the feet. The ions enter the body through your feet and begin neutralizing the toxins.",
+          "content_html": "<p>In today’s fast-paced, high stress world, we all have a lifetime of toxins built up in our bodies. These are substances that are ingested (alcohol, nicotine, caffeine, refined sugar), inhaled (pesticides, heavy metals from cosmetics, cigarette smoke, dry cleaning and other chemicals) or internally produced (hormonal by-products).</p><p>These toxins cause symptoms such as acne, rashes, dark circles under the eyes, swollen or painful joints, skin changes, arthritis and everyday aches and pains.</p><p>The IonCleanse detoxification system has been shown to reduce symptoms of “toxic overload” through a series of detox sessions. Simply relax with your feet in water for about 30 minutes. The procedure is painless and comfortable. We use a basin containing sea salt dissolved in purified water and then place an electrical unit, called an array, in the water. The array generates alternating positive and negative ions around the feet. The ions enter the body through your feet and begin neutralizing the toxins.</p>",
+          "img-url": "http://192.168.1.160:8000/media/services/Ion-Foot-Detox1-2_h0LXEPt.jpeg",
+          "image-side": "left",
+          "items": []
+        },
+        {
+          "type": "cards",
+          "title": "Benefits our patients have experienced from Ion Foot Detox",
+          "content": "",
+          "content_html": "",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Increased energy",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Decreased allergy symptoms",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Clearer skin",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improved sleep patterns",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Weight loss",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Increased circulation",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Illnesses that have been addressed with Ion Foot Detox",
+          "content": "Illnesses that have been addressed with Ion Foot Detox include:",
+          "content_html": "<p>Illnesses that have been addressed with Ion Foot Detox include:</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Autism",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Autoimmunity",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Glyphosate Exposure",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Toxic Heavy Metals",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Resources",
+          "content": "",
+          "content_html": "",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Autism",
+              "content": "https://www.autismtransformed.com/wp/wp-content/uploads/TMR-Study-of-ATEC-Changes-with-the-IonCleanse-by-AMD7-2015.pdf\nhttps://www.autismtransformed.com/wp/wp-content/uploads/TMR-Study-2-Whitepaper-ATEC-Changes-with-the-IonCleanse-by-AMD-12-2015.pdf",
+              "content_html": "<ul><li><a href=\"https://sa1s3.patientpop.com/assets/docs/268611.pdf\" rel=\"noopener noreferrer\">https://www.autismtransformed.com/wp/wp-content/uploads/TMR-Study-of-ATEC-Changes-with-the-IonCleanse-by-AMD7-2015.pdf</a></li><li><a href=\"https://sa1s3.patientpop.com/assets/docs/268610.pdf\" rel=\"noopener noreferrer\">https://www.autismtransformed.com/wp/wp-content/uploads/TMR-Study-2-Whitepaper-ATEC-Changes-with-the-IonCleanse-by-AMD-12-2015.pdf</a></li></ul>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Glyphosate Exposure",
+              "content": "https://www.amajordifference.com/wp-content/uploads/2018/12/IonCleanse-by-AMD-Glyphosate-Study.pdf",
+              "content_html": "<ul><li><a href=\"https://sa1s3.patientpop.com/assets/docs/268609.pdf\" rel=\"noopener noreferrer\">https://www.amajordifference.com/wp-content/uploads/2018/12/IonCleanse-by-AMD-Glyphosate-Study.pdf</a></li></ul>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Toxic Heavy Metals",
+              "content": "https://meridianremedies.com.au/wp-content/uploads/2018/07/Ionic-foot-bath-study.pdf",
+              "content_html": "<ul><li><a href=\"https://sa1s3.patientpop.com/assets/docs/268608.pdf\" rel=\"noopener noreferrer\">https://meridianremedies.com.au/wp-content/uploads/2018/07/Ionic-foot-bath-study.pdf</a></li></ul>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Featured Therapies",
+          "content": "View Our Full List Of Services",
+          "content_html": "<p><a href=\"http://192.168.1.160:8000/services/\" rel=\"noopener noreferrer\">View Our Full List Of Services</a></p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Ion Foot Detox",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/DETOX_k6Ua4n3.jpg",
+              "link-url": "/ion-foot-detox/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "IV Nutritional Infusions",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/IV_ot12MFg.jpg",
+              "link-url": "/iv-nutritional-infusions/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "Hyperbaric Oxygen Therapy",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/OX_N89fjuL.jpg",
+              "link-url": "/hyperbaric-oxygen-therapy/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "Infrared Sauna Therapy",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/SAUNA_DaNlouZ.jpg",
+              "link-url": "/infrared-sauna-therapy/",
+              "link-label": "Learn More"
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Feel Good, Live Better!",
+          "content": "It’s easy to get started as a new patient…",
+          "content_html": "<p>It’s easy to get started as a new patient…</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Request An Appointment",
+              "content": "Your first step is to either call our clinic or complete the online request form for a new patient appointment",
+              "content_html": "<p>Your first step is to either call our clinic or complete the online request form for a new patient appointment</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/1-1_6zla3YJ.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Experience Our Clinic",
+              "content": "Come to our clinic to receive your integrative consultation or treatment session.",
+              "content_html": "<p>Come to our clinic to receive your integrative consultation or treatment session.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/2-1_oP0xI2s.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Choose A Membership",
+              "content": "Optional (but recommended) – Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.",
+              "content_html": "<p><em>Optional (but recommended) –</em> Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/3-1_BT0Pbxc.png",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way. Even when I was at my darkest, she was there helping from the sidelines. My entire family has all been helped by Dr. Afrooz and her husband. We've made connections and friendships and became familiar with each other in a way that other doctors are usually more one-dimensional with. Dr. Afrooz has changed my life in such a wonderful way! She is worth every penny we've paid and way more!"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I was always feeling very tired and lethargic and I was thinking that maybe I had long covid. But Dr Afrooz knew all the right questions to help identify that my condition is related to tick bites instead from a hiking trip I had gone on. I ask a lot of questions and she seems to not find me to be frustrating and i know that she is straightforward because she’s not afraid to say I don’t know if she does not know the answer to any of my questions. Nor is she dismissive of me whether it be ideas as to what I think could possibly help me or if I tell her something does not feel right. I highly recommend her and I feel fortunate to have been able to see her."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to. The appointments and treatments here are not nearly as atrociously priced as most of my visits to other doctors. The staff and workers really make me feel cared for. I recommend this doctor office over many other ones."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWTxx2WN13zQJY8yBCCHsv9s-9mCkVXOQeJLkm0XXD79QTARPgEQg=s120-c-rp-mo-br100",
+          "name": "Samson Zewde",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Great place! I felt well taken care of and left feeling revitalized after treatment."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXVhyyBMpfz7uCiGqz3lpZ8jfqwwk-NuKXmwhjchhSp_9mYRNfd=s120-c-rp-mo-ba2-br100",
+          "name": "Nas Moha",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Doctors and staff are personable and friendly that provides excellent care. Best care so far around the area"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWetJi7ZC30xKr9f_Et3sjo0MU-PtbJxY_MJW8ATsz1I44J_gjo=s120-c-rp-mo-ba3-br100",
+          "name": "Oxana Oleson",
+          "date": "2024-06-26",
+          "star": 5,
+          "comment": "I have known Dr. Afrooz for the past 8 years. Besides her knowledge and care she put in helping patients with different complex health issues, she is also one of the nicest people I know. She treated me and my family and never gave up on me trying to find a solution for treating chronic Lyme disease. Her office is equipped with lots of helpful tools to get you well. My favorite is a hyperbaric chamber, but there are many more. My daughter also recovered from Lyme disease with help of Dr. Afrooz. At that time, she was only 5 years old.\nI am beyond grateful for her help and knowledge. She is using both-conventional and integrative methods and always keeping up to date on new treatments."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUfWn8Nlmr9OTvD94Q-8w8MLmPpA7gWKZDCa-j1BUcZNfT9_ns=s120-c-rp-mo-br100",
+          "name": "sumaiyah khan",
+          "date": "2024-05-11",
+          "star": 5,
+          "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
+        }
+      ]
     }
   ]
 }
