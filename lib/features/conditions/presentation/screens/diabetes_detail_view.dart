@@ -61,12 +61,6 @@ class DiabetesDetailView extends StatelessWidget {
             ctaLabel: _ctaLabel,
             source: _source,
           ),
-          if (condition.heroImageUrl != null &&
-              condition.heroImageUrl!.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
-              child: _RoundedImage(url: condition.heroImageUrl!, height: 200),
-            ),
           if (now != null) _NowControlSection(section: now),
           if (symptoms != null) _SymptomsSection(section: symptoms),
           if (factors != null) _FactorsSection(section: factors),

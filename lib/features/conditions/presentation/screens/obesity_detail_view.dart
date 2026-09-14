@@ -55,12 +55,6 @@ class ObesityDetailView extends StatelessWidget {
             ctaLabel: _ctaLabel,
             source: _source,
           ),
-          if (condition.heroImageUrl != null &&
-              condition.heroImageUrl!.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
-              child: _RoundedImage(url: condition.heroImageUrl!, height: 200),
-            ),
           for (final section in sections) ...[
             if (_isOverview(section)) _OverviewSection(section: section),
             if (section.isTreatDark) _TreatDarkSection(section: section),
