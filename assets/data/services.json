@@ -2321,46 +2321,271 @@
     },
     {
       "id": "iv-nutritional-infusions",
-      "name": "Nutritional IV Therapy",
-      "summary": "Rapid hydration and nutrient delivery directly into the bloodstream for faster absorption and support.",
-      "articleBody": "IV therapy provides rapid hydration and nutrient delivery directly into the bloodstream, ensuring faster absorption and immediate effects. It can also aid in recovery from illness, enhance athletic performance, and support overall wellness by addressing nutrient deficiencies efficiently.\n\nWe offer a wide variety of IV Therapy for different conditions and wellness goals.",
-      "howItWorks": {
-        "title": "How Nutritional IV Therapy Works",
-        "body": "Nutrients are delivered intravenously so they bypass digestion and enter circulation directly. Your provider helps select an infusion aligned with your wellness goals and clinical needs."
-      },
-      "benefits": [
+      "name": "IV Nutritional Infusions",
+      "heroHeading": "iv nutritional infusions",
+      "headline": "THERAPEUTIC IVS",
+      "title": "Nutritional IV Therapy",
+      "summary": "IV therapy provides rapid hydration and nutrient delivery directly into the bloodstream, ensuring faster absorption and immediate effects. It can also aid in recovery from illness, enhance athletic performance, and support overall wellness by addressing nutrient deficiencies efficiently.",
+      "description": "IV therapy provides rapid hydration and nutrient delivery directly into the bloodstream, ensuring faster absorption and immediate effects. It can also aid in recovery from illness, enhance athletic performance, and support overall wellness by addressing nutrient deficiencies efficiently.",
+      "articleBody": "IV therapy provides rapid hydration and nutrient delivery directly into the bloodstream, ensuring faster absorption and immediate effects. It can also aid in recovery from illness, enhance athletic performance, and support overall wellness by addressing nutrient deficiencies efficiently.",
+      "content_html": "<p>IV therapy provides rapid hydration and nutrient delivery directly into the bloodstream, ensuring faster absorption and immediate effects. It can also aid in recovery from illness, enhance athletic performance, and support overall wellness by addressing nutrient deficiencies efficiently.</p>",
+      "heroImage": "http://192.168.1.160:8000/media/services/Naturopathic-Integrative-Medicine-Services_PnoSrSH.png",
+      "slug": "iv-nutritional-infusions",
+      "howItWorks": null,
+      "benefits": [],
+      "addressedConcerns": [],
+      "whatToExpect": null,
+      "recommendedBooks": [],
+      "quote": "Feel Good, Live Better!",
+      "quoteBody": "It’s easy to get started as a new patient…",
+      "quoteHtml": "<p>It’s easy to get started as a new patient…</p>",
+      "cta-label": "Request An Appointment",
+      "cta-url": "/appointments/?source=%2Fiv-nutritional-infusions%2F&patient=new",
+      "sections": [
         {
-          "label": "Rapid Hydration"
+          "type": "cards",
+          "title": "THERAPEUTIC IVS",
+          "content": "",
+          "content_html": "",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "PHOSPHATIDYLCHOLINE",
+              "content": "Phosphatidylcholine (PC) is a phospholipid found in every cell in our body. It is one of the main components that make up our cell membranes and plays a major role in communication between cells. Phosphatidylcholine is a major supplier of choline and acetylcholine, an excitatory neurotransmitter essential for proper muscle, brain and nerve function. PC is also found in the surfactant in our lungs, allowing us to breathe, as well as, the mucus lining in our gut, allowing us to absorb and digest nutrients.",
+              "content_html": "<p>Phosphatidylcholine (PC) is a phospholipid found in every cell in our body. It is one of the main components that make up our cell membranes and plays a major role in communication between cells. Phosphatidylcholine is a major supplier of choline and acetylcholine, an excitatory neurotransmitter essential for proper muscle, brain and nerve function. PC is also found in the surfactant in our lungs, allowing us to breathe, as well as, the mucus lining in our gut, allowing us to absorb and digest nutrients.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/Phosphatidylcholine_Ukpv363.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "MYERS IV",
+              "content": "This vitamin and mineral infusion can:\nReduce asthma symptoms\nReduce migraines\nImprove energy\nImprove fibromyalgia\nDecrease depression\nImprove respiratory infections\nSupport cardiovascular health\nReduce seasonal allergies\nSupport thyroid",
+              "content_html": "<p>This vitamin and mineral infusion can:</p><ul><li>Reduce asthma symptoms</li><li>Reduce migraines</li><li>Improve energy</li><li>Improve fibromyalgia</li><li>Decrease depression</li><li>Improve respiratory infections</li><li>Support cardiovascular health</li><li>Reduce seasonal allergies</li><li>Support thyroid</li></ul>",
+              "img-url": "http://192.168.1.160:8000/media/services/Myers-IV_2IcLBIr.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "GLUTATHIONE",
+              "content": "Glutathione (GSH) is the “master antioxidant” made by our bodies. Glutathione helps to neutralize and detoxify harmful free radicals, including toxic drugs and heavy metals. By reducing reactive oxygen species, glutathione can protect the brain, kidneys, gut, lungs, and liver from oxidative damage.",
+              "content_html": "<p>Glutathione (GSH) is the “master antioxidant” made by our bodies. Glutathione helps to neutralize and detoxify harmful free radicals, including toxic drugs and heavy metals. By reducing reactive oxygen species, glutathione can protect the brain, kidneys, gut, lungs, and liver from oxidative damage.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/Gluathione-1_kRW3n0k.png",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
         },
         {
-          "label": "Enhanced Nutrient Absorption"
+          "type": "cards",
+          "title": "NUTRITIONAL IVS",
+          "content": "",
+          "content_html": "",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "THE ORIGINAL (MYERS COCKTAIL)",
+              "content": "A great way to support your immune system and increase energy!\nIncludes: Vitamin C, B12, B Complex, Magnesium, Calcium, Potassium",
+              "content_html": "<p>A great way to support your immune system and increase energy!</p><p>Includes: Vitamin C, B12, B Complex, Magnesium, Calcium, Potassium</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/The-Original-Myers-Cocktail_GbNRVhc.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "BLOOD FLOW + ENERGY + METABOLISM",
+              "content": "Increases blood flow, metabolism and overall energy and mood.\nIncludes: Vitamin C, B12, B Complex, Magnesium, Calcium, B5, Acetyl-L-Carnitine, L-Glutamine, Taurine, Arginine",
+              "content_html": "<p>Increases blood flow, metabolism and overall energy and mood.</p><p>Includes: Vitamin C, B12, B Complex, Magnesium, Calcium, B5, Acetyl-L-Carnitine, L-Glutamine, Taurine, Arginine</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/Re-energize-or-Performance_LFsoXvV.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "ANTI-AGING/ SKIN BRIGHTENING",
+              "content": "Support skin, produce more collagen, enhance elasticity and reduce fine lines.\nIncludes: Vitamin C, B12, B Complex, Magnesium, Calcium, B5, Biotin, CoQ10, Lysine",
+              "content_html": "<p>Support skin, produce more collagen, enhance elasticity and reduce fine lines.</p><p>Includes: Vitamin C, B12, B Complex, Magnesium, Calcium, B5, Biotin, CoQ10, Lysine</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/Anti-Aging-or-Skin-Brightening_ViP8ZKJ.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "IMMUNE BOOST",
+              "content": "Support immune system through cold, flu, seasonal illness and stress. Protect from free radical damage.\nIncludes: Vitamin C, B12, B-complex, Magnesium, Calcium, Glutathione, B5, Vitamin D3",
+              "content_html": "<p>Support immune system through cold, flu, seasonal illness and stress. Protect from free radical damage.</p><p>Includes: Vitamin C, B12, B-complex, Magnesium, Calcium, Glutathione, B5, Vitamin D3</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/Immune-Boost_aj0dB2W.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "LIVER CLEANSE",
+              "content": "Support liver detoxification!\nIncludes: Glutathione, NAC, Taurine, Alpha Lipoic Acid",
+              "content_html": "<p>Support liver detoxification!</p><p>Includes: Glutathione, NAC, Taurine, Alpha Lipoic Acid</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/Liver-Cleanse_9ZeNLN0.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "JOINT SUPPORT/ PAIN RELIEF",
+              "content": "Support joints and help relieve joint and muscle aches and headaches.\nIncludes: Vitamin C, B12, B Complex, Magnesium, Calcium, B5, Glucosamine, Glutamine, Proline, Taurine, Selenium",
+              "content_html": "<p>Support joints and help relieve joint and muscle aches and headaches.</p><p>Includes: Vitamin C, B12, B Complex, Magnesium, Calcium, B5, Glucosamine, Glutamine, Proline, Taurine, Selenium</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/Joint-Sipport-or-Paint-Relief_lXnK31j.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "BRAIN CLARITY",
+              "content": "Improve focus, problem solving, memory, attention and clear brain fog.\nIncludes: Vitamin C, B12, B Complex, Magnesium, Calcium, B5, Glutathione, NAC, Taurine, Acety-L-Carnitine",
+              "content_html": "<p>Improve focus, problem solving, memory, attention and clear brain fog.</p><p>Includes: Vitamin C, B12, B Complex, Magnesium, Calcium, B5, Glutathione, NAC, Taurine, Acety-L-Carnitine</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/Brain-Clarity_IGBb6Mp.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "RE-HYDRATION",
+              "content": "Support for fatigue, hangovers, jet-lag, seasonal illness and skin complexion.\nIncludes: B Complex and Fluids",
+              "content_html": "<p>Support for fatigue, hangovers, jet-lag, seasonal illness and skin complexion.</p><p>Includes: B Complex and Fluids</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/Re-Hydration_1pVboJG.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "HYDRATION",
+              "content": "Quickly rehydrate anytime!\nIncludes 1000 ml of Fluids",
+              "content_html": "<p>Quickly rehydrate anytime!</p><p>Includes 1000 ml of Fluids</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/Hydration_2KfeHz1.png",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
         },
         {
-          "label": "Recovery Support"
+          "type": "cards",
+          "title": "Featured Therapies",
+          "content": "View Our Full List Of Services",
+          "content_html": "<p><a href=\"http://192.168.1.160:8000/services/\" rel=\"noopener noreferrer\">View Our Full List Of Services</a></p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Ion Foot Detox",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/DETOX_85yy80M.jpg",
+              "link-url": "/ion-foot-detox/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "IV Nutritional Infusions",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/IV_Ggpv25g.jpg",
+              "link-url": "/iv-nutritional-infusions/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "Hyperbaric Oxygen Therapy",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/OX_tVC6B5f.jpg",
+              "link-url": "/hyperbaric-oxygen-therapy/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "Infrared Sauna Therapy",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/SAUNA_FzMYCtv.jpg",
+              "link-url": "/infrared-sauna-therapy/",
+              "link-label": "Learn More"
+            }
+          ]
         },
         {
-          "label": "Energy and Wellness Support"
+          "type": "cards",
+          "title": "Feel Good, Live Better!",
+          "content": "It’s easy to get started as a new patient…",
+          "content_html": "<p>It’s easy to get started as a new patient…</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Request An Appointment",
+              "content": "Your first step is to either call our clinic or complete the online request form for a new patient appointment",
+              "content_html": "<p>Your first step is to either call our clinic or complete the online request form for a new patient appointment</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/1-1_9aZeHWg.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Experience Our Clinic",
+              "content": "Come to our clinic to receive your integrative consultation or treatment session.",
+              "content_html": "<p>Come to our clinic to receive your integrative consultation or treatment session.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/2-1_6oQ4oZq.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Choose A Membership",
+              "content": "Optional (but recommended) – Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.",
+              "content_html": "<p><em>Optional (but recommended) –</em> Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/3-1_NIs3BKi.png",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
         }
       ],
-      "addressedConcerns": [
+      "reviews": [
         {
-          "label": "Nutrient Deficiencies"
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way. Even when I was at my darkest, she was there helping from the sidelines. My entire family has all been helped by Dr. Afrooz and her husband. We've made connections and friendships and became familiar with each other in a way that other doctors are usually more one-dimensional with. Dr. Afrooz has changed my life in such a wonderful way! She is worth every penny we've paid and way more!"
         },
         {
-          "label": "Dehydration"
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I was always feeling very tired and lethargic and I was thinking that maybe I had long covid. But Dr Afrooz knew all the right questions to help identify that my condition is related to tick bites instead from a hiking trip I had gone on. I ask a lot of questions and she seems to not find me to be frustrating and i know that she is straightforward because she’s not afraid to say I don’t know if she does not know the answer to any of my questions. Nor is she dismissive of me whether it be ideas as to what I think could possibly help me or if I tell her something does not feel right. I highly recommend her and I feel fortunate to have been able to see her."
         },
         {
-          "label": "Recovery from Illness"
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to. The appointments and treatments here are not nearly as atrociously priced as most of my visits to other doctors. The staff and workers really make me feel cared for. I recommend this doctor office over many other ones."
         },
         {
-          "label": "Athletic Recovery Support"
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWTxx2WN13zQJY8yBCCHsv9s-9mCkVXOQeJLkm0XXD79QTARPgEQg=s120-c-rp-mo-br100",
+          "name": "Samson Zewde",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Great place! I felt well taken care of and left feeling revitalized after treatment."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXVhyyBMpfz7uCiGqz3lpZ8jfqwwk-NuKXmwhjchhSp_9mYRNfd=s120-c-rp-mo-ba2-br100",
+          "name": "Nas Moha",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Doctors and staff are personable and friendly that provides excellent care. Best care so far around the area"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWetJi7ZC30xKr9f_Et3sjo0MU-PtbJxY_MJW8ATsz1I44J_gjo=s120-c-rp-mo-ba3-br100",
+          "name": "Oxana Oleson",
+          "date": "2024-06-26",
+          "star": 5,
+          "comment": "I have known Dr. Afrooz for the past 8 years. Besides her knowledge and care she put in helping patients with different complex health issues, she is also one of the nicest people I know. She treated me and my family and never gave up on me trying to find a solution for treating chronic Lyme disease. Her office is equipped with lots of helpful tools to get you well. My favorite is a hyperbaric chamber, but there are many more. My daughter also recovered from Lyme disease with help of Dr. Afrooz. At that time, she was only 5 years old.\nI am beyond grateful for her help and knowledge. She is using both-conventional and integrative methods and always keeping up to date on new treatments."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUfWn8Nlmr9OTvD94Q-8w8MLmPpA7gWKZDCa-j1BUcZNfT9_ns=s120-c-rp-mo-br100",
+          "name": "sumaiyah khan",
+          "date": "2024-05-11",
+          "star": 5,
+          "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
         }
-      ],
-      "whatToExpect": {
-        "title": "What To Expect",
-        "body": "After a brief review of your goals and history, you receive your infusion in a comfortable clinical setting while staff monitor your session."
-      },
-      "recommendedBooks": []
+      ]
     },
     {
       "id": "liquivida-iv-therapy",
