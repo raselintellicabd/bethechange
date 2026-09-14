@@ -649,51 +649,1675 @@
     {
       "id": "hyperbaric-oxygen-therapy",
       "name": "Hyperbaric Oxygen Therapy",
-      "summary": "Breathe pure oxygen in a pressurized chamber to enhance healing, reduce inflammation, and support recovery.",
-      "articleBody": "Hyperbaric oxygen therapy (HBOT) is a medical treatment that involves breathing pure oxygen in a pressurized chamber, which allows the lungs to take in more oxygen than under normal atmospheric conditions.\n\nThis increased oxygen concentration significantly enhances the body's ability to heal and fight infections, making it beneficial for conditions such as chronic non-healing wounds, certain infections, and recovery support after injuries including concussions.",
-      "howItWorks": {
-        "title": "How Hyperbaric Oxygen Therapy Works",
-        "body": "During treatment, you lie down in a pressurized chamber as a high concentration of oxygen dissolves into your bloodstream. This improves tissue regeneration and repair and can help relieve inflammation."
-      },
-      "benefits": [
-        {
-          "label": "Enhanced Tissue Healing"
-        },
-        {
-          "label": "Reduced Inflammation and Pain"
-        },
-        {
-          "label": "Improved Oxygenation"
-        },
-        {
-          "label": "Supports Brain and Injury Recovery"
-        },
-        {
-          "label": "Faster Recovery Support"
-        }
-      ],
+      "heroHeading": "hyperbaric oxygen therapy",
+      "headline": "What is Hyperbaric Oxygen Therapy?",
+      "title": "Hyperbaric Oxygen Therapy",
+      "summary": "Hyperbaric oxygen therapy (HBOT) is a medical treatment that involves breathing pure oxygen in a pressurized chamber, which allows the lungs to take in more oxygen than under normal atmospheric conditions. This increased oxygen concentration significantly enhances the body’s ability to heal and fight infections, making it beneficial for conditions such as decompression sickness, carbon monoxide poisoning, chronic non-healing wounds, and certain infections.",
+      "description": "Hyperbaric oxygen therapy (HBOT) is a medical treatment that involves breathing pure oxygen in a pressurized chamber, which allows the lungs to take in more oxygen than under normal atmospheric conditions. This increased oxygen concentration significantly enhances the body’s ability to heal and fight infections, making it beneficial for conditions such as decompression sickness, carbon monoxide poisoning, chronic non-healing wounds, and certain infections.",
+      "articleBody": "Hyperbaric oxygen therapy (HBOT) is a medical treatment that involves breathing pure oxygen in a pressurized chamber, which allows the lungs to take in more oxygen than under normal atmospheric conditions. This increased oxygen concentration significantly enhances the body’s ability to heal and fight infections, making it beneficial for conditions such as decompression sickness, carbon monoxide poisoning, chronic non-healing wounds, and certain infections.\n\nWhat is Hyperbaric Oxygen Therapy?\n\nHyperbaric oxygen therapy (HBOT) is a medical treatment that involves breathing pure oxygen in a pressurized chamber, which allows the lungs to take in more oxygen than under normal atmospheric conditions. This increased oxygen concentration significantly enhances the body’s ability to heal and fight infections, making it beneficial for conditions such as decompression sickness, carbon monoxide poisoning, chronic non-healing wounds, and certain infections.",
+      "content_html": "<p>Hyperbaric oxygen therapy (HBOT) is a medical treatment that involves breathing pure oxygen in a pressurized chamber, which allows the lungs to take in more oxygen than under normal atmospheric conditions. This increased oxygen concentration significantly enhances the body’s ability to heal and fight infections, making it beneficial for conditions such as decompression sickness, carbon monoxide poisoning, chronic non-healing wounds, and certain infections.</p>",
+      "heroImage": "http://192.168.1.160:8000/media/services/o2_TofUQac.jpg",
+      "slug": "hyperbaric-oxygen-therapy",
+      "howItWorks": null,
+      "benefits": [],
       "addressedConcerns": [
         {
-          "label": "Chronic Non-Healing Wounds"
+          "label": "Autism"
         },
         {
-          "label": "Certain Infections"
+          "label": "Traumatic Brain Injury"
         },
         {
-          "label": "Concussions and Head Injuries"
+          "label": "Inflammation"
         },
         {
-          "label": "Sprains, Tears, and Fractures Support"
+          "label": "Sports & Hyperbarics"
         },
         {
-          "label": "Post-Operative Recovery Support"
+          "label": "Diabetes"
+        },
+        {
+          "label": "Neurology & Hyperbarics"
+        },
+        {
+          "label": "Stroke"
+        },
+        {
+          "label": "Cancer"
+        },
+        {
+          "label": "Anti-Aging"
         }
       ],
-      "whatToExpect": {
-        "title": "What To Expect",
-        "body": "You rest comfortably in the pressurized chamber while oxygen therapy supports circulation, tissue repair, and recovery. Your provider will review suitability and session guidance before treatment."
-      },
-      "recommendedBooks": []
+      "whatToExpect": null,
+      "recommendedBooks": [],
+      "quote": "Feel Good, Live Better!",
+      "quoteBody": "It’s easy to get started as a new patient…",
+      "quoteHtml": "<p>It’s easy to get started as a new patient…</p>",
+      "cta-label": "Request An Appointment",
+      "cta-url": "/appointments/?source=%2Fhyperbaric-oxygen-therapy%2F&patient=new",
+      "sections": [
+        {
+          "type": "image_text",
+          "title": "What is Hyperbaric Oxygen Therapy?",
+          "content": "Hyperbaric oxygen therapy (HBOT) is a medical treatment that involves breathing pure oxygen in a pressurized chamber, which allows the lungs to take in more oxygen than under normal atmospheric conditions. This increased oxygen concentration significantly enhances the body’s ability to heal and fight infections, making it beneficial for conditions such as decompression sickness, carbon monoxide poisoning, chronic non-healing wounds, and certain infections.",
+          "content_html": "<p>Hyperbaric oxygen therapy (HBOT) is a medical treatment that involves breathing pure oxygen in a pressurized chamber, which allows the lungs to take in more oxygen than under normal atmospheric conditions. This increased oxygen concentration significantly enhances the body’s ability to heal and fight infections, making it beneficial for conditions such as decompression sickness, carbon monoxide poisoning, chronic non-healing wounds, and certain infections.</p>",
+          "img-url": "http://192.168.1.160:8000/media/services/o2_EqgX4vG.jpg",
+          "image-side": "left",
+          "items": []
+        },
+        {
+          "type": "cards",
+          "title": "Which Conditions Can Hyperbaric Oxygen Be Beneficial For?",
+          "content": "",
+          "content_html": "",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Autism",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Traumatic Brain Injury",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Inflammation",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Sports & Hyperbarics",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Diabetes",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Neurology & Hyperbarics",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Stroke",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Cancer",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Anti-Aging",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Autism & Hyperbarics",
+          "content": "References:\nhttps://doi.org/10.1186/1471-2431-9-21\nhttps://www.ihausa.org/autism.html",
+          "content_html": "<p><strong>References:</strong></p><ul><li><a href=\"https://doi.org/10.1186/1471-2431-9-21\" rel=\"noopener noreferrer\">https://doi.org/10.1186/1471-2431-9-21</a></li><li><a href=\"https://www.ihausa.org/autism.html\" rel=\"noopener noreferrer\">https://www.ihausa.org/autism.html</a></li></ul>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Increases Oxygen Delivery to Hypoxic Tissues",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Neuroinflammation",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Moderates Mitochondria Dysfunction",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Promotes Neurogenesis",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Stimulates Stem Cell Proliferation & Mobilization",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Seizure Frequency",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Actuates Neuroplasticity",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Sensory/Cognitive Awareness",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Increases Attention Span & Alertness",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Sleep Pattern",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Advances Social Skills & Interaction",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Aggression",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Attenuates Gastrointestinal Issues",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Decreases Inflammation",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Enhances Nutritional Absorption",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Traumatic Brain Injury",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Traumatic Brain Injury & Hyperbarics",
+          "content": "References:\nhttps://www.ihausa.org/tbi.html",
+          "content_html": "<p><strong>References:</strong></p><ul><li><a href=\"https://www.ihausa.org/tbi.html\" rel=\"noopener noreferrer\">https://www.ihausa.org/tbi.html</a></li></ul>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Attenuates the Effects of Hypoxia and Inflammation in the Brain",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Promotes Neurogenesis",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Moderates Mitochondrial Disorders",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Enhances Stem Cell Mobilization and Proliferation",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Increases Penumbra Tissue Recovery",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Stimulates Neuroplasticity",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Induces Re-myelination",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Advances Cognitive Function",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Gross/Fine Motor Skills",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Enhances Speech & Language",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Alleviates Spasticity",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Lessens Frequency of Seizures",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Stimulates Better Eye Contact",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Balance & Walking",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Inflammation",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Inflammation & Hyperbarics",
+          "content": "References:\nhttps://doi.org/10.1007/s00264-008-0623-y\nhttps://www.ihausa.org/inflammation.html",
+          "content_html": "<p><strong>References:</strong></p><ul><li><a href=\"https://doi.org/10.1007/s00264-008-0623-y\" rel=\"noopener noreferrer\">https://doi.org/10.1007/s00264-008-0623-y</a></li><li><a href=\"https://www.ihausa.org/inflammation.html\" rel=\"noopener noreferrer\">https://www.ihausa.org/inflammation.html</a></li></ul>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Minimizes Pain & Discomfort",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Increases Anti-Inflammatory Cytokines",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Swelling",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Accelerates Fibroblast Activation",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Ameliorates Autism Symptoms",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Supports the Prevention & Treatment of Stroke",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Risk of Alzheimer& Parkinson& Disease",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Remediates Inflammatory Bowel Disease",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Ameliorates Ulcerative Colitis",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Nutritional Absorption",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Remediates Osteoarthritis & Rheumatoid Arthritis",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Ameliorates Tendinitis",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Accelerates Recovery from Sports-Related & High Impact Injuries",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Attenuates Cancer Risk & Progression",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Risk of Atherosclerosis, Heart Attack & Stroke",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Ameliorates Diabetic Conditions Linked to Inflammation",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Sports & Hyperbarics",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Sports & Hyperbarics",
+          "content": "References:\nhttps://www.ihausa.org/sports.html",
+          "content_html": "<p><strong>References:</strong></p><ul><li><a href=\"https://www.ihausa.org/sports.html\" rel=\"noopener noreferrer\">https://www.ihausa.org/sports.html</a></li></ul>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Stimulates the Formation of New Blood Vessels",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Combats & Prevents Circulatory Diseases, Including Coronary Heart Disease & Diabetes",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Oxygenation to Cardiac Tissue",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Heart Muscle Functioning After Heart Attack",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Risk of Heart Attack",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Stimulates the Creation of New Brain Cells",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Memory and Reaction time",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Promotes the Creation of New Brain Connections",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Enhances Treatment for Arthritis",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Inflammation & Pain",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Accelerates Healing",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Mobility & Stamina",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Helps Combat Age-Related Macular Degeneration",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Moderates Glaucoma Symptoms",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Compromised Blood Flow to the Retina",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Increases Energy levels",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Stress & Anxiety",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Promotes the Creation of New Stem Cells",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Supports the Immune System",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Decreases Risk of Infection",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Excessive Skin Damage From Ultraviolet Radiation Exposure",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Promotes Collagen Production & Maintains Skin Elasticity",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improve Wound Healing & Reduces Scar Formation",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Diabetes",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Diabetes & Hyperbarics",
+          "content": "References:\nhttps://doi.org/10.1007/s00264-008-0623-y\nhttps://www.ihausa.org/diabetes.html",
+          "content_html": "<p><strong>References:</strong></p><ul><li><a href=\"https://doi.org/10.1007/s00264-008-0623-y\" rel=\"noopener noreferrer\">https://doi.org/10.1007/s00264-008-0623-y</a></li><li><a href=\"https://www.ihausa.org/diabetes.html\" rel=\"noopener noreferrer\">https://www.ihausa.org/diabetes.html</a></li></ul>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Increases Collagen Production",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Decreases Susceptibility Towards Reinjuring Target Areas",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Inflammation & Pain",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Rapid Recovery from Concussions & Head Injuries",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Faster & Better Recovery from Sprains Tears & Bone Fractures",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves SPECT Imaging Results",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Enhances Recovery from Medial Collateral Ligament (MCL) & AnteriL, Cruciate",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Ligament (ACL) Injuries",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Stimulates Stem Cell Proliferation",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Increases Fibroblast Activation",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Risk of Infection",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Inflammation for Optimal Pre-Op Conditions",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Decreases Hospital Time",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Accelerates Healing from Acute Muscle Strain",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Increase Energy",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improve Blood Flow",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Neurology & Hyperbarics",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Neurology & Hyperbarics",
+          "content": "References:\nhttps://doi.org/10.1371/journal.pone.0079995\nhttps://www.ihausa.org/neurology.html",
+          "content_html": "<p><strong>References:</strong></p><ul><li><a href=\"https://doi.org/10.1371/journal.pone.0079995\" rel=\"noopener noreferrer\">https://doi.org/10.1371/journal.pone.0079995</a></li><li><a href=\"https://www.ihausa.org/neurology.html\" rel=\"noopener noreferrer\">https://www.ihausa.org/neurology.html</a></li></ul>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Increases Circulatory Pathways in the Brain",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Oxygenation to the Brain",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Enhance Memory and Mental Performance",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Recovers & Repairs Damaged Brain Tissue",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Develops & Regains Cognitive/Motor Functions",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Brain Swelling",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Risk of Compromised Blood Flow to the Brain",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Decreases Pressure within the Skull",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Minimizes Oxidative Stress",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Stimulates the Creation of New Brain Cells",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Promotes the Construction of New Brain Tissue",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Facilitates the Formation of New Brain Connections",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Neurodevelopmental Conditions (Autism, Cerebral Palsy, Fetal Alcohol, Syndrome)",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Neurodegenerative Conditions (Alzheimer& Parkinson& Huntington & Disease)",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Neurological Injuries (Stroke, Traumatic Brain & Spinal Cord Injuries, Concussions)",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Stroke",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Stroke & Hyperbarics",
+          "content": "References:\nhttps://doi.org/10.1371/journal.pone.0053716\nhttps://www.ihausa.org/stroke.html",
+          "content_html": "<p><strong>References:</strong></p><ul><li><a href=\"https://doi.org/10.1371/journal.pone.0053716\" rel=\"noopener noreferrer\">https://doi.org/10.1371/journal.pone.0053716</a></li><li><a href=\"https://www.ihausa.org/stroke.html\" rel=\"noopener noreferrer\">https://www.ihausa.org/stroke.html</a></li></ul>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Stimulates the Creation of New Blood Vessels",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Promotes Optimal Blood Flow",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Decreases Oxidative Stress in the Brain",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Preconditions the Brain to Enable Neuroprotective Properties",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Faster Overall Recovery",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Vision and Speech",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Paralysis",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Accelerates Gross/Fine Motor Skills Recovery",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Increases Brain Tissue Recovery",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Stimulates the Creation of Blood Vessels to Reclaim Damaged Brain Tissue",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Promotes the Creation of New Brain Cells",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Escalates the Creation of New Brain Connections",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Alleviates Spasticity",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Cancer",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Cancer & Hyperbarics",
+          "content": "References:\nhttps://doi.org/10.1038/sj.bjc.6690345\nhttps://www.ihausa.org/cancer.html",
+          "content_html": "<p><strong>References:</strong></p><ul><li><a href=\"https://doi.org/10.1038/sj.bjc.6690345\" rel=\"noopener noreferrer\">https://doi.org/10.1038/sj.bjc.6690345</a></li><li><a href=\"https://www.ihausa.org/cancer.html\" rel=\"noopener noreferrer\">https://www.ihausa.org/cancer.html</a></li></ul>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Reduces Tumor Hypoxia",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Decreases Tumor Drug Resistance Allows for Optimal Therapy Dosage to be Attained",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Better Radiation Therapy Results",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Increases Post-Op Fibroblast Activation",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Chemotherapy Outcome",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Enhances Glioblastoma Treatment",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Weakens Hypoxic Tumors",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Targets Metastatic Tumors",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Increases Oxy-Radical Production",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Amplifies Apoptosis Effect",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Regresses Tumor Volume",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Radiation Therapy Side Effects",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Decreases Chemotherapy Side Effects",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Accelerates Post-Operative Healing & Prevents Infection",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Chemo-Brain Syndrome Symptoms",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Increases Intravenous Vitamin C Therapy Effect",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Decreases Inflammatory Markers",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Normalizes Intracellular Oxygen Levels",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Risk of Pathogenic Inflammatory Related Tumors",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Stimulates Cellular Detoxification",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Supports Cellular Energy Processes for Optimal DNA Repair",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Anti-Aging",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Anti-Aging & Hyperbarics",
+          "content": "References:\nhttps://doi.org/10.1007/s12192-012-0362-2\nhttps://www.ihausa.org/anti-aging.html",
+          "content_html": "<p><strong>References:</strong></p><ul><li><a href=\"https://doi.org/10.1007/s12192-012-0362-2\" rel=\"noopener noreferrer\">https://doi.org/10.1007/s12192-012-0362-2</a></li><li><a href=\"https://www.ihausa.org/anti-aging.html\" rel=\"noopener noreferrer\">https://www.ihausa.org/anti-aging.html</a></li></ul>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Stimulates the Formation of New Blood Vessels",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Combats & Prevents Circulatory Diseases, Including Coronary Heart Disease & Diabetes",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Oxygenation to Cardiac Tissue",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Heart Muscle Functioning After Heart Attack",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Risk of Heart Attack",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Stimulates the Creation of New Brain Cells",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Memory and Reaction time",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Promotes the Creation of New Brain Connections",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Enhances Treatment for Arthritis",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Inflammation & Pain",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Accelerates Healing",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Mobility & Stamina",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Helps Combat Age-Related Macular Degeneration",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Moderates Glaucoma Symptoms",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Compromised Blood Flow to the Retina",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Increases Energy levels",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Stress & Anxiety",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Promotes the Creation of New Stem Cells",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Supports the Immune System",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Decreases Risk of Infection",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Reduces Excessive Skin Damage From Ultraviolet Radiation Exposure",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Promotes Collagen Production & Maintains Skin Elasticity",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Improves Wound Healing & amp; Reduces Scar Formation",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Featured Therapies",
+          "content": "View Our Full List Of Services",
+          "content_html": "<p><a href=\"http://192.168.1.160:8000/services/\" rel=\"noopener noreferrer\">View Our Full List Of Services</a></p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Ion Foot Detox",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/DETOX_dAjaO4G.jpg",
+              "link-url": "/ion-foot-detox/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "IV Nutritional Infusions",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/IV_TtNB2kw.jpg",
+              "link-url": "/iv-nutritional-infusions/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "Hyperbaric Oxygen Therapy",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/OX_N5zIJA4.jpg",
+              "link-url": "/hyperbaric-oxygen-therapy/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "Infrared Sauna Therapy",
+              "content": "",
+              "content_html": "",
+              "img-url": "http://192.168.1.160:8000/media/services/SAUNA_8fCsr6u.jpg",
+              "link-url": "/infrared-sauna-therapy/",
+              "link-label": "Learn More"
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Feel Good, Live Better!",
+          "content": "It’s easy to get started as a new patient…",
+          "content_html": "<p>It’s easy to get started as a new patient…</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Request An Appointment",
+              "content": "Your first step is to either call our clinic or complete the online request form for a new patient appointment",
+              "content_html": "<p>Your first step is to either call our clinic or complete the online request form for a new patient appointment</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/1-1_4Jc2mBI.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Experience Our Clinic",
+              "content": "Come to our clinic to receive your integrative consultation or treatment session.",
+              "content_html": "<p>Come to our clinic to receive your integrative consultation or treatment session.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/2-1_7FLNowl.png",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Choose A Membership",
+              "content": "Optional (but recommended) – Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.",
+              "content_html": "<p><em>Optional (but recommended) –</em> Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/3-1_Z4uC8oN.png",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way. Even when I was at my darkest, she was there helping from the sidelines. My entire family has all been helped by Dr. Afrooz and her husband. We've made connections and friendships and became familiar with each other in a way that other doctors are usually more one-dimensional with. Dr. Afrooz has changed my life in such a wonderful way! She is worth every penny we've paid and way more!"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I was always feeling very tired and lethargic and I was thinking that maybe I had long covid. But Dr Afrooz knew all the right questions to help identify that my condition is related to tick bites instead from a hiking trip I had gone on. I ask a lot of questions and she seems to not find me to be frustrating and i know that she is straightforward because she’s not afraid to say I don’t know if she does not know the answer to any of my questions. Nor is she dismissive of me whether it be ideas as to what I think could possibly help me or if I tell her something does not feel right. I highly recommend her and I feel fortunate to have been able to see her."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to. The appointments and treatments here are not nearly as atrociously priced as most of my visits to other doctors. The staff and workers really make me feel cared for. I recommend this doctor office over many other ones."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWTxx2WN13zQJY8yBCCHsv9s-9mCkVXOQeJLkm0XXD79QTARPgEQg=s120-c-rp-mo-br100",
+          "name": "Samson Zewde",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Great place! I felt well taken care of and left feeling revitalized after treatment."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXVhyyBMpfz7uCiGqz3lpZ8jfqwwk-NuKXmwhjchhSp_9mYRNfd=s120-c-rp-mo-ba2-br100",
+          "name": "Nas Moha",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Doctors and staff are personable and friendly that provides excellent care. Best care so far around the area"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWetJi7ZC30xKr9f_Et3sjo0MU-PtbJxY_MJW8ATsz1I44J_gjo=s120-c-rp-mo-ba3-br100",
+          "name": "Oxana Oleson",
+          "date": "2024-06-26",
+          "star": 5,
+          "comment": "I have known Dr. Afrooz for the past 8 years. Besides her knowledge and care she put in helping patients with different complex health issues, she is also one of the nicest people I know. She treated me and my family and never gave up on me trying to find a solution for treating chronic Lyme disease. Her office is equipped with lots of helpful tools to get you well. My favorite is a hyperbaric chamber, but there are many more. My daughter also recovered from Lyme disease with help of Dr. Afrooz. At that time, she was only 5 years old.\nI am beyond grateful for her help and knowledge. She is using both-conventional and integrative methods and always keeping up to date on new treatments."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUfWn8Nlmr9OTvD94Q-8w8MLmPpA7gWKZDCa-j1BUcZNfT9_ns=s120-c-rp-mo-br100",
+          "name": "sumaiyah khan",
+          "date": "2024-05-11",
+          "star": 5,
+          "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
+        }
+      ]
     },
     {
       "id": "iv-nutritional-infusions",

@@ -98,6 +98,27 @@ void main() {
       expect(sauna.reviews, isNotEmpty);
     });
 
+    test('Hyperbaric Oxygen service is fully populated', () async {
+      final result = await ServicesRepository(createMockApiClient())
+          .getServiceById('hyperbaric-oxygen-therapy');
+
+      expect(result, isA<ApiSuccess<Service>>());
+      final hbot = (result as ApiSuccess<Service>).data;
+      expect(hbot.heroHeading, 'hyperbaric oxygen therapy');
+      expect(hbot.headline, contains('Hyperbaric Oxygen Therapy'));
+      expect(hbot.contentHtml, isNotEmpty);
+      expect(hbot.ctaLabel, 'Request An Appointment');
+      expect(hbot.addressedConcerns, hasLength(9));
+      expect(hbot.sections, hasLength(13));
+      expect(hbot.sections.first.type, 'image_text');
+      expect(hbot.sections[1].title, contains('Which Conditions'));
+      expect(hbot.sections[1].items, hasLength(9));
+      expect(hbot.sections[2].title, contains('Autism'));
+      expect(hbot.sections.where((s) => s.isFeaturedTherapies), hasLength(1));
+      expect(hbot.sections.last.isGettingStarted, isTrue);
+      expect(hbot.reviews, isNotEmpty);
+    });
+
     test('getServiceById returns failure for unknown id', () async {
       final result = await ServicesRepository(createMockApiClient())
           .getServiceById('missing');

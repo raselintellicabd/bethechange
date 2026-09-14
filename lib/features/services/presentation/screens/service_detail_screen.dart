@@ -25,6 +25,7 @@ import '../../domain/models/service.dart';
 import '../providers/services_providers.dart';
 import 'frequency_specific_microcurrent_detail_view.dart';
 import 'infrared_sauna_therapy_detail_view.dart';
+import 'hyperbaric_oxygen_therapy_detail_view.dart';
 
 class ServiceDetailScreen extends ConsumerWidget {
   const ServiceDetailScreen({super.key, required this.serviceId});
@@ -53,6 +54,9 @@ class ServiceDetailScreen extends ConsumerWidget {
         }
         if (service.routeId == 'infrared-sauna-therapy') {
           return InfraredSaunaTherapyDetailView(service: service);
+        }
+        if (service.routeId == 'hyperbaric-oxygen-therapy') {
+          return HyperbaricOxygenTherapyDetailView(service: service);
         }
         return _ServiceDetailBody(service: service);
       },
