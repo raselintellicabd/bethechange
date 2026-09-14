@@ -1,6 +1,7 @@
 import '../../../../core/domain/models/content_block.dart';
 import '../../../../core/domain/models/labeled_list_item.dart';
 import '../../../../core/domain/models/recommended_book.dart';
+import '../../../about/domain/models/review.dart';
 
 class ServiceSectionItem {
   const ServiceSectionItem({
@@ -9,6 +10,7 @@ class ServiceSectionItem {
     this.contentHtml,
     this.imageUrl,
     this.linkUrl,
+    this.linkLabel,
   });
 
   final String title;
@@ -16,6 +18,7 @@ class ServiceSectionItem {
   final String? contentHtml;
   final String? imageUrl;
   final String? linkUrl;
+  final String? linkLabel;
 
   List<String> get lines {
     return content
@@ -44,6 +47,7 @@ class ServiceSection {
     this.contentHtml,
     this.imageUrl,
     this.imageSide = 'left',
+    this.layout = '',
     this.items = const [],
   });
 
@@ -53,6 +57,7 @@ class ServiceSection {
   final String? contentHtml;
   final String? imageUrl;
   final String imageSide;
+  final String layout;
   final List<ServiceSectionItem> items;
 
   bool get imageOnRight => imageSide.trim().toLowerCase() == 'right';
@@ -60,6 +65,22 @@ class ServiceSection {
   bool get hasImages =>
       (imageUrl != null && imageUrl!.isNotEmpty) ||
       items.any((item) => item.imageUrl != null && item.imageUrl!.isNotEmpty);
+
+  String get _layoutKey => layout.trim().toLowerCase();
+
+  bool get isGettingStarted =>
+      _layoutKey == 'getting_started' ||
+      title.toLowerCase().contains('feel good');
+
+  bool get isFeaturedTherapies =>
+      _layoutKey == 'featured' ||
+      title.toLowerCase().contains('featured therap');
+
+  bool get isAddressedConcerns {
+    if (_layoutKey == 'address' || _layoutKey == 'concerns') return true;
+    final lower = title.toLowerCase();
+    return lower.contains('address') && !isFeaturedTherapies;
+  }
 }
 
 /// A clinic service/therapy shown under the Services tab.
@@ -70,8 +91,13 @@ class Service {
     required this.summary,
     required this.articleBody,
     this.slug = '',
+    this.heroHeading,
+    this.headline,
+    this.contentHtml,
     this.heroImageUrl,
     this.quote,
+    this.quoteBody,
+    this.quoteHtml,
     this.ctaLabel,
     this.howItWorks,
     this.benefits = const [],
@@ -79,6 +105,7 @@ class Service {
     this.whatToExpect,
     this.recommendedBooks = const [],
     this.sections = const [],
+    this.reviews = const [],
   });
 
   final String id;
@@ -86,8 +113,13 @@ class Service {
   final String name;
   final String summary;
   final String articleBody;
+  final String? heroHeading;
+  final String? headline;
+  final String? contentHtml;
   final String? heroImageUrl;
   final String? quote;
+  final String? quoteBody;
+  final String? quoteHtml;
   final String? ctaLabel;
   final ContentBlock? howItWorks;
   final List<LabeledListItem> benefits;
@@ -95,6 +127,7 @@ class Service {
   final ContentBlock? whatToExpect;
   final List<RecommendedBook> recommendedBooks;
   final List<ServiceSection> sections;
+  final List<Review> reviews;
 
   String get routeId {
     final value = slug.trim();
@@ -122,8 +155,13 @@ class Service {
       name: name,
       summary: _text(json, const ['summary', 'description', 'content']),
       articleBody: _text(json, const ['articleBody']),
+      heroHeading: _nullableText(json, const ['heroHeading', 'hero_heading']),
+      headline: _nullableText(json, const ['headline']),
+      contentHtml: _nullableText(json, const ['content_html', 'contentHtml']),
       heroImageUrl: _url(json, const ['heroImageUrl', 'heroImage', 'img-url']),
       quote: _nullableText(json, const ['quote']),
+      quoteBody: _nullableText(json, const ['quoteBody', 'quote_body']),
+      quoteHtml: _nullableText(json, const ['quoteHtml', 'quote_html']),
       ctaLabel: _nullableText(json, const ['cta-label', 'ctaLabel']),
       howItWorks: _parseBlock(json['howItWorks']),
       benefits: _parseItems(json['benefits']),
@@ -133,6 +171,7 @@ class Service {
           .map(RecommendedBook.fromJson)
           .toList(),
       sections: _maps(json['sections']).map(_section).toList(),
+      reviews: _maps(json['reviews']).map(Review.fromJson).toList(),
     );
   }
 
@@ -146,6 +185,7 @@ class Service {
       imageSide: _text(json, const ['image-side', 'imageSide']).isEmpty
           ? 'left'
           : _text(json, const ['image-side', 'imageSide']),
+      layout: _text(json, const ['layout']),
       items: _maps(json['items']).map((item) {
         return ServiceSectionItem(
           title: _text(item, const ['title', 'label']),
@@ -153,6 +193,7 @@ class Service {
           contentHtml: _nullableText(item, const ['content_html', 'contentHtml']),
           imageUrl: _url(item, const ['img-url', 'imageUrl', 'iconUrl']),
           linkUrl: _nullableText(item, const ['link-url', 'linkUrl']),
+          linkLabel: _nullableText(item, const ['link-label', 'linkLabel']),
         );
       }).toList(),
     );

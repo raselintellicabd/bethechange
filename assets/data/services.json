@@ -4,43 +4,267 @@
   "services": [
     {
       "id": "frequency-specific-microcurrent",
-      "name": "Frequency Specific Microcurrent Therapy",
-      "summary": "Gentle electromagnetic pulses that resonate with specific tissues to support pain relief, mobility, and tissue repair.",
-      "articleBody": "Frequency Specific Microcurrent (FSM) uses electromagnetic pulses on two channels firing at the same time for more specific and targeted therapy. The electrical current is very gentle at one millionth of an ampere.\n\nFrequency specific treatment vibrates a frequency that resonates with specific tissue enough to change its chemical structure, from one that causes tension, pain, and immobility, to a more stable state with greater movement and decreased pain.\n\nSpecific frequencies have been clinically observed to address over 200 conditions involving inflammation, tissue repair, and pain. FSM is known to significantly increase the body's production of ATP in injured tissues and beta-endorphins, and to decrease inflammatory cytokines and substance P.",
-      "howItWorks": {
-        "title": "How Frequency Specific Microcurrent Works",
-        "body": "Treatment involves lying in comfortable clothing with warmed-damp towels strategically placed, depending on the condition(s) being addressed. Towels are connected to the FSM machine while a painless, low-risk current flows through the treatment area. Sessions typically last 30 to 120 minutes.\n\nFSM does not claim to diagnose or treat any medical conditions."
-      },
-      "benefits": [
-        { "label": "Decreased Pain" },
-        { "label": "Reduced Inflammation" },
-        { "label": "Improved Tissue Stability" },
-        { "label": "Greater Mobility Support" },
-        { "label": "Increased ATP in Injured Tissues" }
-      ],
+      "name": "Frequency Specific Microcurrent",
+      "heroHeading": "frequency specific microcurrent",
+      "headline": "What is Frequency Specific Microcurrent Therapy?",
+      "title": "Frequency Specific Microcurrent Therapy",
+      "summary": "Frequency Specific Microcurrent (FSM) uses electromagnetic pulses on two channels firing at the same time for more specific and targeted therapy. The electrical current is very gentle at one millionth of an ampere. Frequency specific treatment vibrates a frequency that resonates with specific tissue enough to change its chemical structure, from one that causes tension, pain, immobility, to a different more stable state with greater movement and decreased pain.",
+      "description": "Frequency Specific Microcurrent (FSM) uses electromagnetic pulses on two channels firing at the same time for more specific and targeted therapy. The electrical current is very gentle at one millionth of an ampere. Frequency specific treatment vibrates a frequency that resonates with specific tissue enough to change its chemical structure, from one that causes tension, pain, immobility, to a different more stable state with greater movement and decreased pain.",
+      "articleBody": "Frequency Specific Microcurrent (FSM) uses electromagnetic pulses on two channels firing at the same time for more specific and targeted therapy. The electrical current is very gentle at one millionth of an ampere. Frequency specific treatment vibrates a frequency that resonates with specific tissue enough to change its chemical structure, from one that causes tension, pain, immobility, to a different more stable state with greater movement and decreased pain.\nSpecific frequencies have been clinically observed to address over 200 conditions involving inflammation, tissue repair and pain, as well as, less common conditions such as shingles and polio virus. FSM is known to significantly increase the body’s production of ATP in injured tissues and beta-endorphins in the body. FSM is known to decrease inflammatory cytokines (IL-1, IL-6, TNF-alpha) and substance P, thus decrease pain.\nTreatment involves patient lying in comfortable clothing with warmed-damp towels strategically placed, depending on condition(s) being addressed. Towels are connected to FSM machine while a painless and low risk current flows through treatment area. Treatment typically lasts anywhere from 30 to 120 minutes.\nFSM does not claim to diagnose or treat any medical conditions.",
+      "content_html": "<p>Frequency Specific Microcurrent (FSM) uses electromagnetic pulses on two channels firing at the same time for more specific and targeted therapy. The electrical current is very gentle at one millionth of an ampere. Frequency specific treatment vibrates a frequency that resonates with specific tissue enough to change its chemical structure, from one that causes tension, pain, immobility, to a different more stable state with greater movement and decreased pain.</p><p>Specific frequencies have been clinically observed to address over 200 conditions involving inflammation, tissue repair and pain, as well as, less common conditions such as shingles and polio virus. FSM is known to significantly increase the body’s production of ATP in injured tissues and beta-endorphins in the body. FSM is known to decrease inflammatory cytokines (IL-1, IL-6, TNF-alpha) and substance P, thus decrease pain.</p><p>Treatment involves patient lying in comfortable clothing with warmed-damp towels strategically placed, depending on condition(s) being addressed. Towels are connected to FSM machine while a painless and low risk current flows through treatment area. Treatment typically lasts anywhere from 30 to 120 minutes.</p><p>FSM does not claim to diagnose or treat any medical conditions.</p>",
+      "heroImage": "http://192.168.1.160:8000/media/services/MC_tz6RhKU.jpg",
+      "slug": "frequency-specific-microcurrent",
+      "howItWorks": null,
+      "benefits": [],
       "addressedConcerns": [
-        { "label": "Neuropathic Pain" },
-        { "label": "Muscle Pain and Soreness" },
-        { "label": "Tendinitis / Tendinopathy" },
-        { "label": "Shingles and Herpes" },
-        { "label": "Burns and Wounds" },
-        { "label": "Disc Injuries" },
-        { "label": "Irritable Bowel / Visceral Pain" },
-        { "label": "Diabetic Neuropathies" },
-        { "label": "Fibromyalgia" },
-        { "label": "Neuromas" },
-        { "label": "Sports Injuries" },
-        { "label": "Post-Surgery Recovery" },
-        { "label": "Acute and Chronic Musculoskeletal Injuries" }
-      ],
-      "whatToExpect": {
-        "title": "What To Expect During FSM",
-        "body": "Arrive wearing comfortable clothing. You lie on an examination table while your provider places warm, damp towels over treatment areas and connects them to the FSM machine. The session is generally painless; you may feel warmth or tissue softening during treatment."
-      },
-      "recommendedBooks": [
         {
-          "title": "Frequency Specific Microcurrent in Pain Management",
-          "author": "Carolyn McMakin"
+          "label": "Neuropathic pain"
+        },
+        {
+          "label": "Muscle pain and soreness"
+        },
+        {
+          "label": "Tendinitis"
+        },
+        {
+          "label": "Shingles"
+        },
+        {
+          "label": "Herpes"
+        },
+        {
+          "label": "Burns"
+        },
+        {
+          "label": "Wounds"
+        },
+        {
+          "label": "Disc injuries"
+        },
+        {
+          "label": "Irritable bowel"
+        },
+        {
+          "label": "Visceral/referred pain"
+        },
+        {
+          "label": "Diabetic neuropathies"
+        },
+        {
+          "label": "Fibromyalgia (see reference below)"
+        },
+        {
+          "label": "Neuromas"
+        },
+        {
+          "label": "Tendinopathy"
+        },
+        {
+          "label": "Pain from spinal cord injuries"
+        },
+        {
+          "label": "Post-surgery recovery"
+        },
+        {
+          "label": "Sports injuries"
+        },
+        {
+          "label": "Acute (new) and chronic (long-term) musculoskeletal injuries"
+        }
+      ],
+      "whatToExpect": null,
+      "recommendedBooks": [],
+      "quote": "Feel Good, Live Better!",
+      "quoteBody": "It’s easy to get started as a new patient…",
+      "quoteHtml": "<p>It’s easy to get started as a new patient…</p>",
+      "cta-label": "Request An Appointment",
+      "cta-url": "/appointments/?source=%2Ffrequency-specific-microcurrent%2F&patient=new",
+      "sections": [
+        {
+          "type": "image_text",
+          "title": "What is Frequency Specific Microcurrent Therapy?",
+          "content": "Frequency Specific Microcurrent (FSM) uses electromagnetic pulses on two channels firing at the same time for more specific and targeted therapy. The electrical current is very gentle at one millionth of an ampere. Frequency specific treatment vibrates a frequency that resonates with specific tissue enough to change its chemical structure, from one that causes tension, pain, immobility, to a different more stable state with greater movement and decreased pain.\nSpecific frequencies have been clinically observed to address over 200 conditions involving inflammation, tissue repair and pain, as well as, less common conditions such as shingles and polio virus. FSM is known to significantly increase the body’s production of ATP in injured tissues and beta-endorphins in the body. FSM is known to decrease inflammatory cytokines (IL-1, IL-6, TNF-alpha) and substance P, thus decrease pain.\nTreatment involves patient lying in comfortable clothing with warmed-damp towels strategically placed, depending on condition(s) being addressed. Towels are connected to FSM machine while a painless and low risk current flows through treatment area. Treatment typically lasts anywhere from 30 to 120 minutes.\nFSM does not claim to diagnose or treat any medical conditions.",
+          "content_html": "<p>Frequency Specific Microcurrent (FSM) uses electromagnetic pulses on two channels firing at the same time for more specific and targeted therapy. The electrical current is very gentle at one millionth of an ampere. Frequency specific treatment vibrates a frequency that resonates with specific tissue enough to change its chemical structure, from one that causes tension, pain, immobility, to a different more stable state with greater movement and decreased pain.</p><p>Specific frequencies have been clinically observed to address over 200 conditions involving inflammation, tissue repair and pain, as well as, less common conditions such as shingles and polio virus. FSM is known to significantly increase the body’s production of ATP in injured tissues and beta-endorphins in the body. FSM is known to decrease inflammatory cytokines (IL-1, IL-6, TNF-alpha) and substance P, thus decrease pain.</p><p>Treatment involves patient lying in comfortable clothing with warmed-damp towels strategically placed, depending on condition(s) being addressed. Towels are connected to FSM machine while a painless and low risk current flows through treatment area. Treatment typically lasts anywhere from 30 to 120 minutes.</p><p>FSM does not claim to diagnose or treat any medical conditions.</p>",
+          "img-url": "http://192.168.1.160:8000/media/services/freq_BmDmBh5.jpg",
+          "image-side": "left",
+          "items": []
+        },
+        {
+          "type": "cards",
+          "title": "What Does Frequency Specific Microcurrent Address?",
+          "content": "REFERENCES:\nFrequency Specific Microcurrent in Pain Management, Textbook for practitioners, Carolyn McMakin author, Elsevier Science Press, Edinburgh, 2010.\nNon-pharmacologic treatment of shingles, McMakin C, Practical Pain Management, 2010, Vol 10; 4; 24-29.\nNon-pharmacologic treatment of neuropathic pain using Frequency Specific Microcurrent, McMakin, C, The Pain Practitioner, Fall, 2010, pp 68-73\nThe efficacy of frequency specific microcurrent therapy on delayed onset muscle soreness, Curtis D, Fallows S, Morris M, McMakin C, Journal of Bodywork and Movement Therapies; 2010; 14 (3): 272-9.\nVisceral and Somatic Disorders: Tissue Softening with Frequency Specific Microcurrent, McMakin C, Oschman J, Journal of Alternative and Complementary Medicine, 2012, Vol. 18, Number 00, pp 1-8.\nFSM for Fibromyalgia: https://www.amazon.com/dp/1691700878\nMORE INFO:\nhttps://frequencyspecific.com/microcurrent-experimental- results-5407/about/?Display_FAQ=14400",
+          "content_html": "<p><strong>REFERENCES:</strong></p><ul><li>Frequency Specific Microcurrent in Pain Management, Textbook for practitioners, Carolyn McMakin author, Elsevier Science Press, Edinburgh, 2010.</li><li>Non-pharmacologic treatment of shingles, McMakin C, Practical Pain Management, 2010, Vol 10; 4; 24-29.</li><li>Non-pharmacologic treatment of neuropathic pain using Frequency Specific Microcurrent, McMakin, C, The Pain Practitioner, Fall, 2010, pp 68-73</li><li>The efficacy of frequency specific microcurrent therapy on delayed onset muscle soreness, Curtis D, Fallows S, Morris M, McMakin C, Journal of Bodywork and Movement Therapies; 2010; 14 (3): 272-9.</li><li>Visceral and Somatic Disorders: Tissue Softening with Frequency Specific Microcurrent, McMakin C, Oschman J, Journal of Alternative and Complementary Medicine, 2012, Vol. 18, Number 00, pp 1-8.</li><li>FSM for Fibromyalgia: <a href=\"https://www.amazon.com/dp/1691700878\" rel=\"noopener noreferrer\">https://www.amazon.com/dp/1691700878</a></li></ul><p><strong>MORE INFO:</strong></p><p><a href=\"https://frequencyspecific.com/microcurrent-experimental-\" rel=\"noopener noreferrer\">https://frequencyspecific.com/microcurrent-experimental- results-5407/about/?Display_FAQ=14400</a></p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Neuropathic pain"
+            },
+            {
+              "title": "Muscle pain and soreness"
+            },
+            {
+              "title": "Tendinitis"
+            },
+            {
+              "title": "Shingles"
+            },
+            {
+              "title": "Herpes"
+            },
+            {
+              "title": "Burns"
+            },
+            {
+              "title": "Wounds"
+            },
+            {
+              "title": "Disc injuries"
+            },
+            {
+              "title": "Irritable bowel"
+            },
+            {
+              "title": "Visceral/referred pain"
+            },
+            {
+              "title": "Diabetic neuropathies"
+            },
+            {
+              "title": "Fibromyalgia (see reference below)"
+            },
+            {
+              "title": "Neuromas"
+            },
+            {
+              "title": "Tendinopathy"
+            },
+            {
+              "title": "Pain from spinal cord injuries"
+            },
+            {
+              "title": "Post-surgery recovery"
+            },
+            {
+              "title": "Sports injuries"
+            },
+            {
+              "title": "Acute (new) and chronic (long-term) musculoskeletal injuries"
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Featured Therapies",
+          "content": "View Our Full List Of Services",
+          "content_html": "<p><a href=\"http://192.168.1.160:8000/services/\" rel=\"noopener noreferrer\">View Our Full List Of Services</a></p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Ion Foot Detox",
+              "img-url": "http://192.168.1.160:8000/media/services/DETOX_gFma2Zd.jpg",
+              "link-url": "/ion-foot-detox/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "IV Nutritional Infusions",
+              "img-url": "http://192.168.1.160:8000/media/services/IV_VO14yy6.jpg",
+              "link-url": "/iv-nutritional-infusions/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "Hyperbaric Oxygen Therapy",
+              "img-url": "http://192.168.1.160:8000/media/services/OX_LiGYVwh.jpg",
+              "link-url": "/hyperbaric-oxygen-therapy/",
+              "link-label": "Learn More"
+            },
+            {
+              "title": "Infrared Sauna Therapy",
+              "img-url": "http://192.168.1.160:8000/media/services/SAUNA_FmY6sOK.jpg",
+              "link-url": "/infrared-sauna-therapy/",
+              "link-label": "Learn More"
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Feel Good, Live Better!",
+          "content": "It’s easy to get started as a new patient…",
+          "content_html": "<p>It’s easy to get started as a new patient…</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Request An Appointment",
+              "content": "Your first step is to either call our clinic or complete the online request form for a new patient appointment",
+              "content_html": "<p>Your first step is to either call our clinic or complete the online request form for a new patient appointment</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/1-1_K9JjNP2.png"
+            },
+            {
+              "title": "Experience Our Clinic",
+              "content": "Come to our clinic to receive your integrative consultation or treatment session.",
+              "content_html": "<p>Come to our clinic to receive your integrative consultation or treatment session.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/2-1_muHsJ4n.png"
+            },
+            {
+              "title": "Choose A Membership",
+              "content": "Optional (but recommended) – Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.",
+              "content_html": "<p><em>Optional (but recommended) –</em> Choose one of our membership tiers to receive discounted rates and complimentary sessions every month. We will go through the options with you at our initial appointment.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/3-1_8wIetj9.png"
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way. Even when I was at my darkest, she was there helping from the sidelines. My entire family has all been helped by Dr. Afrooz and her husband. We've made connections and friendships and became familiar with each other in a way that other doctors are usually more one-dimensional with. Dr. Afrooz has changed my life in such a wonderful way! She is worth every penny we've paid and way more!"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I was always feeling very tired and lethargic and I was thinking that maybe I had long covid. But Dr Afrooz knew all the right questions to help identify that my condition is related to tick bites instead from a hiking trip I had gone on. I ask a lot of questions and she seems to not find me to be frustrating and i know that she is straightforward because she’s not afraid to say I don’t know if she does not know the answer to any of my questions. Nor is she dismissive of me whether it be ideas as to what I think could possibly help me or if I tell her something does not feel right. I highly recommend her and I feel fortunate to have been able to see her."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to. The appointments and treatments here are not nearly as atrociously priced as most of my visits to other doctors. The staff and workers really make me feel cared for. I recommend this doctor office over many other ones."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWTxx2WN13zQJY8yBCCHsv9s-9mCkVXOQeJLkm0XXD79QTARPgEQg=s120-c-rp-mo-br100",
+          "name": "Samson Zewde",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Great place! I felt well taken care of and left feeling revitalized after treatment."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXVhyyBMpfz7uCiGqz3lpZ8jfqwwk-NuKXmwhjchhSp_9mYRNfd=s120-c-rp-mo-ba2-br100",
+          "name": "Nas Moha",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Doctors and staff are personable and friendly that provides excellent care. Best care so far around the area"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWetJi7ZC30xKr9f_Et3sjo0MU-PtbJxY_MJW8ATsz1I44J_gjo=s120-c-rp-mo-ba3-br100",
+          "name": "Oxana Oleson",
+          "date": "2024-06-26",
+          "star": 5,
+          "comment": "I have known Dr. Afrooz for the past 8 years. Besides her knowledge and care she put in helping patients with different complex health issues, she is also one of the nicest people I know. She treated me and my family and never gave up on me trying to find a solution for treating chronic Lyme disease. Her office is equipped with lots of helpful tools to get you well. My favorite is a hyperbaric chamber, but there are many more. My daughter also recovered from Lyme disease with help of Dr. Afrooz. At that time, she was only 5 years old.\nI am beyond grateful for her help and knowledge. She is using both-conventional and integrative methods and always keeping up to date on new treatments."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUfWn8Nlmr9OTvD94Q-8w8MLmPpA7gWKZDCa-j1BUcZNfT9_ns=s120-c-rp-mo-br100",
+          "name": "sumaiyah khan",
+          "date": "2024-05-11",
+          "star": 5,
+          "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
         }
       ]
     },
@@ -54,15 +278,29 @@
         "body": "Infrared heat gently raises core body temperature, supporting circulation, detoxification through sweat, and cellular energy processes in a relaxing setting. Sessions can be enhanced with chromotherapy or red light therapy when appropriate."
       },
       "benefits": [
-        { "label": "Supports Detoxification" },
-        { "label": "Promotes Cellular Energy Production" },
-        { "label": "Relaxation and Recovery" },
-        { "label": "Circulation Support" }
+        {
+          "label": "Supports Detoxification"
+        },
+        {
+          "label": "Promotes Cellular Energy Production"
+        },
+        {
+          "label": "Relaxation and Recovery"
+        },
+        {
+          "label": "Circulation Support"
+        }
       ],
       "addressedConcerns": [
-        { "label": "Toxin Overload Support" },
-        { "label": "Muscle Recovery" },
-        { "label": "General Wellness" }
+        {
+          "label": "Toxin Overload Support"
+        },
+        {
+          "label": "Muscle Recovery"
+        },
+        {
+          "label": "General Wellness"
+        }
       ],
       "whatToExpect": {
         "title": "What To Expect",
@@ -80,18 +318,38 @@
         "body": "During treatment, you lie down in a pressurized chamber as a high concentration of oxygen dissolves into your bloodstream. This improves tissue regeneration and repair and can help relieve inflammation."
       },
       "benefits": [
-        { "label": "Enhanced Tissue Healing" },
-        { "label": "Reduced Inflammation and Pain" },
-        { "label": "Improved Oxygenation" },
-        { "label": "Supports Brain and Injury Recovery" },
-        { "label": "Faster Recovery Support" }
+        {
+          "label": "Enhanced Tissue Healing"
+        },
+        {
+          "label": "Reduced Inflammation and Pain"
+        },
+        {
+          "label": "Improved Oxygenation"
+        },
+        {
+          "label": "Supports Brain and Injury Recovery"
+        },
+        {
+          "label": "Faster Recovery Support"
+        }
       ],
       "addressedConcerns": [
-        { "label": "Chronic Non-Healing Wounds" },
-        { "label": "Certain Infections" },
-        { "label": "Concussions and Head Injuries" },
-        { "label": "Sprains, Tears, and Fractures Support" },
-        { "label": "Post-Operative Recovery Support" }
+        {
+          "label": "Chronic Non-Healing Wounds"
+        },
+        {
+          "label": "Certain Infections"
+        },
+        {
+          "label": "Concussions and Head Injuries"
+        },
+        {
+          "label": "Sprains, Tears, and Fractures Support"
+        },
+        {
+          "label": "Post-Operative Recovery Support"
+        }
       ],
       "whatToExpect": {
         "title": "What To Expect",
@@ -109,16 +367,32 @@
         "body": "Nutrients are delivered intravenously so they bypass digestion and enter circulation directly. Your provider helps select an infusion aligned with your wellness goals and clinical needs."
       },
       "benefits": [
-        { "label": "Rapid Hydration" },
-        { "label": "Enhanced Nutrient Absorption" },
-        { "label": "Recovery Support" },
-        { "label": "Energy and Wellness Support" }
+        {
+          "label": "Rapid Hydration"
+        },
+        {
+          "label": "Enhanced Nutrient Absorption"
+        },
+        {
+          "label": "Recovery Support"
+        },
+        {
+          "label": "Energy and Wellness Support"
+        }
       ],
       "addressedConcerns": [
-        { "label": "Nutrient Deficiencies" },
-        { "label": "Dehydration" },
-        { "label": "Recovery from Illness" },
-        { "label": "Athletic Recovery Support" }
+        {
+          "label": "Nutrient Deficiencies"
+        },
+        {
+          "label": "Dehydration"
+        },
+        {
+          "label": "Recovery from Illness"
+        },
+        {
+          "label": "Athletic Recovery Support"
+        }
       ],
       "whatToExpect": {
         "title": "What To Expect",
@@ -136,16 +410,32 @@
         "body": "Targeted IV formulations deliver hydration and nutrients efficiently to support energy, immunity, and recovery based on your needs."
       },
       "benefits": [
-        { "label": "Rapid Hydration" },
-        { "label": "Enhanced Nutrient Absorption" },
-        { "label": "Increased Energy Support" },
-        { "label": "Immunity Support" }
+        {
+          "label": "Rapid Hydration"
+        },
+        {
+          "label": "Enhanced Nutrient Absorption"
+        },
+        {
+          "label": "Increased Energy Support"
+        },
+        {
+          "label": "Immunity Support"
+        }
       ],
       "addressedConcerns": [
-        { "label": "Dehydration Recovery" },
-        { "label": "Low Energy" },
-        { "label": "Immune Support Goals" },
-        { "label": "General Wellness" }
+        {
+          "label": "Dehydration Recovery"
+        },
+        {
+          "label": "Low Energy"
+        },
+        {
+          "label": "Immune Support Goals"
+        },
+        {
+          "label": "General Wellness"
+        }
       ],
       "whatToExpect": {
         "title": "What To Expect",
@@ -163,16 +453,32 @@
         "body": "Medical ozone can be administered using clinic protocols designed to support oxygenation, circulation, and immune activity. Your provider determines whether ozone therapy is appropriate for your goals and history."
       },
       "benefits": [
-        { "label": "Improved Circulation Support" },
-        { "label": "Oxygen Delivery to Tissues" },
-        { "label": "Immune System Activation Support" },
-        { "label": "Cellular Stress Support" }
+        {
+          "label": "Improved Circulation Support"
+        },
+        {
+          "label": "Oxygen Delivery to Tissues"
+        },
+        {
+          "label": "Immune System Activation Support"
+        },
+        {
+          "label": "Cellular Stress Support"
+        }
       ],
       "addressedConcerns": [
-        { "label": "Circulatory Concerns" },
-        { "label": "Immune Support Goals" },
-        { "label": "Tissue Oxygenation Support" },
-        { "label": "Complementary Wellness Care" }
+        {
+          "label": "Circulatory Concerns"
+        },
+        {
+          "label": "Immune Support Goals"
+        },
+        {
+          "label": "Tissue Oxygenation Support"
+        },
+        {
+          "label": "Complementary Wellness Care"
+        }
       ],
       "whatToExpect": {
         "title": "What To Expect",
@@ -190,15 +496,29 @@
         "body": "Practitioners apply alternating pressure to reflex points on the feet to stimulate neural pathways that correspond to organs and systems throughout the body."
       },
       "benefits": [
-        { "label": "Non-Invasive Support" },
-        { "label": "Relaxation" },
-        { "label": "Whole-Body Reflex Stimulation" },
-        { "label": "Complementary Wellness Support" }
+        {
+          "label": "Non-Invasive Support"
+        },
+        {
+          "label": "Relaxation"
+        },
+        {
+          "label": "Whole-Body Reflex Stimulation"
+        },
+        {
+          "label": "Complementary Wellness Support"
+        }
       ],
       "addressedConcerns": [
-        { "label": "Stress and Tension" },
-        { "label": "General Wellness Support" },
-        { "label": "Complementary Care Alongside Other Therapies" }
+        {
+          "label": "Stress and Tension"
+        },
+        {
+          "label": "General Wellness Support"
+        },
+        {
+          "label": "Complementary Care Alongside Other Therapies"
+        }
       ],
       "whatToExpect": {
         "title": "What To Expect",
@@ -216,17 +536,35 @@
         "body": "You sit comfortably with your feet submerged in purified water with sea salt for about 30 minutes while the IonCleanse system supports the removal of impurities. An array placed in the water helps facilitate the session."
       },
       "benefits": [
-        { "label": "Increased Energy Support" },
-        { "label": "Improved Sleep Potential" },
-        { "label": "Better Circulation Support" },
-        { "label": "Skin Clarity Support" },
-        { "label": "Digestive Comfort Support" },
-        { "label": "Immune Support" }
+        {
+          "label": "Increased Energy Support"
+        },
+        {
+          "label": "Improved Sleep Potential"
+        },
+        {
+          "label": "Better Circulation Support"
+        },
+        {
+          "label": "Skin Clarity Support"
+        },
+        {
+          "label": "Digestive Comfort Support"
+        },
+        {
+          "label": "Immune Support"
+        }
       ],
       "addressedConcerns": [
-        { "label": "Toxic Overload Symptoms" },
-        { "label": "Environmental Exposure Support" },
-        { "label": "General Detoxification Goals" }
+        {
+          "label": "Toxic Overload Symptoms"
+        },
+        {
+          "label": "Environmental Exposure Support"
+        },
+        {
+          "label": "General Detoxification Goals"
+        }
       ],
       "whatToExpect": {
         "title": "What To Expect",

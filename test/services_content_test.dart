@@ -41,12 +41,21 @@ void main() {
 
       expect(result, isA<ApiSuccess<Service>>());
       final fsm = (result as ApiSuccess<Service>).data;
-      expect(fsm.howItWorks, isNotNull);
-      expect(fsm.benefits, isNotEmpty);
-      expect(fsm.addressedConcerns, isNotEmpty);
-      expect(fsm.whatToExpect, isNotNull);
-      expect(fsm.recommendedBooks, isNotEmpty);
-      expect(fsm.benefitsTitle, contains('Frequency Specific Microcurrent'));
+      expect(fsm.heroHeading, 'frequency specific microcurrent');
+      expect(fsm.headline, contains('Frequency Specific Microcurrent Therapy'));
+      expect(fsm.contentHtml, isNotEmpty);
+      expect(fsm.ctaLabel, 'Request An Appointment');
+      expect(fsm.addressedConcerns, hasLength(18));
+      expect(fsm.sections, hasLength(4));
+      expect(fsm.sections.first.type, 'image_text');
+      expect(fsm.sections.first.imageUrl, isNotEmpty);
+      expect(fsm.sections[1].isAddressedConcerns, isTrue);
+      expect(fsm.sections[1].items, hasLength(18));
+      expect(fsm.sections[2].isFeaturedTherapies, isTrue);
+      expect(fsm.sections[2].items, hasLength(4));
+      expect(fsm.sections.last.isGettingStarted, isTrue);
+      expect(fsm.reviews, isNotEmpty);
+      expect(fsm.quote, 'Feel Good, Live Better!');
     });
 
     test('getServiceById returns failure for unknown id', () async {
@@ -107,11 +116,16 @@ void main() {
         'id': 'frequency-specific-microcurrent',
         'name': 'Frequency Specific Microcurrent',
         'title': 'Frequency Specific Microcurrent Therapy',
+        'heroHeading': 'frequency specific microcurrent',
+        'headline': 'What is Frequency Specific Microcurrent Therapy?',
         'summary': 'Short summary',
         'articleBody': 'Long article',
+        'content_html': '<p>Intro HTML</p>',
         'heroImageUrl': 'http://example.com/hero.jpg',
         'slug': 'frequency-specific-microcurrent',
         'quote': 'Feel Good, Live Better!',
+        'quoteBody': 'It’s easy to get started as a new patient…',
+        'quoteHtml': '<p>It’s easy to get started as a new patient…</p>',
         'cta-label': 'Request An Appointment',
         'reviews': [
           {'name': 'Elle', 'comment': 'Great', 'star': 5},
@@ -128,11 +142,11 @@ void main() {
           {
             'type': 'cards',
             'title': 'What Does Frequency Specific Microcurrent Address?',
+            'content_html':
+                '<p><strong>REFERENCES:</strong></p><ul><li>McMakin</li></ul>',
             'items': [
-              {
-                'content': 'Neuropathic pain\nMuscle pain and soreness',
-                'content_html': '<ul><li>Neuropathic pain</li><li>Muscle pain and soreness</li></ul>',
-              },
+              {'title': 'Neuropathic pain'},
+              {'title': 'Muscle pain and soreness'},
             ],
           },
           {
@@ -140,26 +154,41 @@ void main() {
             'title': 'Featured Therapies',
             'items': [
               {
+                'title': 'Ion Foot Detox',
                 'img-url': 'http://example.com/detox.jpg',
                 'link-url': '/ion-foot-detox/',
               },
+            ],
+          },
+          {
+            'type': 'cards',
+            'title': 'Feel Good, Live Better!',
+            'items': [
+              {'title': 'Request An Appointment'},
             ],
           },
         ],
       });
 
       expect(detail.name, 'Frequency Specific Microcurrent Therapy');
+      expect(detail.heroHeading, 'frequency specific microcurrent');
+      expect(detail.headline, contains('What is'));
+      expect(detail.contentHtml, contains('<p>'));
       expect(detail.heroImageUrl, contains('hero.jpg'));
       expect(detail.ctaLabel, 'Request An Appointment');
-      expect(detail.sections, hasLength(3));
+      expect(detail.quoteBody, isNotEmpty);
+      expect(detail.reviews, hasLength(1));
+      expect(detail.sections, hasLength(4));
       expect(detail.sections.first.imageUrl, contains('freq.jpg'));
-      expect(detail.sections[1].items.single.lines, [
+      expect(detail.sections[1].isAddressedConcerns, isTrue);
+      expect(detail.sections[1].items.map((i) => i.title), [
         'Neuropathic pain',
         'Muscle pain and soreness',
       ]);
       expect(detail.sections.first.contentHtml, contains('<p>'));
-      expect(detail.sections[1].items.single.contentHtml, contains('<ul>'));
-      expect(detail.sections.last.items.single.linkSlug, 'ion-foot-detox');
+      expect(detail.sections[2].isFeaturedTherapies, isTrue);
+      expect(detail.sections[2].items.single.linkSlug, 'ion-foot-detox');
+      expect(detail.sections.last.isGettingStarted, isTrue);
       expect(
         const ServiceSectionItem(linkUrl: '/membership/').linkSlug,
         isNull,
