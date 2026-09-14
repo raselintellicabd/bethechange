@@ -15,10 +15,10 @@ import '../../../blog/domain/models/blog_html.dart';
 import '../../../blog/presentation/widgets/blog_html_view.dart';
 import '../../domain/models/service.dart';
 
-/// Website-matched IV Nutritional Infusions page (`/iv-nutritional-infusions/`).
+/// Website-matched Liquivida IV Therapy page (`/liquivida-iv-therapy/`).
 /// Not shared with other service screens.
-class IvNutritionalInfusionsDetailView extends StatelessWidget {
-  const IvNutritionalInfusionsDetailView({super.key, required this.service});
+class LiquividaIvTherapyDetailView extends StatelessWidget {
+  const LiquividaIvTherapyDetailView({super.key, required this.service});
 
   final Service service;
 
@@ -37,40 +37,21 @@ class IvNutritionalInfusionsDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sections = service.sections;
-    final therapeutic = _firstWhere(sections, _isTherapeutic);
-    final nutritional = _firstWhere(sections, _isNutritional);
+    final drips = _firstWhere(sections, _isDripsSection);
     final featured = _firstWhere(sections, (s) => s.isFeaturedTherapies);
     final started = _firstWhere(sections, (s) => s.isGettingStarted);
 
     return Scaffold(
-      backgroundColor: AppColors.brandBgLight,
+      backgroundColor: const Color(0xFFF3F8FA),
       appBar: AppAppBar(title: Text(service.name)),
       body: ListView(
         children: [
           _HeroHeadingLine(
-            text: service.heroHeading ?? 'iv nutritional infusions',
+            text: service.heroHeading ?? 'liquivida iv therapy',
           ),
           _IntroCopy(service: service),
-          if (therapeutic != null) ...[
-            _IvCardsSection(
-              section: therapeutic,
-              background: AppColors.brandMutedSurface,
-              style: _IvCardStyle.therapeutic,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 4, 16, 20),
-              child: AppointmentCtaBar(
-                sourceContext: _source,
-                label: _ctaLabel,
-              ),
-            ),
-          ],
-          if (nutritional != null)
-            _IvCardsSection(
-              section: nutritional,
-              background: const Color(0xFFF3F8FA),
-              style: _IvCardStyle.nutritional,
-            ),
+          const _BookingNotice(),
+          if (drips != null) _DripCardsSection(section: drips),
           if (featured != null) _FeaturedTherapiesSection(section: featured),
           if (started != null)
             _GettingStartedSection(section: started, source: _source),
@@ -88,15 +69,13 @@ class IvNutritionalInfusionsDetailView extends StatelessWidget {
     );
   }
 
-  bool _isTherapeutic(ServiceSection section) {
+  bool _isDripsSection(ServiceSection section) {
     if (section.isFeaturedTherapies || section.isGettingStarted) return false;
-    return section.title.toLowerCase().contains('therapeutic');
-  }
-
-  bool _isNutritional(ServiceSection section) {
-    if (section.isFeaturedTherapies || section.isGettingStarted) return false;
-    final title = section.title.toLowerCase();
-    return title.contains('nutritional') && !title.contains('therapeutic');
+    return section.items.any(
+      (item) =>
+          item.title.trim().isNotEmpty &&
+          (item.imageUrl?.trim().isNotEmpty ?? false),
+    );
   }
 
   ServiceSection? _firstWhere(
@@ -160,88 +139,123 @@ class _IntroCopy extends StatelessWidget {
         : (service.summary.trim().isNotEmpty
             ? service.summary
             : service.articleBody);
-    final blocks = blogContentBlocks(
-      contentHtml: html,
-      body: body,
-    );
-    if (blocks.isEmpty) return const SizedBox.shrink();
+    final plain = body
+        .replaceAll(RegExp(r'<[^>]+>'), '')
+        .replaceAll('&amp;', '&')
+        .trim();
+    if (plain.isEmpty) return const SizedBox.shrink();
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 4, 20, 16),
-      child: DefaultTextStyle(
+    // Website bold-leads with "LIQUIVIDA IV Therapy offers a range of benefits".
+    const lead = 'LIQUIVIDA IV Therapy offers a range of benefits';
+    final leadIndex = plain.indexOf(lead);
+    final TextSpan span;
+    if (leadIndex == 0) {
+      final rest = plain.substring(lead.length);
+      span = TextSpan(
+        children: [
+          TextSpan(
+            text: lead,
+            style: AppTextStyles.bodyLarge.copyWith(
+              color: AppColors.brandNavy,
+              fontWeight: FontWeight.w700,
+              height: 1.55,
+            ),
+          ),
+          TextSpan(
+            text: rest,
+            style: AppTextStyles.bodyLarge.copyWith(
+              color: AppColors.brandNavy,
+              fontWeight: FontWeight.w400,
+              height: 1.55,
+            ),
+          ),
+        ],
+      );
+    } else {
+      span = TextSpan(
+        text: plain,
         style: AppTextStyles.bodyLarge.copyWith(
           color: AppColors.brandNavy,
           height: 1.55,
-          fontStyle: FontStyle.italic,
         ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 4, 20, 10),
+      child: Text.rich(span, textAlign: TextAlign.center),
+    );
+  }
+}
+
+class _BookingNotice extends StatelessWidget {
+  const _BookingNotice();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 18),
+      child: Text(
+        "Liquivida IV’s must be booked 2 weeks in advance.",
         textAlign: TextAlign.center,
-        child: BlogHtmlView(blocks: blocks),
+        style: AppTextStyles.bodyMedium.copyWith(
+          color: AppColors.brandNavy,
+          fontStyle: FontStyle.italic,
+          fontWeight: FontWeight.w500,
+          height: 1.4,
+        ),
       ),
     );
   }
 }
 
-enum _IvCardStyle { therapeutic, nutritional }
-
-class _IvCardsSection extends StatelessWidget {
-  const _IvCardsSection({
-    required this.section,
-    required this.background,
-    required this.style,
-  });
+class _DripCardsSection extends StatelessWidget {
+  const _DripCardsSection({required this.section});
 
   final ServiceSection section;
-  final Color background;
-  final _IvCardStyle style;
 
   @override
   Widget build(BuildContext context) {
     final items = section.items
         .where((item) => item.title.trim().isNotEmpty)
         .toList();
+    if (items.isEmpty) return const SizedBox.shrink();
 
-    return ColoredBox(
-      color: background,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 24, 16, 28),
-        child: Column(
-          children: [
-            Text(
-              section.title.toUpperCase(),
-              textAlign: TextAlign.center,
-              style: AppTextStyles.headlineMedium.copyWith(
-                color: AppColors.brandNavy,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0.6,
-              ),
-            ),
-            if (items.isNotEmpty) ...[
-              const SizedBox(height: 20),
-              for (var i = 0; i < items.length; i++) ...[
-                if (i > 0) const SizedBox(height: 14),
-                _IvProductCard(item: items[i], style: style),
-              ],
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          const gap = 12.0;
+          final width = (constraints.maxWidth - gap) / 2;
+          return Wrap(
+            spacing: gap,
+            runSpacing: gap,
+            children: [
+              for (final item in items)
+                SizedBox(
+                  width: width,
+                  child: _DripCard(item: item),
+                ),
             ],
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 }
 
-class _IvProductCard extends StatelessWidget {
-  const _IvProductCard({
-    required this.item,
-    required this.style,
-  });
+class _DripCard extends StatelessWidget {
+  const _DripCard({required this.item});
 
   final ServiceSectionItem item;
-  final _IvCardStyle style;
 
   @override
   Widget build(BuildContext context) {
     final image = item.imageUrl?.trim();
-    final parsed = _parseIvCard(item);
+    final blocks = blogContentBlocks(
+      contentHtml: item.contentHtml,
+      body: item.content,
+    );
 
     return Material(
       color: Colors.white,
@@ -249,15 +263,15 @@ class _IvProductCard extends StatelessWidget {
       shadowColor: AppColors.brandNavy.withValues(alpha: 0.12),
       borderRadius: BorderRadius.circular(16),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(14, 14, 14, 16),
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 14),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (image != null && image.isNotEmpty) ...[
+            if (image != null && image.isNotEmpty)
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: AspectRatio(
-                  aspectRatio: 1.05,
+                  aspectRatio: 1,
                   child: CachedNetworkImage(
                     imageUrl: image,
                     fit: BoxFit.contain,
@@ -270,63 +284,25 @@ class _IvProductCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 14),
-            ],
+            const SizedBox(height: 12),
             Text(
               item.title.trim().toUpperCase(),
               textAlign: TextAlign.center,
-              style: AppTextStyles.titleMedium.copyWith(
+              style: AppTextStyles.titleSmall.copyWith(
                 color: AppColors.brandNavy,
                 fontWeight: FontWeight.w800,
-                letterSpacing: 0.35,
+                letterSpacing: 0.2,
                 height: 1.25,
               ),
             ),
-            if (style == _IvCardStyle.nutritional &&
-                parsed.blurb.isNotEmpty) ...[
-              const SizedBox(height: 10),
-              Text(
-                parsed.blurb,
-                textAlign: TextAlign.center,
-                style: AppTextStyles.bodyMedium.copyWith(
-                  color: AppColors.brandPrimary,
-                  fontStyle: FontStyle.italic,
-                  height: 1.45,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-            if (style == _IvCardStyle.nutritional &&
-                parsed.includes.isNotEmpty) ...[
-              const SizedBox(height: 10),
-              Text(
-                parsed.includes,
-                style: AppTextStyles.bodyMedium.copyWith(
-                  color: AppColors.brandNavy,
-                  height: 1.45,
-                ),
-              ),
-            ],
-            if (style == _IvCardStyle.nutritional &&
-                parsed.price.isNotEmpty) ...[
-              const SizedBox(height: 12),
-              Text(
-                parsed.price,
-                style: AppTextStyles.titleMedium.copyWith(
-                  color: AppColors.brandNavy,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ],
-            if (style == _IvCardStyle.therapeutic &&
-                parsed.bodyBlocks.isNotEmpty) ...[
-              const SizedBox(height: 10),
+            if (blocks.isNotEmpty) ...[
+              const SizedBox(height: 8),
               DefaultTextStyle(
-                style: AppTextStyles.bodyMedium.copyWith(
+                style: AppTextStyles.bodySmall.copyWith(
                   color: AppColors.brandNavy,
-                  height: 1.5,
+                  height: 1.45,
                 ),
-                child: BlogHtmlView(blocks: parsed.bodyBlocks),
+                child: BlogHtmlView(blocks: blocks),
               ),
             ],
           ],
@@ -334,73 +310,6 @@ class _IvProductCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class _ParsedIvCard {
-  const _ParsedIvCard({
-    this.blurb = '',
-    this.includes = '',
-    this.price = '',
-    this.bodyBlocks = const [],
-  });
-
-  final String blurb;
-  final String includes;
-  final String price;
-  final List<BlogContentBlock> bodyBlocks;
-}
-
-_ParsedIvCard _parseIvCard(ServiceSectionItem item) {
-  final lines = item.lines;
-  String price = '';
-  String includes = '';
-  final blurbLines = <String>[];
-
-  for (final line in lines) {
-    final trimmed = line.trim();
-    if (RegExp(r'^\$\d+').hasMatch(trimmed)) {
-      price = trimmed;
-    } else if (trimmed.toLowerCase().startsWith('includes')) {
-      includes = trimmed;
-    } else {
-      blurbLines.add(trimmed);
-    }
-  }
-
-  if (price.isEmpty || includes.isEmpty) {
-    final html = item.contentHtml?.trim() ?? '';
-    if (html.isNotEmpty) {
-      final paragraphs = RegExp(r'<p>(.*?)</p>', caseSensitive: false, dotAll: true)
-          .allMatches(html)
-          .map((m) => (m.group(1) ?? '')
-              .replaceAll(RegExp(r'<[^>]+>'), '')
-              .replaceAll('&amp;', '&')
-              .trim())
-          .where((p) => p.isNotEmpty)
-          .toList();
-      if (paragraphs.isNotEmpty && blurbLines.isEmpty) {
-        for (final p in paragraphs) {
-          if (RegExp(r'^\$\d+').hasMatch(p)) {
-            price = p;
-          } else if (p.toLowerCase().startsWith('includes')) {
-            includes = p;
-          } else if (blurbLines.isEmpty) {
-            blurbLines.add(p);
-          }
-        }
-      }
-    }
-  }
-
-  return _ParsedIvCard(
-    blurb: blurbLines.join(' ').trim(),
-    includes: includes,
-    price: price,
-    bodyBlocks: blogContentBlocks(
-      contentHtml: item.contentHtml,
-      body: item.content,
-    ),
-  );
 }
 
 class _FeaturedTherapiesSection extends StatelessWidget {

@@ -27,6 +27,7 @@ import 'frequency_specific_microcurrent_detail_view.dart';
 import 'infrared_sauna_therapy_detail_view.dart';
 import 'hyperbaric_oxygen_therapy_detail_view.dart';
 import 'iv_nutritional_infusions_detail_view.dart';
+import 'liquivida_iv_therapy_detail_view.dart';
 
 class ServiceDetailScreen extends ConsumerWidget {
   const ServiceDetailScreen({super.key, required this.serviceId});
@@ -61,6 +62,9 @@ class ServiceDetailScreen extends ConsumerWidget {
         }
         if (service.routeId == 'iv-nutritional-infusions') {
           return IvNutritionalInfusionsDetailView(service: service);
+        }
+        if (service.routeId == 'liquivida-iv-therapy') {
+          return LiquividaIvTherapyDetailView(service: service);
         }
         return _ServiceDetailBody(service: service);
       },

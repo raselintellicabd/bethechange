@@ -127,16 +127,38 @@ void main() {
       final iv = (result as ApiSuccess<Service>).data;
       expect(iv.heroHeading, 'iv nutritional infusions');
       expect(iv.headline, contains('THERAPEUTIC'));
-      expect(iv.contentHtml, isNotEmpty);
+      expect(iv.summary, contains('in-house IV Therapy'));
+      expect(iv.contentHtml, contains('in-house IV Therapy'));
       expect(iv.ctaLabel, 'Request An Appointment');
       expect(iv.sections, hasLength(4));
       expect(iv.sections[0].title, contains('THERAPEUTIC'));
       expect(iv.sections[0].items, hasLength(3));
       expect(iv.sections[1].title, contains('NUTRITIONAL'));
       expect(iv.sections[1].items, hasLength(9));
+      expect(iv.sections[1].items.first.content, contains(r'$150'));
+      expect(iv.sections[1].items.last.content, contains(r'$80'));
       expect(iv.sections.where((s) => s.isFeaturedTherapies), hasLength(1));
       expect(iv.sections.last.isGettingStarted, isTrue);
       expect(iv.reviews, isNotEmpty);
+    });
+
+    test('Liquivida IV Therapy service is fully populated', () async {
+      final result = await ServicesRepository(createMockApiClient())
+          .getServiceById('liquivida-iv-therapy');
+
+      expect(result, isA<ApiSuccess<Service>>());
+      final liquivida = (result as ApiSuccess<Service>).data;
+      expect(liquivida.heroHeading, 'liquivida iv therapy');
+      expect(liquivida.contentHtml, contains('LIQUIVIDA IV Therapy'));
+      expect(liquivida.ctaLabel, 'Request An Appointment');
+      expect(liquivida.heroImageUrl, contains('The-Liquilift'));
+      expect(liquivida.sections, hasLength(3));
+      expect(liquivida.sections.first.title, contains('LIQUIVIDA'));
+      expect(liquivida.sections.first.items, hasLength(8));
+      expect(liquivida.sections.first.items.first.title, 'FOUNTAIN OF YOUTH');
+      expect(liquivida.sections.where((s) => s.isFeaturedTherapies), hasLength(1));
+      expect(liquivida.sections.last.isGettingStarted, isTrue);
+      expect(liquivida.reviews, isNotEmpty);
     });
 
     test('getServiceById returns failure for unknown id', () async {
