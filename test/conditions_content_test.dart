@@ -214,14 +214,27 @@ void main() {
 
       expect(heartResult, isA<ApiSuccess<Condition>>());
       final heart = (heartResult as ApiSuccess<Condition>).data;
-      expect(heart.symptoms, isNotEmpty);
-      expect(heart.contributingFactors, isNotEmpty);
-      expect(heart.integrativeApproach, isNotNull);
-      expect(heart.treatmentMethods, isNotEmpty);
+      expect(heart.heroHeading, 'heart disease specialist');
+      expect(heart.headline, contains('major risk factor'));
+      expect(heart.contentHtml, isNotEmpty);
+      expect(heart.quote, 'Feel Good, Live Better!');
+      expect(heart.quoteBody, isNotEmpty);
+      expect(heart.ctaLabel, contains('Request An Appointment'));
+      expect(heart.symptoms, isEmpty);
+      expect(heart.integrativeApproach, isNull);
+      expect(heart.benefits, isEmpty);
+      expect(heart.contributingFactors, hasLength(3));
+      expect(heart.treatmentMethods, hasLength(7));
+      expect(heart.sections, hasLength(3));
+      expect(heart.sections.first.isDefaultLayout, isTrue);
+      expect(heart.sections[1].isFactors, isTrue);
+      expect(heart.sections.last.isTreatDark, isTrue);
+      expect(heart.sections.last.items.where((i) => i.isLabelOnly), hasLength(6));
       expect(
-        heart.benefitsTitle,
-        'Benefits of Integrative Medicine for Heart Disease',
+        heart.sections.last.items.singleWhere((i) => !i.isLabelOnly).title,
+        'Medical Testing',
       );
+      expect(heart.reviews, isNotEmpty);
     });
 
     test('getConditionById returns failure for unknown id', () async {

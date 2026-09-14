@@ -263,51 +263,193 @@
     {
       "id": "heart-disease",
       "name": "Heart Disease",
-      "summary": "Holistic wellness plans that can reduce your risk of heart disease and heart disease complications.",
-      "articleBody": "Nearly half of all adults in the United States have at least one major risk factor for heart disease, like hypertension or high cholesterol.\n\nHeart disease is a term that encompasses the many conditions that can impact your heart's functioning. Some forms are present from birth, while others develop over time due to behaviors, habits, and genetic predispositions.\n\nHeart attack, heart failure, and arrhythmia are all common forms of heart disease, which can cause troublesome symptoms like palpitations, chest pain, shortness of breath, and widespread swelling.\n\nYour providers at Be The Change Health & Wellness Center can direct you to behavioral changes and wellness therapies that improve cardiovascular functioning as well as your overall health.",
-      "symptoms": [
-        { "label": "Palpitations" },
-        { "label": "Chest Pain" },
-        { "label": "Shortness of Breath" },
-        { "label": "Widespread Swelling" }
-      ],
+      "heroHeading": "heart disease specialist",
+      "headline": "Nearly half of all adults in the United States have at least one major risk factor for heart disease, like hypertension or high cholesterol.",
+      "summary": "We offer holistic wellness plans that can reduce your risk of heart disease and heart disease complications.",
+      "articleBody": "At Be The Change Health & Wellness Center in Columbia, Maryland, board-certified family medicine specialist Sultana Afrooz, DO, and the team offer holistic wellness plans that can reduce your risk for heart disease and heart disease complications. To set up your consultation, call Be The Change Health & Wellness Center or request an appointment online today.\n\nWhat is heart disease?\n\nHeart disease is a term that encompasses the many conditions that can impact your heart’s functioning. Some forms are present from birth, while others develop over time due to your behaviors, habits, and genetic predispositions.\nHeart attack, heart failure, and arrhythmia are all common forms of heart disease, which can cause troublesome symptoms like palpitations, chest pain, shortness of breath, and widespread swelling.\nYour providers at Be The Change Health & Wellness Center can direct you to behavioral changes and wellness therapies that improve cardiovascular functioning as well as your overall health. Even if you don’t have heart disease, you can lower your risk by adopting a healthier lifestyle at any time.",
+      "content_html": "<p>At Be The Change Health &amp; Wellness Center in Columbia, Maryland, board-certified family medicine specialist Sultana Afrooz, DO, and the team offer holistic wellness plans that can reduce your risk for heart disease and heart disease complications. To set up your consultation, call Be The Change Health &amp; Wellness Center or request an appointment online today.</p>",
+      "heroImageUrl": "http://192.168.1.160:8000/media/conditions/Heart-Disease_9txuAhx.jpg",
+      "symptoms": [],
       "contributingFactors": [
         {
           "label": "Hypertension",
-          "description": "High blood pressure related to disease, plaque buildup, lack of exercise, or unbalanced diet."
+          "description": "Hypertension is another word for high blood pressure. Your blood pressure can increase because of diseases like diabetes or kidney disease, or it can go up due to plaque buildup along your artery walls from a lack of exercise or an unbalanced diet. Hypertension doesn’t typically cause any symptoms.",
+          "content_html": "<p>Hypertension is another word for high blood pressure. Your blood pressure can increase because of diseases like diabetes or kidney disease, or it can go up due to plaque buildup along your artery walls from a lack of exercise or an unbalanced diet. Hypertension doesn’t typically cause any symptoms.</p>"
         },
         {
-          "label": "High Cholesterol",
-          "description": "Wax-like lipids build up in your bloodstream because of poor diet, smoking, and other unhealthy behaviors."
+          "label": "High cholesterol",
+          "description": "High cholesterol also does not tend to cause symptoms. It happens when wax-like lipids build up in your bloodstream because of a poor diet, smoking, and other unhealthy behaviors.",
+          "content_html": "<p>High cholesterol also does not tend to cause symptoms. It happens when wax-like lipids build up in your bloodstream because of a poor diet, smoking, and other unhealthy behaviors.</p>"
         },
         {
           "label": "Smoking",
-          "description": "Smoking and tobacco use increase your risk for heart disease."
+          "description": "Among many other dangers, smoking and tobacco use increases your risk for heart disease.",
+          "content_html": "<p>Among many other dangers, smoking and tobacco use increases your risk for heart disease.</p>"
         }
       ],
-      "integrativeApproach": {
-        "title": "Our Integrative Approach to Heart Disease",
-        "body": "Be The Change Health & Wellness Center can help you manage or treat your heart disease with personalized wellness services. Your provider works with you to create a custom wellness plan that helps you manage your weight, lower your blood pressure, and reduce the likelihood of heart failure or a heart attack.\n\nThe practice also provides testing so you can gain more information about important factors influencing your health, like your blood chemistry and genetics."
-      },
-      "benefits": [
-        { "label": "Weight Management Support" },
-        { "label": "Blood Pressure Support" },
-        { "label": "Reduced Heart Attack Risk Focus" },
-        { "label": "Improved Overall Cardiovascular Wellness" }
-      ],
+      "integrativeApproach": null,
+      "benefits": [],
       "treatmentMethods": [
-        { "label": "Dietary Changes" },
-        { "label": "An Exercise Plan" },
-        { "label": "Habit Changes" },
-        { "label": "Regular Visits for Monitoring" },
-        { "label": "Hyperbaric Oxygen Therapy" },
+        { "label": "Dietary changes" },
+        { "label": "An exercise plan" },
+        { "label": "Habit changes" },
+        { "label": "Regular visits for monitoring" },
+        { "label": "Hyperbaric oxygen therapy" },
         { "label": "Supplements" },
         {
           "label": "Medical Testing",
-          "description": "Blood chemistry and genetics insights to customize your heart health wellness plan."
+          "description": "The practice also provides testing so you can gain more information about important factors influencing your health, like your blood chemistry and genetics. The results of these tests help your provider customize your heart health wellness plan.",
+          "content_html": "<p>The practice also provides testing so you can gain more information about important factors influencing your health, like your blood chemistry and genetics. The results of these tests help your provider customize your heart health wellness plan.</p>"
         }
       ],
-      "recommendedBooks": []
+      "recommendedBooks": [],
+      "slug": "heart-disease",
+      "title": "Heart Disease",
+      "img-url": "http://192.168.1.160:8000/media/conditions/Heart-Disease_9txuAhx.jpg",
+      "content": "We offer holistic wellness plans that can reduce your risk of heart disease and heart disease complications.",
+      "path": "/heart-disease/",
+      "quote": "Feel Good, Live Better!",
+      "quoteBody": "To find out more about the effects of heart disease on your body, call Be The Change Health & Wellness Center or request an appointment online today.",
+      "quoteHtml": "<p>To find out more about the effects of heart disease on your body, call Be The Change Health &amp; Wellness Center or request an appointment online today.</p>",
+      "cta-label": "New Patient – Request An Appointment",
+      "cta-url": "/appointments/?source=%2Fheart-disease%2F&patient=new",
+      "sections": [
+        {
+          "type": "image_text",
+          "layout": "default",
+          "title": "What is heart disease?",
+          "content": "Heart disease is a term that encompasses the many conditions that can impact your heart’s functioning. Some forms are present from birth, while others develop over time due to your behaviors, habits, and genetic predispositions.\nHeart attack, heart failure, and arrhythmia are all common forms of heart disease, which can cause troublesome symptoms like palpitations, chest pain, shortness of breath, and widespread swelling.\nYour providers at Be The Change Health & Wellness Center can direct you to behavioral changes and wellness therapies that improve cardiovascular functioning as well as your overall health. Even if you don’t have heart disease, you can lower your risk by adopting a healthier lifestyle at any time.",
+          "content_html": "<p>Heart disease is a term that encompasses the many conditions that can impact your heart’s functioning. Some forms are present from birth, while others develop over time due to your behaviors, habits, and genetic predispositions.</p><p>Heart attack, heart failure, and arrhythmia are all common forms of heart disease, which can cause troublesome symptoms like palpitations, chest pain, shortness of breath, and widespread swelling.</p><p>Your providers at Be The Change Health &amp; Wellness Center can direct you to behavioral changes and wellness therapies that improve cardiovascular functioning as well as your overall health. Even if you don’t have heart disease, you can lower your risk by adopting a healthier lifestyle at any time.</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/8_Main_Types_of_Heart_Disease_OQLidpn.jpg",
+          "image-side": "left",
+          "items": []
+        },
+        {
+          "type": "image_text",
+          "layout": "factors",
+          "title": "Am I at risk for heart disease?",
+          "content": "Many different diseases and behaviors can increase your risk for heart disease as they affect the health of your heart or circulatory system. The team at Be The Change Health & Wellness Center can explore your current health and help you address risk factors that already affect you. Some of the most pressing risk factors for heart disease are:",
+          "content_html": "<p>Many different diseases and behaviors can increase your risk for heart disease as they affect the health of your heart or circulatory system. The team at Be The Change Health &amp; Wellness Center can explore your current health and help you address risk factors that already affect you. Some of the most pressing risk factors for heart disease are:</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/Stop-smoking-Six-foods-to-avoid-if-you-want-to-quit-the-habit-in-the-New-Year_xx5lFSx.jpg",
+          "image-side": "right",
+          "items": [
+            {
+              "title": "Hypertension",
+              "content": "Hypertension is another word for high blood pressure. Your blood pressure can increase because of diseases like diabetes or kidney disease, or it can go up due to plaque buildup along your artery walls from a lack of exercise or an unbalanced diet. Hypertension doesn’t typically cause any symptoms.",
+              "content_html": "<p>Hypertension is another word for high blood pressure. Your blood pressure can increase because of diseases like diabetes or kidney disease, or it can go up due to plaque buildup along your artery walls from a lack of exercise or an unbalanced diet. Hypertension doesn’t typically cause any symptoms.</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "High cholesterol",
+              "content": "High cholesterol also does not tend to cause symptoms. It happens when wax-like lipids build up in your bloodstream because of a poor diet, smoking, and other unhealthy behaviors.",
+              "content_html": "<p>High cholesterol also does not tend to cause symptoms. It happens when wax-like lipids build up in your bloodstream because of a poor diet, smoking, and other unhealthy behaviors.</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Smoking",
+              "content": "Among many other dangers, smoking and tobacco use increases your risk for heart disease.",
+              "content_html": "<p>Among many other dangers, smoking and tobacco use increases your risk for heart disease.</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "layout": "treat_dark",
+          "title": "How Do We Treat Heart Disease Holistically?",
+          "content": "Be The Change Health & Wellness Center can help you manage or treat your heart disease with personalized wellness services that don’t require the use of pharmaceuticals. Your provider works with you to create a custom wellness plan that helps you manage your weight, lower your blood pressure, and reduce the likelihood of heart failure or a heart attack.\nTo manage your heart disease or heart disease risk, your provider might recommend:",
+          "content_html": "<p>Be The Change Health &amp; Wellness Center can help you manage or treat your heart disease with personalized wellness services that don’t require the use of pharmaceuticals. Your provider works with you to create a custom wellness plan that helps you manage your weight, lower your blood pressure, and reduce the likelihood of heart failure or a heart attack.</p><p>To manage your heart disease or heart disease risk, your provider might recommend:</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Dietary changes",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "An exercise plan",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Habit changes",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Regular visits for monitoring",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Hyperbaric oxygen therapy",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Supplements",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Medical Testing",
+              "content": "The practice also provides testing so you can gain more information about important factors influencing your health, like your blood chemistry and genetics. The results of these tests help your provider customize your heart health wellness plan.",
+              "content_html": "<p>The practice also provides testing so you can gain more information about important factors influencing your health, like your blood chemistry and genetics. The results of these tests help your provider customize your heart health wellness plan.</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I highly recommend her and I feel fortunate to have been able to see her."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to. The staff and workers really make me feel cared for."
+        }
+      ]
     },
     {
       "id": "chronic-fatigue",

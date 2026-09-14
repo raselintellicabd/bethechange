@@ -38,6 +38,12 @@ class ConditionSection {
 
   bool get isNowControl => layout.trim().toLowerCase() == 'now_control';
 
+  /// Default image+text block (e.g. Heart Disease "What is…").
+  bool get isDefaultLayout {
+    final value = layout.trim().toLowerCase();
+    return value.isEmpty || value == 'default';
+  }
+
   /// Benefit chips are title-only cards with no body or image.
   bool get isChipGroup =>
       items.isNotEmpty && items.every((item) => item.isLabelOnly);

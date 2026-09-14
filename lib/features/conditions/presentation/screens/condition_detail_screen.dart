@@ -25,6 +25,7 @@ import '../../domain/models/condition.dart';
 import '../../domain/models/condition_section.dart';
 import '../providers/conditions_providers.dart';
 import 'diabetes_detail_view.dart';
+import 'heart_disease_detail_view.dart';
 
 class ConditionDetailScreen extends ConsumerWidget {
   const ConditionDetailScreen({super.key, required this.conditionId});
@@ -50,6 +51,9 @@ class ConditionDetailScreen extends ConsumerWidget {
       data: (condition) {
         if (condition.routeId == 'diabetes') {
           return DiabetesDetailView(condition: condition);
+        }
+        if (condition.routeId == 'heart-disease') {
+          return HeartDiseaseDetailView(condition: condition);
         }
         return _ConditionDetailBody(condition: condition);
       },
