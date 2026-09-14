@@ -314,6 +314,25 @@ void main() {
       expect(pain.sections[1].items, hasLength(13));
       expect(pain.sections.last.type, 'text');
       expect(pain.reviews, isNotEmpty);
+
+      final toxinsResult = await repository.getConditionById('toxins');
+      expect(toxinsResult, isA<ApiSuccess<Condition>>());
+      final toxins = (toxinsResult as ApiSuccess<Condition>).data;
+      expect(toxins.heroHeading, 'toxins specialist');
+      expect(toxins.headline, contains('smoke inhalation'));
+      expect(toxins.contentHtml, isNotEmpty);
+      expect(toxins.quote, 'Feel Good, Live Better!');
+      expect(toxins.quoteBody, contains('IonCleanse'));
+      expect(toxins.symptoms, hasLength(6));
+      expect(toxins.benefits, hasLength(8));
+      expect(toxins.integrativeApproach, isNull);
+      expect(toxins.treatmentMethods, hasLength(1));
+      expect(toxins.sections, hasLength(4));
+      expect(toxins.sections.first.isSymptoms, isTrue);
+      expect(toxins.sections[2].isTreatDark, isTrue);
+      expect(toxins.sections[2].items.single.title, 'IonCleanse Detoxification');
+      expect(toxins.sections.last.items, hasLength(8));
+      expect(toxins.reviews, isNotEmpty);
     });
 
     test('getConditionById returns failure for unknown id', () async {

@@ -886,49 +886,141 @@
     },
     {
       "id": "toxins",
-      "name": "Detoxification",
+      "name": "Toxins",
+      "heroHeading": "toxins specialist",
+      "headline": "Throughout life, smoke inhalation, use of chemical products, and even certain foods leave toxins in your body that can influence your health and wellness.",
       "summary": "Detoxification is the process of removing toxins that can build up in your body and lead to pain, discomfort, and other ambiguous symptoms.",
-      "articleBody": "If you're experiencing unusual symptoms with no apparent cause, Be The Change Health & Wellness Center offers toxin testing and ion foot detoxification services.\n\nSometimes toxins come from within. Your body produces natural hormonal by-products that can also contribute to toxin buildup. Detoxification is the process of removing toxins that can build up in your body and lead to pain, discomfort, and other ambiguous symptoms.\n\nWe test for toxins and remove them through ion foot detoxing and nutrition plans—either as a stand-alone treatment or as part of a larger personal wellness plan.",
+      "articleBody": "If you’re experiencing unusual symptoms with no apparent cause, Sultana Afrooz, DO, and the team at Be The Change Health & Wellness Center in Columbia, Maryland, offer toxin testing and ion foot detoxification services. Schedule your detoxification consultation over the phone or request an appointment online today\n\nWe Specialize In Removing Toxins\n\nDetoxification is the process of removing toxins that can build up in your body and lead to pain, discomfort, and other ambiguous symptoms.\nBe The Change Health & Wellness Center offers detoxification services as well as testing for toxins in your body.",
+      "content_html": "<p>If you’re experiencing unusual symptoms with no apparent cause, Sultana Afrooz, DO, and the team at Be The Change Health &amp; Wellness Center in Columbia, Maryland, offer toxin testing and ion foot detoxification services. Schedule your detoxification consultation over the phone or request an appointment online today</p>",
+      "heroImageUrl": "http://192.168.1.160:8000/media/conditions/Detoxification_g0OGc5m.jpg",
       "symptoms": [
-        { "label": "Unexplained Pain or Discomfort" },
-        { "label": "Low Energy" },
-        { "label": "Ambiguous or Unexplained Symptoms" }
+        { "label": "Acne" },
+        { "label": "Rashes" },
+        { "label": "Dark undereye circles" },
+        { "label": "Joint pain or swelling" },
+        { "label": "Skin changes" },
+        { "label": "Musculoskeletal aches and pains" }
       ],
-      "contributingFactors": [
-        { "label": "Environmental Chemical Exposures" },
-        { "label": "Products and Airborne Chemicals" },
-        { "label": "Foods or Substances Consumed" },
-        { "label": "Internal Hormonal By-Products" }
-      ],
-      "integrativeApproach": {
-        "title": "Our Integrative Approach to Detoxification",
-        "body": "When you come to the office, your provider might recommend detoxification as a stand-alone treatment or as part of a larger, comprehensive personal wellness plan. Testing helps identify toxin burden so your plan can be more targeted."
-      },
+      "contributingFactors": [],
+      "integrativeApproach": null,
       "benefits": [
-        { "label": "Weight Loss Support" },
-        { "label": "Increased Energy" },
-        { "label": "Improved Sleep" },
-        { "label": "Better Circulation" },
-        { "label": "Skin Clarity" },
-        { "label": "Fewer Allergy Symptoms" },
-        { "label": "Better Immunity" },
-        { "label": "Better Digestion" }
+        { "label": "Weight loss" },
+        { "label": "Increased energy" },
+        { "label": "Improved sleep" },
+        { "label": "Better circulation" },
+        { "label": "Skin clarity" },
+        { "label": "Fewer allergy symptoms" },
+        { "label": "Better immunity" },
+        { "label": "Better digestion" }
       ],
       "treatmentMethods": [
         {
-          "label": "Ion Foot Detox",
-          "description": "Sit comfortably with feet in purified water with sea salt for about 30 minutes while the IonCleanse system supports toxin removal."
-        },
-        {
-          "label": "Toxin Testing",
-          "description": "Identify toxin burden to guide your wellness plan."
-        },
-        {
-          "label": "Nutrition Plans",
-          "description": "Dietary support that complements detoxification sessions."
+          "label": "IonCleanse Detoxification",
+          "description": "The practice offers ion foot detox, a treatment that pulls toxins out of your body through the soles of your feet.",
+          "content_html": "<p>The practice offers ion foot detox, a treatment that pulls toxins out of your body through the soles of your feet. These toxins can come from the products you use, chemicals in the air, and foods or substances you consume.</p><p>During your detoxification treatment, you sit comfortably with your feet submerged in purified water with sea salt for about 30 minutes, while the IonCleanse detoxification system removes impurities.</p><p>Your provider places an electrical unit called an array into the water, which generates positive and negative ions around your feet to draw out the toxins.</p>"
         }
       ],
-      "recommendedBooks": []
+      "recommendedBooks": [],
+      "slug": "toxins",
+      "title": "Detoxification",
+      "img-url": "http://192.168.1.160:8000/media/conditions/Detoxification_g0OGc5m.jpg",
+      "content": "Detoxification is the process of removing toxins that can build up in your body and lead to pain, discomfort, and other ambiguous symptoms.",
+      "path": "/toxins/",
+      "quote": "Feel Good, Live Better!",
+      "quoteBody": "To learn more about the detoxification process with IonCleanse, call Be The Change Health & Wellness Center or book your visit online today.",
+      "quoteHtml": "<p>To learn more about the detoxification process with IonCleanse, call Be The Change Health &amp; Wellness Center or book your visit online today.</p>",
+      "cta-label": "New Patient – Request An Appointment",
+      "cta-url": "/appointments/?source=%2Ftoxins%2F&patient=new",
+      "sections": [
+        {
+          "type": "image_text",
+          "layout": "symptoms",
+          "title": "Your body collects toxins as you go through your day-to-day life, even from behaviors and substances that seem completely harmless.",
+          "content": "Thanks to toxins like alcohol, sugar, nicotine, pesticides, heavy metals, smoke, and other chemicals, you can experience unusual symptoms that seem to appear without a cause.\nSometimes, toxins come from within. Your body produces natural hormonal by-products that can also contribute to toxin buildup in your system. Over time, you might notice symptoms like:\nAcne\nRashes\nDark undereye circles\nJoint pain or swelling\nSkin changes\nMusculoskeletal aches and pains\nWhile there are many possible causes of symptoms like these, toxins can play a major role in causing or worsening them. You should talk to your provider at Be The Change Health & Wellness Center if you have concerns like these that seem to appear without explanation.",
+          "content_html": "<p>Thanks to toxins like alcohol, sugar, nicotine, pesticides, heavy metals, smoke, and other chemicals, you can experience unusual symptoms that seem to appear without a cause.</p><p>Sometimes, toxins come from within. Your body produces natural hormonal by-products that can also contribute to toxin buildup in your system. Over time, you might notice symptoms like:</p><ul><li>Acne</li><li>Rashes</li><li>Dark undereye circles</li><li>Joint pain or swelling</li><li>Skin changes</li><li>Musculoskeletal aches and pains</li></ul><p>While there are many possible causes of symptoms like these, toxins can play a major role in causing or worsening them. You should talk to your provider at Be The Change Health &amp; Wellness Center if you have concerns like these that seem to appear without explanation.</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/toxic2_dCFtVlJ.jpg",
+          "image-side": "left",
+          "items": [
+            { "title": "Acne", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Rashes", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Dark undereye circles", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Joint pain or swelling", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Skin changes", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Musculoskeletal aches and pains", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" }
+          ]
+        },
+        {
+          "type": "text",
+          "layout": "default",
+          "title": "We Specialize In Removing Toxins",
+          "content": "Detoxification is the process of removing toxins that can build up in your body and lead to pain, discomfort, and other ambiguous symptoms.\nBe The Change Health & Wellness Center offers detoxification services as well as testing for toxins in your body.",
+          "content_html": "<p>Detoxification is the process of removing toxins that can build up in your body and lead to pain, discomfort, and other ambiguous symptoms.</p><p>Be The Change Health &amp; Wellness Center offers detoxification services as well as testing for toxins in your body.</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": []
+        },
+        {
+          "type": "image_text",
+          "layout": "treat_dark",
+          "title": "Our Detoxification Methods",
+          "content": "We test for toxins, and we remove them through ion foot detoxing and nutrition plans. When you come to the office, your provider might recommend detoxification as a stand-alone treatment or as part of a larger, comprehensive personal wellness plan.",
+          "content_html": "<p>We test for toxins, and we remove them through ion foot detoxing and nutrition plans. When you come to the office, your provider might recommend detoxification as a stand-alone treatment or as part of a larger, comprehensive personal wellness plan.</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/foot-bath-feet-ionic-foot-bath_1KO0bTG.jpg",
+          "image-side": "right",
+          "items": [
+            {
+              "title": "IonCleanse Detoxification",
+              "content": "The practice offers ion foot detox, a treatment that pulls toxins out of your body through the soles of your feet. These toxins can come from the products you use, chemicals in the air, and foods or substances you consume.\nDuring your detoxification treatment, you sit comfortably with your feet submerged in purified water with sea salt for about 30 minutes, while the IonCleanse detoxification system removes impurities.\nYour provider places an electrical unit called an array into the water, which generates positive and negative ions around your feet to draw out the toxins.",
+              "content_html": "<p>The practice offers ion foot detox, a treatment that pulls toxins out of your body through the soles of your feet. These toxins can come from the products you use, chemicals in the air, and foods or substances you consume.</p><p>During your detoxification treatment, you sit comfortably with your feet submerged in purified water with sea salt for about 30 minutes, while the IonCleanse detoxification system removes impurities.</p><p>Your provider places an electrical unit called an array into the water, which generates positive and negative ions around your feet to draw out the toxins.</p>",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "layout": "default",
+          "title": "What are the benefits of detoxification?",
+          "content": "A series of detox sessions with the IonCleanse system can lead to a reduction in various symptoms that often stem directly or indirectly from the toxins that have built up over time in your body. You might experience other general wellness benefits of detoxification as well, including:\nWeight loss\nIncreased energy\nImproved sleep\nBetter circulation\nSkin clarity\nFewer allergy symptoms\nBetter immunity\nBetter digestion",
+          "content_html": "<p>A series of detox sessions with the IonCleanse system can lead to a reduction in various symptoms that often stem directly or indirectly from the toxins that have built up over time in your body. You might experience other general wellness benefits of detoxification as well, including:</p><ul><li>Weight loss</li><li>Increased energy</li><li>Improved sleep</li><li>Better circulation</li><li>Skin clarity</li><li>Fewer allergy symptoms</li><li>Better immunity</li><li>Better digestion</li></ul>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            { "title": "Weight loss", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Increased energy", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Improved sleep", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Better circulation", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Skin clarity", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Fewer allergy symptoms", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Better immunity", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Better digestion", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I highly recommend her and I feel fortunate to have been able to see her."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to. The staff and workers really make me feel cared for."
+        }
+      ]
     },
     {
       "id": "concussion",
