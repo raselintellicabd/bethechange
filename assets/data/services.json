@@ -3754,6 +3754,297 @@
           "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
         }
       ]
+    },
+    {
+      "id": "wellness-classes",
+      "name": "Wellness Classes",
+      "heroHeading": "wellness classes",
+      "headline": "Join our Holistic Medical Weight Loss Program",
+      "title": "Wellness Classes",
+      "summary": "Join our Holistic Medical Weight Loss Program",
+      "description": "Join our Holistic Medical Weight Loss Program",
+      "articleBody": "Our weight loss program combines both in person therapies, online classes, and one on one consults with our Naturopathic Doctor.\nLose weight by addressing the whole person through nutrition, lifestyle, and detoxification. Address the various contributions to obesity using an individualized approach, where we will look for underlying causes such as hormone imbalance, gut dysfunction, and insulin resistance.\nOur innovative weight loss program includes the following:",
+      "content_html": "<p>Our weight loss program combines both in person therapies, online classes, and one on one consults with our Naturopathic Doctor.</p><p>Lose weight by addressing the whole person through nutrition, lifestyle, and detoxification. Address the various contributions to obesity using an individualized approach, where we will look for underlying causes such as hormone imbalance, gut dysfunction, and insulin resistance.</p><p>Our innovative weight loss program includes the following:</p>",
+      "heroImage": "",
+      "slug": "wellness-classes",
+      "howItWorks": null,
+      "benefits": [],
+      "addressedConcerns": [],
+      "whatToExpect": null,
+      "recommendedBooks": [
+        {
+          "title": "THE RAIN BARRELL EFFECT",
+          "author": "Dr. Cabral",
+          "content_html": "<p>Dr. Cabral explores his most effective tools from his clinical practice in successful and healthy weight loss.</p>",
+          "coverUrl": "http://192.168.1.160:8000/media/services/RAIN_jEx25KV.jpg",
+          "purchaseUrl": null
+        },
+        {
+          "title": "YOUR HIDDEN FOOD ALLERGIES ARE MAKING YOU FAT",
+          "author": "Dr. Rivera",
+          "content_html": "<p>Dr. Rivera discusses the role that food sensitivities play on the immune system, inflammation, metabolism, and obesity and how the ALCAT test can help to uncover these food sensitivities.</p>",
+          "coverUrl": "http://192.168.1.160:8000/media/services/HIDDEN_6uAyCla.jpg",
+          "purchaseUrl": null
+        }
+      ],
+      "quote": "",
+      "quoteBody": "",
+      "quoteHtml": "",
+      "cta-label": "Sign Up For In-Person Therapies",
+      "cta-url": "https://live.vcita.com/site/8153u4j7n2974xi3/online-scheduling",
+      "sections": [
+        {
+          "type": "image_text",
+          "title": "Join our Holistic Medical Weight Loss Program",
+          "content": "Our weight loss program combines both in person therapies, online classes, and one on one consults with our Naturopathic Doctor.\nLose weight by addressing the whole person through nutrition, lifestyle, and detoxification. Address the various contributions to obesity using an individualized approach, where we will look for underlying causes such as hormone imbalance, gut dysfunction, and insulin resistance.\nOur innovative weight loss program includes the following:",
+          "content_html": "<p>Our weight loss program combines both in person therapies, online classes, and one on one consults with our Naturopathic Doctor.</p><p>Lose weight by addressing the whole person through nutrition, lifestyle, and detoxification. Address the various contributions to obesity using an individualized approach, where we will look for underlying causes such as hormone imbalance, gut dysfunction, and insulin resistance.</p><p>Our innovative weight loss program includes the following:</p>",
+          "img-url": "http://192.168.1.160:8000/media/services/WeightLoss-Updated-banner-September-2022-11024_1_3EzkKC7.jpg",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "4 one-on-one Naturopathic consults",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Twice weekly ionic foot detox sessions (24 sessions at a $720 value)",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Personalized wellness plan",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Twice weekly Infrared sauna sessions (24 sessions at a $720 value)",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Health Assessment",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Twice weekly weight loss shots (24 injections at a $300 value)",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "12 weekly group classes discussing holistic weight loss methods",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Tailored meal plan",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Sign Up For Our Virtual Portion",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "https://drcourtneyroberts.podia.com/12-weeks-to-wellness",
+              "link-label": "Sign Up For Our Virtual Portion"
+            },
+            {
+              "title": "Sign Up For In-Person Therapies",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "https://live.vcita.com/site/8153u4j7n2974xi3/online-scheduling",
+              "link-label": "Sign Up For In-Person Therapies"
+            }
+          ]
+        },
+        {
+          "type": "image_text",
+          "title": "Pediatric Nutrition Program",
+          "content": "If you struggle to feed your kids healthy food and find difficulty discerning between what is healthy and what is not, this 12 week program is for you!",
+          "content_html": "<p>If you struggle to feed your kids healthy food and find difficulty discerning between what is healthy and what is not, this 12 week program is for you!</p>",
+          "img-url": "http://192.168.1.160:8000/media/services/food-n-me-12-weeks-program_TiWwAwo.jpg",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Learn to make healthy food choices",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Participate in 2 fun, engaging exercise classes",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Variety of topics",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "A fun way to learn with the whole family",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Sibling discount offered",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Sign Up For Our Virtual Portion",
+              "content": "",
+              "content_html": "",
+              "img-url": "",
+              "link-url": "https://courtneyroberts1.podia.com/12-weeks-to-wellness",
+              "link-label": "Sign Up For Our Virtual Portion"
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Coming Soon",
+          "content": "Be on the lookout for our upcoming classes that will help you to stay informed to be at your healthiest.",
+          "content_html": "<p>Be on the lookout for our upcoming classes that will help you to stay informed to be at your healthiest.</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Tooth Health Class",
+              "content": "Our tooth health class will explore an often overlooked but vital root causes of chronic disease- oral health!",
+              "content_html": "<p>Our tooth health class will explore an often overlooked but vital root causes of chronic disease- oral health!</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/Root-Canel_UWy6RjS.jpg",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "Blood Sugar Balancing Class",
+              "content": "Our blood sugar balancing class will help in your approach to managing your diet along with other strategies to control fluctuations in blood sugar, which can have a host of consequences.",
+              "content_html": "<p>Our blood sugar balancing class will help in your approach to managing your diet along with other strategies to control fluctuations in blood sugar, which can have a host of consequences.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/Blood-Sugar_fP9UEPC.jpg",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "title": "Recommended Books",
+          "content": "We believe that education is empowering and helps you take control of your health! Here are some of our favorite books to learn natural approaches to wellness.",
+          "content_html": "<p>We believe that education is empowering and helps you take control of your health! Here are some of our favorite books to learn natural approaches to wellness.</p>",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "THE RAIN BARRELL EFFECT",
+              "content": "Dr. Cabral explores his most effective tools from his clinical practice in successful and healthy weight loss.",
+              "content_html": "<p>Dr. Cabral explores his most effective tools from his clinical practice in successful and healthy weight loss.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/RAIN_jEx25KV.jpg",
+              "link-url": "",
+              "link-label": ""
+            },
+            {
+              "title": "YOUR HIDDEN FOOD ALLERGIES ARE MAKING YOU FAT",
+              "content": "Dr. Rivera discusses the role that food sensitivities play on the immune system, inflammation, metabolism, and obesity and how the ALCAT test can help to uncover these food sensitivities.",
+              "content_html": "<p>Dr. Rivera discusses the role that food sensitivities play on the immune system, inflammation, metabolism, and obesity and how the ALCAT test can help to uncover these food sensitivities.</p>",
+              "img-url": "http://192.168.1.160:8000/media/services/HIDDEN_6uAyCla.jpg",
+              "link-url": "",
+              "link-label": ""
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way. Even when I was at my darkest, she was there helping from the sidelines. My entire family has all been helped by Dr. Afrooz and her husband. We've made connections and friendships and became familiar with each other in a way that other doctors are usually more one-dimensional with. Dr. Afrooz has changed my life in such a wonderful way! She is worth every penny we've paid and way more!"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I was always feeling very tired and lethargic and I was thinking that maybe I had long covid. But Dr Afrooz knew all the right questions to help identify that my condition is related to tick bites instead from a hiking trip I had gone on. I ask a lot of questions and she seems to not find me to be frustrating and i know that she is straightforward because she’s not afraid to say I don’t know if she does not know the answer to any of my questions. Nor is she dismissive of me whether it be ideas as to what I think could possibly help me or if I tell her something does not feel right. I highly recommend her and I feel fortunate to have been able to see her."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to. The appointments and treatments here are not nearly as atrociously priced as most of my visits to other doctors. The staff and workers really make me feel cared for. I recommend this doctor office over many other ones."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWTxx2WN13zQJY8yBCCHsv9s-9mCkVXOQeJLkm0XXD79QTARPgEQg=s120-c-rp-mo-br100",
+          "name": "Samson Zewde",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Great place! I felt well taken care of and left feeling revitalized after treatment."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXVhyyBMpfz7uCiGqz3lpZ8jfqwwk-NuKXmwhjchhSp_9mYRNfd=s120-c-rp-mo-ba2-br100",
+          "name": "Nas Moha",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "Doctors and staff are personable and friendly that provides excellent care. Best care so far around the area"
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWetJi7ZC30xKr9f_Et3sjo0MU-PtbJxY_MJW8ATsz1I44J_gjo=s120-c-rp-mo-ba3-br100",
+          "name": "Oxana Oleson",
+          "date": "2024-06-26",
+          "star": 5,
+          "comment": "I have known Dr. Afrooz for the past 8 years. Besides her knowledge and care she put in helping patients with different complex health issues, she is also one of the nicest people I know. She treated me and my family and never gave up on me trying to find a solution for treating chronic Lyme disease. Her office is equipped with lots of helpful tools to get you well. My favorite is a hyperbaric chamber, but there are many more. My daughter also recovered from Lyme disease with help of Dr. Afrooz. At that time, she was only 5 years old.\nI am beyond grateful for her help and knowledge. She is using both-conventional and integrative methods and always keeping up to date on new treatments."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUfWn8Nlmr9OTvD94Q-8w8MLmPpA7gWKZDCa-j1BUcZNfT9_ns=s120-c-rp-mo-br100",
+          "name": "sumaiyah khan",
+          "date": "2024-05-11",
+          "star": 5,
+          "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
+        }
+      ]
     }
   ]
 }

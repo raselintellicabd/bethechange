@@ -248,6 +248,26 @@ void main() {
       expect(detox.reviews, isNotEmpty);
     });
 
+    test('Wellness Classes service is fully populated', () async {
+      final result = await ServicesRepository(createMockApiClient())
+          .getServiceById('wellness-classes');
+
+      expect(result, isA<ApiSuccess<Service>>());
+      final wellness = (result as ApiSuccess<Service>).data;
+      expect(wellness.heroHeading, 'wellness classes');
+      expect(wellness.headline, contains('Weight Loss'));
+      expect(wellness.ctaLabel, 'Sign Up For In-Person Therapies');
+      expect(wellness.recommendedBooks, hasLength(2));
+      expect(wellness.sections, hasLength(4));
+      expect(wellness.sections[0].title, contains('Weight Loss'));
+      expect(wellness.sections[0].items, hasLength(10));
+      expect(wellness.sections[1].title, contains('Pediatric'));
+      expect(wellness.sections[2].title, 'Coming Soon');
+      expect(wellness.sections[2].items, hasLength(2));
+      expect(wellness.sections[3].title, 'Recommended Books');
+      expect(wellness.reviews, isNotEmpty);
+    });
+
     test('getServiceById returns failure for unknown id', () async {
       final result = await ServicesRepository(createMockApiClient())
           .getServiceById('missing');
@@ -268,7 +288,7 @@ void main() {
         );
       }).toList();
 
-      expect(contexts.map((c) => c.id).toSet(), hasLength(8));
+      expect(contexts.map((c) => c.id).toSet(), hasLength(9));
 
       for (final context in contexts) {
         final parsed = SourceContext.tryParse(

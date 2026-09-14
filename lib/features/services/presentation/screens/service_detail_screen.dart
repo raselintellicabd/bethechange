@@ -31,6 +31,7 @@ import 'liquivida_iv_therapy_detail_view.dart';
 import 'reflexology_detail_view.dart';
 import 'ozone_therapy_detail_view.dart';
 import 'ion_foot_detox_detail_view.dart';
+import 'wellness_classes_detail_view.dart';
 
 class ServiceDetailScreen extends ConsumerWidget {
   const ServiceDetailScreen({super.key, required this.serviceId});
@@ -77,6 +78,9 @@ class ServiceDetailScreen extends ConsumerWidget {
         }
         if (service.routeId == 'ion-foot-detox') {
           return IonFootDetoxDetailView(service: service);
+        }
+        if (service.routeId == 'wellness-classes') {
+          return WellnessClassesDetailView(service: service);
         }
         return _ServiceDetailBody(service: service);
       },

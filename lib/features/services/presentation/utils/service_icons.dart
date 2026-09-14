@@ -10,6 +10,7 @@ IconData serviceIconFor(String serviceId) {
     'ozone-therapy' => Icons.blur_on_outlined,
     'reflexology' => Icons.accessibility_new_outlined,
     'ion-foot-detox' => Icons.spa_outlined,
+    'wellness-classes' => Icons.school_outlined,
     _ => Icons.medical_services_outlined,
   };
 }
