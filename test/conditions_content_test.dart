@@ -198,6 +198,7 @@ void main() {
       final repository = ConditionsRepository(createMockApiClient());
       final diabetesResult = await repository.getConditionById('diabetes');
       final heartResult = await repository.getConditionById('heart-disease');
+      final concussionResult = await repository.getConditionById('concussion');
 
       expect(diabetesResult, isA<ApiSuccess<Condition>>());
       final diabetes = (diabetesResult as ApiSuccess<Condition>).data;
@@ -235,6 +236,29 @@ void main() {
         'Medical Testing',
       );
       expect(heart.reviews, isNotEmpty);
+
+      expect(concussionResult, isA<ApiSuccess<Condition>>());
+      final concussion = (concussionResult as ApiSuccess<Condition>).data;
+      expect(concussion.heroHeading, 'concussion specialist');
+      expect(concussion.headline, contains('second concussion'));
+      expect(concussion.contentHtml, isNotEmpty);
+      expect(concussion.quote, 'Feel Good, Live Better!');
+      expect(concussion.quoteBody, contains('suspect'));
+      expect(concussion.symptoms, hasLength(9));
+      expect(concussion.contributingFactors, isEmpty);
+      expect(concussion.integrativeApproach, isNull);
+      expect(concussion.benefits, isEmpty);
+      expect(concussion.treatmentMethods, hasLength(2));
+      expect(concussion.sections, hasLength(3));
+      expect(concussion.sections.first.isDefaultLayout, isTrue);
+      expect(concussion.sections[1].isSymptoms, isTrue);
+      expect(concussion.sections.last.isTreatDark, isTrue);
+      expect(concussion.sections.last.items, hasLength(2));
+      expect(
+        concussion.sections.last.items.first.linkLabel,
+        'Request Appointment',
+      );
+      expect(concussion.reviews, isNotEmpty);
     });
 
     test('getConditionById returns failure for unknown id', () async {

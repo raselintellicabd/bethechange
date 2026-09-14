@@ -625,41 +625,133 @@
     {
       "id": "concussion",
       "name": "Concussion",
-      "summary": "We can treat brain injuries like concussions with hyperbaric oxygen therapy or Frequency Specific Microcurrent (FSM) therapy.",
-      "articleBody": "A concussion is a mild type of traumatic brain injury that happens when your brain shakes rapidly back and forth inside your skull. If your brain hits the inside of your skull, it causes chemical changes and can lead to brain cell damage. While concussions usually aren't life-threatening, the lasting effects can be very serious.\n\nAt Be The Change Health & Wellness Center, Sultana Afrooz, DO, and the team can treat brain injuries like concussions with hyperbaric oxygen therapy or Frequency Specific Microcurrent (FSM) therapy.",
+      "heroHeading": "concussion specialist",
+      "headline": "The signs of a concussion can take some time to appear, and you’re at an especially high risk for serious complications if you get a second concussion before the first fully heals.",
+      "summary": "We can treat brain injuries like concussions with hyperbaric oxygen therapy or Frequency Specific Microcurrent™ (FSM) therapy.",
+      "articleBody": "At Be The Change Health & Wellness Center in Columbia, Maryland, Sultana Afrooz, DO, and the team can treat brain injuries like concussions with hyperbaric oxygen therapy or Frequency Specific Microcurrent™ (FSM) therapy. Call the office or request an appointment online today.\n\nWhat is a concussion?\n\nA concussion is a mild type of traumatic brain injury that happens when your brain shakes rapidly back and forth inside your skull. If your brain hits the inside of your skull, it causes chemical changes to occur and can lead to brain cell damage. While concussions usually aren’t life-threatening, the lasting effects can be very serious.\nIf you have a concussion, you shouldn’t be quick to return to any sports or activities that could put you at risk for another. Concussions often happen during sports from impact or falls. If you get a second concussion before the first fully heals, severe brain swelling can happen, and the consequences could be deadly.\nBe The Change Health & Wellness Center offers several therapies that promote healing throughout your body, including in the brain.",
+      "content_html": "<p>At Be The Change Health &amp; Wellness Center in Columbia, Maryland, Sultana Afrooz, DO, and the team can treat brain injuries like concussions with hyperbaric oxygen therapy or Frequency Specific Microcurrent™ (FSM) therapy. Call the office or request an appointment online today.</p>",
+      "heroImageUrl": "http://192.168.1.160:8000/media/conditions/Concussion_j9DozlH.jpg",
       "symptoms": [
-        { "label": "Headache" },
-        { "label": "Confusion" },
-        { "label": "Memory Issues" },
         { "label": "Dizziness" },
-        { "label": "Sensitivity to Light or Sound" }
+        { "label": "Confusion" },
+        { "label": "Drowsiness" },
+        { "label": "Headache" },
+        { "label": "Nausea" },
+        { "label": "Light sensitivity" },
+        { "label": "Slurred or slow speech" },
+        { "label": "Balance problems" },
+        { "label": "Seizures" }
       ],
-      "contributingFactors": [
-        { "label": "Impact or Whiplash Injury" },
-        { "label": "Sports-Related Trauma" },
-        { "label": "Falls or Accidents" }
-      ],
-      "integrativeApproach": {
-        "title": "Our Integrative Approach to Concussion",
-        "body": "We focus on therapies that support tissue repair, reduce inflammation, and promote recovery of brain function after concussion or related brain injury."
-      },
-      "benefits": [
-        { "label": "Inflammation Support" },
-        { "label": "Tissue Repair Focus" },
-        { "label": "Brain Function Support" },
-        { "label": "Non-Invasive Therapy Options" }
-      ],
+      "contributingFactors": [],
+      "integrativeApproach": null,
+      "benefits": [],
       "treatmentMethods": [
         {
-          "label": "Hyperbaric Oxygen Therapy",
-          "description": "A pressurized chamber delivers a high concentration of oxygen to support tissue regeneration, repair, and reduced inflammation."
+          "label": "Hyperbaric oxygen therapy",
+          "description": "Hyperbaric oxygen therapy has many benefits that could improve symptoms of a concussion, like boosting brain function and relieving inflammation. During the treatment, you lie down in a pressurized chamber as a high concentration of oxygen dissolves into your bloodstream. This improves tissue regeneration and repair.",
+          "content_html": "<p>Hyperbaric oxygen therapy has many benefits that could improve symptoms of a concussion, like boosting brain function and relieving inflammation. During the treatment, you lie down in a pressurized chamber as a high concentration of oxygen dissolves into your bloodstream. This improves tissue regeneration and repair.</p>",
+          "iconUrl": "http://192.168.1.160:8000/media/conditions/2024-01-07_FgzDLln.jpg"
         },
         {
-          "label": "Frequency Specific Microcurrent (FSM) Therapy",
-          "description": "Electromagnetic pulses help stabilize tissue chemistry, improve repair, and decrease inflammation."
+          "label": "Frequency Specific Microcurrent™ (FSM) Therapy",
+          "description": "FSM therapy uses electromagnetic pulses to stabilize the chemical structure of your tissues. This has implications for concussions as it improves tissue repair and decreases inflammation.",
+          "content_html": "<p>FSM therapy uses electromagnetic pulses to stabilize the chemical structure of your tissues. This has implications for concussions as it improves tissue repair and decreases inflammation.</p>",
+          "iconUrl": "http://192.168.1.160:8000/media/conditions/Frequency-Specific-Microcurrent-treatment-cut_LYCx6ft.jpg"
         }
       ],
-      "recommendedBooks": []
+      "recommendedBooks": [],
+      "slug": "concussion",
+      "title": "Concussion",
+      "img-url": "http://192.168.1.160:8000/media/conditions/Concussion_j9DozlH.jpg",
+      "content": "We can treat brain injuries like concussions with hyperbaric oxygen therapy or Frequency Specific Microcurrent™ (FSM) therapy.",
+      "path": "/concussion/",
+      "quote": "Feel Good, Live Better!",
+      "quoteBody": "If you suspect that you have a concussion, call Be The Change Health & Wellness Center or book online today.",
+      "quoteHtml": "<p>If you suspect that you have a concussion, call Be The Change Health &amp; Wellness Center or book online today.</p>",
+      "cta-label": "New Patient – Request An Appointment",
+      "cta-url": "/appointments/?source=%2Fconcussion%2F&patient=new",
+      "sections": [
+        {
+          "type": "image_text",
+          "layout": "default",
+          "title": "What is a concussion?",
+          "content": "A concussion is a mild type of traumatic brain injury that happens when your brain shakes rapidly back and forth inside your skull. If your brain hits the inside of your skull, it causes chemical changes to occur and can lead to brain cell damage. While concussions usually aren’t life-threatening, the lasting effects can be very serious.\nIf you have a concussion, you shouldn’t be quick to return to any sports or activities that could put you at risk for another. Concussions often happen during sports from impact or falls. If you get a second concussion before the first fully heals, severe brain swelling can happen, and the consequences could be deadly.\nBe The Change Health & Wellness Center offers several therapies that promote healing throughout your body, including in the brain.",
+          "content_html": "<p>A concussion is a mild type of traumatic brain injury that happens when your brain shakes rapidly back and forth inside your skull. If your brain hits the inside of your skull, it causes chemical changes to occur and can lead to brain cell damage. While concussions usually aren’t life-threatening, the lasting effects can be very serious.</p><p>If you have a concussion, you shouldn’t be quick to return to any sports or activities that could put you at risk for another. Concussions often happen during sports from impact or falls. If you get a second concussion before the first fully heals, severe brain swelling can happen, and the consequences could be deadly.</p><p>Be The Change Health &amp; Wellness Center offers several therapies that promote healing throughout your body, including in the brain.</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/BB_0aoBxr5.jpg",
+          "image-side": "left",
+          "items": []
+        },
+        {
+          "type": "image_text",
+          "layout": "symptoms",
+          "title": "How can I tell if I have a concussion?",
+          "content": "Concussions display symptoms that others around you might notice before you do. However, you might notice some symptoms yourself too. Soon after the injury, you might experience:\nDizziness\nConfusion\nDrowsiness\nHeadache\nNausea\nLight sensitivity\nSlurred or slow speech\nBalance problems\nSeizures\nIf the symptoms don’t arise immediately, they might appear in the days, weeks, or even months after the injury happened. As soon as you or a loved one notices symptoms that might indicate a concussion, you should seek medical care right away.",
+          "content_html": "<p>Concussions display symptoms that others around you might notice before you do. However, you might notice some symptoms yourself too. Soon after the injury, you might experience:</p><ul><li>Dizziness</li><li>Confusion</li><li>Drowsiness</li><li>Headache</li><li>Nausea</li><li>Light sensitivity</li><li>Slurred or slow speech</li><li>Balance problems</li><li>Seizures</li></ul><p>If the symptoms don’t arise immediately, they might appear in the days, weeks, or even months after the injury happened. As soon as you or a loved one notices symptoms that might indicate a concussion, you should seek medical care right away.</p>",
+          "img-url": "http://192.168.1.160:8000/media/conditions/XS_dymdn1a.jpg",
+          "image-side": "right",
+          "items": [
+            { "title": "Dizziness", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Confusion", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Drowsiness", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Headache", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Nausea", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Light sensitivity", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Slurred or slow speech", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Balance problems", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" },
+            { "title": "Seizures", "content": "", "content_html": "", "img-url": "", "link-url": "", "link-label": "" }
+          ]
+        },
+        {
+          "type": "cards",
+          "layout": "treat_dark",
+          "title": "How Do We Treat Concussions?",
+          "content": "",
+          "content_html": "",
+          "img-url": "",
+          "image-side": "left",
+          "items": [
+            {
+              "title": "Hyperbaric oxygen therapy",
+              "content": "Hyperbaric oxygen therapy has many benefits that could improve symptoms of a concussion, like boosting brain function and relieving inflammation. During the treatment, you lie down in a pressurized chamber as a high concentration of oxygen dissolves into your bloodstream. This improves tissue regeneration and repair.",
+              "content_html": "<p>Hyperbaric oxygen therapy has many benefits that could improve symptoms of a concussion, like boosting brain function and relieving inflammation. During the treatment, you lie down in a pressurized chamber as a high concentration of oxygen dissolves into your bloodstream. This improves tissue regeneration and repair.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/2024-01-07_FgzDLln.jpg",
+              "link-url": "/appointments/?source=%2Fconcussion%2F",
+              "link-label": "Request Appointment"
+            },
+            {
+              "title": "Frequency Specific Microcurrent™ (FSM) Therapy",
+              "content": "FSM therapy uses electromagnetic pulses to stabilize the chemical structure of your tissues. This has implications for concussions as it improves tissue repair and decreases inflammation.",
+              "content_html": "<p>FSM therapy uses electromagnetic pulses to stabilize the chemical structure of your tissues. This has implications for concussions as it improves tissue repair and decreases inflammation.</p>",
+              "img-url": "http://192.168.1.160:8000/media/conditions/Frequency-Specific-Microcurrent-treatment-cut_LYCx6ft.jpg",
+              "link-url": "/appointments/?source=%2Fconcussion%2F",
+              "link-label": "Request Appointment"
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+          "name": "Elle",
+          "date": "2025-02-25",
+          "star": 5,
+          "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+          "name": "Manzur Ahmed",
+          "date": "2024-07-05",
+          "star": 5,
+          "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I highly recommend her and I feel fortunate to have been able to see her."
+        },
+        {
+          "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+          "name": "Muhammad Haroon",
+          "date": "2024-06-27",
+          "star": 5,
+          "comment": "This is one of the most convenient doctor offices that I have been to. The staff and workers really make me feel cared for."
+        }
+      ]
     }
   ]
 }
