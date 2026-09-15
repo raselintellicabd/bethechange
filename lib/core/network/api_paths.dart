@@ -17,9 +17,12 @@ class ApiPaths {
   static const String contact = '/api/v1/contact';
   static const String chatbotMessage = '/chatbot/message';
   static const String chatbotConfig = '/chatbot/config';
-  static const String appointmentsAvailability = '/appointments/availability';
-  static const String appointmentsSlots = '/appointments/slots';
-  static const String appointments = '/appointments';
+
+  /// Website calendar/slot map (same JSON as the public appointments page).
+  static const String appointmentsAvailability = '/appointments/availability/';
+
+  /// Public pending booking create (DRF).
+  static const String appointments = '/api/v1/appointments/';
 
   static String condition(String id) => '$conditions/$id';
   static String service(String id) => '$services/$id';

@@ -66,6 +66,29 @@ class ApiException implements Exception {
       if (message is String && message.trim().isNotEmpty) {
         return message.trim();
       }
+      final detail = data['detail'];
+      if (detail is String && detail.trim().isNotEmpty) {
+        return detail.trim();
+      }
+      if (detail is List && detail.isNotEmpty) {
+        return detail.map((e) => '$e').join(' ');
+      }
+      final nonField = data['non_field_errors'];
+      if (nonField is List && nonField.isNotEmpty) {
+        return nonField.map((e) => '$e').join(' ');
+      }
+      for (final entry in data.entries) {
+        final value = entry.value;
+        if (value is List && value.isNotEmpty) {
+          return value.map((e) => '$e').join(' ');
+        }
+        if (value is String && value.trim().isNotEmpty) {
+          return value.trim();
+        }
+      }
+    }
+    if (data is List && data.isNotEmpty) {
+      return data.map((e) => '$e').join(' ');
     }
     return null;
   }

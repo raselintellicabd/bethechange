@@ -1,5 +1,6 @@
 import 'package:bethechange/core/analytics/analytics_service.dart';
 import 'package:bethechange/core/widgets/appointment_cta_bar.dart';
+import 'package:bethechange/features/appointment/domain/models/consultation_mode.dart';
 import 'package:bethechange/features/appointment/domain/models/patient_details.dart';
 import 'package:bethechange/features/appointment/domain/models/source_context.dart';
 import 'package:bethechange/features/appointment/presentation/providers/appointment_providers.dart';
@@ -51,6 +52,7 @@ void main() {
         name: 'Alex',
         email: 'alex@example.com',
         phone: '3015551212',
+        consultationMode: ConsultationMode.virtual,
       ),
     );
     await appointment.confirmBooking();

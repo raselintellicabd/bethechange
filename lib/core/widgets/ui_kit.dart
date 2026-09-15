@@ -326,6 +326,7 @@ class StepIndicator extends StatelessWidget {
     this.totalSteps = 3,
   });
 
+  /// Zero-based active step index.
   final int currentStep;
   final int totalSteps;
 
@@ -337,27 +338,36 @@ class StepIndicator extends StatelessWidget {
         children: [
           for (var i = 0; i < totalSteps; i++) ...[
             if (i > 0)
-              const Expanded(
+              Expanded(
                 child: SizedBox(
-                  height: 2,
-                  child: ColoredBox(color: AppColors.line),
+                  height: 3,
+                  child: ColoredBox(
+                    color: i <= currentStep
+                        ? AppColors.forest
+                        : AppColors.line,
+                  ),
                 ),
               ),
             Container(
-              width: 26,
-              height: 26,
+              width: 28,
+              height: 28,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: i <= currentStep
                     ? AppColors.forest
                     : AppColors.sageLight,
+                border: i == currentStep
+                    ? Border.all(color: AppColors.forestDark, width: 2)
+                    : null,
               ),
               child: Text(
                 '${i + 1}',
                 style: AppTextStyles.labelMedium.copyWith(
                   color: i <= currentStep ? Colors.white : AppColors.inkMuted,
-                  fontSize: 11,
+                  fontSize: 12,
+                  fontWeight:
+                      i == currentStep ? FontWeight.w700 : FontWeight.w500,
                 ),
               ),
             ),

@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/app_button.dart';
+import '../../domain/booking_labels.dart';
 import '../../domain/models/patient_details.dart';
 import '../../domain/models/source_context.dart';
 import '../../domain/models/time_slot.dart';
@@ -35,20 +36,15 @@ class AppointmentConfirmationView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text('Confirm your appointment', style: theme.textTheme.titleLarge),
+        Text('Confirm your request', style: theme.textTheme.titleLarge),
         const SizedBox(height: AppSpacing.md),
-        _SummaryRow(label: 'For', value: sourceContext.name),
-        _SummaryRow(
-          label: 'Source',
-          value: '${sourceContext.type.name} · ${sourceContext.id}',
-        ),
+        _SummaryRow(label: 'For', value: appointmentForLabel(sourceContext)),
         _SummaryRow(label: 'Date', value: dateLabel),
         _SummaryRow(label: 'Time', value: slot.label),
+        _SummaryRow(label: 'Mode', value: patient.consultationMode.label),
         _SummaryRow(label: 'Name', value: patient.name),
         _SummaryRow(label: 'Email', value: patient.email),
         _SummaryRow(label: 'Phone', value: patient.phone),
-        if (patient.notes.isNotEmpty)
-          _SummaryRow(label: 'Notes', value: patient.notes),
         if (errorMessage != null) ...[
           const SizedBox(height: AppSpacing.md),
           Text(
@@ -68,7 +64,7 @@ class AppointmentConfirmationView extends StatelessWidget {
         ],
         const SizedBox(height: AppSpacing.lg),
         AppButton(
-          label: 'Confirm booking',
+          label: 'Submit request',
           expand: true,
           isLoading: isLoading,
           onPressed: isLoading ? null : onConfirm,

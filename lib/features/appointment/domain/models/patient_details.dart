@@ -1,22 +1,31 @@
+import 'consultation_mode.dart';
+
 class PatientDetails {
   const PatientDetails({
     required this.name,
     required this.email,
     required this.phone,
-    this.notes = '',
+    required this.consultationMode,
   });
 
   final String name;
   final String email;
   final String phone;
-  final String notes;
+  final ConsultationMode consultationMode;
 
   factory PatientDetails.fromJson(Map<String, dynamic> json) {
+    final mode = ConsultationMode.tryParse(
+          json['consultation_mode'] as String? ??
+              json['consultationMode'] as String?,
+        ) ??
+        ConsultationMode.virtual;
     return PatientDetails(
-      name: (json['name'] as String?)?.trim() ?? '',
+      name: (json['name'] as String?)?.trim() ??
+          (json['full_name'] as String?)?.trim() ??
+          '',
       email: (json['email'] as String?)?.trim() ?? '',
       phone: (json['phone'] as String?)?.trim() ?? '',
-      notes: (json['notes'] as String?)?.trim() ?? '',
+      consultationMode: mode,
     );
   }
 
@@ -24,20 +33,20 @@ class PatientDetails {
         'name': name,
         'email': email,
         'phone': phone,
-        'notes': notes,
+        'consultation_mode': consultationMode.apiValue,
       };
 
   PatientDetails copyWith({
     String? name,
     String? email,
     String? phone,
-    String? notes,
+    ConsultationMode? consultationMode,
   }) {
     return PatientDetails(
       name: name ?? this.name,
       email: email ?? this.email,
       phone: phone ?? this.phone,
-      notes: notes ?? this.notes,
+      consultationMode: consultationMode ?? this.consultationMode,
     );
   }
 }

@@ -59,7 +59,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
 
     expect(
-      find.text('Reason: Frequency Specific Microcurrent Therapy'),
+      find.text('Appointment for Frequency Specific Microcurrent'),
       findsOneWidget,
     );
     expect(find.text('Select a date'), findsOneWidget);

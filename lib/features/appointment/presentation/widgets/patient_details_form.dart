@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/app_button.dart';
+import '../../domain/models/consultation_mode.dart';
 import '../../domain/models/patient_details.dart';
 
 class PatientDetailsForm extends StatefulWidget {
@@ -23,7 +24,7 @@ class _PatientDetailsFormState extends State<PatientDetailsForm> {
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
   late final TextEditingController _phoneController;
-  late final TextEditingController _notesController;
+  ConsultationMode? _consultationMode;
 
   @override
   void initState() {
@@ -31,7 +32,7 @@ class _PatientDetailsFormState extends State<PatientDetailsForm> {
     _nameController = TextEditingController(text: widget.initial?.name ?? '');
     _emailController = TextEditingController(text: widget.initial?.email ?? '');
     _phoneController = TextEditingController(text: widget.initial?.phone ?? '');
-    _notesController = TextEditingController(text: widget.initial?.notes ?? '');
+    _consultationMode = widget.initial?.consultationMode;
   }
 
   @override
@@ -39,24 +40,29 @@ class _PatientDetailsFormState extends State<PatientDetailsForm> {
     _nameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
-    _notesController.dispose();
     super.dispose();
   }
 
   void _submit() {
     if (!(_formKey.currentState?.validate() ?? false)) return;
+    final mode = _consultationMode;
+    if (mode == null) {
+      setState(() {});
+      return;
+    }
     widget.onSubmit(
       PatientDetails(
         name: _nameController.text.trim(),
         email: _emailController.text.trim(),
         phone: _phoneController.text.trim(),
-        notes: _notesController.text.trim(),
+        consultationMode: mode,
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Form(
       key: _formKey,
       child: Column(
@@ -102,14 +108,24 @@ class _PatientDetailsFormState extends State<PatientDetailsForm> {
             },
           ),
           const SizedBox(height: AppSpacing.md),
-          TextFormField(
-            controller: _notesController,
-            maxLines: 3,
-            decoration: const InputDecoration(
-              labelText: 'Notes (optional)',
-              alignLabelWithHint: true,
+          Text('Consultation mode', style: theme.textTheme.titleSmall),
+          const SizedBox(height: AppSpacing.sm),
+          ...ConsultationMode.values.map((mode) {
+            return RadioListTile<ConsultationMode>(
+              contentPadding: EdgeInsets.zero,
+              title: Text(mode.label),
+              value: mode,
+              groupValue: _consultationMode,
+              onChanged: (value) => setState(() => _consultationMode = value),
+            );
+          }),
+          if (_consultationMode == null)
+            Text(
+              'Select Virtual or In-Office',
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.error,
+              ),
             ),
-          ),
           const SizedBox(height: AppSpacing.lg),
           AppButton(
             label: 'Review booking',

@@ -1,17 +1,16 @@
 import '../../../core/network/api_result.dart';
 import '../domain/models/appointment_booking_result.dart';
 import '../domain/models/appointment_request.dart';
-import '../domain/models/time_slot.dart';
+import '../domain/models/availability_window.dart';
 
-/// Appointment networking contract. Mocked until the real API is ready.
+/// Appointment networking contract (live Django endpoints).
 abstract class AppointmentRepository {
-  Future<ApiResult<List<DateTime>>> getAvailableDates({
-    required int year,
-    required int month,
+  /// Website calendar/slot map: `GET /appointments/availability/?service=`.
+  Future<ApiResult<AvailabilityWindow>> getAvailability({
+    required String service,
   });
 
-  Future<ApiResult<List<TimeSlot>>> getTimeSlots(DateTime date);
-
+  /// Public create: `POST /api/v1/appointments/`.
   Future<ApiResult<AppointmentBookingResult>> bookAppointment(
     AppointmentRequest request,
   );

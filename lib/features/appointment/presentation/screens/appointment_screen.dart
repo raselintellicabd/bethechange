@@ -7,6 +7,7 @@ import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/ui_kit.dart';
+import '../../domain/booking_labels.dart';
 import '../../domain/models/source_context.dart';
 import '../providers/appointment_providers.dart';
 import '../widgets/appointment_calendar_view.dart';
@@ -21,13 +22,11 @@ class AppointmentScreen extends ConsumerWidget {
   final SourceContext sourceContext;
 
   int _stepIndex(AppointmentStep step) {
+    // 1 = date + time, 2 = details, 3 = confirm
     return switch (step) {
-      AppointmentStep.date => 0,
-      AppointmentStep.time => 1,
-      AppointmentStep.details ||
-      AppointmentStep.confirm ||
-      AppointmentStep.success =>
-        2,
+      AppointmentStep.date || AppointmentStep.time => 0,
+      AppointmentStep.details => 1,
+      AppointmentStep.confirm || AppointmentStep.success => 2,
     };
   }
 
@@ -53,7 +52,7 @@ class AppointmentScreen extends ConsumerWidget {
           if (state.step != AppointmentStep.success)
             StepIndicator(currentStep: _stepIndex(state.step)),
           if (state.step != AppointmentStep.success)
-            LockedContextChip(label: 'Reason: ${sourceContext.name}'),
+            LockedContextChip(label: appointmentForLabel(sourceContext)),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.fromLTRB(
@@ -98,7 +97,7 @@ class _StepBody extends StatelessWidget {
         state.availableDates.isEmpty) {
       return ErrorStateWidget(
         message: state.errorMessage!,
-        onRetry: () => controller.loadMonth(state.focusedMonth),
+        onRetry: controller.loadAvailability,
       );
     }
 
@@ -112,6 +111,14 @@ class _StepBody extends StatelessWidget {
               focusedMonth: state.focusedMonth,
               selectedDate: state.selectedDate,
               availableDates: state.availableDates,
+              firstDay: state.availability?.today ??
+                  DateTime(state.focusedMonth.year, state.focusedMonth.month, 1),
+              lastDay: state.availability?.windowEnd ??
+                  DateTime(
+                    state.focusedMonth.year,
+                    state.focusedMonth.month + 1,
+                    0,
+                  ),
               onMonthChanged: controller.loadMonth,
               onDateSelected: controller.selectDate,
             ),

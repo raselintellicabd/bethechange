@@ -2,10 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/analytics/analytics_service.dart';
 import '../../../../core/network/api_client.dart';
+import '../../../../core/network/api_result.dart';
 import '../../data/appointment_api_repository.dart';
 import '../../data/appointment_repository.dart';
+import '../../domain/booking_labels.dart';
 import '../../domain/models/appointment_booking_result.dart';
 import '../../domain/models/appointment_request.dart';
+import '../../domain/models/availability_window.dart';
 import '../../domain/models/patient_details.dart';
 import '../../domain/models/source_context.dart';
 import '../../domain/models/time_slot.dart';
@@ -17,6 +20,7 @@ class AppointmentBookingState {
     required this.sourceContext,
     this.step = AppointmentStep.date,
     required this.focusedMonth,
+    this.availability,
     this.availableDates = const {},
     this.selectedDate,
     this.slots = const [],
@@ -30,6 +34,7 @@ class AppointmentBookingState {
   final SourceContext sourceContext;
   final AppointmentStep step;
   final DateTime focusedMonth;
+  final AvailabilityWindow? availability;
   final Set<DateTime> availableDates;
   final DateTime? selectedDate;
   final List<TimeSlot> slots;
@@ -39,6 +44,10 @@ class AppointmentBookingState {
   final String? errorMessage;
   final AppointmentBookingResult? result;
 
+  String get bookingLabel => bookingServiceLabel(sourceContext);
+
+  String get appointmentFor => appointmentForLabel(sourceContext);
+
   bool isDateAvailable(DateTime day) {
     final normalized = DateTime(day.year, day.month, day.day);
     return availableDates.contains(normalized);
@@ -47,6 +56,7 @@ class AppointmentBookingState {
   AppointmentBookingState copyWith({
     AppointmentStep? step,
     DateTime? focusedMonth,
+    AvailabilityWindow? availability,
     Set<DateTime>? availableDates,
     DateTime? selectedDate,
     bool clearSelectedDate = false,
@@ -63,6 +73,7 @@ class AppointmentBookingState {
       sourceContext: sourceContext,
       step: step ?? this.step,
       focusedMonth: focusedMonth ?? this.focusedMonth,
+      availability: availability ?? this.availability,
       availableDates: availableDates ?? this.availableDates,
       selectedDate:
           clearSelectedDate ? null : selectedDate ?? this.selectedDate,
@@ -116,33 +127,33 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
         'id': sourceContext.id,
       },
     );
-    loadMonth(state.focusedMonth);
+    loadAvailability();
   }
 
   final AppointmentRepository _repository;
   final AnalyticsService _analytics;
   final DateTime _now;
 
-  Future<void> loadMonth(DateTime month) async {
-    final focused = DateTime(month.year, month.month);
-    state = state.copyWith(
-      focusedMonth: focused,
-      isLoading: true,
-      clearError: true,
-    );
+  Future<void> loadAvailability() async {
+    state = state.copyWith(isLoading: true, clearError: true);
 
-    final result = await _repository.getAvailableDates(
-      year: focused.year,
-      month: focused.month,
+    final result = await _repository.getAvailability(
+      service: state.bookingLabel,
     );
 
     result.when(
-      success: (dates) {
-        final normalized = dates
-            .map((d) => DateTime(d.year, d.month, d.day))
-            .toSet();
+      success: (window) {
+        var focused = DateTime(state.focusedMonth.year, state.focusedMonth.month);
+        final minMonth = DateTime(window.today.year, window.today.month);
+        final maxMonth =
+            DateTime(window.windowEnd.year, window.windowEnd.month);
+        if (focused.isBefore(minMonth)) focused = minMonth;
+        if (focused.isAfter(maxMonth)) focused = maxMonth;
+
         state = state.copyWith(
-          availableDates: normalized,
+          availability: window,
+          focusedMonth: focused,
+          availableDates: _datesForMonth(window, focused),
           isLoading: false,
         );
       },
@@ -152,31 +163,68 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
     );
   }
 
+  Future<void> loadMonth(DateTime month) async {
+    final window = state.availability;
+    var focused = DateTime(month.year, month.month);
+
+    if (window != null) {
+      final minMonth = DateTime(window.today.year, window.today.month);
+      final maxMonth = DateTime(window.windowEnd.year, window.windowEnd.month);
+      if (focused.isBefore(minMonth)) focused = minMonth;
+      if (focused.isAfter(maxMonth)) focused = maxMonth;
+
+      state = state.copyWith(
+        focusedMonth: focused,
+        availableDates: _datesForMonth(window, focused),
+        clearError: true,
+      );
+      return;
+    }
+
+    state = state.copyWith(focusedMonth: focused);
+    await loadAvailability();
+  }
+
+  Set<DateTime> _datesForMonth(AvailabilityWindow window, DateTime month) {
+    final year = month.year;
+    final monthNum = month.month;
+    return window.bookableDates
+        .where((d) => d.year == year && d.month == monthNum)
+        .toSet();
+  }
+
   Future<void> selectDate(DateTime date) async {
     final normalized = DateTime(date.year, date.month, date.day);
     if (!state.isDateAvailable(normalized)) return;
 
+    final window = state.availability;
+    if (window == null) {
+      await loadAvailability();
+      return;
+    }
+
+    final slots = window
+        .slotsOn(normalized)
+        .map(
+          (s) => TimeSlot.fromAvailability(
+            date: normalized,
+            timeMinutes: s.timeMinutes,
+            state: s.state,
+          ),
+        )
+        .toList();
+
     state = state.copyWith(
       selectedDate: normalized,
       clearSelectedSlot: true,
-      slots: const [],
+      slots: slots,
       step: AppointmentStep.time,
-      isLoading: true,
       clearError: true,
-    );
-
-    final result = await _repository.getTimeSlots(normalized);
-    result.when(
-      success: (slots) {
-        state = state.copyWith(slots: slots, isLoading: false);
-      },
-      failure: (message, _) {
-        state = state.copyWith(isLoading: false, errorMessage: message);
-      },
     );
   }
 
   void selectSlot(TimeSlot slot) {
+    if (!slot.isSelectable) return;
     state = state.copyWith(selectedSlot: slot, clearError: true);
   }
 
@@ -229,33 +277,52 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
     );
 
     final result = await _repository.bookAppointment(request);
-    result.when(
-      success: (booking) {
-        _analytics.logEvent(
-          AnalyticsEvents.appointmentCompleted,
-          parameters: {
-            'type': state.sourceContext.type.name,
-            'id': state.sourceContext.id,
-            'bookingId': booking.confirmationId,
-          },
-        );
+    if (result is ApiSuccess<AppointmentBookingResult>) {
+      final booking = result.data;
+      _analytics.logEvent(
+        AnalyticsEvents.appointmentCompleted,
+        parameters: {
+          'type': state.sourceContext.type.name,
+          'id': state.sourceContext.id,
+          'bookingId': booking.confirmationId,
+        },
+      );
+      state = state.copyWith(
+        isLoading: false,
+        result: booking,
+        step: AppointmentStep.success,
+      );
+      return;
+    }
+
+    final failure = result as ApiFailure<AppointmentBookingResult>;
+    final message = failure.message;
+    final statusCode = failure.statusCode;
+    state = state.copyWith(isLoading: false, errorMessage: message);
+
+    if (statusCode == 400 || statusCode == 409) {
+      await loadAvailability();
+      final selected = state.selectedDate;
+      if (selected != null && state.isDateAvailable(selected)) {
+        await selectDate(selected);
         state = state.copyWith(
-          isLoading: false,
-          result: booking,
-          step: AppointmentStep.success,
+          step: AppointmentStep.time,
+          errorMessage: message,
         );
-      },
-      failure: (message, _) {
-        state = state.copyWith(isLoading: false, errorMessage: message);
-      },
-    );
+      } else {
+        state = state.copyWith(
+          step: AppointmentStep.date,
+          clearSelectedDate: true,
+          clearSelectedSlot: true,
+          slots: const [],
+          errorMessage: message,
+        );
+      }
+    }
   }
 
   void retryAfterError() {
     state = state.copyWith(clearError: true);
-    if (state.step == AppointmentStep.confirm) {
-      // Keep selections; user can confirm again or go back to pick another slot.
-    }
   }
 
   DateTime get now => _now;

@@ -132,12 +132,10 @@ class MockApiInterceptor extends Interceptor {
         return _loadObject(MockApiAssets.patients);
       case ApiPaths.contact:
         return _loadObject(MockApiAssets.contact);
+      case '/appointments/availability':
+        return _availabilityWindowPayload(query);
       case ApiPaths.chatbotConfig:
         return _chatbotConfigPayload();
-      case ApiPaths.appointmentsAvailability:
-        return _availableDatesPayload(query);
-      case ApiPaths.appointmentsSlots:
-        return _slotsPayload(query);
     }
 
     final conditionId = _matchId(path, ApiPaths.conditions);
@@ -195,7 +193,7 @@ class MockApiInterceptor extends Interceptor {
         return _submitContact(data);
       case ApiPaths.chatbotMessage:
         return _chatbotReply(data);
-      case ApiPaths.appointments:
+      case '/api/v1/appointments':
         return _bookAppointment(data);
     }
 
@@ -257,99 +255,88 @@ class MockApiInterceptor extends Interceptor {
   Future<Map<String, dynamic>> _bookAppointment(
     Map<String, dynamic> data,
   ) async {
-    final patient = _asMap(data['patient']);
-    final notes = (patient['notes'] as String?)?.trim().toLowerCase() ?? '';
-    if (notes == 'force error') {
+    final service = '${data['service'] ?? ''}'.trim();
+    final fullName = '${data['full_name'] ?? ''}'.trim();
+    final email = '${data['email'] ?? ''}'.trim();
+    final phone = '${data['phone'] ?? ''}'.trim();
+    final mode = '${data['consultation_mode'] ?? ''}'.trim();
+    final startsAt = '${data['starts_at'] ?? ''}'.trim();
+    final endsAt = '${data['ends_at'] ?? ''}'.trim();
+
+    if (fullName.isEmpty ||
+        email.isEmpty ||
+        phone.isEmpty ||
+        service.isEmpty ||
+        mode.isEmpty ||
+        startsAt.isEmpty ||
+        endsAt.isEmpty) {
+      throw const _MockHttpError(400, 'Missing required appointment fields.');
+    }
+
+    if (phone.toLowerCase().contains('force') ||
+        fullName.toLowerCase() == 'force error') {
       throw const _MockHttpError(
-        409,
+        400,
         'That time slot was just taken. Please choose another time.',
       );
     }
 
     _confirmationCounter += 1;
     return {
-      'confirmationId': 'BTC-$_confirmationCounter',
-      'bookedAt': _now.toIso8601String(),
-      'request': data,
+      'id': _confirmationCounter,
+      'full_name': fullName,
+      'email': email,
+      'phone': phone,
+      'service': service,
+      'consultation_mode': mode,
+      'meet_link': '',
+      'starts_at': startsAt,
+      'ends_at': endsAt,
+      'status': 'pending',
+      'created_at': _now.toIso8601String(),
+      'updated_at': _now.toIso8601String(),
     };
   }
 
-  Future<Map<String, dynamic>> _availableDatesPayload(
+  Future<Map<String, dynamic>> _availabilityWindowPayload(
     Map<String, dynamic> query,
   ) async {
-    final year = int.tryParse('${query['year'] ?? ''}');
-    final month = int.tryParse('${query['month'] ?? ''}');
-    if (year == null || month == null || month < 1 || month > 12) {
-      throw const _MockHttpError(
-        400,
-        'year and month query parameters are required.',
-      );
-    }
+    final service = '${query['service'] ?? ''}'.trim();
+    final today = _today;
+    final days = <String, List<Map<String, dynamic>>>{};
 
-    final config = await _appointmentConfig();
-    final availableWeekdays =
-        (config['availableWeekdays'] as List<dynamic>? ?? const [1, 2, 3, 4, 5])
-            .map((e) => e as int)
-            .toSet();
-
-    final daysInMonth = DateTime(year, month + 1, 0).day;
-    final dates = <String>[];
-    for (var day = 1; day <= daysInMonth; day++) {
-      final date = DateTime(year, month, day);
-      final isFutureOrToday = !date.isBefore(_today);
-      if (availableWeekdays.contains(date.weekday) && isFutureOrToday) {
-        dates.add(_dateKey(date));
+    for (var offset = 0; offset <= 14; offset++) {
+      final day = today.add(Duration(days: offset));
+      final key = _dateKey(day);
+      if (day.weekday > DateTime.friday) {
+        days[key] = const [];
+        continue;
       }
+
+      final slots = <Map<String, dynamic>>[];
+      for (var minutes = 10 * 60; minutes <= 16 * 60 + 30; minutes += 30) {
+        var state = 'available';
+        // Fridays: no open slots (busy) so calendar disables them.
+        if (day.weekday == DateTime.friday) {
+          state = 'busy';
+        }
+        slots.add({'time_minutes': minutes, 'state': state});
+      }
+      days[key] = slots;
     }
 
-    return {'dates': dates};
-  }
-
-  Future<Map<String, dynamic>> _slotsPayload(
-    Map<String, dynamic> query,
-  ) async {
-    final rawDate = '${query['date'] ?? ''}';
-    final parsed = DateTime.tryParse(rawDate);
-    if (parsed == null) {
-      throw const _MockHttpError(400, 'date query parameter is required.');
-    }
-
-    final normalized = DateTime(parsed.year, parsed.month, parsed.day);
-    if (normalized.isBefore(_today)) {
-      return {'slots': <Map<String, dynamic>>[]};
-    }
-
-    final config = await _appointmentConfig();
-    final emptyWeekdays =
-        (config['emptySlotWeekdays'] as List<dynamic>? ?? const [5])
-            .map((e) => e as int)
-            .toSet();
-    if (emptyWeekdays.contains(normalized.weekday)) {
-      return {'slots': <Map<String, dynamic>>[]};
-    }
-
-    final slotHours =
-        (config['slotHours'] as List<dynamic>? ?? const [9, 10, 11, 13, 14, 15])
-            .map((e) => e as int)
-            .toList();
-
-    final slots = slotHours.map((hour) {
-      final dateTime = DateTime(
-        normalized.year,
-        normalized.month,
-        normalized.day,
-        hour,
-      );
-      final displayHour = hour > 12 ? hour - 12 : hour;
-      final suffix = hour >= 12 ? 'PM' : 'AM';
-      return {
-        'id': '${_dateKey(normalized)}-$hour',
-        'label': '$displayHour:00 $suffix',
-        'dateTime': dateTime.toIso8601String(),
-      };
-    }).toList();
-
-    return {'slots': slots};
+    return {
+      'ok': true,
+      'service': service.isEmpty ? 'General appointment' : service,
+      'timezone': 'America/New_York',
+      'today': _dateKey(today),
+      'window_days': 15,
+      'pending_hold_hours': 48,
+      'work_start_minutes': 600,
+      'work_end_minutes': 1020,
+      'slot_minutes': 30,
+      'days': days,
+    };
   }
 
   Future<Map<String, dynamic>> _chatbotConfigPayload() async {
@@ -380,10 +367,6 @@ class MockApiInterceptor extends Interceptor {
 
     return (full['defaultReply'] as String?)?.trim() ??
         'Thanks for your message.';
-  }
-
-  Future<Map<String, dynamic>> _appointmentConfig() {
-    return _loadObject(MockApiAssets.appointmentConfig);
   }
 
   Future<Map<String, dynamic>> _conditionsListPayload() async {
