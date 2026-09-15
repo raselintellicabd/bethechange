@@ -1,62 +1,65 @@
-import 'about_section.dart';
-import 'doctor_profile.dart';
-import 'review.dart';
-
-/// Full About feature payload loaded from bundled JSON (or later an API).
+/// Catalog payload from `GET /api/v1/about/`.
 class AboutContent {
   const AboutContent({
-    required this.sections,
-    required this.doctors,
-    required this.reviews,
-    this.doctorsIntro,
-    this.reviewSummaryLabel,
-    this.reviewCount,
+    required this.title,
+    required this.pages,
   });
 
-  final List<AboutSection> sections;
-  final List<DoctorProfile> doctors;
-  final List<Review> reviews;
-  final String? doctorsIntro;
-  final String? reviewSummaryLabel;
-  final int? reviewCount;
+  final String title;
+  final List<AboutPageSummary> pages;
 
-  AboutSection? sectionById(String id) {
-    for (final section in sections) {
-      if (section.id == id) return section;
+  AboutPageSummary? pageBySlug(String slug) {
+    for (final page in pages) {
+      if (page.slug == slug) return page;
     }
     return null;
-  }
-
-  DoctorProfile? doctorById(String id) {
-    for (final doctor in doctors) {
-      if (doctor.id == id) return doctor;
-    }
-    return null;
-  }
-
-  /// Home `/api/v1/home/` doctor ids are numeric. Bios still live on About,
-  /// keyed by name slug, until that endpoint shares the same id.
-  DoctorProfile? doctorForRoute(String routeId, {DoctorProfile? homeDoctor}) {
-    final direct = doctorById(routeId);
-    if (direct != null) return direct;
-    if (homeDoctor == null) return null;
-    return doctorById(DoctorProfile.slugFromName(homeDoctor.name)) ?? homeDoctor;
   }
 
   factory AboutContent.fromJson(Map<String, dynamic> json) {
     return AboutContent(
-      doctorsIntro: json['doctorsIntro'] as String?,
-      reviewSummaryLabel: json['reviewSummaryLabel'] as String?,
-      reviewCount: json['reviewCount'] as int?,
-      sections: (json['sections'] as List<dynamic>? ?? const [])
-          .map((item) => AboutSection.fromJson(item as Map<String, dynamic>))
-          .toList(),
-      doctors: (json['doctors'] as List<dynamic>? ?? const [])
-          .map((item) => DoctorProfile.fromJson(item as Map<String, dynamic>))
-          .toList(),
-      reviews: (json['reviews'] as List<dynamic>? ?? const [])
-          .map((item) => Review.fromJson(item as Map<String, dynamic>))
+      title: (json['title'] as String?)?.trim() ?? 'About',
+      pages: (json['pages'] as List<dynamic>? ?? const [])
+          .whereType<Map>()
+          .map(
+            (item) =>
+                AboutPageSummary.fromJson(item.map((k, v) => MapEntry('$k', v))),
+          )
           .toList(),
     );
   }
+}
+
+class AboutPageSummary {
+  const AboutPageSummary({
+    required this.slug,
+    required this.title,
+    required this.path,
+    required this.kind,
+    this.imageUrl,
+    this.summary,
+  });
+
+  final String slug;
+  final String title;
+  final String path;
+  final String kind;
+  final String? imageUrl;
+  final String? summary;
+
+  factory AboutPageSummary.fromJson(Map<String, dynamic> json) {
+    return AboutPageSummary(
+      slug: (json['slug'] as String?)?.trim() ?? '',
+      title: (json['title'] as String?)?.trim() ?? '',
+      path: (json['path'] as String?)?.trim() ?? '',
+      kind: (json['kind'] as String?)?.trim() ?? '',
+      imageUrl: _nonEmpty(json['imageUrl'] as String?),
+      summary: _nonEmpty(json['summary'] as String?),
+    );
+  }
+}
+
+String? _nonEmpty(String? value) {
+  final trimmed = value?.trim();
+  if (trimmed == null || trimmed.isEmpty) return null;
+  return trimmed;
 }

@@ -1,44 +1,138 @@
 {
-  "practice": {
-    "img-url": "http://192.168.1.160:8000/media/about/approach_RGTOxGL.jpg",
-    "title": "about our practice",
-    "content": "Real health is about both resolving symptoms and building up the body to be more resilient and strong.\n\nWe help you get to the root cause of your concerns with the latest advances in integrative medicine. We also help you be proactive about your health so that you can create positive and lasting changes in your happiness and life.\n\nWhat makes us different is that we practice personalized medicine. Our treatments are tailored according to the patients’ individual physical, mental and emotional needs. We consider what makes a person unique through in-depth history intakes and thorough testing. We perform specialty tests of the immune system, nervous system, digestive system and nutrigenetic analysis, etc.",
-    "quote": "“Discovering what makes your body unique through personalized medicine & planning a healthier journey together!”\n\n-Be The Change"
+  "hero": {
+    "text": "Get to the root cause of your health concerns with functional lab testing and a personalized plan to reclaim your health.",
+    "imageUrl": "http://192.168.1.160:8000/media/homepage/home2_fqpI5Oy.jpg",
+    "ctaLabel": "New Patient Questions",
+    "ctaUrl": "/faq/"
   },
-  "naturopathic": {
-    "img-url": "http://192.168.1.160:8000/media/about/therapeutic-order_gme9IlO.png",
-    "title": "naturopathic medicine",
-    "content": "What is Naturopathic Medicine?\n\nNaturopathic Medicine is evidence-based medicine that treats the whole person by addressing the root cause(s) of illness and emphasizes prevention of illness. Naturopathic doctors educate and empower patients to be the leaders and decision-makers of their own health. Naturopathic medicine philosophy is grounded in the understanding that our bodies have an innate ability to heal; when disturbances to health are removed and the foundations of health are restored, our bodies can return to balance by first using the least invasive interventions.\n\nNaturopathic doctors are trained in lifestyle medicine, botanical medicine, physical medicine, nutrition, homeopathy, mind-body medicine, pharmacology, nutraceuticals, and other modalities, and aim to individualize these treatments to support and restore function with no harm done to the patient.\n\nNaturopathic Doctors (NDs) attend a 4-year post-graduate program that includes clinical training.\n\nNaturopathic Principles\n\nFirst do no harm\nIdentify and treat the root cause(s)\nHealing power of nature\nDoctor as teacher\nTreat the whole person\nFocus on prevention",
-    "quote": ""
+  "approach": {
+    "eyebrow": "our approach",
+    "headline": "At Be the Change Health & Wellness Center, we focus on the root cause.",
+    "content": "The human body consists of complex interconnected body systems, each with its unique functions and dependencies. They all rely on each other to maintain overall health and functionality. Through integrative medicine and naturopathic medicine, we provide a holistic approach that addresses the root cause of your symptoms and considers these body systems in order to stimulate the body’s natural ability to heal itself from the inside out.",
+    "content_html": "The human body consists of complex interconnected body systems, each with its unique functions and dependencies. They all rely on each other to maintain overall health and functionality. Through integrative medicine and naturopathic medicine, we provide a holistic approach that addresses the root cause of your symptoms and considers these body systems in order to stimulate the body’s natural ability to heal itself from the inside out.",
+    "imageUrl": "http://192.168.1.160:8000/media/homepage/approach_CACjeaP.jpg",
+    "buttonLabel": "Our Integrative Approach",
+    "buttonUrl": "/about/"
   },
-  "Integrative-medicine": {
-    "img-url": "http://192.168.1.160:8000/media/about/hh_qCbJcfb.jpg",
-    "title": "integrative medicine",
-    "content": "What is Integrative Medicine?\n\nThe field of integrative health and medicine reaffirms the importance of the relationship between practitioner and patient, focuses on the whole person, is informed by evidence, and makes use of all appropriate therapeutic approaches, healthcare professionals, and professions to achieve optimal health and healing. Simply put, integrative health and medicine offer best practices for optimal health and healing.\n\nIntegrative care seeks to develop a therapeutic relationship between the doctor and patient. This specialized form of medicine emphasizes the bio-psycho-socio-spiritual aspects of a person to improve health. The therapeutic relationship between the doctor and you results in longer in-depth appointments. During the appointment, the doctor discusses all aspects of your life and creates a customized treatment plan. Personalized care is offered based on the patient’s unique set of circumstances, including dietary choices, community, and family history, and lifestyle choices. This is because there are many things that influence health, including body, mind, spirit, and community. A variety of tests may be ordered, including blood tests, saliva tests, and more.\n\nAdditional information about the integrated medicine approach visit:\n\nAcademy of Integrative Health & Medicine: http://www.aihm.org/\nAmerican College for Advancement in Medicine: http://www.acam.org/",
-    "quote": ""
+  "conditions": {
+    "title": "conditions we treat",
+    "items": [
+      {
+        "slug": "diabetes",
+        "title": "Diabetes",
+        "imageUrl": "http://192.168.1.160:8000/media/homepage/Diabetes_8ohG19t.jpg",
+        "linkUrl": "/diabetes/",
+        "summary": "We can help prevent and manage diabetes by using holistic therapies to support your metabolism and blood sugar balance."
+      },
+      {
+        "slug": "obesity",
+        "title": "Obesity",
+        "imageUrl": "http://192.168.1.160:8000/media/homepage/Medical-Weight-Loss_Dv8OLG9.jpg",
+        "linkUrl": "/obesity/",
+        "summary": "We work with you as you complete an individualized medical weight loss plan, including regular appointments and personalized diet planning."
+      },
+      {
+        "slug": "heart-disease",
+        "title": "Heart Disease",
+        "imageUrl": "http://192.168.1.160:8000/media/homepage/Heart-Disease_WWUpWr3.jpg",
+        "linkUrl": "/heart-disease/",
+        "summary": "At Be the Change Wellness Center we offer holistic wellness plans that can reduce your risk of heart disease and heart disease complications."
+      },
+      {
+        "slug": "chronic-fatigue",
+        "title": "Chronic Fatigue",
+        "imageUrl": "http://192.168.1.160:8000/media/homepage/Chronic-fatigue-1_zbipyL9.jpg",
+        "linkUrl": "/chronic-fatigue/",
+        "summary": "We treat chronic fatigue and fibromyalgia with a holistic approach and can reduce your need for pharmaceutical medications."
+      },
+      {
+        "slug": "chronic-pain",
+        "title": "Chronic Pain",
+        "imageUrl": "http://192.168.1.160:8000/media/homepage/Pain-relief-Services_rTpI8OA.jpg",
+        "linkUrl": "/chronic-pain/",
+        "summary": "We offer Frequency Specific Microcurrent™ (FSM) therapy to effectively reduce pain using low-level electromagnetic pulses."
+      },
+      {
+        "slug": "detoxification",
+        "title": "Detoxification",
+        "imageUrl": "http://192.168.1.160:8000/media/homepage/Detoxification_I9kXQtQ.jpg",
+        "linkUrl": "/toxins/",
+        "summary": "Detoxification is the process of removing toxins that can build up in your body and lead to pain, discomfort, and other ambiguous symptoms."
+      },
+      {
+        "slug": "concussion",
+        "title": "Concussion",
+        "imageUrl": "http://192.168.1.160:8000/media/homepage/Concussion_OXSNmIU.jpg",
+        "linkUrl": "/concussion/",
+        "summary": "We can treat brain injuries like concussions with hyperbaric oxygen therapy or Frequency Specific Microcurrent™ (FSM) therapy."
+      },
+      {
+        "slug": "hormone-imbalance",
+        "title": "Hormone Imbalance",
+        "imageUrl": "http://192.168.1.160:8000/media/homepage/Hormone_lOviiTh.jpg",
+        "linkUrl": "/hormone-imbalance/",
+        "summary": "Achieve hormonal balance through holistic therapies that support health in men and women of all ages."
+      }
+    ]
   },
-  "our-process": {
-    "img-url": "http://192.168.1.160:8000/media/about/Consultation_LDOOZAi.png",
-    "title": "Our Process",
-    "content": "We help you understand your body, to achieve optimal health.\n\nSTEP #1: CONSULTATION (LISTEN, LEARN & APPLY)\n\nConsultation\nWe listen to your needs, learn about your lifestyle, and discuss any symptoms you may be having.\n\nHistory Intake\nWe gather a thorough personal history, family history, medical history, and environmental exposure history to better understand your complete story.\n\nPhysical Exam\nWe perform in-office physical exams of the cardiovascular, respiratory, digestive, neurological systems, and more.\n\nSTEP #2: LABORATORY TESTING (A CLOSER LOOK INSIDE THE BODY)\n\nWe run insurance-covered blood tests to investigate the root cause of disease. We also incorporate specialty tests including, Genova Diagnostics, Igenix Lyme testing, Real Time Labs mold testing, Great Plains Laboratory, Doctor’s Data, Cyrex, ALCAT Tests, ZRT Heavy Metal Tests, Galaxy Labs, Fry Labs, DiagnosTechs and neurotransmitter testing.\n\nLab Testing\n\nBlood Tests\n\nSpecialty Tests\n\nSTEP #3: LIFESTYLE GUIDANCE (HELPING YOU CREATE HEALTHY CHANGES)\n\nNutrition\nWe understand that “food is medicine” and an important part of the healing process. We have tailored individualized wellness plans to help guide nutrition, healthy weight loss and lifestyle changes day by day.\n\nPhysical Activities\nOur Wellness Plans include fitness plans to fit your unique activity level. Our staff is certified in personal training and in yoga instruction to further guide your physical activity goals.\n\nEnvironmental Toxins\nWe understand that your home and work environment greatly affect your wellbeing. We help to investigate harmful exposures (Cleaning Products, Mold, Body Sprays, Toilettrees, Smoke, Makeup & more) that could contribute to symptoms and prevent complete recovery.\n\nSTEP #4: EFFECTIVE THERAPIES (DETOX, REJUVENATE & HEAL)\n\nIV Therapy\nOur intravenous infusions of nutrients can help support the immune system and organs of detoxification to help recover from chronic and acute conditions, or to simply give you a boost!\n\nFrequency Specific Microcurrent™ (FSM) Therapy\nFSM is a new system of treatment using micro amperage current and the resonance effects of frequencies on tissues and conditions to create beneficial changes in acute and chronic conditions and in decreasing pain.\n\nCraniosacral Therapy\nCraniosacral Therapy (CST) is a gentle, hands-on approach that releases restrictions in soft tissue and fascia that surrounds the central nervous system, joints, organs, muscles, and blood vessels to relieve pain and dysfunction.\n\nHyperberic Oxygen Chamber Therapy\nA non-invasive therapy that increases the amount of oxygen in your plasma to stimulate tissue healing and fight infections.\n\nIon Foot Detox\nThe IonCleanse® detoxification system can reduce symptoms of “toxin overload” from an accumulation of everyday exposures through a series of short detox sessions.\n\nEssential Oil\nConsultations\nOur essential oil consultant can help guide you through the many benefits of essential oils, blends, and oil-infused products that can be used to support physical & mental health concerns and even to safely clean homes and products.\n\nSTEP #5: SUPPLEMENTS, MEDICATIONS & DETOXIFICATION (INDIVIDUALIZED FOR YOUR NEEDS)\n\nSupplements, Nutrients and Medication\nWe use a research-based approach to individualize treatment plans. We use various combinations of trusted nutriceuticals & supplements, as well as, prescription medications, to clear disease and support your body.\n\nSTEP #6: FOLLOW-UP (WE JOURNEY WITH YOU)\n\nWe care about your long-term well-being. Follow-ups allow us to evaluate treatment effectiveness and to make any necessary adjustments to support your progress. We aim to build trust and lasting relationships with our patients.\n\nCheck-ins\n\nTreatment Adjustments\n\nFree Foot Detox\n\nIf you suspect that you have a concussion, call Be The Change Health & Wellness Center or book online today.",
-    "quote": "Feel Good, Live Better!"
+  "therapies": {
+    "title": "Featured Therapies",
+    "ctaLabel": "View Our Full List Of Services",
+    "ctaUrl": "/services/",
+    "items": [
+      {
+        "slug": "ion-foot-detox",
+        "title": "Ion Foot Detox",
+        "imageUrl": "http://192.168.1.160:8000/media/homepage/DETOX_64awtRS.jpg",
+        "linkUrl": "/ion-foot-detox/"
+      },
+      {
+        "slug": "iv-nutritional-infusions",
+        "title": "IV Nutritional Infusions",
+        "imageUrl": "http://192.168.1.160:8000/media/homepage/IV_0gsSabS.jpg",
+        "linkUrl": "/iv-nutritional-infusions/"
+      },
+      {
+        "slug": "hyperbaric-oxygen-therapy",
+        "title": "Hyperbaric Oxygen Therapy",
+        "imageUrl": "http://192.168.1.160:8000/media/homepage/OX_qp5srn4.jpg",
+        "linkUrl": "/hyperbaric-oxygen-therapy/"
+      },
+      {
+        "slug": "infrared-sauna-therapy",
+        "title": "Infrared Sauna Therapy",
+        "imageUrl": "http://192.168.1.160:8000/media/homepage/SAUNA_v1CzEgR.jpg",
+        "linkUrl": "/infrared-sauna-therapy/"
+      }
+    ]
   },
-  "doctors": [
-    {
-      "id": 1,
-      "img-url": "http://192.168.1.160:8000/media/about/sa_Z58pbgb.jpg",
-      "name": "Sultana Afrooz, D.O.",
-      "designation": "Integrative Family Medicine Physician& Osteopathic Physician",
-      "slug": "sultana-afrooz"
-    },
-    {
-      "id": 2,
-      "img-url": "http://192.168.1.160:8000/media/about/jn-5_Rn7DvC1.jpg",
-      "name": "Jessica Needle, N.D.",
-      "designation": "Naturopathic Doctor",
-      "slug": "jessica-needle"
-    }
-  ],
+  "doctors": {
+    "title": "Meet Our Doctors",
+    "intro": "Our team of doctors include Osteopathic Physician (D.O.) and Naturopathic Doctor (N.D)s. We recognize that you have complex needs related to chronic illness and are here to guide you with kindness, generosity, and compassion.",
+    "items": [
+      {
+        "slug": "sultana-afrooz",
+        "name": "Sultana Afrooz, D.O.",
+        "designation": "Integrative Family Medicine Physician & Osteopathic Physician",
+        "imageUrl": "http://192.168.1.160:8000/media/homepage/sa_TvIal5u.jpg",
+        "profileUrl": "/about/sultana-afrooz/"
+      },
+      {
+        "slug": "jessica-needle",
+        "name": "Jessica Needle, N.D.",
+        "designation": "Naturopathic Doctor",
+        "imageUrl": "http://192.168.1.160:8000/media/homepage/jn-5_4v3zHAY.jpg",
+        "profileUrl": "/about/jessica-needle/"
+      }
+    ]
+  },
+  "newsletter": {
+    "headline": "Free Ion Cleanse Detox Session",
+    "subtext": "Sign up for helpful health tips and updates on our classes and offers to optimize your wellbeing. We'll send you a coupon for a complimentary foot detox when you join our email newsletter! *Limit one per customer.",
+    "backgroundImageUrl": "http://192.168.1.160:8000/media/homepage/bg1_EEAENUu.jpg",
+    "buttonLabel": "",
+    "buttonUrl": ""
+  },
   "reviews": [
     {
       "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
@@ -89,8 +183,5 @@
       "star": 5,
       "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
     }
-  ],
-  "our-vision": "To create a community of informed and empowered patients who are the leaders in promoting and implementing health and wellness.",
-  "our-goal": "To bring health and wellness to families as a whole. We believe healthy changes are lasting when families and communities work together to make lifestyle changes with the guidance of their healthcare practitioners. Our goal is to find the root cause(s) of illness and to implement health-promoting lifestyles to prevent chronic illness and to recover from chronic illness.",
-  "core-values": "Strive for Knowledge\nBe the Change\nPatient Empowerment\nAccountability\nHealing Communities"
+  ]
 }

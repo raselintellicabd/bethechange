@@ -1,0 +1,579 @@
+{
+  "practice": {
+    "slug": "practice",
+    "kind": "practice",
+    "path": "/about/",
+    "title": "about our practice",
+    "heroHeading": "about our practice",
+    "content": "Real health is about both resolving symptoms and building up the body to be more resilient and strong.\n\nWe help you get to the root cause of your concerns with the latest advances in integrative medicine. We also help you be proactive about your health so that you can create positive and lasting changes in your happiness and life.\n\nWhat makes us different is that we practice personalized medicine. Our treatments are tailored according to the patients’ individual physical, mental and emotional needs. We consider what makes a person unique through in-depth history intakes and thorough testing. We perform specialty tests of the immune system, nervous system, digestive system and nutrigenetic analysis, etc.",
+    "content_html": "<p>Real health is about both resolving symptoms and building up the body to be more resilient and strong.</p>\n<p>We help you get to the root cause of your concerns with the latest advances in integrative medicine. We also help you be proactive about your health so that you can create positive and lasting changes in your happiness and life.</p>\n<p>What makes us different is that we practice personalized medicine. Our treatments are tailored according to the patients’ individual physical, mental and emotional needs. We consider what makes a person unique through in-depth history intakes and thorough testing. We perform specialty tests of the immune system, nervous system, digestive system and nutrigenetic analysis, etc.</p>",
+    "imageUrl": "http://192.168.1.160:8000/media/about/approach_RGTOxGL.jpg",
+    "quote": "“Discovering what makes your body unique through personalized medicine & planning a healthier journey together!”",
+    "quoteAttribution": "-Be The Change",
+    "values": [
+      {
+        "slug": "our-vision",
+        "title": "OUR VISION",
+        "content": "To create a community of informed and empowered patients who are the leaders in promoting and implementing health and wellness.",
+        "content_html": "To create a community of informed and empowered patients who are the leaders in promoting and implementing health and wellness.",
+        "imageUrl": "http://192.168.1.160:8000/media/about/Vision_wYaky3e.jpg"
+      },
+      {
+        "slug": "our-goal",
+        "title": "OUR GOAL",
+        "content": "To bring health and wellness to families as a whole. We believe healthy changes are lasting when families and communities work together to make lifestyle changes with the guidance of their healthcare practitioners. Our goal is to find the root cause(s) of illness and to implement health-promoting lifestyles to prevent chronic illness and to recover from chronic illness.",
+        "content_html": "To bring health and wellness to families as a whole. We believe healthy changes are lasting when families and communities work together to make lifestyle changes with the guidance of their healthcare practitioners. Our goal is to find the root cause(s) of illness and to implement health-promoting lifestyles to prevent chronic illness and to recover from chronic illness.",
+        "imageUrl": "http://192.168.1.160:8000/media/about/mission2_KvmuD4s.jpg"
+      },
+      {
+        "slug": "our-core-values",
+        "title": "OUR CORE VALUES",
+        "content": "Strive for Knowledge\nBe the Change\nPatient Empowerment\nAccountability\nHealing Communities",
+        "content_html": "<ul><li>Strive for Knowledge</li><li>Be the Change</li><li>Patient Empowerment</li><li>Accountability</li><li>Healing Communities</li></ul>",
+        "imageUrl": "http://192.168.1.160:8000/media/about/core_vRwzgI3.jpg"
+      }
+    ],
+    "doctors": {
+      "title": "Meet Our Doctors",
+      "intro": "Our team of doctors include Osteopathic Physician (D.O.) and Naturopathic Doctor (N.D)s. We recognize that you have complex needs related to chronic illness and are here to guide you with kindness, generosity, and compassion.",
+      "items": [
+        {
+          "id": 1,
+          "name": "Sultana Afrooz, D.O.",
+          "designation": "Integrative Family Medicine Physician& Osteopathic Physician",
+          "image_url": "http://192.168.1.160:8000/media/about/sa_Z58pbgb.jpg",
+          "slug": "sultana-afrooz"
+        },
+        {
+          "id": 2,
+          "name": "Jessica Needle, N.D.",
+          "designation": "Naturopathic Doctor",
+          "image_url": "http://192.168.1.160:8000/media/about/jn-5_Rn7DvC1.jpg",
+          "slug": "jessica-needle"
+        }
+      ]
+    },
+    "reviews": [
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+        "name": "Elle",
+        "date": "2025-02-25",
+        "star": 5,
+        "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way. Even when I was at my darkest, she was there helping from the sidelines. My entire family has all been helped by Dr. Afrooz and her husband. We've made connections and friendships and became familiar with each other in a way that other doctors are usually more one-dimensional with. Dr. Afrooz has changed my life in such a wonderful way! She is worth every penny we've paid and way more!"
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+        "name": "Manzur Ahmed",
+        "date": "2024-07-05",
+        "star": 5,
+        "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I was always feeling very tired and lethargic and I was thinking that maybe I had long covid. But Dr Afrooz knew all the right questions to help identify that my condition is related to tick bites instead from a hiking trip I had gone on. I ask a lot of questions and she seems to not find me to be frustrating and i know that she is straightforward because she’s not afraid to say I don’t know if she does not know the answer to any of my questions. Nor is she dismissive of me whether it be ideas as to what I think could possibly help me or if I tell her something does not feel right. I highly recommend her and I feel fortunate to have been able to see her."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+        "name": "Muhammad Haroon",
+        "date": "2024-06-27",
+        "star": 5,
+        "comment": "This is one of the most convenient doctor offices that I have been to. The appointments and treatments here are not nearly as atrociously priced as most of my visits to other doctors. The staff and workers really make me feel cared for. I recommend this doctor office over many other ones."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWTxx2WN13zQJY8yBCCHsv9s-9mCkVXOQeJLkm0XXD79QTARPgEQg=s120-c-rp-mo-br100",
+        "name": "Samson Zewde",
+        "date": "2024-06-27",
+        "star": 5,
+        "comment": "Great place! I felt well taken care of and left feeling revitalized after treatment."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXVhyyBMpfz7uCiGqz3lpZ8jfqwwk-NuKXmwhjchhSp_9mYRNfd=s120-c-rp-mo-ba2-br100",
+        "name": "Nas Moha",
+        "date": "2024-06-27",
+        "star": 5,
+        "comment": "Doctors and staff are personable and friendly that provides excellent care. Best care so far around the area"
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWetJi7ZC30xKr9f_Et3sjo0MU-PtbJxY_MJW8ATsz1I44J_gjo=s120-c-rp-mo-ba3-br100",
+        "name": "Oxana Oleson",
+        "date": "2024-06-26",
+        "star": 5,
+        "comment": "I have known Dr. Afrooz for the past 8 years. Besides her knowledge and care she put in helping patients with different complex health issues, she is also one of the nicest people I know. She treated me and my family and never gave up on me trying to find a solution for treating chronic Lyme disease. Her office is equipped with lots of helpful tools to get you well. My favorite is a hyperbaric chamber, but there are many more. My daughter also recovered from Lyme disease with help of Dr. Afrooz. At that time, she was only 5 years old.\nI am beyond grateful for her help and knowledge. She is using both-conventional and integrative methods and always keeping up to date on new treatments."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUfWn8Nlmr9OTvD94Q-8w8MLmPpA7gWKZDCa-j1BUcZNfT9_ns=s120-c-rp-mo-br100",
+        "name": "sumaiyah khan",
+        "date": "2024-05-11",
+        "star": 5,
+        "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
+      }
+    ]
+  },
+  "naturopathic-medicine": {
+    "slug": "naturopathic-medicine",
+    "kind": "naturopathic",
+    "path": "/about/naturopathic-medicine/",
+    "title": "naturopathic medicine",
+    "heroHeading": "naturopathic medicine",
+    "sectionTitle": "What is Naturopathic Medicine?",
+    "content": "What is Naturopathic Medicine?\n\nNaturopathic Medicine is evidence-based medicine that treats the whole person by addressing the root cause(s) of illness and emphasizes prevention of illness. Naturopathic doctors educate and empower patients to be the leaders and decision-makers of their own health. Naturopathic medicine philosophy is grounded in the understanding that our bodies have an innate ability to heal; when disturbances to health are removed and the foundations of health are restored, our bodies can return to balance by first using the least invasive interventions.\n\nNaturopathic doctors are trained in lifestyle medicine, botanical medicine, physical medicine, nutrition, homeopathy, mind-body medicine, pharmacology, nutraceuticals, and other modalities, and aim to individualize these treatments to support and restore function with no harm done to the patient.\n\nNaturopathic Doctors (NDs) attend a 4-year post-graduate program that includes clinical training.",
+    "content_html": "<p>Naturopathic Medicine is evidence-based medicine that treats the whole person by addressing the root cause(s) of illness and emphasizes prevention of illness. Naturopathic doctors educate and empower patients to be the leaders and decision-makers of their own health. Naturopathic medicine philosophy is grounded in the understanding that our bodies have an innate ability to heal; when disturbances to health are removed and the foundations of health are restored, our bodies can return to balance by first using the least invasive interventions.</p>\n<p>Naturopathic doctors are trained in lifestyle medicine, botanical medicine, physical medicine, nutrition, homeopathy, mind-body medicine, pharmacology, nutraceuticals, and other modalities, and aim to individualize these treatments to support and restore function with no harm done to the patient.</p>\n<p>Naturopathic Doctors (NDs) attend a 4-year post-graduate program that includes clinical training.</p>",
+    "videoEmbedUrl": "https://www.youtube.com/embed/p5zb17r0f3U",
+    "principles": {
+      "title": "Naturopathic Principles",
+      "items": [
+        "First do no harm",
+        "Identify and treat the root cause(s)",
+        "Healing power of nature",
+        "Doctor as teacher",
+        "Treat the whole person",
+        "Focus on prevention"
+      ],
+      "content_html": "<ol><li>First do no harm</li><li>Identify and treat the root cause(s)</li><li>Healing power of nature</li><li>Doctor as teacher</li><li>Treat the whole person</li><li>Focus on prevention</li></ol>",
+      "imageUrl": "http://192.168.1.160:8000/media/about/therapeutic-order_gme9IlO.png"
+    },
+    "doctors": {
+      "title": "Meet Our Doctors",
+      "intro": "Our team of doctors include Osteopathic Physician (D.O.) and Naturopathic Doctor (N.D)s. We recognize that you have complex needs related to chronic illness and are here to guide you with kindness, generosity, and compassion.",
+      "items": [
+        {
+          "id": 1,
+          "name": "Sultana Afrooz, D.O.",
+          "designation": "Integrative Family Medicine Physician& Osteopathic Physician",
+          "image_url": "http://192.168.1.160:8000/media/about/sa_Z58pbgb.jpg",
+          "slug": "sultana-afrooz"
+        },
+        {
+          "id": 2,
+          "name": "Jessica Needle, N.D.",
+          "designation": "Naturopathic Doctor",
+          "image_url": "http://192.168.1.160:8000/media/about/jn-5_Rn7DvC1.jpg",
+          "slug": "jessica-needle"
+        }
+      ]
+    },
+    "reviews": [
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+        "name": "Elle",
+        "date": "2025-02-25",
+        "star": 5,
+        "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way. Even when I was at my darkest, she was there helping from the sidelines. My entire family has all been helped by Dr. Afrooz and her husband. We've made connections and friendships and became familiar with each other in a way that other doctors are usually more one-dimensional with. Dr. Afrooz has changed my life in such a wonderful way! She is worth every penny we've paid and way more!"
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+        "name": "Manzur Ahmed",
+        "date": "2024-07-05",
+        "star": 5,
+        "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I was always feeling very tired and lethargic and I was thinking that maybe I had long covid. But Dr Afrooz knew all the right questions to help identify that my condition is related to tick bites instead from a hiking trip I had gone on. I ask a lot of questions and she seems to not find me to be frustrating and i know that she is straightforward because she’s not afraid to say I don’t know if she does not know the answer to any of my questions. Nor is she dismissive of me whether it be ideas as to what I think could possibly help me or if I tell her something does not feel right. I highly recommend her and I feel fortunate to have been able to see her."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+        "name": "Muhammad Haroon",
+        "date": "2024-06-27",
+        "star": 5,
+        "comment": "This is one of the most convenient doctor offices that I have been to. The appointments and treatments here are not nearly as atrociously priced as most of my visits to other doctors. The staff and workers really make me feel cared for. I recommend this doctor office over many other ones."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWTxx2WN13zQJY8yBCCHsv9s-9mCkVXOQeJLkm0XXD79QTARPgEQg=s120-c-rp-mo-br100",
+        "name": "Samson Zewde",
+        "date": "2024-06-27",
+        "star": 5,
+        "comment": "Great place! I felt well taken care of and left feeling revitalized after treatment."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXVhyyBMpfz7uCiGqz3lpZ8jfqwwk-NuKXmwhjchhSp_9mYRNfd=s120-c-rp-mo-ba2-br100",
+        "name": "Nas Moha",
+        "date": "2024-06-27",
+        "star": 5,
+        "comment": "Doctors and staff are personable and friendly that provides excellent care. Best care so far around the area"
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWetJi7ZC30xKr9f_Et3sjo0MU-PtbJxY_MJW8ATsz1I44J_gjo=s120-c-rp-mo-ba3-br100",
+        "name": "Oxana Oleson",
+        "date": "2024-06-26",
+        "star": 5,
+        "comment": "I have known Dr. Afrooz for the past 8 years. Besides her knowledge and care she put in helping patients with different complex health issues, she is also one of the nicest people I know. She treated me and my family and never gave up on me trying to find a solution for treating chronic Lyme disease. Her office is equipped with lots of helpful tools to get you well. My favorite is a hyperbaric chamber, but there are many more. My daughter also recovered from Lyme disease with help of Dr. Afrooz. At that time, she was only 5 years old.\nI am beyond grateful for her help and knowledge. She is using both-conventional and integrative methods and always keeping up to date on new treatments."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUfWn8Nlmr9OTvD94Q-8w8MLmPpA7gWKZDCa-j1BUcZNfT9_ns=s120-c-rp-mo-br100",
+        "name": "sumaiyah khan",
+        "date": "2024-05-11",
+        "star": 5,
+        "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
+      }
+    ]
+  },
+  "integrative-medicine": {
+    "slug": "integrative-medicine",
+    "kind": "integrative",
+    "path": "/about/integrative-medicine/",
+    "title": "integrative medicine",
+    "heroHeading": "integrative medicine",
+    "sectionTitle": "What is Integrative Medicine?",
+    "content": "What is Integrative Medicine?\n\nThe field of integrative health and medicine reaffirms the importance of the relationship between practitioner and patient, focuses on the whole person, is informed by evidence, and makes use of all appropriate therapeutic approaches, healthcare professionals, and professions to achieve optimal health and healing. Simply put, integrative health and medicine offer best practices for optimal health and healing.\n\nIntegrative care seeks to develop a therapeutic relationship between the doctor and patient. This specialized form of medicine emphasizes the bio-psycho-socio-spiritual aspects of a person to improve health. The therapeutic relationship between the doctor and you results in longer in-depth appointments. During the appointment, the doctor discusses all aspects of your life and creates a customized treatment plan. Personalized care is offered based on the patient’s unique set of circumstances, including dietary choices, community, and family history, and lifestyle choices. This is because there are many things that influence health, including body, mind, spirit, and community. A variety of tests may be ordered, including blood tests, saliva tests, and more.\n\nAdditional information about the integrated medicine approach visit:\n\nAcademy of Integrative Health & Medicine: http://www.aihm.org/\nAmerican College for Advancement in Medicine: http://www.acam.org/",
+    "content_html": "<p>The field of integrative health and medicine reaffirms the importance of the relationship between practitioner and patient, focuses on the whole person, is informed by evidence, and makes use of all appropriate therapeutic approaches, healthcare professionals, and professions to achieve optimal health and healing. Simply put, integrative health and medicine offer best practices for optimal health and healing.</p>\n<p>Integrative care seeks to develop a therapeutic relationship between the doctor and patient. This specialized form of medicine emphasizes the bio-psycho-socio-spiritual aspects of a person to improve health. The therapeutic relationship between the doctor and you results in longer in-depth appointments. During the appointment, the doctor discusses all aspects of your life and creates a customized treatment plan. Personalized care is offered based on the patient’s unique set of circumstances, including dietary choices, community, and family history, and lifestyle choices. This is because there are many things that influence health, including body, mind, spirit, and community. A variety of tests may be ordered, including blood tests, saliva tests, and more.</p>",
+    "imageUrl": "http://192.168.1.160:8000/media/about/hh_qCbJcfb.jpg",
+    "resourcesIntro": "Additional information about the integrated medicine approach visit:",
+    "resources": [
+      {
+        "label": "Academy of Integrative Health & Medicine",
+        "url": "http://www.aihm.org/"
+      },
+      {
+        "label": "American College for Advancement in Medicine",
+        "url": "http://www.acam.org/"
+      }
+    ],
+    "doctors": {
+      "title": "Meet Our Doctors",
+      "intro": "Our team of doctors include Osteopathic Physician (D.O.) and Naturopathic Doctor (N.D)s. We recognize that you have complex needs related to chronic illness and are here to guide you with kindness, generosity, and compassion.",
+      "items": [
+        {
+          "id": 1,
+          "name": "Sultana Afrooz, D.O.",
+          "designation": "Integrative Family Medicine Physician& Osteopathic Physician",
+          "image_url": "http://192.168.1.160:8000/media/about/sa_Z58pbgb.jpg",
+          "slug": "sultana-afrooz"
+        },
+        {
+          "id": 2,
+          "name": "Jessica Needle, N.D.",
+          "designation": "Naturopathic Doctor",
+          "image_url": "http://192.168.1.160:8000/media/about/jn-5_Rn7DvC1.jpg",
+          "slug": "jessica-needle"
+        }
+      ]
+    },
+    "reviews": [
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+        "name": "Elle",
+        "date": "2025-02-25",
+        "star": 5,
+        "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way. Even when I was at my darkest, she was there helping from the sidelines. My entire family has all been helped by Dr. Afrooz and her husband. We've made connections and friendships and became familiar with each other in a way that other doctors are usually more one-dimensional with. Dr. Afrooz has changed my life in such a wonderful way! She is worth every penny we've paid and way more!"
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+        "name": "Manzur Ahmed",
+        "date": "2024-07-05",
+        "star": 5,
+        "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I was always feeling very tired and lethargic and I was thinking that maybe I had long covid. But Dr Afrooz knew all the right questions to help identify that my condition is related to tick bites instead from a hiking trip I had gone on. I ask a lot of questions and she seems to not find me to be frustrating and i know that she is straightforward because she’s not afraid to say I don’t know if she does not know the answer to any of my questions. Nor is she dismissive of me whether it be ideas as to what I think could possibly help me or if I tell her something does not feel right. I highly recommend her and I feel fortunate to have been able to see her."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+        "name": "Muhammad Haroon",
+        "date": "2024-06-27",
+        "star": 5,
+        "comment": "This is one of the most convenient doctor offices that I have been to. The appointments and treatments here are not nearly as atrociously priced as most of my visits to other doctors. The staff and workers really make me feel cared for. I recommend this doctor office over many other ones."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWTxx2WN13zQJY8yBCCHsv9s-9mCkVXOQeJLkm0XXD79QTARPgEQg=s120-c-rp-mo-br100",
+        "name": "Samson Zewde",
+        "date": "2024-06-27",
+        "star": 5,
+        "comment": "Great place! I felt well taken care of and left feeling revitalized after treatment."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXVhyyBMpfz7uCiGqz3lpZ8jfqwwk-NuKXmwhjchhSp_9mYRNfd=s120-c-rp-mo-ba2-br100",
+        "name": "Nas Moha",
+        "date": "2024-06-27",
+        "star": 5,
+        "comment": "Doctors and staff are personable and friendly that provides excellent care. Best care so far around the area"
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWetJi7ZC30xKr9f_Et3sjo0MU-PtbJxY_MJW8ATsz1I44J_gjo=s120-c-rp-mo-ba3-br100",
+        "name": "Oxana Oleson",
+        "date": "2024-06-26",
+        "star": 5,
+        "comment": "I have known Dr. Afrooz for the past 8 years. Besides her knowledge and care she put in helping patients with different complex health issues, she is also one of the nicest people I know. She treated me and my family and never gave up on me trying to find a solution for treating chronic Lyme disease. Her office is equipped with lots of helpful tools to get you well. My favorite is a hyperbaric chamber, but there are many more. My daughter also recovered from Lyme disease with help of Dr. Afrooz. At that time, she was only 5 years old.\nI am beyond grateful for her help and knowledge. She is using both-conventional and integrative methods and always keeping up to date on new treatments."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUfWn8Nlmr9OTvD94Q-8w8MLmPpA7gWKZDCa-j1BUcZNfT9_ns=s120-c-rp-mo-br100",
+        "name": "sumaiyah khan",
+        "date": "2024-05-11",
+        "star": 5,
+        "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
+      }
+    ]
+  },
+  "our-process": {
+    "slug": "our-process",
+    "kind": "process",
+    "path": "/our-process/",
+    "title": "Our Process",
+    "heroHeading": "Our Process",
+    "subtitle": "We help you understand your body, to achieve optimal health.",
+    "imageUrl": "http://192.168.1.160:8000/media/about/Consultation_LDOOZAi.png",
+    "content": "We help you understand your body, to achieve optimal health.\n\nSTEP #1: CONSULTATION\n(LISTEN, LEARN & APPLY)\nConsultation\nHistory Intake\nPhysical Exam\n\nSTEP #2: LABORATORY TESTING\n(A CLOSER LOOK INSIDE THE BODY)\nWe run insurance-covered blood tests to investigate the root cause of disease. We also incorporate specialty tests including, Genova Diagnostics, Igenix Lyme testing, Real Time Labs mold testing, Great Plains Laboratory, Doctor’s Data, Cyrex, ALCAT Tests, ZRT Heavy Metal Tests, Galaxy Labs, Fry Labs, DiagnosTechs and neurotransmitter testing.\nLab Testing\nBlood Tests\nSpecialty Tests\n\nSTEP #3: LIFESTYLE GUIDANCE\n(HELPING YOU CREATE HEALTHY CHANGES)\nNutrition\nPhysical Activities\nEnvironmental Toxins\n\nSTEP #4: EFFECTIVE THERAPIES\n(DETOX, REJUVENATE & HEAL)\nIV Therapy\nFrequency Specific Microcurrent™ (FSM) Therapy\nCraniosacral Therapy\nHyperberic Oxygen Chamber Therapy\nIon Foot Detox\nEssential Oil\nConsultations\n\nSTEP #5: SUPPLEMENTS, MEDICATIONS & DETOXIFICATION\n(INDIVIDUALIZED FOR YOUR NEEDS)\nSupplements, Nutrients and Medication\n\nSTEP #6: FOLLOW-UP\n(WE JOURNEY WITH YOU)\nWe care about your long-term well-being. Follow-ups allow us to evaluate treatment effectiveness and to make any necessary adjustments to support your progress. We aim to build trust and lasting relationships with our patients.\nCheck-ins\nTreatment Adjustments\nFree Foot Detox",
+    "steps": [
+      {
+        "slug": "consultation",
+        "title": "STEP #1: CONSULTATION",
+        "tagline": "(LISTEN, LEARN & APPLY)",
+        "summary": "",
+        "summaryHtml": "",
+        "layout": "cards",
+        "items": [
+          {
+            "slug": "consultation",
+            "title": "Consultation",
+            "content": "We listen to your needs, learn about your lifestyle, and discuss any symptoms you may be having.",
+            "content_html": "We listen to your needs, learn about your lifestyle, and discuss any symptoms you may be having.",
+            "imageUrl": "http://192.168.1.160:8000/media/about/Consultation_LDOOZAi.png",
+            "linkUrl": ""
+          },
+          {
+            "slug": "history-intake",
+            "title": "History Intake",
+            "content": "We gather a thorough personal history, family history, medical history, and environmental exposure history to better understand your complete story.",
+            "content_html": "We gather a thorough personal history, family history, medical history, and environmental exposure history to better understand your complete story.",
+            "imageUrl": "http://192.168.1.160:8000/media/about/History-Intake_YxaaM9q.png",
+            "linkUrl": ""
+          },
+          {
+            "slug": "physical-exam",
+            "title": "Physical Exam",
+            "content": "We perform in-office physical exams of the cardiovascular, respiratory, digestive, neurological systems, and more.",
+            "content_html": "We perform in-office physical exams of the cardiovascular, respiratory, digestive, neurological systems, and more.",
+            "imageUrl": "http://192.168.1.160:8000/media/about/Physical-Exam_VogSUya.png",
+            "linkUrl": ""
+          }
+        ]
+      },
+      {
+        "slug": "laboratory-testing",
+        "title": "STEP #2: LABORATORY TESTING",
+        "tagline": "(A CLOSER LOOK INSIDE THE BODY)",
+        "summary": "We run insurance-covered blood tests to investigate the root cause of disease. We also incorporate specialty tests including, Genova Diagnostics, Igenix Lyme testing, Real Time Labs mold testing, Great Plains Laboratory, Doctor’s Data, Cyrex, ALCAT Tests, ZRT Heavy Metal Tests, Galaxy Labs, Fry Labs, DiagnosTechs and neurotransmitter testing.",
+        "summaryHtml": "We run insurance-covered blood tests to investigate the root cause of disease. We also incorporate specialty tests including, Genova Diagnostics, Igenix Lyme testing, Real Time Labs mold testing, Great Plains Laboratory, Doctor’s Data, Cyrex, ALCAT Tests, ZRT Heavy Metal Tests, Galaxy Labs, Fry Labs, DiagnosTechs and neurotransmitter testing.",
+        "layout": "lab",
+        "items": [
+          {
+            "slug": "lab-testing",
+            "title": "Lab Testing",
+            "content": "",
+            "content_html": "",
+            "imageUrl": "http://192.168.1.160:8000/media/about/Lab-Testing_UjBh3r3.png",
+            "linkUrl": ""
+          },
+          {
+            "slug": "blood-tests",
+            "title": "Blood Tests",
+            "content": "",
+            "content_html": "",
+            "imageUrl": "http://192.168.1.160:8000/media/about/Blood-Tests_Ue1DPeh.png",
+            "linkUrl": ""
+          },
+          {
+            "slug": "specialty-tests",
+            "title": "Specialty Tests",
+            "content": "",
+            "content_html": "",
+            "imageUrl": "http://192.168.1.160:8000/media/about/Specialty-Tests_FdMDLBd.png",
+            "linkUrl": ""
+          }
+        ]
+      },
+      {
+        "slug": "lifestyle-guidance",
+        "title": "STEP #3: LIFESTYLE GUIDANCE",
+        "tagline": "(HELPING YOU CREATE HEALTHY CHANGES)",
+        "summary": "",
+        "summaryHtml": "",
+        "layout": "cards",
+        "items": [
+          {
+            "slug": "nutrition",
+            "title": "Nutrition",
+            "content": "We understand that “food is medicine” and an important part of the healing process. We have tailored individualized wellness plans to help guide nutrition, healthy weight loss and lifestyle changes day by day.",
+            "content_html": "We understand that “food is medicine” and an important part of the healing process. We have tailored individualized wellness plans to help guide nutrition, healthy weight loss and lifestyle changes day by day.",
+            "imageUrl": "http://192.168.1.160:8000/media/about/Nutrition_RgISckC.png",
+            "linkUrl": ""
+          },
+          {
+            "slug": "physical-activities",
+            "title": "Physical Activities",
+            "content": "Our Wellness Plans include fitness plans to fit your unique activity level. Our staff is certified in personal training and in yoga instruction to further guide your physical activity goals.",
+            "content_html": "Our Wellness Plans include fitness plans to fit your unique activity level. Our staff is certified in personal training and in yoga instruction to further guide your physical activity goals.",
+            "imageUrl": "http://192.168.1.160:8000/media/about/physical-activities_jqJGrDy.png",
+            "linkUrl": ""
+          },
+          {
+            "slug": "environmental-toxins",
+            "title": "Environmental Toxins",
+            "content": "We understand that your home and work environment greatly affect your wellbeing. We help to investigate harmful exposures (Cleaning Products, Mold, Body Sprays, Toilettrees, Smoke, Makeup & more) that could contribute to symptoms and prevent complete recovery.",
+            "content_html": "We understand that your home and work environment greatly affect your wellbeing. We help to investigate harmful exposures (Cleaning Products, Mold, Body Sprays, Toilettrees, Smoke, Makeup &amp; more) that could contribute to symptoms and prevent complete recovery.",
+            "imageUrl": "http://192.168.1.160:8000/media/about/environment_p7udvyb.png",
+            "linkUrl": ""
+          }
+        ]
+      },
+      {
+        "slug": "effective-therapies",
+        "title": "STEP #4: EFFECTIVE THERAPIES",
+        "tagline": "(DETOX, REJUVENATE & HEAL)",
+        "summary": "",
+        "summaryHtml": "",
+        "layout": "cards",
+        "items": [
+          {
+            "slug": "iv-therapy",
+            "title": "IV Therapy",
+            "content": "Our intravenous infusions of nutrients can help support the immune system and organs of detoxification to help recover from chronic and acute conditions, or to simply give you a boost!",
+            "content_html": "Our intravenous infusions of nutrients can help support the immune system and organs of detoxification to help recover from chronic and acute conditions, or to simply give you a boost!",
+            "imageUrl": "http://192.168.1.160:8000/media/about/iv-therapy_qDWDi93.png",
+            "linkUrl": "/iv-nutritional-infusions/"
+          },
+          {
+            "slug": "fsm-therapy",
+            "title": "Frequency Specific Microcurrent™ (FSM) Therapy",
+            "content": "FSM is a new system of treatment using micro amperage current and the resonance effects of frequencies on tissues and conditions to create beneficial changes in acute and chronic conditions and in decreasing pain.",
+            "content_html": "FSM is a new system of treatment using micro amperage current and the resonance effects of frequencies on tissues and conditions to create beneficial changes in acute and chronic conditions and in decreasing pain.",
+            "imageUrl": "http://192.168.1.160:8000/media/about/frequency-specific-microcurrent_NQY96TJ.png",
+            "linkUrl": "/frequency-specific-microcurrent/"
+          },
+          {
+            "slug": "craniosacral-therapy",
+            "title": "Craniosacral Therapy",
+            "content": "Craniosacral Therapy (CST) is a gentle, hands-on approach that releases restrictions in soft tissue and fascia that surrounds the central nervous system, joints, organs, muscles, and blood vessels to relieve pain and dysfunction.",
+            "content_html": "Craniosacral Therapy (CST) is a gentle, hands-on approach that releases restrictions in soft tissue and fascia that surrounds the central nervous system, joints, organs, muscles, and blood vessels to relieve pain and dysfunction.",
+            "imageUrl": "http://192.168.1.160:8000/media/about/craniosacral-therapy_QYjqPZE.png",
+            "linkUrl": ""
+          },
+          {
+            "slug": "hbot",
+            "title": "Hyperberic Oxygen Chamber Therapy",
+            "content": "A non-invasive therapy that increases the amount of oxygen in your plasma to stimulate tissue healing and fight infections.",
+            "content_html": "A non-invasive therapy that increases the amount of oxygen in your plasma to stimulate tissue healing and fight infections.",
+            "imageUrl": "http://192.168.1.160:8000/media/about/hyperberic-oxygen-chamber_SokqARu.png",
+            "linkUrl": "/hyperbaric-oxygen-therapy/"
+          },
+          {
+            "slug": "ion-foot-detox",
+            "title": "Ion Foot Detox",
+            "content": "The IonCleanse® detoxification system can reduce symptoms of “toxin overload” from an accumulation of everyday exposures through a series of short detox sessions.",
+            "content_html": "The IonCleanse® detoxification system can reduce symptoms of “toxin overload” from an accumulation of everyday exposures through a series of short detox sessions.",
+            "imageUrl": "http://192.168.1.160:8000/media/about/Ion-foot-detox_lTFWziL.png",
+            "linkUrl": "/ion-foot-detox/"
+          },
+          {
+            "slug": "essential-oil-consultations",
+            "title": "Essential Oil<br />Consultations",
+            "content": "Our essential oil consultant can help guide you through the many benefits of essential oils, blends, and oil-infused products that can be used to support physical & mental health concerns and even to safely clean homes and products.",
+            "content_html": "Our essential oil consultant can help guide you through the many benefits of essential oils, blends, and oil-infused products that can be used to support physical &amp; mental health concerns and even to safely clean homes and products.",
+            "imageUrl": "http://192.168.1.160:8000/media/about/essentail-oil-consultations_98GZiy1.png",
+            "linkUrl": ""
+          }
+        ]
+      },
+      {
+        "slug": "supplements",
+        "title": "STEP #5: SUPPLEMENTS, MEDICATIONS & DETOXIFICATION",
+        "tagline": "(INDIVIDUALIZED FOR YOUR NEEDS)",
+        "summary": "",
+        "summaryHtml": "",
+        "layout": "split",
+        "items": [
+          {
+            "slug": "treatment-plans",
+            "title": "Supplements, Nutrients and Medication",
+            "content": "We use a research-based approach to individualize treatment plans. We use various combinations of trusted nutriceuticals & supplements, as well as, prescription medications, to clear disease and support your body.",
+            "content_html": "We use a research-based approach to individualize treatment plans. We use various combinations of trusted nutriceuticals &amp; supplements, as well as, prescription medications, to clear disease and support your body.",
+            "imageUrl": "http://192.168.1.160:8000/media/about/treatment_mrjtZgv.png",
+            "linkUrl": ""
+          }
+        ]
+      },
+      {
+        "slug": "follow-up",
+        "title": "STEP #6: FOLLOW-UP",
+        "tagline": "(WE JOURNEY WITH YOU)",
+        "summary": "We care about your long-term well-being. Follow-ups allow us to evaluate treatment effectiveness and to make any necessary adjustments to support your progress. We aim to build trust and lasting relationships with our patients.",
+        "summaryHtml": "We care about your long-term well-being. Follow-ups allow us to evaluate treatment effectiveness and to make any necessary adjustments to support your progress. We aim to build trust and lasting relationships with our patients.",
+        "layout": "followup",
+        "items": [
+          {
+            "slug": "check-ins",
+            "title": "Check-ins",
+            "content": "",
+            "content_html": "",
+            "imageUrl": "http://192.168.1.160:8000/media/about/check-ins_0L8yMpC.png",
+            "linkUrl": ""
+          },
+          {
+            "slug": "treatment-adjustments",
+            "title": "Treatment Adjustments",
+            "content": "",
+            "content_html": "",
+            "imageUrl": "http://192.168.1.160:8000/media/about/treatment-adjustments_OyRmFnZ.png",
+            "linkUrl": ""
+          },
+          {
+            "slug": "free-foot-detox",
+            "title": "Free Foot Detox",
+            "content": "",
+            "content_html": "",
+            "imageUrl": "http://192.168.1.160:8000/media/about/free-foot-detox_bpIoP8I.png",
+            "linkUrl": ""
+          }
+        ]
+      }
+    ],
+    "cta": {
+      "headline": "Feel Good, Live Better!",
+      "subtext": "If you suspect that you have a concussion, call Be The Change Health & Wellness Center or book online today.",
+      "phoneLabel": "Call now!",
+      "phone": "301-970-9724",
+      "bookLabel": "Book Online",
+      "bookUrl": "/appointments/"
+    },
+    "reviews": [
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+        "name": "Elle",
+        "date": "2025-02-25",
+        "star": 5,
+        "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way. Even when I was at my darkest, she was there helping from the sidelines. My entire family has all been helped by Dr. Afrooz and her husband. We've made connections and friendships and became familiar with each other in a way that other doctors are usually more one-dimensional with. Dr. Afrooz has changed my life in such a wonderful way! She is worth every penny we've paid and way more!"
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+        "name": "Manzur Ahmed",
+        "date": "2024-07-05",
+        "star": 5,
+        "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I was always feeling very tired and lethargic and I was thinking that maybe I had long covid. But Dr Afrooz knew all the right questions to help identify that my condition is related to tick bites instead from a hiking trip I had gone on. I ask a lot of questions and she seems to not find me to be frustrating and i know that she is straightforward because she’s not afraid to say I don’t know if she does not know the answer to any of my questions. Nor is she dismissive of me whether it be ideas as to what I think could possibly help me or if I tell her something does not feel right. I highly recommend her and I feel fortunate to have been able to see her."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+        "name": "Muhammad Haroon",
+        "date": "2024-06-27",
+        "star": 5,
+        "comment": "This is one of the most convenient doctor offices that I have been to. The appointments and treatments here are not nearly as atrociously priced as most of my visits to other doctors. The staff and workers really make me feel cared for. I recommend this doctor office over many other ones."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWTxx2WN13zQJY8yBCCHsv9s-9mCkVXOQeJLkm0XXD79QTARPgEQg=s120-c-rp-mo-br100",
+        "name": "Samson Zewde",
+        "date": "2024-06-27",
+        "star": 5,
+        "comment": "Great place! I felt well taken care of and left feeling revitalized after treatment."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXVhyyBMpfz7uCiGqz3lpZ8jfqwwk-NuKXmwhjchhSp_9mYRNfd=s120-c-rp-mo-ba2-br100",
+        "name": "Nas Moha",
+        "date": "2024-06-27",
+        "star": 5,
+        "comment": "Doctors and staff are personable and friendly that provides excellent care. Best care so far around the area"
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWetJi7ZC30xKr9f_Et3sjo0MU-PtbJxY_MJW8ATsz1I44J_gjo=s120-c-rp-mo-ba3-br100",
+        "name": "Oxana Oleson",
+        "date": "2024-06-26",
+        "star": 5,
+        "comment": "I have known Dr. Afrooz for the past 8 years. Besides her knowledge and care she put in helping patients with different complex health issues, she is also one of the nicest people I know. She treated me and my family and never gave up on me trying to find a solution for treating chronic Lyme disease. Her office is equipped with lots of helpful tools to get you well. My favorite is a hyperbaric chamber, but there are many more. My daughter also recovered from Lyme disease with help of Dr. Afrooz. At that time, she was only 5 years old.\nI am beyond grateful for her help and knowledge. She is using both-conventional and integrative methods and always keeping up to date on new treatments."
+      },
+      {
+        "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUfWn8Nlmr9OTvD94Q-8w8MLmPpA7gWKZDCa-j1BUcZNfT9_ns=s120-c-rp-mo-br100",
+        "name": "sumaiyah khan",
+        "date": "2024-05-11",
+        "star": 5,
+        "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
+      }
+    ]
+  }
+}

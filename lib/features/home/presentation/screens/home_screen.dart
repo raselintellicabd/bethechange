@@ -2,251 +2,316 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/review_card.dart';
-import '../../../../core/widgets/ui_kit.dart';
-import '../../../../features/about/domain/models/doctor_profile.dart';
-import '../../../../features/about/presentation/widgets/about_content_view.dart';
+import '../../../../features/services/presentation/widgets/service_concave_band.dart';
+import '../../../about/domain/models/doctor_profile.dart';
+import '../../../about/domain/models/review.dart';
 import '../../domain/models/home_content.dart';
 import '../providers/home_providers.dart';
 
-class HomeScreen extends ConsumerStatefulWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  ConsumerState<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends ConsumerState<HomeScreen> {
-  int _aboutSegment = 0;
-  final _scrollController = ScrollController();
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  void _onAboutSegmentChanged(int index) {
-    if (index == _aboutSegment) return;
-    setState(() => _aboutSegment = index);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!_scrollController.hasClients) return;
-      _scrollController.jumpTo(0);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final homeAsync = ref.watch(homeContentProvider);
 
     return Scaffold(
-      appBar: AppAppBar.text('Be The Change'),
+      backgroundColor: AppColors.brandBgLight,
+      appBar: AppAppBar(
+        title: const Text('Be The Change'),
+        actions: [
+          IconButton(
+            tooltip: 'About',
+            icon: const Icon(Icons.info_outline),
+            onPressed: () => context.push(AppRoutes.about),
+          ),
+        ],
+      ),
       body: homeAsync.when(
-        loading: () => const LoadingIndicator(message: 'Loading…'),
+        loading: () => const LoadingIndicator(message: 'Loading home...'),
         error: (error, _) => ErrorStateWidget(
           message: error.toString().replaceFirst('Exception: ', ''),
           onRetry: () => ref.invalidate(homeContentProvider),
         ),
-        data: (home) => _HomeBody(
-          home: home,
-          aboutSegment: _aboutSegment,
-          scrollController: _scrollController,
-          onAboutSegmentChanged: _onAboutSegmentChanged,
-        ),
+        data: (content) => _HomeBody(content: content),
       ),
     );
   }
 }
 
 class _HomeBody extends StatelessWidget {
-  const _HomeBody({
-    required this.home,
-    required this.aboutSegment,
-    required this.scrollController,
-    required this.onAboutSegmentChanged,
-  });
+  const _HomeBody({required this.content});
 
-  final HomeContent home;
-  final int aboutSegment;
-  final ScrollController scrollController;
-  final ValueChanged<int> onAboutSegmentChanged;
+  final HomeContent content;
 
   @override
   Widget build(BuildContext context) {
-    final sections = home.sections;
-    final safeIndex = sections.isEmpty
-        ? 0
-        : aboutSegment.clamp(0, sections.length - 1);
-    final section = sections.isEmpty ? null : sections[safeIndex];
-    final segmentLabel = section == null
-        ? ''
-        : home.segmentLabel(section.id, section.title);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+    return ListView(
       children: [
-        if (sections.isNotEmpty)
-          SegmentControl(
-            labels: [
-              for (final s in sections)
-                home.segmentLabel(s.id, s.title),
-            ],
-            selectedIndex: safeIndex,
-            onChanged: onAboutSegmentChanged,
-          ),
-        Expanded(
-          child: ListView(
-            controller: scrollController,
-            children: [
-              if (section != null) ...[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-                  child: _SectionImageSlot(
-                    label: segmentLabel,
-                    sectionId: section.id,
-                    imageUrl: home.sectionImageUrl(section.id),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-                  child: AboutSectionBlocks(section: section),
-                ),
-              ],
-              if (home.doctors.isNotEmpty) ...[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 10),
-                  child: SectionTitle('Meet our doctors'),
-                ),
-                _DoctorsRow(doctors: home.doctors),
-              ],
-              if (home.reviews.isNotEmpty) ...[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 20, 16, 10),
-                  child: SectionTitle('What our patients say'),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 24),
-                  child: SizedBox(
-                    height: 220,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: home.reviews.length,
-                      separatorBuilder: (_, _) => const SizedBox(width: 10),
-                      itemBuilder: (context, index) {
-                        final review = home.reviews[index];
-                        return SizedBox(
-                          width: MediaQuery.sizeOf(context).width * 0.78,
-                          child: ReviewCard(
-                            reviewerName: review.reviewerName,
-                            reviewText: review.reviewText,
-                            rating: review.rating,
-                            dateLabel: review.dateLabel,
-                            avatarUrl: review.imageUrl,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ] else
-                const SizedBox(height: AppSpacing.lg),
-            ],
-          ),
-        ),
+        _HeroSection(hero: content.hero),
+        _ApproachSection(approach: content.approach),
+        _ConditionsSection(section: content.conditions),
+        _TherapiesSection(section: content.therapies),
+        _DoctorsSection(section: content.doctors),
+        _NewsletterSection(newsletter: content.newsletter),
+        if (content.reviews.isNotEmpty)
+          _ReviewsSection(reviews: content.reviews),
+        const SizedBox(height: 28),
       ],
     );
   }
 }
 
-class _SectionImageSlot extends StatelessWidget {
-  const _SectionImageSlot({
-    required this.label,
-    required this.sectionId,
-    this.imageUrl,
-  });
+class _HeroSection extends StatelessWidget {
+  const _HeroSection({required this.hero});
 
-  final String label;
-  final String sectionId;
-  final String? imageUrl;
-
-  static const double _height = 168;
-
-  Color get _placeholderColor {
-    return switch (sectionId) {
-      'our-practice' => AppColors.ochre,
-      'naturopathic-medicine' => AppColors.sage,
-      'integrative-medicine' => AppColors.forest,
-      'our-process' => AppColors.ochreDark,
-      _ => AppColors.sageLight,
-    };
-  }
+  final HomeHero hero;
 
   @override
   Widget build(BuildContext context) {
-    final url = imageUrl;
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: SizedBox(
-        height: _height,
-        width: double.infinity,
-        child: url != null
-            ? CachedNetworkImage(
-                imageUrl: url,
-                fit: BoxFit.cover,
-                placeholder: (context, _) => _Placeholder(
-                  label: label,
-                  color: _placeholderColor,
-                ),
-                errorWidget: (context, _, _) => _Placeholder(
-                  label: label,
-                  color: _placeholderColor,
-                ),
-              )
-            : _Placeholder(
-                label: label,
-                color: _placeholderColor,
+    final image = hero.imageUrl;
+    return SizedBox(
+      height: 360,
+      width: double.infinity,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          if (image != null)
+            CachedNetworkImage(
+              imageUrl: image,
+              fit: BoxFit.cover,
+              placeholder: (_, _) =>
+                  const ColoredBox(color: AppColors.brandNavy),
+              errorWidget: (_, _, _) =>
+                  const ColoredBox(color: AppColors.brandNavy),
+            )
+          else
+            const ColoredBox(color: AppColors.brandNavy),
+          const DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0x66003048),
+                  Color(0xCC003048),
+                ],
               ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 36, 20, 28),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  hero.text,
+                  style: AppTextStyles.headlineMedium.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    height: 1.3,
+                  ),
+                ),
+                if (hero.ctaLabel != null) ...[
+                  const SizedBox(height: 18),
+                  AppButton(
+                    label: hero.ctaLabel!,
+                    onPressed: () => _openSitePath(context, hero.ctaUrl),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class _Placeholder extends StatelessWidget {
-  const _Placeholder({
-    required this.label,
-    required this.color,
-  });
+class _ApproachSection extends StatelessWidget {
+  const _ApproachSection({required this.approach});
 
-  final String label;
-  final Color color;
+  final HomeApproach approach;
 
   @override
   Widget build(BuildContext context) {
-    final onColor = color.computeLuminance() > 0.55
-        ? AppColors.forestDark
-        : AppColors.textOnPrimary;
-
-    return ColoredBox(
-      color: color,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.image_outlined, size: 36, color: onColor),
-            const SizedBox(height: 8),
+    final image = approach.imageUrl;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 28, 16, 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (approach.eyebrow.isNotEmpty)
             Text(
-              label,
-              style: AppTextStyles.labelLarge.copyWith(color: onColor),
+              approach.eyebrow.toUpperCase(),
+              style: AppTextStyles.labelMedium.copyWith(
+                color: AppColors.brandPrimary,
+                letterSpacing: 1.4,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          const SizedBox(height: 8),
+          Text(
+            approach.headline,
+            style: AppTextStyles.headlineMedium.copyWith(
+              color: AppColors.brandNavy,
+              fontWeight: FontWeight.w700,
+              height: 1.25,
+            ),
+          ),
+          if (image != null) ...[
+            const SizedBox(height: 16),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: AspectRatio(
+                aspectRatio: 16 / 10,
+                child: CachedNetworkImage(
+                  imageUrl: image,
+                  fit: BoxFit.cover,
+                  placeholder: (_, _) =>
+                      const ColoredBox(color: AppColors.sageLight),
+                  errorWidget: (_, _, _) => const ColoredBox(
+                    color: AppColors.sageLight,
+                    child: Icon(Icons.image_outlined),
+                  ),
+                ),
+              ),
+            ),
+          ],
+          const SizedBox(height: 14),
+          Text(
+            approach.content,
+            style: AppTextStyles.bodyLarge.copyWith(
+              color: AppColors.ink,
+              height: 1.55,
+            ),
+          ),
+          if (approach.buttonLabel != null) ...[
+            const SizedBox(height: 16),
+            AppButton(
+              label: approach.buttonLabel!,
+              variant: AppButtonVariant.secondary,
+              onPressed: () => _openSitePath(context, approach.buttonUrl),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _ConditionsSection extends StatelessWidget {
+  const _ConditionsSection({required this.section});
+
+  final HomeConditionsSection section;
+
+  @override
+  Widget build(BuildContext context) {
+    if (section.items.isEmpty) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            section.title.toLowerCase(),
+            style: AppTextStyles.headlineMedium.copyWith(
+              color: AppColors.brandNavy,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 14),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              const gap = 12.0;
+              final width = (constraints.maxWidth - gap) / 2;
+              return Wrap(
+                spacing: gap,
+                runSpacing: gap,
+                children: [
+                  for (final item in section.items)
+                    SizedBox(
+                      width: width,
+                      child: _ConditionCard(item: item),
+                    ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ConditionCard extends StatelessWidget {
+  const _ConditionCard({required this.item});
+
+  final HomeLinkCard item;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(8),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => _openSitePath(context, item.linkUrl, fallbackSlug: item.slug),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            AspectRatio(
+              aspectRatio: 1.15,
+              child: item.imageUrl == null
+                  ? const ColoredBox(color: AppColors.sageLight)
+                  : CachedNetworkImage(
+                      imageUrl: item.imageUrl!,
+                      fit: BoxFit.cover,
+                      placeholder: (_, _) =>
+                          const ColoredBox(color: AppColors.sageLight),
+                      errorWidget: (_, _, _) => const ColoredBox(
+                        color: AppColors.sageLight,
+                        child: Icon(Icons.image_outlined),
+                      ),
+                    ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item.title,
+                    style: AppTextStyles.titleMedium.copyWith(
+                      color: AppColors.brandNavy,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  if (item.summary != null) ...[
+                    const SizedBox(height: 6),
+                    Text(
+                      item.summary!,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: AppColors.inkMuted,
+                        height: 1.35,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
             ),
           ],
         ),
@@ -255,119 +320,396 @@ class _Placeholder extends StatelessWidget {
   }
 }
 
-class _DoctorsRow extends StatelessWidget {
-  const _DoctorsRow({required this.doctors});
+class _TherapiesSection extends StatelessWidget {
+  const _TherapiesSection({required this.section});
 
-  final List<DoctorProfile> doctors;
-
-  static const double _cardHeight = 210;
-  static const double _cardWidth = 160;
+  final HomeTherapiesSection section;
 
   @override
   Widget build(BuildContext context) {
-    if (doctors.length <= 2) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: SizedBox(
-          height: _cardHeight,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              for (var i = 0; i < doctors.length; i++) ...[
-                if (i > 0) const SizedBox(width: 10),
-                Expanded(child: _DoctorTile(doctor: doctors[i])),
-              ],
+    if (section.items.isEmpty) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: ServiceConcaveBand(
+        child: Column(
+          children: [
+            Text(
+              section.title,
+              textAlign: TextAlign.center,
+              style: AppTextStyles.headlineMedium.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 18),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                const gap = 12.0;
+                final width = (constraints.maxWidth - gap) / 2;
+                return Wrap(
+                  spacing: gap,
+                  runSpacing: gap,
+                  children: [
+                    for (final item in section.items)
+                      SizedBox(
+                        width: width,
+                        child: _TherapyTile(item: item),
+                      ),
+                  ],
+                );
+              },
+            ),
+            if (section.ctaLabel != null) ...[
+              const SizedBox(height: 20),
+              AppButton(
+                label: section.ctaLabel!,
+                onPressed: () => _openSitePath(context, section.ctaUrl),
+              ),
             ],
-          ),
+          ],
         ),
-      );
-    }
-
-    return SizedBox(
-      height: _cardHeight,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: doctors.length,
-        separatorBuilder: (_, _) => const SizedBox(width: 10),
-        itemBuilder: (context, index) {
-          return SizedBox(
-            width: _cardWidth,
-            child: _DoctorTile(doctor: doctors[index]),
-          );
-        },
       ),
     );
   }
 }
 
-class _DoctorTile extends StatelessWidget {
-  const _DoctorTile({required this.doctor});
+class _TherapyTile extends StatelessWidget {
+  const _TherapyTile({required this.item});
 
-  final DoctorProfile doctor;
-
-  String get _initials {
-    final parts = doctor.name.trim().split(RegExp(r'\s+'));
-    if (parts.isEmpty) return '?';
-    if (parts.length == 1) return parts.first.substring(0, 1).toUpperCase();
-    return '${parts.first[0]}${parts.last[0]}'.toUpperCase();
-  }
+  final HomeLinkCard item;
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl = doctor.imageUrl;
-
-    return Material(
-      color: AppColors.card,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(14),
-        side: const BorderSide(color: AppColors.line),
+    return InkWell(
+      onTap: () => _openSitePath(context, item.linkUrl, fallbackSlug: item.slug),
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: AspectRatio(
+              aspectRatio: 1.2,
+              child: item.imageUrl == null
+                  ? const ColoredBox(color: Color(0x33FFFFFF))
+                  : CachedNetworkImage(
+                      imageUrl: item.imageUrl!,
+                      fit: BoxFit.cover,
+                      placeholder: (_, _) =>
+                          const ColoredBox(color: Color(0x33FFFFFF)),
+                      errorWidget: (_, _, _) => const ColoredBox(
+                        color: Color(0x33FFFFFF),
+                        child: Icon(Icons.image_outlined, color: Colors.white70),
+                      ),
+                    ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            item.title,
+            textAlign: TextAlign.center,
+            style: AppTextStyles.labelLarge.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
       ),
-      clipBehavior: Clip.antiAlias,
+    );
+  }
+}
+
+class _DoctorsSection extends StatelessWidget {
+  const _DoctorsSection({required this.section});
+
+  final HomeDoctorsSection section;
+
+  @override
+  Widget build(BuildContext context) {
+    if (section.items.isEmpty) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 28, 16, 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            section.title,
+            style: AppTextStyles.headlineMedium.copyWith(
+              color: AppColors.brandNavy,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          if (section.intro.isNotEmpty) ...[
+            const SizedBox(height: 10),
+            Text(
+              section.intro,
+              style: AppTextStyles.bodyLarge.copyWith(
+                color: AppColors.inkMuted,
+                height: 1.5,
+              ),
+            ),
+          ],
+          const SizedBox(height: 16),
+          for (final doctor in section.items) ...[
+            _DoctorCard(doctor: doctor),
+            const SizedBox(height: 12),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _DoctorCard extends StatelessWidget {
+  const _DoctorCard({required this.doctor});
+
+  final DoctorProfile doctor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10),
       child: InkWell(
+        borderRadius: BorderRadius.circular(10),
         onTap: () => context.push(AppRoutes.doctorDetailPath(doctor.routeId)),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 12, 10, 10),
-          child: Column(
+          padding: const EdgeInsets.all(12),
+          child: Row(
             children: [
-              CircleAvatar(
-                radius: 36,
-                backgroundColor: AppColors.sageLight,
-                foregroundColor: AppColors.brandPrimary,
-                backgroundImage: imageUrl != null && imageUrl.isNotEmpty
-                    ? CachedNetworkImageProvider(imageUrl)
-                    : null,
-                child: imageUrl == null || imageUrl.isEmpty
-                    ? Text(
-                        _initials,
-                        style: AppTextStyles.labelLarge.copyWith(
-                          color: AppColors.brandPrimary,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: SizedBox(
+                  width: 84,
+                  height: 84,
+                  child: doctor.imageUrl == null
+                      ? const ColoredBox(color: AppColors.sageLight)
+                      : CachedNetworkImage(
+                          imageUrl: doctor.imageUrl!,
+                          fit: BoxFit.cover,
+                          placeholder: (_, _) =>
+                              const ColoredBox(color: AppColors.sageLight),
+                          errorWidget: (_, _, _) => const ColoredBox(
+                            color: AppColors.sageLight,
+                            child: Icon(Icons.person_outline),
+                          ),
                         ),
-                      )
-                    : null,
-              ),
-              const SizedBox(height: 10),
-              Text(
-                doctor.name,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: AppTextStyles.labelMedium.copyWith(fontSize: 12.5),
-              ),
-              const SizedBox(height: 4),
-              Expanded(
-                child: Text(
-                  doctor.title,
-                  textAlign: TextAlign.center,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTextStyles.bodySmall.copyWith(fontSize: 11),
                 ),
               ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      doctor.name,
+                      style: AppTextStyles.titleMedium.copyWith(
+                        color: AppColors.brandNavy,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    if (doctor.title.trim().isNotEmpty) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        doctor.title,
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: AppColors.inkMuted,
+                          height: 1.35,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right, color: AppColors.inkMuted),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+class _NewsletterSection extends StatelessWidget {
+  const _NewsletterSection({required this.newsletter});
+
+  final HomeNewsletter newsletter;
+
+  @override
+  Widget build(BuildContext context) {
+    if (newsletter.headline.isEmpty && newsletter.subtext.isEmpty) {
+      return const SizedBox.shrink();
+    }
+    final bg = newsletter.backgroundImageUrl;
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 20, 16, 8),
+      height: 220,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: AppColors.brandNavy,
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          if (bg != null)
+            CachedNetworkImage(
+              imageUrl: bg,
+              fit: BoxFit.cover,
+              placeholder: (_, _) =>
+                  const ColoredBox(color: AppColors.brandNavy),
+              errorWidget: (_, _, _) =>
+                  const ColoredBox(color: AppColors.brandNavy),
+            ),
+          const ColoredBox(color: Color(0x99003048)),
+          Padding(
+            padding: const EdgeInsets.all(18),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  newsletter.headline,
+                  style: AppTextStyles.headlineMedium.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  newsletter.subtext,
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: Colors.white.withValues(alpha: 0.92),
+                    height: 1.45,
+                  ),
+                ),
+                if (newsletter.buttonLabel != null) ...[
+                  const SizedBox(height: 14),
+                  AppButton(
+                    label: newsletter.buttonLabel!,
+                    onPressed: () =>
+                        _openSitePath(context, newsletter.buttonUrl),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ReviewsSection extends StatelessWidget {
+  const _ReviewsSection({required this.reviews});
+
+  final List<Review> reviews;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
+          child: Text(
+            'What our patients say',
+            style: AppTextStyles.headlineMedium.copyWith(
+              color: AppColors.brandNavy,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 220,
+          child: ListView.separated(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            scrollDirection: Axis.horizontal,
+            itemCount: reviews.length,
+            separatorBuilder: (_, _) => const SizedBox(width: 12),
+            itemBuilder: (context, index) {
+              final review = reviews[index];
+              final date = review.dateLabel == null
+                  ? null
+                  : DateTime.tryParse(review.dateLabel!);
+              return SizedBox(
+                width: 300,
+                child: ReviewCard(
+                  reviewerName: review.reviewerName,
+                  reviewText: review.reviewText,
+                  rating: review.rating,
+                  avatarUrl: review.imageUrl,
+                  dateLabel: date == null
+                      ? review.dateLabel
+                      : DateFormat.yMMMd().format(date),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+void _openSitePath(
+  BuildContext context,
+  String? path, {
+  String? fallbackSlug,
+}) {
+  final raw = (path ?? '').trim();
+  final value = raw.isEmpty ? (fallbackSlug ?? '') : raw;
+  if (value.isEmpty) return;
+
+  final uri = Uri.tryParse(value);
+  final routePath = uri == null
+      ? value
+      : (uri.hasScheme ? uri.path : value.split('?').first);
+
+  final normalized = routePath.startsWith('/') ? routePath : '/$routePath';
+  final segments =
+      normalized.split('/').where((part) => part.isNotEmpty).toList();
+
+  if (normalized.startsWith('/faq')) {
+    context.push(AppRoutes.faq);
+    return;
+  }
+  if (normalized.startsWith('/our-process')) {
+    context.push(AppRoutes.aboutSectionPath('our-process'));
+    return;
+  }
+  if (normalized.startsWith('/about')) {
+    if (segments.length >= 2) {
+      context.push(AppRoutes.aboutSectionPath(segments[1]));
+    } else {
+      context.push(AppRoutes.about);
+    }
+    return;
+  }
+  if (normalized.startsWith('/services') || segments.isEmpty) {
+    context.go(AppRoutes.exploreServices);
+    return;
+  }
+  if (normalized.startsWith('/appointments')) {
+    context.push(AppRoutes.appointmentPath(AppRoutes.clinicSourceContext));
+    return;
+  }
+
+  // Condition or service detail by last slug.
+  final slug = segments.last;
+  final knownConditions = {
+    'diabetes',
+    'obesity',
+    'heart-disease',
+    'chronic-fatigue',
+    'chronic-pain',
+    'toxins',
+    'concussion',
+    'hormone-imbalance',
+    'detoxification',
+  };
+  if (knownConditions.contains(slug) || slug == 'toxins') {
+    final id = slug == 'detoxification' ? 'toxins' : slug;
+    context.push(AppRoutes.conditionDetailPath(id));
+    return;
+  }
+  context.push(AppRoutes.serviceDetailPath(slug));
 }

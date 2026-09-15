@@ -56,6 +56,22 @@ GoRouter createAppRouter() {
                 name: 'home',
                 builder: (context, state) => const HomeScreen(),
               ),
+              // About + doctor profiles stay under the Home tab.
+              GoRoute(
+                path: AppRoutes.about,
+                name: 'about',
+                builder: (context, state) => const AboutMenuScreen(),
+                routes: [
+                  GoRoute(
+                    path: ':sectionId',
+                    name: 'aboutSection',
+                    builder: (context, state) {
+                      final id = state.pathParameters['sectionId']!;
+                      return AboutSlugScreen(slug: id);
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
           StatefulShellBranch(
@@ -145,21 +161,6 @@ GoRouter createAppRouter() {
                 builder: (context, state) => const ContactScreen(),
               ),
             ],
-          ),
-        ],
-      ),
-      GoRoute(
-        path: AppRoutes.about,
-        name: 'about',
-        builder: (context, state) => const AboutMenuScreen(),
-        routes: [
-          GoRoute(
-            path: ':sectionId',
-            name: 'aboutSection',
-            builder: (context, state) {
-              final id = state.pathParameters['sectionId']!;
-              return AboutSlugScreen(slug: id);
-            },
           ),
         ],
       ),

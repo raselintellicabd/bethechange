@@ -3,6 +3,7 @@ class MockApiAssets {
   MockApiAssets._();
 
   static const String about = 'assets/data/about.json';
+  static const String aboutPages = 'assets/data/about_pages.json';
   static const String conditions = 'assets/data/conditions.json';
   static const String services = 'assets/data/services.json';
   static const String blog = 'assets/data/blog.json';

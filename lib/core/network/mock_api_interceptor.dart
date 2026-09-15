@@ -160,6 +160,15 @@ class MockApiInterceptor extends Interceptor {
       );
     }
 
+    final aboutSlug = _matchId(path, ApiPaths.about);
+    if (aboutSlug != null) {
+      final pages = await _loadObject(MockApiAssets.aboutPages);
+      final page = pages[aboutSlug];
+      if (page is Map<String, dynamic>) return page;
+      if (page is Map) return page.map((k, v) => MapEntry('$k', v));
+      throw _MockHttpError(404, 'About page "$aboutSlug" was not found.');
+    }
+
     final doctorId = _matchId(path, ApiPaths.doctors);
     if (doctorId != null) {
       return _itemById(

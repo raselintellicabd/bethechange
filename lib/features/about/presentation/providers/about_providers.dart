@@ -4,6 +4,7 @@ import '../../../../core/network/api_client.dart';
 import '../../data/about_repository.dart';
 import '../../data/doctor_repository.dart';
 import '../../domain/models/about_content.dart';
+import '../../domain/models/about_page.dart';
 import '../../domain/models/doctor_profile.dart';
 
 final aboutRepositoryProvider = Provider<AboutRepository>((ref) {
@@ -25,6 +26,15 @@ final doctorBySlugProvider =
 
 final aboutContentProvider = FutureProvider<AboutContent>((ref) async {
   final result = await ref.watch(aboutRepositoryProvider).getAboutContent();
+  return result.when(
+    success: (data) => data,
+    failure: (message, _) => throw Exception(message),
+  );
+});
+
+final aboutPageProvider =
+    FutureProvider.family<AboutPage, String>((ref, slug) async {
+  final result = await ref.watch(aboutRepositoryProvider).getAboutPage(slug);
   return result.when(
     success: (data) => data,
     failure: (message, _) => throw Exception(message),

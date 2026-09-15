@@ -5,7 +5,7 @@
 class ApiPaths {
   ApiPaths._();
 
-  static const String about = '/about';
+  static const String about = '/api/v1/about';
   static const String conditions = '/api/v1/conditions';
   static const String services = '/api/v1/services';
   static const String blog = '/api/v1/blog';
@@ -28,4 +28,5 @@ class ApiPaths {
   static String service(String id) => '$services/$id';
   static String blogArticle(String id) => '$blog/$id';
   static String doctor(String slug) => '$doctors/$slug';
+  static String aboutPage(String slug) => '$about/$slug';
 }

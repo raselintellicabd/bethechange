@@ -1,9 +1,12 @@
 import 'package:bethechange/app.dart';
 import 'package:bethechange/core/config/app_flavor.dart';
 import 'package:bethechange/core/config/env_config.dart';
+import 'package:bethechange/core/network/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'helpers/mock_api_client.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -12,38 +15,44 @@ void main() {
     await EnvConfig.load(AppFlavor.dev);
   });
 
-  testWidgets('Home loads About, doctors, and horizontal reviews',
+  testWidgets('Home loads hero, conditions, therapies, doctors, reviews',
       (tester) async {
     await tester.pumpWidget(
-      const ProviderScope(
-        child: BeTheChangeApp(flavor: AppFlavor.dev),
+      ProviderScope(
+        overrides: [
+          apiClientProvider.overrideWithValue(createMockApiClient()),
+        ],
+        child: const BeTheChangeApp(flavor: AppFlavor.dev),
       ),
     );
     await tester.pumpAndSettle();
 
     expect(find.text('Be The Change'), findsWidgets);
     expect(find.text('Home'), findsWidgets);
-    expect(find.byTooltip('About'), findsNothing);
-    expect(find.text('Conditions we treat'), findsNothing);
-    expect(find.text('Featured therapies'), findsNothing);
+    expect(find.byTooltip('About'), findsOneWidget);
+
+    expect(find.textContaining('root cause'), findsWidgets);
 
     await tester.scrollUntilVisible(
-      find.text('About Our Practice'),
+      find.textContaining('conditions we treat'),
       200,
       scrollable: find.byType(Scrollable).first,
     );
-    expect(find.text('About Our Practice'), findsOneWidget);
-
-    await tester.tap(find.text('Naturopathic'));
-    await tester.pumpAndSettle();
-    expect(find.text('What is Naturopathic Medicine?'), findsOneWidget);
+    expect(find.text('Diabetes'), findsOneWidget);
 
     await tester.scrollUntilVisible(
-      find.text('Meet our doctors'),
+      find.text('Featured Therapies'),
       300,
       scrollable: find.byType(Scrollable).first,
     );
-    expect(find.text('Meet our doctors'), findsOneWidget);
+    expect(find.text('Featured Therapies'), findsOneWidget);
+
+    await tester.scrollUntilVisible(
+      find.text('Meet Our Doctors'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(find.text('Meet Our Doctors'), findsOneWidget);
 
     await tester.scrollUntilVisible(
       find.text('What our patients say'),

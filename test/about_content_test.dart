@@ -1,9 +1,8 @@
-import 'dart:convert';
-
 import 'package:bethechange/core/network/api_result.dart';
 import 'package:bethechange/features/about/data/about_repository.dart';
 import 'package:bethechange/features/about/data/doctor_repository.dart';
 import 'package:bethechange/features/about/domain/models/about_content.dart';
+import 'package:bethechange/features/about/domain/models/about_page.dart';
 import 'package:bethechange/features/about/domain/models/doctor_profile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -15,90 +14,78 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('AboutContent', () {
-    test('parses bundled about.json with 4 sections, doctors, and reviews',
-        () async {
+    test('parses catalog from GET /api/v1/about/', () async {
       final repository = AboutRepository(createMockApiClient());
       final result = await repository.getAboutContent();
 
       expect(result, isA<ApiSuccess<AboutContent>>());
       final content = (result as ApiSuccess<AboutContent>).data;
 
-      expect(content.sections, hasLength(4));
+      expect(content.title, 'About');
+      expect(content.pages, hasLength(4));
       expect(
-        content.sections.map((section) => section.id).toList(),
+        content.pages.map((page) => page.slug).toList(),
         [
-          'our-practice',
+          'practice',
           'naturopathic-medicine',
           'integrative-medicine',
           'our-process',
         ],
       );
-      expect(content.doctors, hasLength(2));
-      expect(content.doctors.first.name, contains('Sultana Afrooz'));
-      expect(content.doctors.first.imageUrl, isNotNull);
-      expect(content.doctors.first.detailParagraphs, isNotEmpty);
-      expect(content.doctorById('jessica-needle')?.title, 'Naturopathic Doctor');
-      expect(content.reviews, isNotEmpty);
-      expect(content.reviewCount, 37);
-
-      for (final section in content.sections) {
-        expect(section.blocks, isNotEmpty);
-        expect(section.title, isNotEmpty);
-      }
+      expect(content.pageBySlug('practice')?.kind, 'practice');
+      expect(content.pageBySlug('practice')?.summary, isNotEmpty);
     });
 
-    test('doctorForRoute maps a numeric home id onto the about bio', () {
-      final about = AboutContent.fromJson({
-        'sections': [],
-        'doctors': [
+    test('loads practice, naturopathic, integrative, and process pages',
+        () async {
+      final repository = AboutRepository(createMockApiClient());
+
+      final practice =
+          (await repository.getAboutPage('practice') as ApiSuccess<AboutPage>)
+              .data;
+      expect(practice.isPractice, isTrue);
+      expect(practice.values, hasLength(3));
+      expect(practice.quote, isNotEmpty);
+      expect(practice.doctors?.items, hasLength(2));
+
+      final naturopathic = (await repository
+              .getAboutPage('naturopathic-medicine') as ApiSuccess<AboutPage>)
+          .data;
+      expect(naturopathic.isNaturopathic, isTrue);
+      expect(naturopathic.principles?.items, contains('First do no harm'));
+      expect(naturopathic.videoEmbedUrl, contains('youtube'));
+
+      final integrative = (await repository
+              .getAboutPage('integrative-medicine') as ApiSuccess<AboutPage>)
+          .data;
+      expect(integrative.isIntegrative, isTrue);
+      expect(integrative.resources, hasLength(2));
+
+      final process = (await repository.getAboutPage('our-process')
+              as ApiSuccess<AboutPage>)
+          .data;
+      expect(process.isProcess, isTrue);
+      expect(process.steps, hasLength(6));
+      expect(process.steps.first.layout, 'cards');
+      expect(process.cta?.phone, contains('301'));
+    });
+
+    test('fromJson maps catalog pages', () {
+      final content = AboutContent.fromJson({
+        'title': 'About',
+        'pages': [
           {
-            'id': 'sultana-afrooz',
-            'name': 'Sultana Afrooz, D.O.',
-            'title': 'Osteopathic Physician',
-            'detailParagraphs': ['Bio'],
+            'slug': 'practice',
+            'title': 'Our Practice',
+            'path': '/about/',
+            'kind': 'practice',
+            'summary': 'Root cause care.',
           },
         ],
-        'reviews': [],
-      });
-      final homeDoctor = DoctorProfile.fromJson({
-        'id': 1,
-        'name': 'Sultana Afrooz, D.O.',
-        'designation': 'Integrative Family Medicine Physician',
       });
 
-      final resolved = about.doctorForRoute('1', homeDoctor: homeDoctor);
-
-      expect(resolved?.id, 'sultana-afrooz');
-      expect(resolved?.detailParagraphs, ['Bio']);
-    });
-
-    test('fromJson maps nested blocks', () {
-      const raw = '''
-      {
-        "sections": [
-          {
-            "id": "our-practice",
-            "title": "Our Practice",
-            "showDoctors": true,
-            "showReviews": false,
-            "blocks": [
-              { "type": "heading", "title": "Hello" },
-              { "type": "bulletList", "title": "Values", "items": ["A", "B"] }
-            ]
-          }
-        ],
-        "doctors": [],
-        "reviews": []
-      }
-      ''';
-
-      final content = AboutContent.fromJson(
-        jsonDecode(raw) as Map<String, dynamic>,
-      );
-
-      expect(content.sections.single.blocks, hasLength(2));
-      expect(content.sections.single.showDoctors, isTrue);
-      expect(content.sections.single.showReviews, isFalse);
+      expect(content.pages.single.slug, 'practice');
+      expect(content.pages.single.kind, 'practice');
     });
 
     test('loads a doctor detail by slug', () async {
@@ -118,7 +105,8 @@ void main() {
       final doctor = DoctorProfile.fromJson({
         'id': 1,
         'name': 'Sultana Afrooz, D.O.',
-        'designation': 'Integrative Family Medicine Physician& Osteopathic Physician',
+        'designation':
+            'Integrative Family Medicine Physician& Osteopathic Physician',
         'image_url': 'http://192.168.1.160:8000/media/about/sa.jpg',
         'slug': 'sultana-afrooz',
         'description': 'First paragraph.\nSecond paragraph.',

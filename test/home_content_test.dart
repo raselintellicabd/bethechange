@@ -1,5 +1,4 @@
 import 'package:bethechange/core/network/api_result.dart';
-import 'package:bethechange/features/about/domain/models/about_content_block.dart';
 import 'package:bethechange/features/about/domain/models/doctor_profile.dart';
 import 'package:bethechange/features/home/data/home_repository.dart';
 import 'package:bethechange/features/home/domain/models/home_content.dart';
@@ -11,91 +10,85 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('HomeContent', () {
-    test('parses GET /api/v1/home payload into home sections', () async {
+    test('parses GET /api/v1/home payload into website sections', () async {
       final repository = HomeRepository(createMockApiClient());
       final result = await repository.getHomeContent();
 
       expect(result, isA<ApiSuccess<HomeContent>>());
       final content = (result as ApiSuccess<HomeContent>).data;
 
-      expect(
-        content.sections.map((section) => section.id).toList(),
-        [
-          'our-practice',
-          'naturopathic-medicine',
-          'integrative-medicine',
-          'our-process',
-        ],
-      );
-      expect(content.segmentLabel('our-practice', 'Our Practice'), 'Practice');
-      expect(
-        content.sectionImageUrl('our-practice'),
-        contains('approach_'),
-      );
-
-      final practice = content.sections.first;
-      expect(practice.blocks.any((block) => block.type == AboutBlockType.quote), isTrue);
-      expect(
-        practice.blocks.any((block) => block.title == 'Our Vision'),
-        isTrue,
-      );
-      expect(
-        practice.blocks.any((block) => block.title == 'Our Core Values'),
-        isTrue,
-      );
-
-      final naturopathic = content.sections[1];
-      expect(
-        naturopathic.blocks.any(
-          (block) =>
-              block.type == AboutBlockType.bulletList &&
-              block.items.contains('First do no harm'),
-        ),
-        isTrue,
-      );
-
-      expect(content.doctors, hasLength(2));
-      expect(content.doctors.first.id, '1');
-      expect(content.doctors.first.routeId, 'sultana-afrooz');
-      expect(content.doctors.first.title, contains('Osteopathic Physician'));
-      expect(content.doctors.first.imageUrl, isNotNull);
-
+      expect(content.hero.text, isNotEmpty);
+      expect(content.hero.ctaLabel, 'New Patient Questions');
+      expect(content.approach.eyebrow.toLowerCase(), contains('approach'));
+      expect(content.conditions.items, hasLength(8));
+      expect(content.conditions.items.first.slug, 'diabetes');
+      expect(content.therapies.items, hasLength(4));
+      expect(content.therapies.ctaLabel, contains('Services'));
+      expect(content.doctors.items, hasLength(2));
+      expect(content.doctors.items.first.routeId, 'sultana-afrooz');
+      expect(content.newsletter.headline, contains('Ion'));
       expect(content.reviews, isNotEmpty);
       expect(content.reviews.first.reviewerName, 'Elle');
       expect(content.reviews.first.rating, 5);
-      expect(content.reviews.first.imageUrl, isNotNull);
     });
 
-    test('fromJson maps hyphenated doctor and review fields', () {
+    test('fromJson maps camelCase home fields', () {
       final content = HomeContent.fromJson({
-        'practice': {
-          'img-url': 'https://example.com/practice.jpg',
-          'title': 'about our practice',
-          'content': 'Hello body.\n\nSecond paragraph.',
-          'quote': '"Stay well."\n\n-Be The Change',
+        'hero': {
+          'text': 'Root cause care.',
+          'imageUrl': 'https://example.com/hero.jpg',
+          'ctaLabel': 'FAQ',
+          'ctaUrl': '/faq/',
         },
-        'naturopathic': {
-          'title': 'naturopathic medicine',
-          'content': 'What is Naturopathic Medicine?\n\nA paragraph.',
-          'quote': '',
+        'approach': {
+          'eyebrow': 'our approach',
+          'headline': 'We focus on the root cause.',
+          'content': 'Holistic care.',
+          'buttonLabel': 'Our Approach',
+          'buttonUrl': '/about/',
         },
-        'Integrative-medicine': {
-          'title': 'integrative medicine',
-          'content': 'Integrative care.',
+        'conditions': {
+          'title': 'conditions we treat',
+          'items': [
+            {
+              'slug': 'diabetes',
+              'title': 'Diabetes',
+              'summary': 'Support metabolism.',
+              'linkUrl': '/diabetes/',
+            },
+          ],
         },
-        'our-process': {
-          'title': 'Our Process',
-          'content': 'STEP #1: CONSULTATION\n\nConsultation\nWe listen.',
-          'quote': 'Feel Good, Live Better!',
+        'therapies': {
+          'title': 'Featured Therapies',
+          'ctaLabel': 'View services',
+          'ctaUrl': '/services/',
+          'items': [
+            {
+              'slug': 'ion-foot-detox',
+              'title': 'Ion Foot Detox',
+              'linkUrl': '/ion-foot-detox/',
+            },
+          ],
         },
-        'doctors': [
-          {
-            'id': 2,
-            'img-url': 'https://example.com/doc.jpg',
-            'name': 'Jessica Needle, N.D.',
-            'designation': 'Naturopathic Doctor',
-          },
-        ],
+        'doctors': {
+          'title': 'Meet Our Doctors',
+          'intro': 'Our team.',
+          'items': [
+            {
+              'id': 2,
+              'name': 'Jessica Needle, N.D.',
+              'designation': 'Naturopathic Doctor',
+              'slug': 'jessica-needle',
+              'imageUrl': 'https://example.com/doc.jpg',
+            },
+          ],
+        },
+        'newsletter': {
+          'headline': 'Free session',
+          'subtext': 'Join our list.',
+          'buttonLabel': '',
+          'buttonUrl': '',
+        },
         'reviews': [
           {
             'img-url': 'https://example.com/avatar.jpg',
@@ -105,32 +98,13 @@ void main() {
             'comment': 'Great care.',
           },
         ],
-        'our-vision': 'Vision text',
-        'our-goal': 'Goal text',
-        'core-values': 'Value A\nValue B',
       });
 
-      expect(content.doctors.single.id, '2');
-      expect(content.reviews.single.dateLabel, '2025-02-25');
+      expect(content.hero.ctaUrl, '/faq/');
+      expect(content.conditions.items.single.title, 'Diabetes');
+      expect(content.doctors.items.single.id, '2');
+      expect(content.newsletter.buttonLabel, isNull);
       expect(content.reviews.single.imageUrl, 'https://example.com/avatar.jpg');
-
-      final process = content.sections.singleWhere((s) => s.id == 'our-process');
-      expect(
-        process.blocks.any(
-          (block) =>
-              block.type == AboutBlockType.heading &&
-              (block.title?.contains('STEP #1') ?? false),
-        ),
-        isTrue,
-      );
-      expect(
-        process.blocks.any(
-          (block) =>
-              block.type == AboutBlockType.quote &&
-              block.text == 'Feel Good, Live Better!',
-        ),
-        isTrue,
-      );
     });
 
     test('slugFromName strips credentials', () {
