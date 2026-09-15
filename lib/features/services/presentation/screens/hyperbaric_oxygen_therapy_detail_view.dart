@@ -15,6 +15,7 @@ import '../../../about/domain/models/review.dart';
 import '../../../blog/domain/models/blog_html.dart';
 import '../../../blog/presentation/widgets/blog_html_view.dart';
 import '../../domain/models/service.dart';
+import '../widgets/service_concave_band.dart';
 
 /// Website-matched HBOT page (`/hyperbaric-oxygen-therapy/`).
 /// Not shared with other service screens.
@@ -53,9 +54,31 @@ class HyperbaricOxygenTherapyDetailView extends StatelessWidget {
           _HeroHeadingLine(
             text: service.heroHeading ?? 'hyperbaric oxygen therapy',
           ),
-          if (overview != null) _OverviewSection(section: overview),
+          if (overview != null) ...[
+            _OverviewSection(section: overview),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+              child: AppointmentCtaBar(
+                sourceContext: _source,
+                label: _ctaLabel,
+              ),
+            ),
+          ] else
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+              child: AppointmentCtaBar(
+                sourceContext: _source,
+                label: _ctaLabel,
+              ),
+            ),
           if (conditions != null) _ConditionsSection(section: conditions),
-          for (final topic in topics) _TopicSection(section: topic),
+          for (final topic in topics)
+            _TopicSection(
+              key: PageStorageKey(
+                'hbot-topic-${service.routeId}-${topic.title}',
+              ),
+              section: topic,
+            ),
           if (featured != null) _FeaturedTherapiesSection(section: featured),
           if (started != null)
             _GettingStartedSection(section: started, source: _source),
@@ -231,7 +254,7 @@ class _ConditionsSection extends StatelessWidget {
 }
 
 class _TopicSection extends StatefulWidget {
-  const _TopicSection({required this.section});
+  const _TopicSection({super.key, required this.section});
 
   final ServiceSection section;
 
@@ -239,17 +262,35 @@ class _TopicSection extends StatefulWidget {
   State<_TopicSection> createState() => _TopicSectionState();
 }
 
-class _TopicSectionState extends State<_TopicSection> {
-  late bool _expanded;
+class _TopicSectionState extends State<_TopicSection>
+    with AutomaticKeepAliveClientMixin {
+  bool _expanded = false;
+  bool _restored = false;
 
   @override
-  void initState() {
-    super.initState();
-    _expanded = widget.section.title.toLowerCase().contains('autism');
+  bool get wantKeepAlive => true;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_restored) return;
+    _restored = true;
+    final saved = PageStorage.maybeOf(context)?.readState(context);
+    if (saved is bool) {
+      _expanded = saved;
+    }
+  }
+
+  void _toggle() {
+    setState(() {
+      _expanded = !_expanded;
+      PageStorage.maybeOf(context)?.writeState(context, _expanded);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final section = widget.section;
     final labels = section.items
         .map((item) => item.title.trim())
@@ -273,7 +314,7 @@ class _TopicSectionState extends State<_TopicSection> {
         child: Column(
           children: [
             InkWell(
-              onTap: () => setState(() => _expanded = !_expanded),
+              onTap: _toggle,
               borderRadius: BorderRadius.circular(4),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(12, 14, 12, 14),
@@ -418,18 +459,9 @@ class _FeaturedTherapiesSection extends StatelessWidget {
         .where((item) => (item.imageUrl?.trim().isNotEmpty ?? false))
         .toList();
 
-    return Column(
-      children: [
-        CustomPaint(
-          size: Size(MediaQuery.sizeOf(context).width, 36),
-          painter: const _WaveDownPainter(AppColors.brandNavy),
-        ),
-        Container(
-          width: double.infinity,
-          color: AppColors.brandNavy,
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 28),
-          child: Column(
-            children: [
+    return ServiceConcaveBand(
+      child: Column(
+        children: [
               Text(
                 section.title,
                 textAlign: TextAlign.center,
@@ -458,10 +490,8 @@ class _FeaturedTherapiesSection extends StatelessWidget {
                   },
                 ),
               ],
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -764,31 +794,6 @@ class _RoundedImage extends StatelessWidget {
   }
 }
 
-class _WaveDownPainter extends CustomPainter {
-  const _WaveDownPainter(this.color);
-
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = color;
-    final path = Path()
-      ..moveTo(0, 0)
-      ..lineTo(0, size.height * 0.35)
-      ..quadraticBezierTo(
-        size.width * 0.5,
-        size.height * 1.15,
-        size.width,
-        size.height * 0.35,
-      )
-      ..lineTo(size.width, 0)
-      ..close();
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
 
 class _HtmlLink {
   const _HtmlLink({required this.href, required this.label});

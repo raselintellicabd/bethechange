@@ -14,6 +14,7 @@ import '../../../about/domain/models/review.dart';
 import '../../../blog/domain/models/blog_html.dart';
 import '../../../blog/presentation/widgets/blog_html_view.dart';
 import '../../domain/models/service.dart';
+import '../widgets/service_concave_band.dart';
 
 /// Website-matched IV Nutritional Infusions page (`/iv-nutritional-infusions/`).
 /// Not shared with other service screens.
@@ -415,18 +416,9 @@ class _FeaturedTherapiesSection extends StatelessWidget {
         .where((item) => (item.imageUrl?.trim().isNotEmpty ?? false))
         .toList();
 
-    return Column(
-      children: [
-        CustomPaint(
-          size: Size(MediaQuery.sizeOf(context).width, 36),
-          painter: const _WaveDownPainter(AppColors.brandNavy),
-        ),
-        Container(
-          width: double.infinity,
-          color: AppColors.brandNavy,
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 28),
-          child: Column(
-            children: [
+    return ServiceConcaveBand(
+      child: Column(
+        children: [
               Text(
                 section.title,
                 textAlign: TextAlign.center,
@@ -455,10 +447,8 @@ class _FeaturedTherapiesSection extends StatelessWidget {
                   },
                 ),
               ],
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -723,28 +713,3 @@ class _ReviewsSection extends StatelessWidget {
   }
 }
 
-class _WaveDownPainter extends CustomPainter {
-  const _WaveDownPainter(this.color);
-
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = color;
-    final path = Path()
-      ..moveTo(0, 0)
-      ..lineTo(0, size.height * 0.35)
-      ..quadraticBezierTo(
-        size.width * 0.5,
-        size.height * 1.15,
-        size.width,
-        size.height * 0.35,
-      )
-      ..lineTo(size.width, 0)
-      ..close();
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}

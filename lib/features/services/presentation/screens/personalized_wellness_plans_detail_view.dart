@@ -8,6 +8,7 @@ import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/app_app_bar.dart';
+import '../../../../core/widgets/appointment_cta_bar.dart';
 import '../../../../core/widgets/review_card.dart';
 import '../../../../features/appointment/domain/models/source_context.dart';
 import '../../../about/domain/models/review.dart';
@@ -101,7 +102,23 @@ class PersonalizedWellnessPlansDetailView extends StatelessWidget {
             _HeroImageWithQuote(url: hero, quote: _quote)
           else
             const _QuoteBanner(_quote),
-          if (intro != null) _IntroBody(section: intro),
+          if (intro != null) ...[
+            _IntroBody(section: intro),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+              child: AppointmentCtaBar(
+                sourceContext: _source,
+                label: 'Request An Appointment',
+              ),
+            ),
+          ] else
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+              child: AppointmentCtaBar(
+                sourceContext: _source,
+                label: 'Request An Appointment',
+              ),
+            ),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
             child: _ExternalCtaButton(item: viewCta),

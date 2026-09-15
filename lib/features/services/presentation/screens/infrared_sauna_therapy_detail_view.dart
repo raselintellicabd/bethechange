@@ -14,6 +14,7 @@ import '../../../about/domain/models/review.dart';
 import '../../../blog/domain/models/blog_html.dart';
 import '../../../blog/presentation/widgets/blog_html_view.dart';
 import '../../domain/models/service.dart';
+import '../widgets/service_concave_band.dart';
 
 /// Website-matched Infrared Sauna page (`/infrared-sauna-therapy/`).
 /// Not shared with other service screens.
@@ -55,12 +56,36 @@ class InfraredSaunaTherapyDetailView extends StatelessWidget {
             text: service.heroHeading ?? 'Infrared sauna therapy',
           ),
           if (concerns != null) _ConcernsSection(section: concerns),
-          if (overview != null) _OverviewSection(section: overview),
+          if (overview != null) ...[
+            _OverviewSection(section: overview),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+              child: AppointmentCtaBar(
+                sourceContext: _source,
+                label: _ctaLabel,
+              ),
+            ),
+          ] else if (concerns != null)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+              child: AppointmentCtaBar(
+                sourceContext: _source,
+                label: _ctaLabel,
+              ),
+            ),
           if (benefits != null) _BenefitsSection(section: benefits),
           if (options != null) _OptionsSection(section: options),
-          if (chromo != null) _ChromotherapyAccordion(section: chromo),
+          if (chromo != null)
+            _ChromotherapyAccordion(
+              key: PageStorageKey('service-chromo-${service.routeId}'),
+              section: chromo,
+            ),
           if (gallery.isNotEmpty) _GallerySection(sections: gallery),
-          if (faq != null) _FaqAccordion(section: faq),
+          if (faq != null)
+            _FaqAccordion(
+              key: PageStorageKey('service-faq-${service.routeId}'),
+              section: faq,
+            ),
           if (expect != null)
             _ExpectSection(section: expect, source: _source),
           Padding(
@@ -352,42 +377,28 @@ class _BenefitsSection extends StatelessWidget {
         .where((label) => label.isNotEmpty)
         .toList();
 
-    return Column(
-      children: [
-        CustomPaint(
-          size: Size(MediaQuery.sizeOf(context).width, 36),
-          painter: const _WaveDownPainter(AppColors.brandNavy),
-        ),
-        Container(
-          width: double.infinity,
-          color: AppColors.brandNavy,
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-          child: Column(
-            children: [
-              _LinedTitle(section.title),
-              if (intro.isNotEmpty) ...[
-                const SizedBox(height: 14),
-                DefaultTextStyle(
-                  style: AppTextStyles.bodyLarge.copyWith(
-                    color: Colors.white,
-                    height: 1.55,
-                  ),
-                  textAlign: TextAlign.center,
-                  child: BlogHtmlView(blocks: intro),
-                ),
-              ],
-              if (labels.isNotEmpty) ...[
-                const SizedBox(height: 20),
-                _BenefitCardGrid(labels: labels),
-              ],
-            ],
-          ),
-        ),
-        CustomPaint(
-          size: Size(MediaQuery.sizeOf(context).width, 36),
-          painter: const _WaveUpPainter(AppColors.brandNavy),
-        ),
-      ],
+    return ServiceConcaveBand(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
+      child: Column(
+        children: [
+          _LinedTitle(section.title),
+          if (intro.isNotEmpty) ...[
+            const SizedBox(height: 14),
+            DefaultTextStyle(
+              style: AppTextStyles.bodyLarge.copyWith(
+                color: Colors.white,
+                height: 1.55,
+              ),
+              textAlign: TextAlign.center,
+              child: BlogHtmlView(blocks: intro),
+            ),
+          ],
+          if (labels.isNotEmpty) ...[
+            const SizedBox(height: 20),
+            _BenefitCardGrid(labels: labels),
+          ],
+        ],
+      ),
     );
   }
 }
@@ -575,7 +586,7 @@ class _OptionCard extends StatelessWidget {
 }
 
 class _ChromotherapyAccordion extends StatefulWidget {
-  const _ChromotherapyAccordion({required this.section});
+  const _ChromotherapyAccordion({super.key, required this.section});
 
   final ServiceSection section;
 
@@ -584,11 +595,33 @@ class _ChromotherapyAccordion extends StatefulWidget {
       _ChromotherapyAccordionState();
 }
 
-class _ChromotherapyAccordionState extends State<_ChromotherapyAccordion> {
-  bool _expanded = true;
+class _ChromotherapyAccordionState extends State<_ChromotherapyAccordion>
+    with AutomaticKeepAliveClientMixin {
+  bool _expanded = false;
+  bool _restored = false;
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_restored) return;
+    _restored = true;
+    final saved = PageStorage.maybeOf(context)?.readState(context);
+    if (saved is bool) _expanded = saved;
+  }
+
+  void _toggle() {
+    setState(() {
+      _expanded = !_expanded;
+      PageStorage.maybeOf(context)?.writeState(context, _expanded);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final section = widget.section;
     final intro = blogContentBlocks(
       contentHtml: section.contentHtml,
@@ -606,7 +639,7 @@ class _ChromotherapyAccordionState extends State<_ChromotherapyAccordion> {
         child: Column(
           children: [
             InkWell(
-              onTap: () => setState(() => _expanded = !_expanded),
+              onTap: _toggle,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(12, 14, 12, 14),
                 child: Row(
@@ -809,7 +842,7 @@ class _GallerySection extends StatelessWidget {
 }
 
 class _FaqAccordion extends StatefulWidget {
-  const _FaqAccordion({required this.section});
+  const _FaqAccordion({super.key, required this.section});
 
   final ServiceSection section;
 
@@ -817,20 +850,47 @@ class _FaqAccordion extends StatefulWidget {
   State<_FaqAccordion> createState() => _FaqAccordionState();
 }
 
-class _FaqAccordionState extends State<_FaqAccordion> {
-  late final Set<int> _open;
+class _FaqAccordionState extends State<_FaqAccordion>
+    with AutomaticKeepAliveClientMixin {
+  late Set<int> _open;
+  bool _restored = false;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
-    // Keep answers visible so API content is not hidden behind taps.
-    _open = {
-      for (var i = 0; i < widget.section.items.length; i++) i,
-    };
+    _open = <int>{};
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_restored) return;
+    _restored = true;
+    final saved = PageStorage.maybeOf(context)?.readState(context);
+    if (saved is List) {
+      _open = saved.whereType<int>().toSet();
+    } else if (saved is Set) {
+      _open = saved.whereType<int>().toSet();
+    }
+  }
+
+  void _toggle(int index) {
+    setState(() {
+      if (_open.contains(index)) {
+        _open.remove(index);
+      } else {
+        _open.add(index);
+      }
+      PageStorage.maybeOf(context)?.writeState(context, _open.toList());
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final items = widget.section.items
         .where((item) => item.title.trim().isNotEmpty)
         .toList();
@@ -852,13 +912,7 @@ class _FaqAccordionState extends State<_FaqAccordion> {
             _FaqTile(
               item: items[i],
               expanded: _open.contains(i),
-              onToggle: () => setState(() {
-                if (_open.contains(i)) {
-                  _open.remove(i);
-                } else {
-                  _open.add(i);
-                }
-              }),
+              onToggle: () => _toggle(i),
             ),
             const SizedBox(height: 10),
           ],
@@ -1166,54 +1220,4 @@ class _RoundedImage extends StatelessWidget {
   }
 }
 
-class _WaveDownPainter extends CustomPainter {
-  const _WaveDownPainter(this.color);
 
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = color;
-    final path = Path()
-      ..moveTo(0, 0)
-      ..lineTo(0, size.height * 0.35)
-      ..quadraticBezierTo(
-        size.width * 0.5,
-        size.height * 1.15,
-        size.width,
-        size.height * 0.35,
-      )
-      ..lineTo(size.width, 0)
-      ..close();
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class _WaveUpPainter extends CustomPainter {
-  const _WaveUpPainter(this.color);
-
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = color;
-    final path = Path()
-      ..moveTo(0, size.height)
-      ..lineTo(0, size.height * 0.65)
-      ..quadraticBezierTo(
-        size.width * 0.5,
-        size.height * -0.15,
-        size.width,
-        size.height * 0.65,
-      )
-      ..lineTo(size.width, size.height)
-      ..close();
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
