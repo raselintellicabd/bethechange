@@ -6,9 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/app_app_bar.dart';
-import '../../../../core/widgets/appointment_cta_bar.dart';
 import '../../../../core/widgets/review_card.dart';
-import '../../../../features/appointment/domain/models/source_context.dart';
 import '../../../about/domain/models/review.dart';
 import '../../../blog/domain/models/blog_html.dart';
 import '../../../blog/presentation/widgets/blog_html_view.dart';
@@ -20,12 +18,6 @@ class WellnessClassesDetailView extends StatelessWidget {
   const WellnessClassesDetailView({super.key, required this.service});
 
   final Service service;
-
-  SourceContext get _source => SourceContext(
-        type: SourceContextType.service,
-        id: service.routeId,
-        name: service.name,
-      );
 
   static const _intro =
       'Naturopathic and integrative medicine services at Be The Change '
@@ -51,13 +43,6 @@ class WellnessClassesDetailView extends StatelessWidget {
         children: [
           _HeroHeadingLine(text: service.heroHeading ?? 'wellness classes'),
           const _IntroCopy(_intro),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
-            child: AppointmentCtaBar(
-              sourceContext: _source,
-              label: 'Request An Appointment',
-            ),
-          ),
           if (weightLoss != null) _ProgramSection(section: weightLoss),
           if (pediatric != null)
             _ProgramSection(
