@@ -3,18 +3,19 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/empty_state_widget.dart';
+import '../../domain/models/slot_selection.dart';
 import '../../domain/models/time_slot.dart';
 
 class TimeSlotSelector extends StatelessWidget {
   const TimeSlotSelector({
     super.key,
     required this.slots,
-    required this.selectedSlot,
+    required this.selection,
     required this.onSlotSelected,
   });
 
   final List<TimeSlot> slots;
-  final TimeSlot? selectedSlot;
+  final SlotSelection? selection;
   final ValueChanged<TimeSlot> onSlotSelected;
 
   @override
@@ -27,25 +28,50 @@ class TimeSlotSelector extends StatelessWidget {
       );
     }
 
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: slots.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: AppSpacing.sm,
-        crossAxisSpacing: AppSpacing.sm,
-        childAspectRatio: 2.6,
-      ),
-      itemBuilder: (context, index) {
-        final slot = slots[index];
-        final selected = selectedSlot?.id == slot.id;
-        return _SlotTile(
-          slot: slot,
-          selected: selected,
-          onTap: slot.isSelectable ? () => onSlotSelected(slot) : null,
-        );
-      },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          'Choose up to ${SlotSelection.maxSlots} consecutive open times. '
+          'Tapping a later slot also selects the times in between.',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: AppColors.inkMuted,
+                height: 1.35,
+              ),
+        ),
+        if (selection != null) ...[
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            'Selected: ${selection!.timeRangeLabel}'
+            '${selection!.slotCount > 1 ? ' (${selection!.slotCount} slots)' : ''}',
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: AppColors.forest,
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+        ],
+        const SizedBox(height: AppSpacing.sm),
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: slots.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: AppSpacing.sm,
+            crossAxisSpacing: AppSpacing.sm,
+            childAspectRatio: 2.6,
+          ),
+          itemBuilder: (context, index) {
+            final slot = slots[index];
+            final selected = selection?.containsSlot(slot) ?? false;
+            return _SlotTile(
+              slot: slot,
+              selected: selected,
+              onTap: slot.isSelectable ? () => onSlotSelected(slot) : null,
+            );
+          },
+        ),
+      ],
     );
   }
 }

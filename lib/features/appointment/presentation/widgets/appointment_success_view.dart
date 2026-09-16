@@ -38,7 +38,7 @@ class AppointmentSuccessView extends StatelessWidget {
         const SizedBox(height: AppSpacing.md),
         Text(
           'We received your $forLabel request for $dateLabel at '
-          '${request.slot.label} (${request.patient.consultationMode.label}). '
+          '${request.timeRangeLabel} (${request.patient.consultationMode.label}). '
           'Our team will review and confirm. '
           'No meeting link is sent until it is approved.',
           style: theme.textTheme.bodyLarge,

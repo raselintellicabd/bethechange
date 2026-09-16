@@ -10,6 +10,7 @@ import '../../domain/models/appointment_booking_result.dart';
 import '../../domain/models/appointment_request.dart';
 import '../../domain/models/availability_window.dart';
 import '../../domain/models/patient_details.dart';
+import '../../domain/models/slot_selection.dart';
 import '../../domain/models/source_context.dart';
 import '../../domain/models/time_slot.dart';
 
@@ -24,7 +25,7 @@ class AppointmentBookingState {
     this.availableDates = const {},
     this.selectedDate,
     this.slots = const [],
-    this.selectedSlot,
+    this.selection,
     this.patient,
     this.isLoading = false,
     this.errorMessage,
@@ -38,7 +39,7 @@ class AppointmentBookingState {
   final Set<DateTime> availableDates;
   final DateTime? selectedDate;
   final List<TimeSlot> slots;
-  final TimeSlot? selectedSlot;
+  final SlotSelection? selection;
   final PatientDetails? patient;
   final bool isLoading;
   final String? errorMessage;
@@ -48,10 +49,27 @@ class AppointmentBookingState {
 
   String get appointmentFor => appointmentForLabel(sourceContext);
 
+  /// First slot of the selected range (for booking payload).
+  TimeSlot? get selectedSlot {
+    final range = selection;
+    if (range == null) return null;
+    for (final slot in slots) {
+      if (slot.timeMinutes == range.startMinutes) return slot;
+    }
+    return null;
+  }
+
+  int get selectedSlotCount => selection?.slotCount ?? 0;
+
+  String? get selectionTimeLabel => selection?.timeRangeLabel;
+
   bool isDateAvailable(DateTime day) {
     final normalized = DateTime(day.year, day.month, day.day);
     return availableDates.contains(normalized);
   }
+
+  bool isSlotSelected(TimeSlot slot) =>
+      selection?.containsSlot(slot) ?? false;
 
   AppointmentBookingState copyWith({
     AppointmentStep? step,
@@ -61,8 +79,8 @@ class AppointmentBookingState {
     DateTime? selectedDate,
     bool clearSelectedDate = false,
     List<TimeSlot>? slots,
-    TimeSlot? selectedSlot,
-    bool clearSelectedSlot = false,
+    SlotSelection? selection,
+    bool clearSelection = false,
     PatientDetails? patient,
     bool? isLoading,
     String? errorMessage,
@@ -78,8 +96,7 @@ class AppointmentBookingState {
       selectedDate:
           clearSelectedDate ? null : selectedDate ?? this.selectedDate,
       slots: slots ?? this.slots,
-      selectedSlot:
-          clearSelectedSlot ? null : selectedSlot ?? this.selectedSlot,
+      selection: clearSelection ? null : selection ?? this.selection,
       patient: patient ?? this.patient,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: clearError ? null : errorMessage ?? this.errorMessage,
@@ -216,7 +233,7 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
 
     state = state.copyWith(
       selectedDate: normalized,
-      clearSelectedSlot: true,
+      clearSelection: true,
       slots: slots,
       step: AppointmentStep.time,
       clearError: true,
@@ -225,11 +242,30 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
 
   void selectSlot(TimeSlot slot) {
     if (!slot.isSelectable) return;
-    state = state.copyWith(selectedSlot: slot, clearError: true);
+
+    final open = state.slots
+        .where((s) => s.isSelectable)
+        .map((s) => s.timeMinutes)
+        .toSet();
+
+    try {
+      final next = SlotSelection.select(
+        current: state.selection,
+        clickedMinutes: slot.timeMinutes,
+        availableMinutes: open,
+      );
+      state = state.copyWith(
+        selection: next,
+        clearSelection: next == null,
+        clearError: true,
+      );
+    } on SlotSelectionLimitException catch (e) {
+      state = state.copyWith(errorMessage: e.toString());
+    }
   }
 
   void continueToDetails() {
-    if (state.selectedSlot == null) return;
+    if (state.selection == null || state.selectedSlot == null) return;
     state = state.copyWith(step: AppointmentStep.details, clearError: true);
   }
 
@@ -246,7 +282,7 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
       case AppointmentStep.time:
         state = state.copyWith(
           step: AppointmentStep.date,
-          clearSelectedSlot: true,
+          clearSelection: true,
           slots: const [],
           clearError: true,
         );
@@ -265,8 +301,9 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
 
   Future<void> confirmBooking() async {
     final slot = state.selectedSlot;
+    final selection = state.selection;
     final patient = state.patient;
-    if (slot == null || patient == null) return;
+    if (slot == null || selection == null || patient == null) return;
 
     state = state.copyWith(isLoading: true, clearError: true);
 
@@ -274,6 +311,7 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
       sourceContext: state.sourceContext,
       slot: slot,
       patient: patient,
+      slotCount: selection.slotCount,
     );
 
     final result = await _repository.bookAppointment(request);
@@ -313,7 +351,7 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
         state = state.copyWith(
           step: AppointmentStep.date,
           clearSelectedDate: true,
-          clearSelectedSlot: true,
+          clearSelection: true,
           slots: const [],
           errorMessage: message,
         );

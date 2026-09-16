@@ -39,6 +39,8 @@ Map<String, dynamic> sampleAvailabilityJson({
       '2026-09-09': [
         {'time_minutes': 600, 'state': 'available'},
         {'time_minutes': 630, 'state': 'available'},
+        {'time_minutes': 660, 'state': 'available'},
+        {'time_minutes': 690, 'state': 'available'},
       ],
       '2026-09-11': [
         {'time_minutes': 600, 'state': 'busy'},
@@ -225,6 +227,31 @@ void main() {
       expect(request.toCreateJson().containsKey('status'), isFalse);
     });
 
+    test('multi-slot POST body extends ends_at', () {
+      final request = AppointmentRequest(
+        sourceContext: const SourceContext(
+          type: SourceContextType.condition,
+          id: 'diabetes',
+          name: 'Diabetes',
+        ),
+        slot: TimeSlot.fromAvailability(
+          date: DateTime(2026, 9, 9),
+          timeMinutes: 600,
+        ),
+        slotCount: 3,
+        patient: const PatientDetails(
+          name: 'Rasel',
+          email: 'rase@gmail.com',
+          phone: '014525552244',
+          consultationMode: ConsultationMode.virtual,
+        ),
+      );
+
+      expect(request.toCreateJson()['starts_at'], '2026-09-09T10:00:00-04:00');
+      expect(request.toCreateJson()['ends_at'], '2026-09-09T11:30:00-04:00');
+      expect(request.timeRangeLabel, contains('–'));
+    });
+
     test('maps Django create response to pending result', () {
       final request = AppointmentRequest(
         sourceContext: const SourceContext(
@@ -338,7 +365,10 @@ void main() {
 
       await controller.selectDate(DateTime(2026, 9, 9));
       expect(controller.state.step, AppointmentStep.time);
-      expect(controller.state.slots.map((s) => s.timeMinutes), [600, 630]);
+      expect(
+        controller.state.slots.map((s) => s.timeMinutes),
+        [600, 630, 660, 690],
+      );
       expect(
         controller.state.slots.every((s) => s.state == 'available'),
         isTrue,
@@ -365,6 +395,48 @@ void main() {
         repository.lastRequest?.toCreateJson()['consultation_mode'],
         'in_office',
       );
+    });
+
+    test('fills middle slots and caps selection at 3', () async {
+      final repository = _FakeAppointmentRepository();
+      final controller = AppointmentController(
+        repository: repository,
+        sourceContext: sourceContext,
+        now: DateTime(2026, 9, 8, 10),
+      );
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+
+      await controller.selectDate(DateTime(2026, 9, 9));
+      final slots = controller.state.slots;
+
+      controller.selectSlot(slots[0]); // 10:00
+      expect(controller.state.selection?.slotCount, 1);
+
+      controller.selectSlot(slots[2]); // 11:00 → fills 10:30
+      expect(controller.state.selection?.startMinutes, 600);
+      expect(controller.state.selection?.endMinutes, 690);
+      expect(controller.state.selection?.slotCount, 3);
+      expect(controller.state.isSlotSelected(slots[1]), isTrue);
+
+      controller.selectSlot(slots[3]); // 11:30 would be 4 slots
+      expect(controller.state.selection?.slotCount, 3);
+      expect(controller.state.errorMessage, contains('up to 3'));
+
+      controller.continueToDetails();
+      controller.submitPatientDetails(
+        const PatientDetails(
+          name: 'Ada Lovelace',
+          email: 'ada@example.com',
+          phone: '3015551212',
+          consultationMode: ConsultationMode.virtual,
+        ),
+      );
+      await controller.confirmBooking();
+
+      final body = repository.lastRequest!.toCreateJson();
+      expect(body['starts_at'], '2026-09-09T10:00:00-04:00');
+      expect(body['ends_at'], '2026-09-09T11:30:00-04:00');
+      expect(repository.lastRequest!.slotCount, 3);
     });
 
     test('shows pending/busy slots but only available is selectable', () async {

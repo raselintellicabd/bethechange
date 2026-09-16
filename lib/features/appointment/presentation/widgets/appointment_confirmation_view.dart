@@ -16,6 +16,7 @@ class AppointmentConfirmationView extends StatelessWidget {
     required this.patient,
     required this.isLoading,
     required this.onConfirm,
+    this.timeLabel,
     this.errorMessage,
     this.onRetry,
   });
@@ -25,6 +26,7 @@ class AppointmentConfirmationView extends StatelessWidget {
   final PatientDetails patient;
   final bool isLoading;
   final VoidCallback onConfirm;
+  final String? timeLabel;
   final String? errorMessage;
   final VoidCallback? onRetry;
 
@@ -40,7 +42,7 @@ class AppointmentConfirmationView extends StatelessWidget {
         const SizedBox(height: AppSpacing.md),
         _SummaryRow(label: 'For', value: appointmentForLabel(sourceContext)),
         _SummaryRow(label: 'Date', value: dateLabel),
-        _SummaryRow(label: 'Time', value: slot.label),
+        _SummaryRow(label: 'Time', value: timeLabel ?? slot.label),
         _SummaryRow(label: 'Mode', value: patient.consultationMode.label),
         _SummaryRow(label: 'Name', value: patient.name),
         _SummaryRow(label: 'Email', value: patient.email),

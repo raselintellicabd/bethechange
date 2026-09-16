@@ -128,7 +128,7 @@ class _StepBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Select a time',
+              'Select time',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: AppSpacing.sm),
@@ -144,14 +144,14 @@ class _StepBody extends StatelessWidget {
               ],
               TimeSlotSelector(
                 slots: state.slots,
-                selectedSlot: state.selectedSlot,
+                selection: state.selection,
                 onSlotSelected: controller.selectSlot,
               ),
               const SizedBox(height: AppSpacing.lg),
               AppButton(
                 label: 'Continue',
                 expand: true,
-                onPressed: state.selectedSlot == null
+                onPressed: state.selection == null
                     ? null
                     : controller.continueToDetails,
               ),
@@ -175,6 +175,7 @@ class _StepBody extends StatelessWidget {
       AppointmentStep.confirm => AppointmentConfirmationView(
           sourceContext: state.sourceContext,
           slot: state.selectedSlot!,
+          timeLabel: state.selectionTimeLabel ?? state.selectedSlot!.label,
           patient: state.patient!,
           isLoading: state.isLoading,
           errorMessage: state.errorMessage,
