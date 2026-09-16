@@ -8,4 +8,7 @@ class AppConstants {
 
   /// Query param required when opening the Appointment screen.
   static const String sourceContextQueryParam = 'sourceContext';
+
+  /// Optional book-online offering when opening Appointment from the picker.
+  static const String offeringQueryParam = 'offering';
 }

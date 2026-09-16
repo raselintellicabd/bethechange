@@ -12,11 +12,15 @@ class TimeSlotSelector extends StatelessWidget {
     required this.slots,
     required this.selection,
     required this.onSlotSelected,
+    this.requiredSlots,
   });
 
   final List<TimeSlot> slots;
   final SlotSelection? selection;
   final ValueChanged<TimeSlot> onSlotSelected;
+
+  /// When set, fixed-duration mode (Django offering slot count).
+  final int? requiredSlots;
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +32,21 @@ class TimeSlotSelector extends StatelessWidget {
       );
     }
 
+    final fixed = requiredSlots;
+    final helpText = fixed == null
+        ? 'Choose up to ${SlotSelection.maxSlots} consecutive open times. '
+            'Tapping a later slot also selects the times in between.'
+        : fixed <= 1
+            ? 'Tap an open time to select this ${SlotSelection.slotMinutes}-minute session.'
+            : 'This service needs $fixed consecutive '
+                '${SlotSelection.slotMinutes}-minute times. '
+                'Tap a start time to select the full block.';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          'Choose up to ${SlotSelection.maxSlots} consecutive open times. '
-          'Tapping a later slot also selects the times in between.',
+          helpText,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: AppColors.inkMuted,
                 height: 1.35,
@@ -87,66 +100,56 @@ class _SlotTile extends StatelessWidget {
   final bool selected;
   final VoidCallback? onTap;
 
-  Color get _borderColor {
-    if (selected) return AppColors.primary;
-    return switch (slot.state) {
-      'available' => const Color(0xFFCBDCE2),
-      'pending' => const Color(0xFFE0C36A),
-      'booked' => const Color(0xFFC5D0D5),
-      'busy' => const Color(0xFFD8B4B4),
-      _ => AppColors.border,
-    };
-  }
-
-  Color get _backgroundColor {
-    if (selected) return AppColors.primary;
-    return switch (slot.state) {
-      'available' => Colors.white,
-      'pending' => const Color(0xFFFFF8E8),
-      'booked' => const Color(0xFFEEF2F4),
-      'busy' => const Color(0xFFF7ECEC),
-      _ => AppColors.surfaceMuted,
-    };
-  }
-
-  Color get _foregroundColor {
-    if (selected) return Colors.white;
-    return switch (slot.state) {
-      'available' => AppColors.forest,
-      'pending' => const Color(0xFF7A5B12),
-      'booked' => const Color(0xFF5A6B74),
-      'busy' => const Color(0xFF7A3B3B),
-      _ => AppColors.inkMuted,
-    };
-  }
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final enabled = onTap != null;
+    final bg = selected
+        ? AppColors.forest
+        : enabled
+            ? AppColors.card
+            : AppColors.brandBgGray;
+    final fg = selected
+        ? Colors.white
+        : enabled
+            ? AppColors.ink
+            : AppColors.inkMuted;
+
     return Material(
-      color: _backgroundColor,
-      borderRadius: BorderRadius.circular(9),
+      color: bg,
+      borderRadius: BorderRadius.circular(AppSpacing.radiusSm),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(9),
+        borderRadius: BorderRadius.circular(AppSpacing.radiusSm),
         child: Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(9),
-            border: Border.all(color: _borderColor),
+            borderRadius: BorderRadius.circular(AppSpacing.radiusSm),
+            border: Border.all(
+              color: selected ? AppColors.forest : AppColors.line,
+            ),
           ),
-          child: Text(
-            '${slot.label} · ${slot.stateLabel}',
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: _foregroundColor.withValues(alpha: enabled ? 1 : 0.9),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                slot.label,
+                style: theme.textTheme.labelLarge?.copyWith(
+                  color: fg,
                   fontWeight: FontWeight.w600,
-                  fontSize: 13,
-                  height: 1.2,
                 ),
+              ),
+              if (!enabled) ...[
+                const SizedBox(height: 2),
+                Text(
+                  slot.stateLabel,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: fg,
+                    fontSize: 10,
+                  ),
+                ),
+              ],
+            ],
           ),
         ),
       ),

@@ -3,8 +3,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/about/presentation/screens/about_menu_screen.dart';
 import '../../features/about/presentation/screens/about_slug_screen.dart';
+import '../../features/appointment/domain/models/book_online_offering.dart';
 import '../../features/appointment/domain/models/source_context.dart';
 import '../../features/appointment/presentation/screens/appointment_screen.dart';
+import '../../features/appointment/presentation/screens/book_online_picker_screen.dart';
 import '../../features/blog/presentation/screens/blog_detail_screen.dart';
 import '../../features/blog/presentation/screens/blog_list_screen.dart';
 import '../../features/chatbot/presentation/screens/chatbot_screen.dart';
@@ -165,6 +167,24 @@ GoRouter createAppRouter() {
         ],
       ),
       GoRoute(
+        path: AppRoutes.bookOnline,
+        name: 'bookOnline',
+        redirect: (context, state) {
+          final raw =
+              state.uri.queryParameters[AppConstants.sourceContextQueryParam];
+          if (SourceContext.tryParse(raw) == null) {
+            return AppRoutes.home;
+          }
+          return null;
+        },
+        builder: (context, state) {
+          final raw =
+              state.uri.queryParameters[AppConstants.sourceContextQueryParam];
+          final sourceContext = SourceContext.tryParse(raw)!;
+          return BookOnlinePickerScreen(sourceContext: sourceContext);
+        },
+      ),
+      GoRoute(
         path: AppRoutes.appointment,
         name: 'appointment',
         redirect: (context, state) {
@@ -179,7 +199,13 @@ GoRouter createAppRouter() {
           final raw =
               state.uri.queryParameters[AppConstants.sourceContextQueryParam];
           final sourceContext = SourceContext.tryParse(raw)!;
-          return AppointmentScreen(sourceContext: sourceContext);
+          final offering = BookOnlineOffering.tryParse(
+            state.uri.queryParameters[AppConstants.offeringQueryParam],
+          );
+          return AppointmentScreen(
+            sourceContext: sourceContext,
+            offering: offering,
+          );
         },
       ),
       GoRoute(

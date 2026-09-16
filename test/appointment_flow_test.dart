@@ -5,8 +5,11 @@ import 'package:bethechange/features/appointment/domain/clinic_slots.dart';
 import 'package:bethechange/features/appointment/domain/models/appointment_booking_result.dart';
 import 'package:bethechange/features/appointment/domain/models/appointment_request.dart';
 import 'package:bethechange/features/appointment/domain/models/availability_window.dart';
+import 'package:bethechange/features/appointment/domain/models/book_online_catalog.dart';
+import 'package:bethechange/features/appointment/domain/models/book_online_offering.dart';
 import 'package:bethechange/features/appointment/domain/models/consultation_mode.dart';
 import 'package:bethechange/features/appointment/domain/models/patient_details.dart';
+import 'package:bethechange/features/appointment/domain/models/slot_selection.dart';
 import 'package:bethechange/features/appointment/domain/models/source_context.dart';
 import 'package:bethechange/features/appointment/domain/models/time_slot.dart';
 import 'package:bethechange/features/appointment/presentation/providers/appointment_providers.dart';
@@ -57,13 +60,44 @@ class _FakeAppointmentRepository implements AppointmentRepository {
     AvailabilityWindow? window,
     this.bookFailureStatus,
     this.bookFailureMessage,
-  }) : window = window ??
-            AvailabilityWindow.fromJson(sampleAvailabilityJson());
+    BookOnlineCatalog? catalog,
+  })  : window = window ??
+            AvailabilityWindow.fromJson(sampleAvailabilityJson()),
+        catalog = catalog ??
+            BookOnlineCatalog.fromJson(const {
+              'categories': [
+                {'slug': 'detox', 'name': 'Detox - Services'},
+              ],
+              'services': [
+                {
+                  'category': 'detox',
+                  'slug': 'ion-cleanse-foot-detox',
+                  'name': 'Ion Cleanse Foot Detox',
+                  'duration_minutes': 30,
+                  'price': 35.0,
+                  'description': '',
+                  'image_url': '',
+                  'appointment_topic': 'ion-foot-detox',
+                },
+                {
+                  'category': 'detox',
+                  'slug': 'book-3-sessions-of-ion-cleanse-foot-detox',
+                  'name': 'Book 3 Sessions of Ion Cleanse Foot Detox',
+                  'duration_minutes': 90,
+                  'price': 90.0,
+                  'description': '3 Sessions for \$90',
+                  'image_url': '',
+                  'appointment_topic': 'ion-foot-detox',
+                },
+              ],
+            });
 
   AvailabilityWindow window;
+  final BookOnlineCatalog catalog;
   final int? bookFailureStatus;
   final String? bookFailureMessage;
   AppointmentRequest? lastRequest;
+  int bookCallCount = 0;
 
   @override
   Future<ApiResult<AvailabilityWindow>> getAvailability({
@@ -73,9 +107,15 @@ class _FakeAppointmentRepository implements AppointmentRepository {
   }
 
   @override
+  Future<ApiResult<BookOnlineCatalog>> getBookOnlineCatalog() async {
+    return ApiSuccess(catalog);
+  }
+
+  @override
   Future<ApiResult<AppointmentBookingResult>> bookAppointment(
     AppointmentRequest request,
   ) async {
+    bookCallCount += 1;
     lastRequest = request;
     if (bookFailureStatus != null) {
       return ApiFailure(
@@ -354,6 +394,7 @@ void main() {
         repository: repository,
         sourceContext: sourceContext,
         now: DateTime(2026, 9, 8, 10),
+        paymentDelay: Duration.zero,
       );
 
       await Future<void>.delayed(const Duration(milliseconds: 20));
@@ -388,13 +429,64 @@ void main() {
       );
       expect(controller.state.step, AppointmentStep.confirm);
 
-      await controller.confirmBooking();
+      // No offering / free path skips card+OTP and creates immediately.
+      controller.continueToPayment();
+      await Future<void>.delayed(const Duration(milliseconds: 20));
       expect(controller.state.step, AppointmentStep.success);
       expect(controller.state.result?.confirmationId, '42');
+      expect(repository.bookCallCount, 1);
       expect(
         repository.lastRequest?.toCreateJson()['consultation_mode'],
         'in_office',
       );
+    });
+
+    test('paid offering goes card → OTP → create', () async {
+      const offering = BookOnlineOffering(
+        slug: 'ion-cleanse-foot-detox',
+        name: 'Ion Cleanse Foot Detox',
+        durationMinutes: 30,
+        price: 35,
+        categorySlug: 'detox',
+        appointmentTopic: 'ion-foot-detox',
+      );
+      final repository = _FakeAppointmentRepository();
+      final controller = AppointmentController(
+        repository: repository,
+        sourceContext: const SourceContext(
+          type: SourceContextType.service,
+          id: 'ion-foot-detox',
+          name: 'Ion Foot Detox',
+        ),
+        offering: offering,
+        now: DateTime(2026, 9, 8, 10),
+        paymentDelay: Duration.zero,
+      );
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+      await controller.selectDate(DateTime(2026, 9, 9));
+      controller.selectSlot(controller.state.slots.first);
+      controller.continueToDetails();
+      controller.submitPatientDetails(
+        const PatientDetails(
+          name: 'Ada Lovelace',
+          email: 'ada@example.com',
+          phone: '3015551212',
+          consultationMode: ConsultationMode.virtual,
+        ),
+      );
+
+      controller.continueToPayment();
+      expect(controller.state.step, AppointmentStep.payment);
+      expect(repository.bookCallCount, 0);
+
+      controller.submitCardDetails(email: 'ada@example.com');
+      expect(controller.state.step, AppointmentStep.paymentOtp);
+      expect(repository.bookCallCount, 0);
+
+      await controller.submitPayment();
+      expect(controller.state.step, AppointmentStep.success);
+      expect(repository.bookCallCount, 1);
+      expect(repository.lastRequest?.serviceLabel, offering.name);
     });
 
     test('fills middle slots and caps selection at 3', () async {
@@ -403,6 +495,7 @@ void main() {
         repository: repository,
         sourceContext: sourceContext,
         now: DateTime(2026, 9, 8, 10),
+        paymentDelay: Duration.zero,
       );
       await Future<void>.delayed(const Duration(milliseconds: 20));
 
@@ -431,12 +524,90 @@ void main() {
           consultationMode: ConsultationMode.virtual,
         ),
       );
-      await controller.confirmBooking();
+      await controller.submitPayment();
 
       final body = repository.lastRequest!.toCreateJson();
       expect(body['starts_at'], '2026-09-09T10:00:00-04:00');
       expect(body['ends_at'], '2026-09-09T11:30:00-04:00');
       expect(repository.lastRequest!.slotCount, 3);
+    });
+
+    test('fixed-duration offering selects consecutive slots on one tap',
+        () async {
+      const offering = BookOnlineOffering(
+        slug: 'frequency-specific-microcurrent',
+        name: 'Frequency Specific Microcurrent',
+        durationMinutes: 60,
+        price: 65,
+        categorySlug: 'fsm',
+        appointmentTopic: 'frequency-specific-microcurrent',
+      );
+      final repository = _FakeAppointmentRepository();
+      final controller = AppointmentController(
+        repository: repository,
+        sourceContext: const SourceContext(
+          type: SourceContextType.service,
+          id: 'frequency-specific-microcurrent',
+          name: 'Frequency Specific Microcurrent',
+        ),
+        offering: offering,
+        now: DateTime(2026, 9, 8, 10),
+        paymentDelay: Duration.zero,
+      );
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+
+      expect(controller.state.bookingLabel, offering.name);
+      await controller.selectDate(DateTime(2026, 9, 9));
+      controller.selectSlot(controller.state.slots.first);
+      expect(controller.state.selection?.slotCount, 2);
+      expect(controller.state.selection?.startMinutes, 600);
+      expect(controller.state.selection?.endMinutes, 660);
+
+      controller.continueToDetails();
+      controller.submitPatientDetails(
+        const PatientDetails(
+          name: 'Ada Lovelace',
+          email: 'ada@example.com',
+          phone: '3015551212',
+          consultationMode: ConsultationMode.virtual,
+        ),
+      );
+      await controller.submitPayment();
+      expect(repository.lastRequest!.serviceLabel, offering.name);
+      expect(repository.lastRequest!.slotCount, 2);
+      expect(
+        repository.lastRequest!.toCreateJson()['ends_at'],
+        '2026-09-09T11:00:00-04:00',
+      );
+    });
+
+    test('fixed-duration blocks when consecutive slot is unavailable',
+        () async {
+      const offering = BookOnlineOffering(
+        slug: 'ion-cleanse-foot-detox',
+        name: 'Ion Cleanse Foot Detox',
+        durationMinutes: 60,
+        price: 35,
+        categorySlug: 'detox',
+        appointmentTopic: 'ion-foot-detox',
+      );
+      final controller = AppointmentController(
+        repository: _FakeAppointmentRepository(),
+        sourceContext: const SourceContext(
+          type: SourceContextType.service,
+          id: 'ion-foot-detox',
+          name: 'Ion Foot Detox',
+        ),
+        offering: offering,
+        now: DateTime(2026, 9, 8, 10),
+      );
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+
+      // 2026-09-08: only 10:00 available, 10:30 busy — cannot start 60 min.
+      await controller.selectDate(DateTime(2026, 9, 8));
+      controller.selectSlot(controller.state.slots.first);
+      expect(controller.state.selection, isNull);
+      expect(controller.state.errorMessage, contains('consecutive'));
     });
 
     test('shows pending/busy slots but only available is selectable', () async {
@@ -471,6 +642,7 @@ void main() {
         repository: repository,
         sourceContext: sourceContext,
         now: DateTime(2026, 9, 8, 10),
+        paymentDelay: Duration.zero,
       );
       await Future<void>.delayed(const Duration(milliseconds: 20));
 
@@ -485,7 +657,7 @@ void main() {
           consultationMode: ConsultationMode.virtual,
         ),
       );
-      await controller.confirmBooking();
+      await controller.submitPayment();
 
       expect(controller.state.step, AppointmentStep.time);
       expect(controller.state.errorMessage, contains('just taken'));
@@ -508,6 +680,63 @@ void main() {
       expect(controller.state.step, AppointmentStep.time);
       expect(controller.state.sourceContext, sourceContext);
       expect(controller.state.selectedDate, DateTime(2026, 9, 9));
+    });
+  });
+
+  group('SlotSelection.selectFixed', () {
+    test('30 min selects one slot', () {
+      final next = SlotSelection.selectFixed(
+        current: null,
+        clickedMinutes: 600,
+        requiredSlots: 1,
+        availableMinutes: {600, 630, 660},
+      );
+      expect(next?.slotCount, 1);
+      expect(next?.endMinutes, 630);
+    });
+
+    test('60 min selects two consecutive slots', () {
+      final next = SlotSelection.selectFixed(
+        current: null,
+        clickedMinutes: 600,
+        requiredSlots: 2,
+        availableMinutes: {600, 630, 660},
+      );
+      expect(next?.slotCount, 2);
+      expect(next?.endMinutes, 660);
+    });
+
+    test('throws when neighbor is blocked', () {
+      expect(
+        () => SlotSelection.selectFixed(
+          current: null,
+          clickedMinutes: 600,
+          requiredSlots: 2,
+          availableMinutes: {600},
+        ),
+        throwsA(isA<SlotSelectionBlockedException>()),
+      );
+    });
+  });
+
+  group('BookOnlineCatalog', () {
+    test('filters detox offerings for ion-foot-detox topic', () async {
+      final repository = createMockAppointmentRepository();
+      final result = await repository.getBookOnlineCatalog();
+      expect(result, isA<ApiSuccess<BookOnlineCatalog>>());
+      final catalog = (result as ApiSuccess<BookOnlineCatalog>).data;
+      final detox = catalog.categoryForCmsTopic('ion-foot-detox');
+      expect(detox, isNotNull);
+      expect(detox!.slug, 'detox');
+      expect(detox.offerings, isNotEmpty);
+      expect(
+        detox.offerings.every((o) => o.appointmentTopic == 'ion-foot-detox'),
+        isTrue,
+      );
+      expect(catalog.categoryForCmsTopic('ion-foot-detox')!.name, 'Detox - Services');
+      // Other categories remain in full catalog but filtered view is detox-only.
+      expect(catalog.categories.length, greaterThan(1));
+      expect(detox.offerings.map((o) => o.categorySlug).toSet(), {'detox'});
     });
   });
 }

@@ -312,7 +312,7 @@ class _AddressSection extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                 ),
               ),
-              onPressed: () => context.push(AppRoutes.appointmentPath(source)),
+              onPressed: () => context.push(AppRoutes.bookingEntryPath(source)),
               child: Text(
                 ctaLabel,
                 style: AppTextStyles.labelLarge.copyWith(color: Colors.white),
@@ -643,7 +643,7 @@ class _StepCard extends StatelessWidget {
 
     if (!opensAppointment) return card;
     return InkWell(
-      onTap: () => context.push(AppRoutes.appointmentPath(source)),
+      onTap: () => context.push(AppRoutes.bookingEntryPath(source)),
       borderRadius: BorderRadius.circular(14),
       child: card,
     );

@@ -1,5 +1,6 @@
 import '../booking_labels.dart';
 import '../clinic_slots.dart';
+import 'book_online_offering.dart';
 import 'patient_details.dart';
 import 'source_context.dart';
 import 'time_slot.dart';
@@ -10,6 +11,7 @@ class AppointmentRequest {
     required this.slot,
     required this.patient,
     this.slotCount = 1,
+    this.offering,
   });
 
   final SourceContext sourceContext;
@@ -21,7 +23,11 @@ class AppointmentRequest {
   /// Number of 30-minute slots (1–3).
   final int slotCount;
 
-  String get serviceLabel => bookingServiceLabel(sourceContext);
+  /// Selected book-online offering when booking from the picker.
+  final BookOnlineOffering? offering;
+
+  String get serviceLabel =>
+      offering?.name ?? bookingServiceLabel(sourceContext);
 
   String get timeRangeLabel {
     if (slotCount <= 1) return slot.label;
@@ -38,6 +44,11 @@ class AppointmentRequest {
       slot: TimeSlot.fromJson(json['slot'] as Map<String, dynamic>),
       patient: PatientDetails.fromJson(json['patient'] as Map<String, dynamic>),
       slotCount: (json['slotCount'] as num?)?.toInt() ?? 1,
+      offering: json['offering'] is Map<String, dynamic>
+          ? BookOnlineOffering.fromJson(
+              json['offering'] as Map<String, dynamic>,
+            )
+          : null,
     );
   }
 
@@ -62,5 +73,6 @@ class AppointmentRequest {
         'patient': patient.toJson(),
         'service': serviceLabel,
         'slotCount': slotCount,
+        if (offering != null) 'offering': offering!.toJson(),
       };
 }

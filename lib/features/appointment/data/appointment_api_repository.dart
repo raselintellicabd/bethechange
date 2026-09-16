@@ -4,6 +4,7 @@ import '../../../core/network/api_result.dart';
 import '../domain/models/appointment_booking_result.dart';
 import '../domain/models/appointment_request.dart';
 import '../domain/models/availability_window.dart';
+import '../domain/models/book_online_catalog.dart';
 import 'appointment_repository.dart';
 
 /// Live appointment APIs (website availability + v1 create).
@@ -21,6 +22,15 @@ class AppointmentApiRepository implements AppointmentRepository {
       queryParameters: {'service': service},
       parser: (data) =>
           AvailabilityWindow.fromJson(data as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  Future<ApiResult<BookOnlineCatalog>> getBookOnlineCatalog() {
+    return _client.get(
+      ApiPaths.bookOnline,
+      parser: (data) =>
+          BookOnlineCatalog.fromJson(data as Map<String, dynamic>),
     );
   }
 

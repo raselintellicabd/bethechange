@@ -18,7 +18,6 @@ class AppointmentSuccessView extends StatelessWidget {
     final theme = Theme.of(context);
     final request = result.request;
     final dateLabel = DateFormat.yMMMEd().format(request.slot.dateTime);
-    final forLabel = appointmentForLabel(request.sourceContext);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -37,7 +36,7 @@ class AppointmentSuccessView extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.md),
         Text(
-          'We received your $forLabel request for $dateLabel at '
+          'We received your ${appointmentForLabel(request.sourceContext, offering: request.offering)} request for $dateLabel at '
           '${request.timeRangeLabel} (${request.patient.consultationMode.label}). '
           'Our team will review and confirm. '
           'No meeting link is sent until it is approved.',

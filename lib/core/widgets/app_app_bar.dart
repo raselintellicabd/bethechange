@@ -12,6 +12,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.leading,
     this.automaticallyImplyLeading = true,
+    this.centerTitle,
     this.bottom,
   });
 
@@ -22,6 +23,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
     List<Widget>? actions,
     Widget? leading,
     bool automaticallyImplyLeading = true,
+    bool? centerTitle,
     PreferredSizeWidget? bottom,
   }) {
     return AppAppBar(
@@ -30,6 +32,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: actions,
       leading: leading,
       automaticallyImplyLeading: automaticallyImplyLeading,
+      centerTitle: centerTitle,
       bottom: bottom,
     );
   }
@@ -38,6 +41,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final Widget? leading;
   final bool automaticallyImplyLeading;
+  final bool? centerTitle;
   final PreferredSizeWidget? bottom;
 
   @override
@@ -53,6 +57,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: actions,
       leading: leading,
       automaticallyImplyLeading: automaticallyImplyLeading,
+      centerTitle: centerTitle,
       bottom: bottom,
       systemOverlayStyle: SystemUiOverlayStyle.light,
     );

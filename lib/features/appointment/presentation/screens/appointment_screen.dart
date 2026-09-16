@@ -7,38 +7,66 @@ import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/ui_kit.dart';
-import '../../domain/booking_labels.dart';
+import '../../domain/models/book_online_offering.dart';
 import '../../domain/models/source_context.dart';
 import '../providers/appointment_providers.dart';
 import '../widgets/appointment_calendar_view.dart';
 import '../widgets/appointment_confirmation_view.dart';
-import '../widgets/appointment_success_view.dart';
+import '../widgets/mock_payment_otp_view.dart';
+import '../widgets/mock_payment_success_view.dart';
+import '../widgets/mock_payment_view.dart';
 import '../widgets/patient_details_form.dart';
 import '../widgets/time_slot_selector.dart';
 
 class AppointmentScreen extends ConsumerWidget {
-  const AppointmentScreen({super.key, required this.sourceContext});
+  const AppointmentScreen({
+    super.key,
+    required this.sourceContext,
+    this.offering,
+  });
 
   final SourceContext sourceContext;
+  final BookOnlineOffering? offering;
+
+  AppointmentBookingArgs get _args => AppointmentBookingArgs(
+        sourceContext: sourceContext,
+        offering: offering,
+      );
 
   int _stepIndex(AppointmentStep step) {
-    // 1 = date + time, 2 = details, 3 = confirm
     return switch (step) {
       AppointmentStep.date || AppointmentStep.time => 0,
       AppointmentStep.details => 1,
-      AppointmentStep.confirm || AppointmentStep.success => 2,
+      AppointmentStep.confirm ||
+      AppointmentStep.payment ||
+      AppointmentStep.paymentOtp ||
+      AppointmentStep.success =>
+        2,
     };
+  }
+
+  bool _isCheckoutChrome(AppointmentStep step) {
+    return step == AppointmentStep.payment ||
+        step == AppointmentStep.paymentOtp ||
+        step == AppointmentStep.success;
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(appointmentControllerProvider(sourceContext));
+    final state = ref.watch(appointmentControllerProvider(_args));
     final controller =
-        ref.read(appointmentControllerProvider(sourceContext).notifier);
+        ref.read(appointmentControllerProvider(_args).notifier);
+    final checkout = _isCheckoutChrome(state.step);
 
     return Scaffold(
+      backgroundColor: checkout ? Colors.white : null,
       appBar: AppAppBar(
-        title: const Text('Appointment'),
+        title: Text(
+          checkout
+              ? (state.step == AppointmentStep.success ? '' : 'Checkout')
+              : 'Appointment',
+        ),
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: state.step == AppointmentStep.date ||
@@ -49,16 +77,16 @@ class AppointmentScreen extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          if (state.step != AppointmentStep.success)
+          if (!checkout) ...[
             StepIndicator(currentStep: _stepIndex(state.step)),
-          if (state.step != AppointmentStep.success)
-            LockedContextChip(label: appointmentForLabel(sourceContext)),
+            LockedContextChip(label: state.appointmentFor),
+          ],
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.fromLTRB(
-                AppSpacing.md,
+              padding: EdgeInsets.fromLTRB(
+                checkout ? 16 : AppSpacing.md,
                 0,
-                AppSpacing.md,
+                checkout ? 16 : AppSpacing.md,
                 AppSpacing.xxl,
               ),
               children: [
@@ -145,6 +173,7 @@ class _StepBody extends StatelessWidget {
               TimeSlotSelector(
                 slots: state.slots,
                 selection: state.selection,
+                requiredSlots: state.requiredSlotCount,
                 onSlotSelected: controller.selectSlot,
               ),
               const SizedBox(height: AppSpacing.lg),
@@ -174,15 +203,36 @@ class _StepBody extends StatelessWidget {
         ),
       AppointmentStep.confirm => AppointmentConfirmationView(
           sourceContext: state.sourceContext,
+          offering: state.offering,
           slot: state.selectedSlot!,
           timeLabel: state.selectionTimeLabel ?? state.selectedSlot!.label,
           patient: state.patient!,
           isLoading: state.isLoading,
           errorMessage: state.errorMessage,
-          onConfirm: controller.confirmBooking,
+          onConfirm: controller.continueToPayment,
           onRetry: controller.retryAfterError,
         ),
-      AppointmentStep.success => AppointmentSuccessView(result: state.result!),
+      AppointmentStep.payment => MockPaymentView(
+          amountLabel: paymentAmountLabel(state.offering),
+          initialEmail: state.paymentEmail.isNotEmpty
+              ? state.paymentEmail
+              : (state.patient?.email ?? ''),
+          offering: state.offering,
+          errorMessage: state.errorMessage,
+          onContinue: ({required String email}) {
+            controller.submitCardDetails(email: email);
+          },
+          onRetry: controller.retryAfterError,
+        ),
+      AppointmentStep.paymentOtp => MockPaymentOtpView(
+          email: state.paymentEmail,
+          amountLabel: paymentAmountLabel(state.offering),
+          isLoading: state.isLoading,
+          errorMessage: state.errorMessage,
+          onPay: controller.submitPayment,
+          onRetry: controller.retryAfterError,
+        ),
+      AppointmentStep.success => MockPaymentSuccessView(result: state.result!),
     };
   }
 }

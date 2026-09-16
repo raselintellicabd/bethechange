@@ -31,6 +31,44 @@ class SlotSelection {
     return '$start – $end';
   }
 
+  /// Fixed-duration offering: one tap selects [requiredSlots] consecutive opens
+  /// starting at the tapped minute (website `data-fixed-slot-count`).
+  ///
+  /// Returns the next selection, or `null` when the same block is toggled off.
+  /// Throws [SlotSelectionBlockedException] when the full block is not free.
+  static SlotSelection? selectFixed({
+    required SlotSelection? current,
+    required int clickedMinutes,
+    required int requiredSlots,
+    required Set<int> availableMinutes,
+  }) {
+    final count = requiredSlots.clamp(1, maxSlots);
+    if (!availableMinutes.contains(clickedMinutes)) return current;
+
+    final end = clickedMinutes + count * slotMinutes;
+    final next = SlotSelection(
+      startMinutes: clickedMinutes,
+      endMinutes: end,
+    );
+
+    // Toggle off when re-tapping the same block start.
+    if (current != null &&
+        current.startMinutes == next.startMinutes &&
+        current.endMinutes == next.endMinutes) {
+      return null;
+    }
+
+    if (!rangeIsAvailable(
+      availableMinutes: availableMinutes,
+      startMinutes: clickedMinutes,
+      endMinutes: end,
+    )) {
+      throw SlotSelectionBlockedException(requiredSlots: count);
+    }
+
+    return next;
+  }
+
   /// Apply website-style selection with a hard max of [maxSlots].
   ///
   /// Returns the next selection, or `null` when the only slot is toggled off.
@@ -98,4 +136,19 @@ class SlotSelectionLimitException implements Exception {
 
   @override
   String toString() => 'You can select up to ${SlotSelection.maxSlots} time slots.';
+}
+
+class SlotSelectionBlockedException implements Exception {
+  const SlotSelectionBlockedException({required this.requiredSlots});
+
+  final int requiredSlots;
+
+  @override
+  String toString() {
+    if (requiredSlots <= 1) {
+      return 'That time is not available. Please choose another.';
+    }
+    return 'This service needs $requiredSlots consecutive open times. '
+        'Please choose another start time.';
+  }
 }

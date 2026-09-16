@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../domain/booking_labels.dart';
+import '../../domain/models/book_online_offering.dart';
 import '../../domain/models/patient_details.dart';
 import '../../domain/models/source_context.dart';
 import '../../domain/models/time_slot.dart';
@@ -16,12 +17,14 @@ class AppointmentConfirmationView extends StatelessWidget {
     required this.patient,
     required this.isLoading,
     required this.onConfirm,
+    this.offering,
     this.timeLabel,
     this.errorMessage,
     this.onRetry,
   });
 
   final SourceContext sourceContext;
+  final BookOnlineOffering? offering;
   final TimeSlot slot;
   final PatientDetails patient;
   final bool isLoading;
@@ -40,7 +43,14 @@ class AppointmentConfirmationView extends StatelessWidget {
       children: [
         Text('Confirm your request', style: theme.textTheme.titleLarge),
         const SizedBox(height: AppSpacing.md),
-        _SummaryRow(label: 'For', value: appointmentForLabel(sourceContext)),
+        _SummaryRow(
+          label: 'For',
+          value: appointmentForLabel(sourceContext, offering: offering),
+        ),
+        if (offering != null) ...[
+          _SummaryRow(label: 'Duration', value: offering!.durationDisplay),
+          _SummaryRow(label: 'Price', value: offering!.priceDisplay),
+        ],
         _SummaryRow(label: 'Date', value: dateLabel),
         _SummaryRow(label: 'Time', value: timeLabel ?? slot.label),
         _SummaryRow(label: 'Mode', value: patient.consultationMode.label),
@@ -66,7 +76,7 @@ class AppointmentConfirmationView extends StatelessWidget {
         ],
         const SizedBox(height: AppSpacing.lg),
         AppButton(
-          label: 'Submit request',
+          label: 'Continue to payment',
           expand: true,
           isLoading: isLoading,
           onPressed: isLoading ? null : onConfirm,

@@ -33,9 +33,9 @@ API_BASE_URL=https://api-dev.example.com
 | GET | `/patients` | unused; patient cards load from `assets/data/patients.json` |
 | GET | `/chatbot/config` | suggestions/disclaimer from `chatbot_replies.json` |
 | POST | `/chatbot/message` | keyword replies from `chatbot_replies.json` |
+| GET | `/api/v1/book-online/` | Django `BookOnlineCatalogView` (read-only); mock: `assets/data/book_online.json` |
 | GET | `/appointments/availability` | generated from `appointment_config.json` |
-| GET | `/appointments/slots` | generated from `appointment_config.json` |
-| POST | `/appointments` | in-memory confirmation |
+| POST | `/api/v1/appointments/` | in-memory confirmation |
 | GET | `/api/v1/contact/` | `assets/data/contact.json` |
 | POST | `/api/v1/contact/` | in-memory `{id, status}` |
 

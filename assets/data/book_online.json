@@ -1,0 +1,570 @@
+{
+  "categories": [
+    {
+      "slug": "integrative-holistic",
+      "name": "Integrative/ Holistic Medicine Services"
+    },
+    {
+      "slug": "detox",
+      "name": "Detox - Services"
+    },
+    {
+      "slug": "fsm",
+      "name": "Frequency Specific Microcurrent"
+    },
+    {
+      "slug": "hbot",
+      "name": "Hyperbaric Oxygen Therapy"
+    },
+    {
+      "slug": "ozone-therapy",
+      "name": "Ozone Therapy"
+    },
+    {
+      "slug": "nutritional-iv",
+      "name": "Nutritional IV Infusions"
+    },
+    {
+      "slug": "liquivida-iv",
+      "name": "Liquivida IV Infusions"
+    },
+    {
+      "slug": "infrared-sauna",
+      "name": "Infrared Sauna"
+    },
+    {
+      "slug": "reflexology",
+      "name": "Reflexology"
+    }
+  ],
+  "services": [
+    {
+      "category": "integrative-holistic",
+      "slug": "introductory-phone-call",
+      "name": "Introductory Phone Call",
+      "duration_minutes": 30,
+      "price": 60.0,
+      "description": "Nutritional Consultation",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/1_rrgjaf",
+      "appointment_topic": "introductory-phone-call",
+      "vcita_id": "spi0aqrbre91dchg"
+    },
+    {
+      "category": "integrative-holistic",
+      "slug": "in-office-appointment",
+      "name": "In-office appointment",
+      "duration_minutes": 60,
+      "price": 120.0,
+      "description": "Naturopathic Medicine Consultation\nSchedule with one of our Naturopathic Doctors (NDs) to get to the root cause of your health concern.  Our NDs perform various labs tests and have expertise in botanical medicine, nutrition & lifestyle medicine, individualize nutraceuticals, and specialties such as craniosacral therapy, homeopathy, genetic analysis.",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/2_eoj51f",
+      "appointment_topic": "in-office-appointment",
+      "vcita_id": "h44wis8uo1rvasni"
+    },
+    {
+      "category": "integrative-holistic",
+      "slug": "20-21-health-insight-blood-sugar-regulation",
+      "name": "20/21 Health InSight - Blood Sugar Regulation",
+      "duration_minutes": 120,
+      "price": 25.0,
+      "description": "Take this informational class to Optimize your Blood Sugar Control.\nOn Friday 26th February, 6pm - 8pm Est.\n\nWe love to teach ways you can make positive and lasting changes in your life!  \n\nJoin our class to learn why blood sugar balance is important, what signs to look for, and what you can do to improve your mental and physical abilities and gain motivation through blood sugar balance.",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/Blood_Sugar_Balance_z2cgp3",
+      "appointment_topic": "20-21-health-insight-blood-sugar-regulation",
+      "vcita_id": "98676lhw1weeq200"
+    },
+    {
+      "category": "integrative-holistic",
+      "slug": "nutritional-consultations",
+      "name": "Nutritional Consultations",
+      "duration_minutes": 60,
+      "price": 60.0,
+      "description": "Nutrition consultations with one of our Naturopathic Doctors.   Decrease inflammation, address food allergies, weight loss, stop sugar cravings, improve performance, etc. New Wellness Plans available, with daily recipes, tips, videos and more!",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/Services/Healthcare/rawpixel-760103-unsplash",
+      "appointment_topic": "nutritional-consultations",
+      "vcita_id": "c8jthr8vpscbelu6"
+    },
+    {
+      "category": "integrative-holistic",
+      "slug": "nutritional-consultations-over-the-phone",
+      "name": "Nutritional Consultations (Over The Phone)",
+      "duration_minutes": 60,
+      "price": 60.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/Services/Healthcare/appetite-apple-close-up-262876",
+      "appointment_topic": "nutritional-consultations-over-the-phone",
+      "vcita_id": "rrmcj19rlkrt0a1i"
+    },
+    {
+      "category": "integrative-holistic",
+      "slug": "integrative-medicine-consultation-120min",
+      "name": "Integrative Medicine Consultation",
+      "duration_minutes": 120,
+      "price": 700.0,
+      "description": "Initial Consultation - Chronic Illnesses",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/Services/Lifestyle and Leisure/14",
+      "appointment_topic": "integrative-medicine-consultation-120min",
+      "vcita_id": "41bhzdjzlwa6s9xv"
+    },
+    {
+      "category": "integrative-holistic",
+      "slug": "integrative-medicine-consultation-45min",
+      "name": "Integrative Medicine Consultation",
+      "duration_minutes": 45,
+      "price": 275.0,
+      "description": "Follow Up Integrative Medicine Consultation",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/Services/Education/kimberly-farmer-287677-unsplash",
+      "appointment_topic": "integrative-medicine-consultation-45min",
+      "vcita_id": "geloytfjeavywkyd"
+    },
+    {
+      "category": "integrative-holistic",
+      "slug": "integrative-medicine-consultation-30min",
+      "name": "Integrative Medicine Consultation",
+      "duration_minutes": 30,
+      "price": 200.0,
+      "description": "Follow Up Intregrative Medicine Consultation",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/Services/Education/apple-blur-book-stack-256520",
+      "appointment_topic": "integrative-medicine-consultation-30min",
+      "vcita_id": "ej73fodwh98fmij9"
+    },
+    {
+      "category": "integrative-holistic",
+      "slug": "oral-health-the-unspoken-root-cause-of-disease",
+      "name": "Oral Health: The Unspoken Root Cause of Disease",
+      "duration_minutes": 120,
+      "price": 25.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/Services/Miscellaneous/adventure-beautiful-boardwalk-235734",
+      "appointment_topic": "oral-health-the-unspoken-root-cause-of-disease",
+      "vcita_id": "0er5yo1x6ea9q8n8"
+    },
+    {
+      "category": "integrative-holistic",
+      "slug": "complimentary-functional-weight-loss-discovery-call",
+      "name": "Complimentary Functional Weight Loss Discovery Call",
+      "duration_minutes": 15,
+      "price": 0.0,
+      "description": "Weight Loss Consultation",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/1_rrgjaf",
+      "appointment_topic": "complimentary-functional-weight-loss-discovery-call",
+      "vcita_id": "ostxiyg0ia5yn8zu"
+    },
+    {
+      "category": "detox",
+      "slug": "ion-cleanse-foot-detox",
+      "name": "Ion Cleanse Foot Detox",
+      "duration_minutes": 30,
+      "price": 35.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/Services/Lifestyle and Leisure/13",
+      "appointment_topic": "ion-foot-detox",
+      "vcita_id": "hzy7jcwzc0gtyd65"
+    },
+    {
+      "category": "detox",
+      "slug": "book-3-sessions-of-ion-cleanse-foot-detox",
+      "name": "Book 3 Sessions of Ion Cleanse Foot Detox",
+      "duration_minutes": 90,
+      "price": 90.0,
+      "description": "3 Sessions for $90",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/Services/Lifestyle and Leisure/13",
+      "appointment_topic": "ion-foot-detox",
+      "vcita_id": "2v55nrk4hbk85dsb"
+    },
+    {
+      "category": "fsm",
+      "slug": "frequency-specific-microcurrent",
+      "name": "Frequency Specific Microcurrent",
+      "duration_minutes": 60,
+      "price": 65.0,
+      "description": "*We do require a nutritional consultation with the doctor before this therapy. Recurring patients can book for FSM only. New patients must book a consultation+FSM. Please call our office to book.",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/Frequency_kcgslc",
+      "appointment_topic": "frequency-specific-microcurrent",
+      "vcita_id": "has0gbbf46qnufsb"
+    },
+    {
+      "category": "hbot",
+      "slug": "hyperbaric-oxygen-session",
+      "name": "Hyperbaric Oxygen Session",
+      "duration_minutes": 60,
+      "price": 65.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/Hyperbaric_Oxygen_3_coso5g",
+      "appointment_topic": "hyperbaric-oxygen-therapy",
+      "vcita_id": "v85ew8tmz05tv2ht"
+    },
+    {
+      "category": "hbot",
+      "slug": "3-hyperbaric-oxygen-treatments",
+      "name": "3 Hyperbaric Oxygen Treatments",
+      "duration_minutes": 180,
+      "price": 150.0,
+      "description": "Book 3 Hyperbaric Oxygen Sessions for $150",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/Hyperbaric_Oxygen_3_coso5g",
+      "appointment_topic": "hyperbaric-oxygen-therapy",
+      "vcita_id": "1sngerfb0uvk4s2p"
+    },
+    {
+      "category": "hbot",
+      "slug": "10-hyperbaric-oxygen-treatments",
+      "name": "10 Hyperbaric Oxygen Treatments",
+      "duration_minutes": 600,
+      "price": 500.0,
+      "description": "Book 10 Hyperbaric Oxygen Sessions for $500",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/Hyperbaric_Oxygen_3_coso5g",
+      "appointment_topic": "hyperbaric-oxygen-therapy",
+      "vcita_id": "envjw2b3vg1su4c5"
+    },
+    {
+      "category": "ozone-therapy",
+      "slug": "ozone-therapy-30min",
+      "name": "Ozone Therapy 30 Minute Session",
+      "duration_minutes": 30,
+      "price": 100.0,
+      "description": "Ozone therapy session to support circulation, oxygen delivery, and immune function.",
+      "image_url": "/media/services/ozone-iv-therapy-phoenix-arizona-naturopathic-doctor_kN203q2.jpeg",
+      "appointment_topic": "ozone-therapy",
+      "vcita_id": ""
+    },
+    {
+      "category": "ozone-therapy",
+      "slug": "ozone-therapy-60min",
+      "name": "Ozone Therapy 1 Hour Session",
+      "duration_minutes": 60,
+      "price": 200.0,
+      "description": "One-hour ozone therapy session to support circulation, oxygen delivery, and immune function.",
+      "image_url": "/media/services/ozone-iv-therapy-phoenix-arizona-naturopathic-doctor_kN203q2.jpeg",
+      "appointment_topic": "ozone-therapy",
+      "vcita_id": ""
+    },
+    {
+      "category": "nutritional-iv",
+      "slug": "phosphatidyl-choline-iv",
+      "name": "PHOSPHATIDYL CHOLINE IV",
+      "duration_minutes": 60,
+      "price": 150.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/ibb_vitamininfusionen_dripspa_beautyinfusionen_o2tqbz",
+      "appointment_topic": "iv-nutritional-infusions",
+      "vcita_id": "7asew3v5rh7kujdo"
+    },
+    {
+      "category": "nutritional-iv",
+      "slug": "nad",
+      "name": "NAD",
+      "duration_minutes": 90,
+      "price": 200.0,
+      "description": "Promotes cell regeneration to help cognitive functions",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/NAD_wqpkdv",
+      "appointment_topic": "iv-nutritional-infusions",
+      "vcita_id": "m0czo7nyffkzoq5w"
+    },
+    {
+      "category": "nutritional-iv",
+      "slug": "phosphatidyl-choline-iv-x-3-sessions",
+      "name": "PHOSPHATIDYL CHOLINE IV x 3 Sessions",
+      "duration_minutes": 180,
+      "price": 450.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/ibb_vitamininfusionen_dripspa_beautyinfusionen_o2tqbz",
+      "appointment_topic": "iv-nutritional-infusions",
+      "vcita_id": "i5djfh6wonsi26cm"
+    },
+    {
+      "category": "nutritional-iv",
+      "slug": "glutathione-iv-60min",
+      "name": "GLUTATHIONE",
+      "duration_minutes": 60,
+      "price": 150.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/ibb_vitamininfusionen_dripspa_beautyinfusionen_o2tqbz",
+      "appointment_topic": "iv-nutritional-infusions",
+      "vcita_id": "wh4e5q9xm56t57pn"
+    },
+    {
+      "category": "nutritional-iv",
+      "slug": "the-original-myers-cocktail",
+      "name": "THE ORIGINAL (MYERS COCKTAIL)",
+      "duration_minutes": 60,
+      "price": 150.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/ibb_vitamininfusionen_dripspa_beautyinfusionen_o2tqbz",
+      "appointment_topic": "iv-nutritional-infusions",
+      "vcita_id": "gsvnk839xzksi2cf"
+    },
+    {
+      "category": "nutritional-iv",
+      "slug": "chelation-therapy",
+      "name": "Chelation Therapy",
+      "duration_minutes": 90,
+      "price": 150.0,
+      "description": "Improves blood flow by removing heavy metals in the bloodstream.",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/Chelation_Therapy_o9nwyx",
+      "appointment_topic": "iv-nutritional-infusions",
+      "vcita_id": "ntcacw84hic7hzk8"
+    },
+    {
+      "category": "nutritional-iv",
+      "slug": "blood-flow-energy-metabolism",
+      "name": "BLOOD FLOW + ENERGY + METABOLISM",
+      "duration_minutes": 60,
+      "price": 200.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/ibb_vitamininfusionen_dripspa_beautyinfusionen_o2tqbz",
+      "appointment_topic": "iv-nutritional-infusions",
+      "vcita_id": "ipnpgaqi861gsg61"
+    },
+    {
+      "category": "nutritional-iv",
+      "slug": "anti-aging-skin-brightening",
+      "name": "ANTI-AGING/ SKIN BRIGHTENING",
+      "duration_minutes": 60,
+      "price": 220.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/ibb_vitamininfusionen_dripspa_beautyinfusionen_o2tqbz",
+      "appointment_topic": "iv-nutritional-infusions",
+      "vcita_id": "73aql3juz20cp0dh"
+    },
+    {
+      "category": "nutritional-iv",
+      "slug": "immune-boost",
+      "name": "IMMUNE BOOST",
+      "duration_minutes": 60,
+      "price": 185.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/ibb_vitamininfusionen_dripspa_beautyinfusionen_o2tqbz",
+      "appointment_topic": "iv-nutritional-infusions",
+      "vcita_id": "hu1vpgd8018s64m2"
+    },
+    {
+      "category": "nutritional-iv",
+      "slug": "liver-cleanse",
+      "name": "LIVER CLEANSE",
+      "duration_minutes": 60,
+      "price": 155.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/ibb_vitamininfusionen_dripspa_beautyinfusionen_o2tqbz",
+      "appointment_topic": "iv-nutritional-infusions",
+      "vcita_id": "ecka0wc0b187ngkp"
+    },
+    {
+      "category": "nutritional-iv",
+      "slug": "joint-support-pain-relief",
+      "name": "JOINT SUPPORT/PAIN RELIEF",
+      "duration_minutes": 60,
+      "price": 235.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/ibb_vitamininfusionen_dripspa_beautyinfusionen_o2tqbz",
+      "appointment_topic": "iv-nutritional-infusions",
+      "vcita_id": "dzt8nya8kjsy79r4"
+    },
+    {
+      "category": "nutritional-iv",
+      "slug": "brain-clarity",
+      "name": "BRAIN CLARITY",
+      "duration_minutes": 60,
+      "price": 235.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/ibb_vitamininfusionen_dripspa_beautyinfusionen_o2tqbz",
+      "appointment_topic": "iv-nutritional-infusions",
+      "vcita_id": "55s9zd2wtmj9pqg1"
+    },
+    {
+      "category": "nutritional-iv",
+      "slug": "re-hydration",
+      "name": "RE-HYDRATION",
+      "duration_minutes": 60,
+      "price": 110.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/ibb_vitamininfusionen_dripspa_beautyinfusionen_o2tqbz",
+      "appointment_topic": "iv-nutritional-infusions",
+      "vcita_id": "a2tf0nzo990ygpyv"
+    },
+    {
+      "category": "liquivida-iv",
+      "slug": "the-liquilift",
+      "name": "The LiquiLift",
+      "duration_minutes": 90,
+      "price": 175.0,
+      "description": "Liquivida's signature vitamin IV drip is designed to improve health in the long term.",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/The_Liquilift_gqvzw4",
+      "appointment_topic": "liquivida-iv-therapy",
+      "vcita_id": "bo42wzp6jluofqbl"
+    },
+    {
+      "category": "liquivida-iv",
+      "slug": "fountain-of-youth",
+      "name": "Fountain of Youth",
+      "duration_minutes": 90,
+      "price": 165.0,
+      "description": "Replenishes the body for noticeably healthier skin,hair and nails.",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/Fountain_Of_Youth_cqppa1",
+      "appointment_topic": "liquivida-iv-therapy",
+      "vcita_id": "3qvc8lj1kwazs7w1"
+    },
+    {
+      "category": "liquivida-iv",
+      "slug": "performance-hydration",
+      "name": "Performance Hydration",
+      "duration_minutes": 90,
+      "price": 155.0,
+      "description": "Strengthens muscles and joints,before or after intense physical activity.",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/Performance_Hydration_acsncs",
+      "appointment_topic": "liquivida-iv-therapy",
+      "vcita_id": "cgrry7l0pmscnvcz"
+    },
+    {
+      "category": "liquivida-iv",
+      "slug": "natural-defense",
+      "name": "Natural Defense",
+      "duration_minutes": 90,
+      "price": 140.0,
+      "description": "Protects the body and speeds up recovery from an airborne illness such as a cold.",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/Natural_Defense_uuguqz",
+      "appointment_topic": "liquivida-iv-therapy",
+      "vcita_id": "hhwqbb9sxwoxvo7o"
+    },
+    {
+      "category": "liquivida-iv",
+      "slug": "the-executive",
+      "name": "The Executive",
+      "duration_minutes": 90,
+      "price": 130.0,
+      "description": "Promotes mental clarity and focus during work hours and beyond.",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/The_Exectutive_bktfpj",
+      "appointment_topic": "liquivida-iv-therapy",
+      "vcita_id": "jx5zhayl5499nfvu"
+    },
+    {
+      "category": "liquivida-iv",
+      "slug": "glutathione-liquivida-90min",
+      "name": "Glutathione",
+      "duration_minutes": 90,
+      "price": 120.0,
+      "description": "Empowers cells, slows down aging, and produces a brighter, healthier skin glow.",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/My_Post_16_rb5unk",
+      "appointment_topic": "liquivida-iv-therapy",
+      "vcita_id": "tylhn1fzi4bnkme8"
+    },
+    {
+      "category": "liquivida-iv",
+      "slug": "hydration",
+      "name": "Hydration",
+      "duration_minutes": 60,
+      "price": 85.0,
+      "description": "",
+      "image_url": "https://res.cloudinary.com/livesite/image/upload/c_fill,h_275,w_600/v1/LivesiteImages/8153u4j7n2974xi3/service/ibb_vitamininfusionen_dripspa_beautyinfusionen_o2tqbz",
+      "appointment_topic": "liquivida-iv-therapy",
+      "vcita_id": "u31inqsq5vomk5vs"
+    },
+    {
+      "category": "infrared-sauna",
+      "slug": "infrared-sauna-30-minute-session",
+      "name": "Infrared Sauna 30 Minute Session",
+      "duration_minutes": 30,
+      "price": 35.0,
+      "description": "",
+      "image_url": "",
+      "appointment_topic": "infrared-sauna-therapy",
+      "vcita_id": "ru6qbtkaivqlwxzx"
+    },
+    {
+      "category": "infrared-sauna",
+      "slug": "infrared-sauna-45-minute-session",
+      "name": "Infrared Sauna 45 Minute Session",
+      "duration_minutes": 45,
+      "price": 50.0,
+      "description": "",
+      "image_url": "",
+      "appointment_topic": "infrared-sauna-therapy",
+      "vcita_id": "d4c2f2ar2qnhhuos"
+    },
+    {
+      "category": "infrared-sauna",
+      "slug": "infrared-sauna-package-three-30-minute-sessions",
+      "name": "Infrared Sauna Package - Three 30 Minute Sessions",
+      "duration_minutes": 90,
+      "price": 85.0,
+      "description": "",
+      "image_url": "",
+      "appointment_topic": "infrared-sauna-therapy",
+      "vcita_id": "qxexyq09kq6d5641"
+    },
+    {
+      "category": "infrared-sauna",
+      "slug": "infrared-sauna-package-three-45-minute-sessions",
+      "name": "Infrared Sauna Package - Three 45 Minute Sessions",
+      "duration_minutes": 145,
+      "price": 120.0,
+      "description": "",
+      "image_url": "",
+      "appointment_topic": "infrared-sauna-therapy",
+      "vcita_id": "a0zhr0eodnbvx8iv"
+    },
+    {
+      "category": "infrared-sauna",
+      "slug": "infrared-sauna-package-ten-30-minute-sessions",
+      "name": "Infrared Sauna Package - Ten 30 Minute Sessions",
+      "duration_minutes": 330,
+      "price": 225.0,
+      "description": "",
+      "image_url": "",
+      "appointment_topic": "infrared-sauna-therapy",
+      "vcita_id": "miovyk2le1kca185"
+    },
+    {
+      "category": "infrared-sauna",
+      "slug": "infrared-sauna-package-five-45-minute-sessions",
+      "name": "Infrared Sauna Package - Five 45 Minute Sessions",
+      "duration_minutes": 225,
+      "price": 185.0,
+      "description": "",
+      "image_url": "",
+      "appointment_topic": "infrared-sauna-therapy",
+      "vcita_id": "5h8bg9tkccxnlu7j"
+    },
+    {
+      "category": "infrared-sauna",
+      "slug": "infrared-sauna-package-five-30-minute-sessions",
+      "name": "Infrared Sauna Package Five 30 Minute Sessions",
+      "duration_minutes": 150,
+      "price": 130.0,
+      "description": "",
+      "image_url": "",
+      "appointment_topic": "infrared-sauna-therapy",
+      "vcita_id": "39xpuasrwok73tea"
+    },
+    {
+      "category": "infrared-sauna",
+      "slug": "infrared-sauna-package-ten-45-minute-sessions",
+      "name": "Infrared Sauna Package - Ten 45 Minute Sessions",
+      "duration_minutes": 450,
+      "price": 325.0,
+      "description": "",
+      "image_url": "",
+      "appointment_topic": "infrared-sauna-therapy",
+      "vcita_id": "azd493ochgbt4d3j"
+    },
+    {
+      "category": "reflexology",
+      "slug": "reflexology-30min",
+      "name": "Reflexology 30 Minute Session",
+      "duration_minutes": 30,
+      "price": 30.0,
+      "description": "Reflexology session to support relaxation, circulation, and overall wellness.",
+      "image_url": "/media/services/Reflexology.webp",
+      "appointment_topic": "reflexology",
+      "vcita_id": ""
+    },
+    {
+      "category": "reflexology",
+      "slug": "reflexology-60min",
+      "name": "Reflexology 1 Hour Session",
+      "duration_minutes": 60,
+      "price": 60.0,
+      "description": "One-hour Reflexology session to support relaxation, circulation, and overall wellness.",
+      "image_url": "/media/services/Reflexology.webp",
+      "appointment_topic": "reflexology",
+      "vcita_id": ""
+    }
+  ]
+}

@@ -134,6 +134,8 @@ class MockApiInterceptor extends Interceptor {
         return _loadObject(MockApiAssets.contact);
       case '/appointments/availability':
         return _availabilityWindowPayload(query);
+      case '/api/v1/book-online':
+        return _bookOnlineCatalogPayload();
       case ApiPaths.chatbotConfig:
         return _chatbotConfigPayload();
     }
@@ -355,6 +357,10 @@ class MockApiInterceptor extends Interceptor {
       'disclaimer': full['disclaimer'] ?? '',
       'emptyPrompt': full['emptyPrompt'] ?? '',
     };
+  }
+
+  Future<Map<String, dynamic>> _bookOnlineCatalogPayload() async {
+    return _loadObject(MockApiAssets.bookOnline);
   }
 
   Future<String> _replyFor(String message) async {

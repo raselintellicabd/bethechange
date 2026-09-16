@@ -1094,7 +1094,7 @@ class _StepCard extends StatelessWidget {
 
     if (!opensAppointment) return card;
     return InkWell(
-      onTap: () => context.push(AppRoutes.appointmentPath(source)),
+      onTap: () => context.push(AppRoutes.bookingEntryPath(source)),
       borderRadius: BorderRadius.circular(14),
       child: card,
     );

@@ -1,3 +1,4 @@
+import 'models/book_online_offering.dart';
 import 'models/source_context.dart';
 
 /// Display labels aligned with Django `SERVICES` in `appointment_context.py`.
@@ -18,7 +19,13 @@ const Map<String, String> kAppointmentServiceLabels = {
 const String kGeneralAppointmentLabel = 'General appointment';
 
 /// Booking `service` value for availability + create (Django `normalize_booking_label`).
-String bookingServiceLabel(SourceContext context) {
+String bookingServiceLabel(
+  SourceContext context, {
+  BookOnlineOffering? offering,
+}) {
+  if (offering != null && offering.name.trim().isNotEmpty) {
+    return offering.name.trim();
+  }
   switch (context.type) {
     case SourceContextType.service:
       final fromSlug = kAppointmentServiceLabels[context.id];
@@ -46,6 +53,9 @@ String doctorBookingName(String rawName) {
 }
 
 /// Website-style reason line: "Appointment for …".
-String appointmentForLabel(SourceContext context) {
-  return 'Appointment for ${bookingServiceLabel(context)}';
+String appointmentForLabel(
+  SourceContext context, {
+  BookOnlineOffering? offering,
+}) {
+  return 'Appointment for ${bookingServiceLabel(context, offering: offering)}';
 }

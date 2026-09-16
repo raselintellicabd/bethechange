@@ -24,6 +24,10 @@ class ApiPaths {
   /// Public pending booking create (DRF).
   static const String appointments = '/api/v1/appointments/';
 
+  /// Book-online catalog (categories + offerings). Served from mock JSON;
+  /// production can point at the same path when Django exposes it.
+  static const String bookOnline = '/api/v1/book-online/';
+
   static String condition(String id) => '$conditions/$id';
   static String service(String id) => '$services/$id';
   static String blogArticle(String id) => '$blog/$id';

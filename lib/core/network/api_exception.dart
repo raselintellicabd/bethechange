@@ -33,9 +33,7 @@ class ApiException implements Exception {
       case DioExceptionType.badResponse:
         return ApiException(
           message: _messageFromBody(error.response?.data) ??
-              (error.message?.trim().isNotEmpty == true
-                  ? error.message!.trim()
-                  : _messageForStatusCode(statusCode)),
+              _messageForStatusCode(statusCode),
           statusCode: statusCode,
           originalError: error,
         );

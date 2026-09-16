@@ -23,7 +23,7 @@ class AppointmentCtaBar extends StatelessWidget {
   final IconData icon;
 
   static String locationFor(SourceContext sourceContext) {
-    return AppRoutes.appointmentPath(sourceContext);
+    return AppRoutes.bookingEntryPath(sourceContext);
   }
 
   void _openAppointment(BuildContext context) {

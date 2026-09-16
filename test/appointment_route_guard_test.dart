@@ -36,9 +36,9 @@ void main() {
       (tester) async {
     final router = createAppRouter();
     const context = SourceContext(
-      type: SourceContextType.service,
-      id: 'frequency-specific-microcurrent',
-      name: 'Frequency Specific Microcurrent Therapy',
+      type: SourceContextType.condition,
+      id: 'diabetes',
+      name: 'Diabetes',
     );
 
     await tester.pumpWidget(
@@ -59,9 +59,39 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
 
     expect(
-      find.text('Appointment for Frequency Specific Microcurrent'),
+      find.text('Appointment for Consultation regarding Diabetes'),
       findsOneWidget,
     );
     expect(find.text('Select a date'), findsOneWidget);
+  });
+
+  testWidgets('book-online route shows filtered detox offerings', (tester) async {
+    final router = createAppRouter();
+    const context = SourceContext(
+      type: SourceContextType.service,
+      id: 'ion-foot-detox',
+      name: 'Ion Foot Detox',
+    );
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          apiClientProvider.overrideWithValue(
+            createMockApiClient(now: DateTime(2026, 9, 8, 10)),
+          ),
+        ],
+        child: MaterialApp.router(routerConfig: router),
+      ),
+    );
+    await tester.pump();
+
+    router.go(AppRoutes.bookOnlinePath(context));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+
+    expect(find.text('Detox - Services'), findsWidgets);
+    expect(find.text('Ion Cleanse Foot Detox'), findsOneWidget);
+    expect(find.textContaining('Integrative'), findsNothing);
+    expect(find.textContaining('Hyperbaric'), findsNothing);
   });
 }

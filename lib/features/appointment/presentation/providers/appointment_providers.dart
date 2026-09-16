@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/analytics/analytics_service.dart';
@@ -9,16 +10,49 @@ import '../../domain/booking_labels.dart';
 import '../../domain/models/appointment_booking_result.dart';
 import '../../domain/models/appointment_request.dart';
 import '../../domain/models/availability_window.dart';
+import '../../domain/models/book_online_catalog.dart';
+import '../../domain/models/book_online_offering.dart';
 import '../../domain/models/patient_details.dart';
 import '../../domain/models/slot_selection.dart';
 import '../../domain/models/source_context.dart';
 import '../../domain/models/time_slot.dart';
 
-enum AppointmentStep { date, time, details, confirm, success }
+enum AppointmentStep {
+  date,
+  time,
+  details,
+  confirm,
+  payment,
+  paymentOtp,
+  success,
+}
+
+/// Route args for the appointment wizard (source page + optional offering).
+@immutable
+class AppointmentBookingArgs {
+  const AppointmentBookingArgs({
+    required this.sourceContext,
+    this.offering,
+  });
+
+  final SourceContext sourceContext;
+  final BookOnlineOffering? offering;
+
+  @override
+  bool operator ==(Object other) {
+    return other is AppointmentBookingArgs &&
+        other.sourceContext == sourceContext &&
+        other.offering == offering;
+  }
+
+  @override
+  int get hashCode => Object.hash(sourceContext, offering);
+}
 
 class AppointmentBookingState {
   const AppointmentBookingState({
     required this.sourceContext,
+    this.offering,
     this.step = AppointmentStep.date,
     required this.focusedMonth,
     this.availability,
@@ -27,12 +61,14 @@ class AppointmentBookingState {
     this.slots = const [],
     this.selection,
     this.patient,
+    this.paymentEmail = '',
     this.isLoading = false,
     this.errorMessage,
     this.result,
   });
 
   final SourceContext sourceContext;
+  final BookOnlineOffering? offering;
   final AppointmentStep step;
   final DateTime focusedMonth;
   final AvailabilityWindow? availability;
@@ -41,13 +77,20 @@ class AppointmentBookingState {
   final List<TimeSlot> slots;
   final SlotSelection? selection;
   final PatientDetails? patient;
+  final String paymentEmail;
   final bool isLoading;
   final String? errorMessage;
   final AppointmentBookingResult? result;
 
-  String get bookingLabel => bookingServiceLabel(sourceContext);
+  bool get hasFixedDuration => offering != null;
 
-  String get appointmentFor => appointmentForLabel(sourceContext);
+  int? get requiredSlotCount => offering?.requiredSlots;
+
+  String get bookingLabel =>
+      bookingServiceLabel(sourceContext, offering: offering);
+
+  String get appointmentFor =>
+      appointmentForLabel(sourceContext, offering: offering);
 
   /// First slot of the selected range (for booking payload).
   TimeSlot? get selectedSlot {
@@ -82,6 +125,7 @@ class AppointmentBookingState {
     SlotSelection? selection,
     bool clearSelection = false,
     PatientDetails? patient,
+    String? paymentEmail,
     bool? isLoading,
     String? errorMessage,
     bool clearError = false,
@@ -89,6 +133,7 @@ class AppointmentBookingState {
   }) {
     return AppointmentBookingState(
       sourceContext: sourceContext,
+      offering: offering,
       step: step ?? this.step,
       focusedMonth: focusedMonth ?? this.focusedMonth,
       availability: availability ?? this.availability,
@@ -98,6 +143,7 @@ class AppointmentBookingState {
       slots: slots ?? this.slots,
       selection: clearSelection ? null : selection ?? this.selection,
       patient: patient ?? this.patient,
+      paymentEmail: paymentEmail ?? this.paymentEmail,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: clearError ? null : errorMessage ?? this.errorMessage,
       result: result ?? this.result,
@@ -109,12 +155,24 @@ final appointmentRepositoryProvider = Provider<AppointmentRepository>((ref) {
   return AppointmentApiRepository(ref.watch(apiClientProvider));
 });
 
+final bookOnlineCatalogProvider =
+    FutureProvider.autoDispose<BookOnlineCatalog>((ref) async {
+  final repository = ref.watch(appointmentRepositoryProvider);
+  final result = await repository.getBookOnlineCatalog();
+  return switch (result) {
+    ApiSuccess(:final data) => data,
+    ApiFailure(:final message) =>
+      throw Exception(message.isEmpty ? 'Unable to load services.' : message),
+  };
+});
+
 final appointmentControllerProvider = StateNotifierProvider.autoDispose
-    .family<AppointmentController, AppointmentBookingState, SourceContext>(
-  (ref, sourceContext) {
+    .family<AppointmentController, AppointmentBookingState, AppointmentBookingArgs>(
+  (ref, args) {
     return AppointmentController(
       repository: ref.watch(appointmentRepositoryProvider),
-      sourceContext: sourceContext,
+      sourceContext: args.sourceContext,
+      offering: args.offering,
       analytics: ref.watch(analyticsServiceProvider),
     );
   },
@@ -124,13 +182,16 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
   AppointmentController({
     required this._repository,
     required SourceContext sourceContext,
+    BookOnlineOffering? offering,
     AnalyticsService? analytics,
     DateTime? now,
+    this.paymentDelay = const Duration(milliseconds: 600),
   })  : _analytics = analytics ?? const LoggingAnalyticsService(),
         _now = now ?? DateTime.now(),
         super(
           AppointmentBookingState(
             sourceContext: sourceContext,
+            offering: offering,
             focusedMonth: DateTime(
               (now ?? DateTime.now()).year,
               (now ?? DateTime.now()).month,
@@ -142,6 +203,7 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
       parameters: {
         'type': sourceContext.type.name,
         'id': sourceContext.id,
+        if (offering != null) 'offering': offering.slug,
       },
     );
     loadAvailability();
@@ -150,6 +212,7 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
   final AppointmentRepository _repository;
   final AnalyticsService _analytics;
   final DateTime _now;
+  final Duration paymentDelay;
 
   Future<void> loadAvailability() async {
     state = state.copyWith(isLoading: true, clearError: true);
@@ -249,17 +312,30 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
         .toSet();
 
     try {
-      final next = SlotSelection.select(
-        current: state.selection,
-        clickedMinutes: slot.timeMinutes,
-        availableMinutes: open,
-      );
+      final SlotSelection? next;
+      final required = state.requiredSlotCount;
+      if (required != null) {
+        next = SlotSelection.selectFixed(
+          current: state.selection,
+          clickedMinutes: slot.timeMinutes,
+          requiredSlots: required,
+          availableMinutes: open,
+        );
+      } else {
+        next = SlotSelection.select(
+          current: state.selection,
+          clickedMinutes: slot.timeMinutes,
+          availableMinutes: open,
+        );
+      }
       state = state.copyWith(
         selection: next,
         clearSelection: next == null,
         clearError: true,
       );
     } on SlotSelectionLimitException catch (e) {
+      state = state.copyWith(errorMessage: e.toString());
+    } on SlotSelectionBlockedException catch (e) {
       state = state.copyWith(errorMessage: e.toString());
     }
   }
@@ -275,6 +351,49 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
       step: AppointmentStep.confirm,
       clearError: true,
     );
+  }
+
+  void continueToPayment() {
+    if (state.selection == null ||
+        state.selectedSlot == null ||
+        state.patient == null) {
+      return;
+    }
+    final isFree = state.offering?.isFree ?? true;
+    if (isFree) {
+      // Free offerings skip card + OTP and create immediately.
+      submitPayment(skipCard: true);
+      return;
+    }
+    state = state.copyWith(
+      step: AppointmentStep.payment,
+      paymentEmail: state.patient!.email,
+      clearError: true,
+    );
+  }
+
+  /// After card details are valid, move to the mock OTP challenge.
+  void submitCardDetails({required String email}) {
+    final trimmed = email.trim();
+    if (trimmed.isEmpty) return;
+    state = state.copyWith(
+      paymentEmail: trimmed,
+      step: AppointmentStep.paymentOtp,
+      clearError: true,
+    );
+  }
+
+  /// Mock OTP accepted → create the pending appointment.
+  Future<void> submitPayment({bool skipCard = false}) async {
+    if (state.selection == null ||
+        state.selectedSlot == null ||
+        state.patient == null) {
+      return;
+    }
+
+    state = state.copyWith(isLoading: true, clearError: true);
+    await Future<void>.delayed(paymentDelay);
+    await confirmBooking(fromPayment: true);
   }
 
   void goBack() {
@@ -293,22 +412,35 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
       case AppointmentStep.confirm:
         state = state.copyWith(step: AppointmentStep.details, clearError: true);
         return;
+      case AppointmentStep.payment:
+        state = state.copyWith(step: AppointmentStep.confirm, clearError: true);
+        return;
+      case AppointmentStep.paymentOtp:
+        state = state.copyWith(step: AppointmentStep.payment, clearError: true);
+        return;
       case AppointmentStep.date:
       case AppointmentStep.success:
         return;
     }
   }
 
-  Future<void> confirmBooking() async {
+  Future<void> confirmBooking({bool fromPayment = false}) async {
     final slot = state.selectedSlot;
     final selection = state.selection;
     final patient = state.patient;
     if (slot == null || selection == null || patient == null) return;
 
+    // Payment step owns the create call after mock pay succeeds.
+    if (!fromPayment) {
+      continueToPayment();
+      return;
+    }
+
     state = state.copyWith(isLoading: true, clearError: true);
 
     final request = AppointmentRequest(
       sourceContext: state.sourceContext,
+      offering: state.offering,
       slot: slot,
       patient: patient,
       slotCount: selection.slotCount,

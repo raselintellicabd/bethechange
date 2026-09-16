@@ -15,4 +15,5 @@ class MockApiAssets {
   static const String contact = 'assets/data/contact.json';
   static const String chatbotReplies = 'assets/data/chatbot_replies.json';
   static const String appointmentConfig = 'assets/data/appointment_config.json';
+  static const String bookOnline = 'assets/data/book_online.json';
 }
