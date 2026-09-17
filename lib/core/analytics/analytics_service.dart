@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Allowed analytics event names (Phase K.3).
 ///
-/// Intentionally excludes any Membership-related events.
+/// Membership checkout opens externally; no membership analytics events yet.
 abstract final class AnalyticsEvents {
   static const appointmentStarted = 'appointment_started';
   static const appointmentCompleted = 'appointment_completed';
@@ -33,7 +33,7 @@ class LoggingAnalyticsService implements AnalyticsService {
   void logEvent(String name, {Map<String, Object?> parameters = const {}}) {
     assert(
       AnalyticsEvents.allowed.contains(name),
-      'Unexpected analytics event "$name". Membership events are not allowed.',
+      'Unexpected analytics event "$name".',
     );
     if (kDebugMode) {
       debugPrint('[analytics] $name $parameters');

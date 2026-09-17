@@ -363,10 +363,10 @@ String _withoutAnchors(String html) {
   );
 }
 
-/// Maps clinic website links onto in-app routes. Membership stays out.
+/// Maps clinic website links onto in-app routes.
 String? _inAppPath(String href) {
   final raw = href.trim();
-  if (raw.isEmpty || raw.toLowerCase().contains('membership')) return null;
+  if (raw.isEmpty) return null;
   final uri = Uri.tryParse(raw);
   var path = uri?.path ?? raw;
   if (path.length > 1 && path.endsWith('/')) {
@@ -376,6 +376,12 @@ String? _inAppPath(String href) {
     return AppRoutes.exploreServices;
   }
   if (path == AppRoutes.contact || path == '/contact') return AppRoutes.contact;
+  if (path == AppRoutes.membership ||
+      path == '/membership' ||
+      path == '/memberships') {
+    return AppRoutes.membership;
+  }
+  if (path.toLowerCase().contains('membership')) return null;
   final parts = path.split('/').where((part) => part.isNotEmpty).toList();
   if (parts.length == 1) return AppRoutes.serviceDetailPath(parts.first);
   return null;

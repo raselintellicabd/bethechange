@@ -87,17 +87,17 @@ class ConditionSectionItem {
       (contentHtml == null || contentHtml!.trim().isEmpty) &&
       (imageUrl == null || imageUrl!.trim().isEmpty);
 
-  /// In-app contact only. Website and membership paths are not opened.
+  /// In-app contact or membership routes from CMS link URLs.
   String? get inAppContactPath {
     final raw = linkUrl?.trim() ?? '';
     if (raw.isEmpty) return null;
-    if (raw.toLowerCase().contains('membership')) return null;
     final uri = Uri.tryParse(raw);
     var path = uri?.path ?? raw;
     if (path.length > 1 && path.endsWith('/')) {
       path = path.substring(0, path.length - 1);
     }
     if (path == '/contact') return '/contact';
+    if (path == '/membership' || path == '/memberships') return '/membership';
     return null;
   }
 

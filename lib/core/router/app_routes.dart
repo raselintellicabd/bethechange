@@ -12,6 +12,7 @@ abstract final class AppRoutes {
   static const String blogDetail = '/blog/:articleId';
   static const String patients = '/patients';
   static const String contact = '/contact';
+  static const String membership = '/membership';
 
   static const String about = '/about';
   static const String aboutSection = '/about/:sectionId';

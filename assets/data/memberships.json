@@ -1,0 +1,119 @@
+{
+  "title": "Membership Packages",
+  "content": "To support administrative costs and ensure the best quality of care. All patients are REQUIRED to enroll in ONE of our membership plans. Each plan is designed to offer exceptional value, including discounts and complimentary services tailored to your needs.",
+  "plans": [
+    {
+      "id": 7,
+      "title": "Standard Wellness Membership",
+      "description": "This Package Includes:\n1% off All Appointments\n10% off All IV Therapies\nPlus Two of the following services each year\nIonic Foot Detox\nHyperbaric Oxygen Chamber\nRed Light Therapy\nEar Ozone Insufflation\nInfrared Sauna\nFSM (Frequency Specific Microcurrent)\nMembership Price $25/ 4 Months",
+      "heroImage": "http://192.168.1.160:8000/media/memberships/Standard-Wellness-Membership-Ad-1_F0XG2Yk.jpg",
+      "benefits": [
+        "1% off All Appointments",
+        "10% off All IV Therapies",
+        "Ionic Foot Detox",
+        "Hyperbaric Oxygen Chamber",
+        "Red Light Therapy",
+        "Ear Ozone Insufflation",
+        "Infrared Sauna",
+        "FSM (Frequency Specific Microcurrent)",
+        "This Package Includes:",
+        "Plus Two of the following services each year",
+        "Membership Price $25/ 4 Months"
+      ],
+      "button-label": "Join Now",
+      "button-url": "https://buy.stripe.com/00w8wPeeXfkUcE94TxbZe02"
+    },
+    {
+      "id": 8,
+      "title": "Specialized Wellness Membership",
+      "description": "This Package Includes:\n10% off All Appointments\n20% off All IV Therapies\nPlus Two of the following services each month per person:\nIonic Foot Detox\nHyperbaric Oxygen Chamber\nRed Light Therapy\nEar Ozone Insufflation\nInfrared Sauna\nFSM (Frequency Specific Microcurrent)\nMembership Price $65/Month",
+      "heroImage": "http://192.168.1.160:8000/media/memberships/Specialized-Wellness-Membership-Ad-1_tcoC56d.jpg",
+      "benefits": [
+        "10% off All Appointments",
+        "20% off All IV Therapies",
+        "Ionic Foot Detox",
+        "Hyperbaric Oxygen Chamber",
+        "Red Light Therapy",
+        "Ear Ozone Insufflation",
+        "Infrared Sauna",
+        "FSM (Frequency Specific Microcurrent)",
+        "This Package Includes:",
+        "Membership Price $65/Month"
+      ],
+      "button-label": "Join Now",
+      "button-url": "https://buy.stripe.com/7sI6qF69TbPl3xCbII"
+    },
+    {
+      "id": 9,
+      "title": "Family Wellness Membership",
+      "description": "This Package Includes:\n10% off All Appointments\n20% off All IV Therapies\n20% off All Infrared Sauna Therapy\nPlus Two of the following services each month per person:\nIonic Foot Detox\nHyperbaric Oxygen Chamber\nRed Light Therapy\nEar Ozone Insufflation\nInfrared Sauna\nFSM (Frequency Specific Microcurrent)\nMembership Price $100/Month",
+      "heroImage": "http://192.168.1.160:8000/media/memberships/family-Wellness-Membership-Ad_5JPwK1w.png",
+      "benefits": [
+        "10% off All Appointments",
+        "20% off All IV Therapies",
+        "20% off All Infrared Sauna Therapy",
+        "Ionic Foot Detox",
+        "Hyperbaric Oxygen Chamber",
+        "Red Light Therapy",
+        "Ear Ozone Insufflation",
+        "Infrared Sauna",
+        "FSM (Frequency Specific Microcurrent)",
+        "This Package Includes:",
+        "Membership Price $100/Month"
+      ],
+      "button-label": "Join Now",
+      "button-url": "https://buy.stripe.com/8x23cv6MvfkUfQl99NbZe03"
+    }
+  ],
+  "reviews": [
+    {
+      "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWVRXKpncSdVxU6QiQNjKUkVze9KBONnl683pdPvhIWkYg_uHek=s120-c-rp-mo-ba3-br100",
+      "name": "Elle",
+      "date": "2025-02-25",
+      "star": 5,
+      "comment": "I've been going to Dr. Afrooz since 2021 and before she switched buildings to this one. She gets to know her patients well and always knows what to look for and test for. She's been so vital in my quality of life and has helped me and my family every step of the way. Even when I was at my darkest, she was there helping from the sidelines. My entire family has all been helped by Dr. Afrooz and her husband. We've made connections and friendships and became familiar with each other in a way that other doctors are usually more one-dimensional with. Dr. Afrooz has changed my life in such a wonderful way! She is worth every penny we've paid and way more!"
+    },
+    {
+      "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXPXi0uogLwGtlt-qPts02eQCy497ufsWh17eF3LJXEGfJjY04=s120-c-rp-mo-br100",
+      "name": "Manzur Ahmed",
+      "date": "2024-07-05",
+      "star": 5,
+      "comment": "Dr Afrooz is my favorite. She is very knowledgeable and patient with her patients. I was always feeling very tired and lethargic and I was thinking that maybe I had long covid. But Dr Afrooz knew all the right questions to help identify that my condition is related to tick bites instead from a hiking trip I had gone on. I ask a lot of questions and she seems to not find me to be frustrating and i know that she is straightforward because she’s not afraid to say I don’t know if she does not know the answer to any of my questions. Nor is she dismissive of me whether it be ideas as to what I think could possibly help me or if I tell her something does not feel right. I highly recommend her and I feel fortunate to have been able to see her."
+    },
+    {
+      "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUIc2wmwvlZG8dwDXq2sbwsoSCId0gRksVcnuhrR6mzs9HAv8Cj=s120-c-rp-mo-br100",
+      "name": "Muhammad Haroon",
+      "date": "2024-06-27",
+      "star": 5,
+      "comment": "This is one of the most convenient doctor offices that I have been to. The appointments and treatments here are not nearly as atrociously priced as most of my visits to other doctors. The staff and workers really make me feel cared for. I recommend this doctor office over many other ones."
+    },
+    {
+      "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWTxx2WN13zQJY8yBCCHsv9s-9mCkVXOQeJLkm0XXD79QTARPgEQg=s120-c-rp-mo-br100",
+      "name": "Samson Zewde",
+      "date": "2024-06-27",
+      "star": 5,
+      "comment": "Great place! I felt well taken care of and left feeling revitalized after treatment."
+    },
+    {
+      "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjXVhyyBMpfz7uCiGqz3lpZ8jfqwwk-NuKXmwhjchhSp_9mYRNfd=s120-c-rp-mo-ba2-br100",
+      "name": "Nas Moha",
+      "date": "2024-06-27",
+      "star": 5,
+      "comment": "Doctors and staff are personable and friendly that provides excellent care. Best care so far around the area"
+    },
+    {
+      "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjWetJi7ZC30xKr9f_Et3sjo0MU-PtbJxY_MJW8ATsz1I44J_gjo=s120-c-rp-mo-ba3-br100",
+      "name": "Oxana Oleson",
+      "date": "2024-06-26",
+      "star": 5,
+      "comment": "I have known Dr. Afrooz for the past 8 years. Besides her knowledge and care she put in helping patients with different complex health issues, she is also one of the nicest people I know. She treated me and my family and never gave up on me trying to find a solution for treating chronic Lyme disease. Her office is equipped with lots of helpful tools to get you well. My favorite is a hyperbaric chamber, but there are many more. My daughter also recovered from Lyme disease with help of Dr. Afrooz. At that time, she was only 5 years old.\nI am beyond grateful for her help and knowledge. She is using both-conventional and integrative methods and always keeping up to date on new treatments."
+    },
+    {
+      "img-url": "https://lh3.googleusercontent.com/a-/ALV-UjUfWn8Nlmr9OTvD94Q-8w8MLmPpA7gWKZDCa-j1BUcZNfT9_ns=s120-c-rp-mo-br100",
+      "name": "sumaiyah khan",
+      "date": "2024-05-11",
+      "star": 5,
+      "comment": "Dr. Afrooz is one of the most caring doctors out there. She goes above and beyond with her patients and dedicates herself to them completely. It’s also amazing how many different types of beneficial treatments are available right at the office."
+    }
+  ]
+}

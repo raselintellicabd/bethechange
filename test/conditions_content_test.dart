@@ -191,7 +191,7 @@ void main() {
 
       expect(detail.sections.last.items[0].inAppContactPath, '/contact');
       expect(detail.sections.last.items[1].inAppContactPath, isNull);
-      expect(detail.sections.last.items[2].inAppContactPath, isNull);
+      expect(detail.sections.last.items[2].inAppContactPath, '/membership');
     });
 
     test('diabetes detail is fully populated from the item endpoint', () async {

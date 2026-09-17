@@ -132,6 +132,8 @@ class MockApiInterceptor extends Interceptor {
         return _loadObject(MockApiAssets.patients);
       case ApiPaths.contact:
         return _loadObject(MockApiAssets.contact);
+      case ApiPaths.memberships:
+        return _loadObject(MockApiAssets.memberships);
       case '/appointments/availability':
         return _availabilityWindowPayload(query);
       case '/api/v1/book-online':

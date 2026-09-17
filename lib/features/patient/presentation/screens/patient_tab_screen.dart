@@ -228,7 +228,9 @@ class _PatientsBody extends ConsumerWidget {
       case PatientTileActionType.route:
         final route = tile.action.route;
         if (route == null || route.isEmpty) return;
-        if (route == AppRoutes.faq || route == AppRoutes.contact) {
+        if (route == AppRoutes.faq ||
+            route == AppRoutes.contact ||
+            route == AppRoutes.membership) {
           context.push(route);
         } else {
           context.go(route);
@@ -275,7 +277,7 @@ class _TileAccent {
 
 _TileAccent _tileStyle(String id) {
   return switch (id) {
-    'portal' || 'contact' => const _TileAccent(
+    'portal' || 'contact' || 'membership' => const _TileAccent(
         Color(0xFFDCEFEE),
         Color(0xFF0E5A5F),
       ),
@@ -290,10 +292,6 @@ _TileAccent _tileStyle(String id) {
     'faq' => const _TileAccent(
         Color(0xFFE2ECFA),
         Color(0xFF17568F),
-      ),
-    'membership' => const _TileAccent(
-        Color(0xFFE4E7E6),
-        Color(0xFF6B7C7E),
       ),
     _ => const _TileAccent(
         Color(0xFFDCEFEE),

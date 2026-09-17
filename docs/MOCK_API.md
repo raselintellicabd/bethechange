@@ -27,6 +27,7 @@ API_BASE_URL=https://api-dev.example.com
 | GET | `/api/v1/blog` | `assets/data/blog.json` (list shape) |
 | GET | `/api/v1/blog/{slug}` | item from articles list |
 | GET | `/api/v1/faq/` | `assets/data/faq.json` |
+| GET | `/api/v1/memberships/` | `assets/data/memberships.json` |
 | GET | `/clinic` | `assets/data/clinic.json` |
 | GET | `/api/v1/home` | `assets/data/home.json` |
 | GET | `/api/v1/doctors/{slug}/` | item from `assets/data/doctors.json` |
@@ -41,7 +42,7 @@ API_BASE_URL=https://api-dev.example.com
 
 ## Django slug alignment
 
-Service and condition IDs in JSON match Django CMS slugs (e.g. `frequency-specific-microcurrent`, `toxins`). Membership remains excluded from the mobile app.
+Service and condition IDs in JSON match Django CMS slugs (e.g. `frequency-specific-microcurrent`, `toxins`). Membership packages are available via `GET /api/v1/memberships/`.
 
 ## QA hooks
 

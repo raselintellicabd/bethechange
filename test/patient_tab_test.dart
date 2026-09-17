@@ -73,10 +73,11 @@ const _patients = PatientsContent(
     PatientTileItem(
       id: 'membership',
       title: 'Membership',
-      subtitle: 'Coming soon',
+      subtitle: 'Plans and benefits',
       icon: 'badge_outlined',
       action: PatientTileAction(
-        type: PatientTileActionType.none,
+        type: PatientTileActionType.route,
+        route: '/membership',
       ),
     ),
     PatientTileItem(
@@ -176,8 +177,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 50));
     }
 
-    testWidgets('shows redesign chrome, rows, and Membership Soon badge',
-        (tester) async {
+    testWidgets('shows redesign chrome and membership entry', (tester) async {
       final router = createAppRouter();
       final opened = <String>[];
       await openPatients(tester, router: router, opened: opened);
@@ -189,7 +189,8 @@ void main() {
         find.text('Portal access, booking, supplements and answers.'),
         findsNothing,
       );
-      expect(find.text('Soon'), findsOneWidget);
+      expect(find.text('Soon'), findsNothing);
+      expect(find.text('Plans and benefits'), findsOneWidget);
 
       expect(
         find.descendant(
@@ -227,6 +228,25 @@ void main() {
         _clinic.patientPortalUrl,
         _clinic.shopSupplementsUrl,
       ]);
+    });
+
+    testWidgets('Membership tile opens Membership screen', (tester) async {
+      final router = createAppRouter();
+      await openPatients(tester, router: router, opened: <String>[]);
+
+      final membership = find.text('Plans and benefits');
+      await tester.scrollUntilVisible(
+        membership,
+        80,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pump();
+      await tester.tap(membership);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+
+      expect(find.text('Membership Packages'), findsOneWidget);
+      expect(find.text('Join Now'), findsWidgets);
     });
 
     testWidgets('Log in toggles to avatar and Log out', (tester) async {

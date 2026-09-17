@@ -15,6 +15,7 @@ class ApiPaths {
   static const String doctors = '/api/v1/doctors';
   static const String patients = '/patients';
   static const String contact = '/api/v1/contact';
+  static const String memberships = '/api/v1/memberships';
   static const String chatbotMessage = '/chatbot/message';
   static const String chatbotConfig = '/chatbot/config';
 

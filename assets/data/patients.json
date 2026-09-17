@@ -46,10 +46,11 @@
     {
       "id": "membership",
       "title": "Membership",
-      "subtitle": "Coming soon",
+      "subtitle": "Plans and benefits",
       "icon": "badge_outlined",
       "action": {
-        "type": "none"
+        "type": "route",
+        "route": "/membership"
       }
     },
     {

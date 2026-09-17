@@ -15,6 +15,7 @@ import '../../features/contact/presentation/screens/contact_screen.dart';
 import '../../features/explore/presentation/screens/explore_screen.dart';
 import '../../features/faq/presentation/screens/faq_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
+import '../../features/membership/presentation/screens/membership_screen.dart';
 import '../../features/patient/presentation/screens/patient_tab_screen.dart';
 import '../../features/services/presentation/screens/service_detail_screen.dart';
 import '../constants/app_constants.dart';
@@ -162,6 +163,12 @@ GoRouter createAppRouter() {
         name: 'contact',
         parentNavigatorKey: rootNavigatorKey,
         builder: (context, state) => const ContactScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.membership,
+        name: 'membership',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => const MembershipScreen(),
       ),
       GoRoute(
         path: AppRoutes.bookOnline,

@@ -425,7 +425,7 @@ class _SectionItemCard extends StatelessWidget {
                         : 'Request an appointment',
                     variant: AppButtonVariant.text,
                     expand: false,
-                    onPressed: () => context.push(AppRoutes.contact),
+                    onPressed: () => context.push(contactPath),
                   ),
                 ],
               ],
