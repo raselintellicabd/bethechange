@@ -8,6 +8,7 @@ import 'package:bethechange/features/patient/presentation/providers/patients_pro
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'helpers/mock_api_client.dart';
@@ -26,12 +27,13 @@ const _clinic = ClinicInfo(
 
 const _patients = PatientsContent(
   sectionTitle: 'Patient resources',
-  sectionSubtitle: 'Portal access, booking, supplements, and answers.',
+  sectionSubtitle: 'Portal access, booking, supplements and answers.',
+  headerSubtitle: 'Manage your care in one place',
   tiles: [
     PatientTileItem(
       id: 'portal',
-      title: 'Patient Portal',
-      subtitle: 'Records & messages',
+      title: 'Patient portal',
+      subtitle: 'Records and messages',
       icon: 'account_circle_outlined',
       action: PatientTileAction(
         type: PatientTileActionType.externalUrlKey,
@@ -42,7 +44,7 @@ const _patients = PatientsContent(
       id: 'book-service',
       title: 'Book a service',
       subtitle: 'Browse therapies',
-      icon: 'medical_services_outlined',
+      icon: 'calendar_plus_outlined',
       action: PatientTileAction(
         type: PatientTileActionType.route,
         route: '/explore/services',
@@ -66,6 +68,25 @@ const _patients = PatientsContent(
       action: PatientTileAction(
         type: PatientTileActionType.route,
         route: '/faq',
+      ),
+    ),
+    PatientTileItem(
+      id: 'membership',
+      title: 'Membership',
+      subtitle: 'Coming soon',
+      icon: 'badge_outlined',
+      action: PatientTileAction(
+        type: PatientTileActionType.none,
+      ),
+    ),
+    PatientTileItem(
+      id: 'contact',
+      title: 'Contact',
+      subtitle: 'Reach the clinic',
+      icon: 'mail_outline',
+      action: PatientTileAction(
+        type: PatientTileActionType.route,
+        route: '/contact',
       ),
     ),
   ],
@@ -138,10 +159,11 @@ void main() {
       ];
     }
 
-    testWidgets('shows exactly four tiles and no membership', (tester) async {
-      final router = createAppRouter();
-      final opened = <String>[];
-
+    Future<void> openPatients(
+      WidgetTester tester, {
+      required GoRouter router,
+      required List<String> opened,
+    }) async {
       await tester.pumpWidget(
         ProviderScope(
           overrides: overrides(opened: opened),
@@ -149,25 +171,55 @@ void main() {
         ),
       );
       await tester.pump();
-
       router.go(AppRoutes.patients);
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 50));
+    }
 
+    testWidgets('shows redesign chrome, rows, and Membership Soon badge',
+        (tester) async {
+      final router = createAppRouter();
+      final opened = <String>[];
+      await openPatients(tester, router: router, opened: opened);
+
+      expect(find.text('Manage your care in one place'), findsOneWidget);
+      expect(find.text('Log in'), findsOneWidget);
+      expect(find.text('Patient resources'), findsNothing);
+      expect(
+        find.text('Portal access, booking, supplements and answers.'),
+        findsNothing,
+      );
+      expect(find.text('Soon'), findsOneWidget);
+
+      expect(
+        find.descendant(
+          of: find.byType(NavigationBar),
+          matching: find.text('Contact'),
+        ),
+        findsNothing,
+      );
+
+      expect(_patients.tiles, hasLength(6));
+      final scrollable = find.byType(Scrollable).first;
       for (final tile in _patients.tiles) {
-        expect(find.text(tile.title), findsOneWidget);
+        final title = find.text(tile.title);
+        await tester.scrollUntilVisible(title, 80, scrollable: scrollable);
+        await tester.pump();
+        expect(title, findsOneWidget);
       }
-      expect(_patients.tiles, hasLength(4));
 
-      expect(find.textContaining('Membership', findRichText: true), findsNothing);
-      expect(find.textContaining('membership', findRichText: true), findsNothing);
-
-      await tester.tap(find.text('Patient Portal'));
+      await tester.scrollUntilVisible(
+        find.text('Patient portal'),
+        -80,
+        scrollable: scrollable,
+      );
+      await tester.pump();
+      await tester.tap(find.text('Patient portal'));
       await tester.pump();
       expect(opened, [_clinic.patientPortalUrl]);
 
       final shop = find.text('Shop');
-      await tester.ensureVisible(shop);
+      await tester.scrollUntilVisible(shop, 80, scrollable: scrollable);
       await tester.pump();
       await tester.tap(shop);
       await tester.pump();
@@ -177,20 +229,26 @@ void main() {
       ]);
     });
 
+    testWidgets('Log in toggles to avatar and Log out', (tester) async {
+      final router = createAppRouter();
+      await openPatients(tester, router: router, opened: <String>[]);
+
+      expect(find.text('Log in'), findsOneWidget);
+      await tester.tap(find.text('Log in'));
+      await tester.pump();
+
+      expect(find.text('JD'), findsOneWidget);
+      expect(find.text('Log out'), findsOneWidget);
+      expect(find.text('Log in'), findsNothing);
+
+      await tester.tap(find.text('Log out'));
+      await tester.pump();
+      expect(find.text('Log in'), findsOneWidget);
+    });
+
     testWidgets('Book a service navigates to Explore Services', (tester) async {
       final router = createAppRouter();
-
-      await tester.pumpWidget(
-        ProviderScope(
-          overrides: overrides(opened: <String>[]),
-          child: MaterialApp.router(routerConfig: router),
-        ),
-      );
-      await tester.pump();
-
-      router.go(AppRoutes.patients);
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 50));
+      await openPatients(tester, router: router, opened: <String>[]);
 
       await tester.tap(find.text('Book a service'));
       await tester.pump();
@@ -201,6 +259,23 @@ void main() {
         AppRoutes.exploreServices,
       );
       expect(find.text('Services'), findsWidgets);
+    });
+
+    testWidgets('Contact tile opens Contact screen', (tester) async {
+      final router = createAppRouter();
+      await openPatients(tester, router: router, opened: <String>[]);
+
+      final contactTile = find.text('Reach the clinic');
+      await tester.scrollUntilVisible(
+        contactTile,
+        80,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pump();
+      await tester.tap(contactTile);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Send Us A Message'), findsOneWidget);
     });
   });
 }

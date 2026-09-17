@@ -417,62 +417,113 @@ class LockedContextChip extends StatelessWidget {
   }
 }
 
+/// Full-width account-style row used by the Patients hub.
 class PatientTile extends StatelessWidget {
   const PatientTile({
     super.key,
     required this.title,
     required this.subtitle,
     required this.icon,
-    required this.onTap,
+    required this.iconBackground,
+    required this.iconColor,
+    this.onTap,
+    this.comingSoon = false,
   });
 
   final String title;
   final String subtitle;
   final IconData icon;
-  final VoidCallback onTap;
+  final Color iconBackground;
+  final Color iconColor;
+  final VoidCallback? onTap;
+  final bool comingSoon;
+
+  static const _border = Color(0xFFE1E8E8);
+  static const _title = Color(0xFF172A2C);
+  static const _subtitle = Color(0xFF6B7C7E);
+  static const _mutedTitle = Color(0xFF4C5A5C);
+  static const _mutedSubtitle = Color(0xFF7C8B8D);
+  static const _mutedCard = Color(0xFFF1F4F4);
+  static const _soonBg = Color(0xFFE4E7E6);
+  static const _chevron = Color(0xFFA9B6B7);
 
   @override
   Widget build(BuildContext context) {
+    final enabled = onTap != null && !comingSoon;
+
     return Material(
-      color: AppColors.card,
+      color: comingSoon ? _mutedCard : AppColors.card,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
-        side: const BorderSide(color: AppColors.line),
+        side: const BorderSide(color: _border, width: 0.5),
       ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: onTap,
+        onTap: enabled ? onTap : null,
         borderRadius: BorderRadius.circular(14),
         child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+          child: Row(
             children: [
-              Expanded(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: AppColors.sageLight,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: Icon(icon, size: 40, color: AppColors.forest),
-                  ),
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  color: iconBackground,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: SizedBox(
+                  width: 38,
+                  height: 38,
+                  child: Icon(icon, size: 19, color: iconColor),
                 ),
               ),
-              const SizedBox(height: 12),
-              Text(
-                title,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: AppTextStyles.labelLarge.copyWith(fontSize: 14),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.labelLarge.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: comingSoon ? _mutedTitle : _title,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        fontSize: 12,
+                        color: comingSoon ? _mutedSubtitle : _subtitle,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 4),
-              Text(
-                subtitle,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: AppTextStyles.bodySmall.copyWith(fontSize: 11.5),
-              ),
+              const SizedBox(width: 8),
+              if (comingSoon)
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: _soonBg,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    'Soon',
+                    style: AppTextStyles.labelMedium.copyWith(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500,
+                      color: _subtitle,
+                    ),
+                  ),
+                )
+              else
+                const Icon(Icons.chevron_right, color: _chevron, size: 18),
             ],
           ),
         ),

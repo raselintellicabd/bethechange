@@ -155,16 +155,13 @@ GoRouter createAppRouter() {
               ),
             ],
           ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: AppRoutes.contact,
-                name: 'contact',
-                builder: (context, state) => const ContactScreen(),
-              ),
-            ],
-          ),
         ],
+      ),
+      GoRoute(
+        path: AppRoutes.contact,
+        name: 'contact',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => const ContactScreen(),
       ),
       GoRoute(
         path: AppRoutes.bookOnline,
@@ -211,6 +208,7 @@ GoRouter createAppRouter() {
       GoRoute(
         path: AppRoutes.faq,
         name: 'faq',
+        parentNavigatorKey: rootNavigatorKey,
         builder: (context, state) => const FaqScreen(),
       ),
       GoRoute(
@@ -247,11 +245,6 @@ class MainShellWidget extends StatelessWidget {
       label: 'Patients',
       icon: Icons.people_outline,
       selectedIcon: Icons.people,
-    ),
-    _TabDestination(
-      label: 'Contact',
-      icon: Icons.mail_outline,
-      selectedIcon: Icons.mail,
     ),
   ];
 

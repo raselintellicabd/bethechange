@@ -1,11 +1,12 @@
 {
   "sectionTitle": "Patient resources",
-  "sectionSubtitle": "Portal access, booking, supplements, and answers.",
+  "sectionSubtitle": "Portal access, booking, supplements and answers.",
+  "headerSubtitle": "Manage your care in one place",
   "tiles": [
     {
       "id": "portal",
-      "title": "Patient Portal",
-      "subtitle": "Records & messages",
+      "title": "Patient portal",
+      "subtitle": "Records and messages",
       "icon": "account_circle_outlined",
       "action": {
         "type": "externalUrlKey",
@@ -16,7 +17,7 @@
       "id": "book-service",
       "title": "Book a service",
       "subtitle": "Browse therapies",
-      "icon": "medical_services_outlined",
+      "icon": "calendar_plus_outlined",
       "action": {
         "type": "route",
         "route": "/explore/services"
@@ -40,6 +41,25 @@
       "action": {
         "type": "route",
         "route": "/faq"
+      }
+    },
+    {
+      "id": "membership",
+      "title": "Membership",
+      "subtitle": "Coming soon",
+      "icon": "badge_outlined",
+      "action": {
+        "type": "none"
+      }
+    },
+    {
+      "id": "contact",
+      "title": "Contact",
+      "subtitle": "Reach the clinic",
+      "icon": "mail_outline",
+      "action": {
+        "type": "route",
+        "route": "/contact"
       }
     }
   ]

@@ -1,4 +1,4 @@
-enum PatientTileActionType { externalUrlKey, route, externalUrl }
+enum PatientTileActionType { externalUrlKey, route, externalUrl, none }
 
 class PatientTileAction {
   const PatientTileAction({
@@ -19,6 +19,7 @@ class PatientTileAction {
       'externalUrlKey' => PatientTileActionType.externalUrlKey,
       'route' => PatientTileActionType.route,
       'externalUrl' => PatientTileActionType.externalUrl,
+      'none' => PatientTileActionType.none,
       _ => throw FormatException('Unknown patient tile action type: $typeName'),
     };
 
@@ -64,10 +65,12 @@ class PatientsContent {
     required this.sectionTitle,
     required this.sectionSubtitle,
     required this.tiles,
+    this.headerSubtitle = 'Manage your care in one place',
   });
 
   final String sectionTitle;
   final String sectionSubtitle;
+  final String headerSubtitle;
   final List<PatientTileItem> tiles;
 
   factory PatientsContent.fromJson(Map<String, dynamic> json) {
@@ -78,6 +81,8 @@ class PatientsContent {
     return PatientsContent(
       sectionTitle: (json['sectionTitle'] as String?)?.trim() ?? 'Patients',
       sectionSubtitle: (json['sectionSubtitle'] as String?)?.trim() ?? '',
+      headerSubtitle: (json['headerSubtitle'] as String?)?.trim() ??
+          'Manage your care in one place',
       tiles: tiles,
     );
   }
