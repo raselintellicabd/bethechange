@@ -12,7 +12,6 @@ import '../../domain/models/source_context.dart';
 import '../providers/appointment_providers.dart';
 import '../widgets/appointment_calendar_view.dart';
 import '../widgets/appointment_confirmation_view.dart';
-import '../widgets/mock_payment_otp_view.dart';
 import '../widgets/mock_payment_success_view.dart';
 import '../widgets/mock_payment_view.dart';
 import '../widgets/patient_details_form.dart';
@@ -218,7 +217,7 @@ class _StepBody extends StatelessWidget {
           initialEmail: state.paymentEmail.isNotEmpty
               ? state.paymentEmail
               : (state.patient?.email ?? ''),
-          offering: state.offering,
+          imageUrl: state.offering?.imageUrl,
           errorMessage: state.errorMessage,
           onContinue: ({
             required String email,

@@ -13,6 +13,7 @@ abstract final class AppRoutes {
   static const String patients = '/patients';
   static const String contact = '/contact';
   static const String membership = '/membership';
+  static const String membershipCheckout = '/membership/checkout';
   static const String login = '/login';
   static const String signup = '/signup';
 

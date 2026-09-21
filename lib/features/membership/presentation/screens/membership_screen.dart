@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../core/network/api_result.dart';
 import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
@@ -126,45 +125,41 @@ class _MembershipBody extends ConsumerWidget {
       return;
     }
 
-    final card = await showDialog<_MembershipCardInput>(
-      context: context,
-      builder: (ctx) => _MembershipPaymentDialog(plan: plan),
-    );
-    if (card == null || !context.mounted) return;
-
-    final repo = ref.read(authRepositoryProvider);
-    final sessionResult =
-        await repo.startMembershipPayment(tier: plan.tier);
-    if (!context.mounted) return;
-    if (sessionResult is ApiFailure<Map<String, dynamic>>) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(sessionResult.message)),
-      );
-      return;
-    }
-    final session = (sessionResult as ApiSuccess<Map<String, dynamic>>).data;
-    final confirm = await repo.confirmMembershipPayment(
-      paymentSessionId: '${session['payment_session_id'] ?? ''}',
-      clientSecret: '${session['client_secret'] ?? ''}',
-      paymentMethod: {
-        'card_number': card.number,
-        'exp_month': card.expMonth,
-        'exp_year': card.expYear,
-        'cvc': card.cvc,
-      },
-    );
-    if (!context.mounted) return;
-    if (confirm is ApiFailure<Map<String, dynamic>>) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(confirm.message)),
-      );
-      return;
-    }
+    // Refresh profile so tier / left days are current before warning.
     await ref.read(authControllerProvider.notifier).refreshProfile();
     if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Welcome to ${plan.title}!')),
-    );
+
+    final user = ref.read(currentUserProvider);
+    if (user != null && user.membershipActive) {
+      final proceed = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Replace current membership?'),
+          content: Text(
+            'You already have an active ${user.tierTitle} '
+            '(${user.leftDays} day(s) left, '
+            '${user.complimentaryUsed}/2 complimentary services used).\n\n'
+            'Buying ${plan.title} will replace your current plan from today:\n'
+            '• Remaining membership days will be lost (reset)\n'
+            '• Complimentary services used will reset to 0\n'
+            '• Your previous plan benefits will end immediately',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(true),
+              child: const Text('Continue'),
+            ),
+          ],
+        ),
+      );
+      if (proceed != true || !context.mounted) return;
+    }
+
+    await context.push(AppRoutes.membershipCheckout, extra: plan);
   }
 
   static String? _reviewDate(String? raw) {
@@ -348,105 +343,6 @@ class _PlanCard extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _MembershipCardInput {
-  const _MembershipCardInput({
-    required this.number,
-    required this.expMonth,
-    required this.expYear,
-    required this.cvc,
-  });
-
-  final String number;
-  final String expMonth;
-  final String expYear;
-  final String cvc;
-}
-
-class _MembershipPaymentDialog extends StatefulWidget {
-  const _MembershipPaymentDialog({required this.plan});
-
-  final MembershipPlan plan;
-
-  @override
-  State<_MembershipPaymentDialog> createState() =>
-      _MembershipPaymentDialogState();
-}
-
-class _MembershipPaymentDialogState extends State<_MembershipPaymentDialog> {
-  final _number = TextEditingController();
-  final _expiry = TextEditingController();
-  final _cvc = TextEditingController();
-
-  @override
-  void dispose() {
-    _number.dispose();
-    _expiry.dispose();
-    _cvc.dispose();
-    super.dispose();
-  }
-
-  void _submit() {
-    final number = _number.text.replaceAll(RegExp(r'\D'), '');
-    final parts = _expiry.text.split(RegExp(r'[/\-]'));
-    if (number.length < 13 || parts.length < 2 || _cvc.text.length < 3) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Enter valid card details.')),
-      );
-      return;
-    }
-    var year = parts[1].trim();
-    if (year.length == 2) year = '20$year';
-    Navigator.of(context).pop(
-      _MembershipCardInput(
-        number: number,
-        expMonth: parts[0].trim().padLeft(2, '0'),
-        expYear: year,
-        cvc: _cvc.text.trim(),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('Join ${widget.plan.title}'),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: _number,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'Card number'),
-            ),
-            TextField(
-              controller: _expiry,
-              decoration: const InputDecoration(labelText: 'Expiry (MM/YY)'),
-            ),
-            TextField(
-              controller: _cvc,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'CVC'),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Use any card except one ending in 0000 (declined).',
-              style: TextStyle(fontSize: 12),
-            ),
-          ],
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
-        ),
-        TextButton(onPressed: _submit, child: const Text('Pay')),
-      ],
     );
   }
 }
