@@ -13,6 +13,24 @@ abstract final class AppRoutes {
   static const String patients = '/patients';
   static const String contact = '/contact';
   static const String membership = '/membership';
+  static const String login = '/login';
+  static const String signup = '/signup';
+
+  static String loginPath({String? returnTo}) {
+    if (returnTo == null || returnTo.isEmpty) return login;
+    return Uri(
+      path: login,
+      queryParameters: {'returnTo': returnTo},
+    ).toString();
+  }
+
+  static String signupPath({String? returnTo}) {
+    if (returnTo == null || returnTo.isEmpty) return signup;
+    return Uri(
+      path: signup,
+      queryParameters: {'returnTo': returnTo},
+    ).toString();
+  }
 
   static const String about = '/about';
   static const String aboutSection = '/about/:sectionId';

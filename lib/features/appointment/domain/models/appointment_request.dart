@@ -52,7 +52,31 @@ class AppointmentRequest {
     );
   }
 
-  /// Payload for `POST /api/v1/appointments/`.
+  /// Payload for `POST /api/v1/appointments/book/`.
+  Map<String, dynamic> toBookJson({
+    required String paymentSessionId,
+  }) {
+    final date = slot.date;
+    final dateStr =
+        '${date.year.toString().padLeft(4, '0')}-'
+        '${date.month.toString().padLeft(2, '0')}-'
+        '${date.day.toString().padLeft(2, '0')}';
+    return {
+      'full_name': patient.name,
+      'email': patient.email,
+      'phone': patient.phone,
+      'service': serviceLabel,
+      'consultation_mode': patient.consultationMode.apiValue,
+      'date': dateStr,
+      'time_minutes': slot.timeMinutes,
+      'slot_count': slotCount,
+      'payment_session_id': paymentSessionId,
+      'for_family_member': patient.forFamilyMember,
+      if (offering != null) 'offering_slug': offering!.slug,
+    };
+  }
+
+  /// Payload for legacy `POST /api/v1/appointments/`.
   Map<String, dynamic> toCreateJson() => {
         'full_name': patient.name,
         'email': patient.email,

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../domain/booking_labels.dart';
+import '../../domain/models/booking_quote.dart';
 import '../../domain/models/book_online_offering.dart';
 import '../../domain/models/patient_details.dart';
 import '../../domain/models/source_context.dart';
@@ -18,6 +19,7 @@ class AppointmentConfirmationView extends StatelessWidget {
     required this.isLoading,
     required this.onConfirm,
     this.offering,
+    this.quote,
     this.timeLabel,
     this.errorMessage,
     this.onRetry,
@@ -25,6 +27,7 @@ class AppointmentConfirmationView extends StatelessWidget {
 
   final SourceContext sourceContext;
   final BookOnlineOffering? offering;
+  final BookingQuote? quote;
   final TimeSlot slot;
   final PatientDetails patient;
   final bool isLoading;
@@ -47,10 +50,25 @@ class AppointmentConfirmationView extends StatelessWidget {
           label: 'For',
           value: appointmentForLabel(sourceContext, offering: offering),
         ),
-        if (offering != null) ...[
+        if (patient.forFamilyMember)
+          const _SummaryRow(label: 'Recipient', value: 'Family member'),
+        if (offering != null)
           _SummaryRow(label: 'Duration', value: offering!.durationDisplay),
+        if (quote != null) ...[
+          _SummaryRow(label: 'List price', value: quote!.listAmountDisplay),
+          if (quote!.discountCents > 0)
+            _SummaryRow(label: 'Discount', value: '-${quote!.discountDisplay}'),
+          _SummaryRow(label: 'Payable', value: quote!.payableDisplay),
+          if (quote!.pricingNote.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+              child: Text(
+                quote!.pricingNote,
+                style: theme.textTheme.bodySmall,
+              ),
+            ),
+        ] else if (offering != null)
           _SummaryRow(label: 'Price', value: offering!.priceDisplay),
-        ],
         _SummaryRow(label: 'Date', value: dateLabel),
         _SummaryRow(label: 'Time', value: timeLabel ?? slot.label),
         _SummaryRow(label: 'Mode', value: patient.consultationMode.label),

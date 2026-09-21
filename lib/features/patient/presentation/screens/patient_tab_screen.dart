@@ -11,6 +11,7 @@ import '../../../../core/utils/material_icon_map.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/ui_kit.dart';
+import '../../../auth/presentation/providers/auth_providers.dart';
 import '../../../clinic/domain/models/clinic_info.dart';
 import '../../domain/models/patients_content.dart';
 import '../providers/patients_providers.dart';
@@ -28,7 +29,9 @@ class PatientTabScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final patientsAsync = ref.watch(patientsContentProvider);
     final clinic = ref.watch(patientClinicLinksProvider).asData?.value;
-    final loggedIn = ref.watch(patientsLoggedInProvider);
+    final auth = ref.watch(authControllerProvider);
+    final user = auth.user;
+    final loggedIn = auth.isLoggedIn;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light.copyWith(
@@ -46,10 +49,21 @@ class PatientTabScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _PatientsHeader(
-                subtitle: patients.headerSubtitle,
+                subtitle: loggedIn && user != null
+                    ? user.fullName
+                    : patients.headerSubtitle,
                 loggedIn: loggedIn,
-                onAuthPressed: () {
-                  ref.read(patientsLoggedInProvider.notifier).state = !loggedIn;
+                initials: user?.initials ?? '?',
+                tierLabel: loggedIn && user != null
+                    ? (user.membershipActive
+                        ? '${user.tierTitle} · ${user.leftDays}d left'
+                        : user.tierTitle)
+                    : null,
+                onLoginPressed: () {
+                  context.push(AppRoutes.loginPath(returnTo: AppRoutes.patients));
+                },
+                onLogoutPressed: () {
+                  ref.read(authControllerProvider.notifier).logout();
                 },
               ),
               Expanded(
@@ -70,12 +84,18 @@ class _PatientsHeader extends StatelessWidget {
   const _PatientsHeader({
     required this.subtitle,
     required this.loggedIn,
-    required this.onAuthPressed,
+    required this.initials,
+    required this.onLoginPressed,
+    required this.onLogoutPressed,
+    this.tierLabel,
   });
 
   final String subtitle;
   final bool loggedIn;
-  final VoidCallback onAuthPressed;
+  final String initials;
+  final String? tierLabel;
+  final VoidCallback onLoginPressed;
+  final VoidCallback onLogoutPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +131,16 @@ class _PatientsHeader extends StatelessWidget {
                         height: 1.3,
                       ),
                     ),
+                    if (tierLabel != null) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        tierLabel!,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: PatientTabScreen._headerMuted,
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -118,12 +148,12 @@ class _PatientsHeader extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 15,
                       backgroundColor: PatientTabScreen._avatarBg,
                       child: Text(
-                        'JD',
-                        style: TextStyle(
+                        initials,
+                        style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                           color: PatientTabScreen._avatarText,
@@ -132,7 +162,7 @@ class _PatientsHeader extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     GestureDetector(
-                      onTap: onAuthPressed,
+                      onTap: onLogoutPressed,
                       behavior: HitTestBehavior.opaque,
                       child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 2),
@@ -148,28 +178,50 @@ class _PatientsHeader extends StatelessWidget {
                   ],
                 )
               else
-                TextButton(
-                  onPressed: onAuthPressed,
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: AppColors.ochre,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 7,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: onLoginPressed,
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: AppColors.ochre,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 7,
+                        ),
+                        minimumSize: Size.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                      ),
+                      child: const Text(
+                        'Log in',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
-                    minimumSize: Size.zero,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18),
+                    TextButton(
+                      onPressed: () {
+                        context.push(
+                          AppRoutes.signupPath(returnTo: AppRoutes.patients),
+                        );
+                      },
+                      style: TextButton.styleFrom(
+                        foregroundColor: PatientTabScreen._headerMuted,
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        minimumSize: Size.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      child: const Text(
+                        'Sign up',
+                        style: TextStyle(fontSize: 12),
+                      ),
                     ),
-                  ),
-                  child: const Text(
-                    'Log in',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  ],
                 ),
             ],
           ),

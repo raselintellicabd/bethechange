@@ -12,6 +12,7 @@ import '../../domain/models/appointment_request.dart';
 import '../../domain/models/availability_window.dart';
 import '../../domain/models/book_online_catalog.dart';
 import '../../domain/models/book_online_offering.dart';
+import '../../domain/models/booking_quote.dart';
 import '../../domain/models/patient_details.dart';
 import '../../domain/models/slot_selection.dart';
 import '../../domain/models/source_context.dart';
@@ -61,7 +62,13 @@ class AppointmentBookingState {
     this.slots = const [],
     this.selection,
     this.patient,
+    this.quote,
     this.paymentEmail = '',
+    this.cardNumber = '',
+    this.cardExpiry = '',
+    this.cardCvc = '',
+    this.paymentSessionId,
+    this.paymentClientSecret,
     this.isLoading = false,
     this.errorMessage,
     this.result,
@@ -77,7 +84,13 @@ class AppointmentBookingState {
   final List<TimeSlot> slots;
   final SlotSelection? selection;
   final PatientDetails? patient;
+  final BookingQuote? quote;
   final String paymentEmail;
+  final String cardNumber;
+  final String cardExpiry;
+  final String cardCvc;
+  final String? paymentSessionId;
+  final String? paymentClientSecret;
   final bool isLoading;
   final String? errorMessage;
   final AppointmentBookingResult? result;
@@ -91,6 +104,9 @@ class AppointmentBookingState {
 
   String get appointmentFor =>
       appointmentForLabel(sourceContext, offering: offering);
+
+  String get payableLabel =>
+      quote?.payableDisplay ?? offering?.priceDisplay ?? '—';
 
   /// First slot of the selected range (for booking payload).
   TimeSlot? get selectedSlot {
@@ -125,7 +141,15 @@ class AppointmentBookingState {
     SlotSelection? selection,
     bool clearSelection = false,
     PatientDetails? patient,
+    BookingQuote? quote,
+    bool clearQuote = false,
     String? paymentEmail,
+    String? cardNumber,
+    String? cardExpiry,
+    String? cardCvc,
+    String? paymentSessionId,
+    String? paymentClientSecret,
+    bool clearPaymentSession = false,
     bool? isLoading,
     String? errorMessage,
     bool clearError = false,
@@ -143,7 +167,17 @@ class AppointmentBookingState {
       slots: slots ?? this.slots,
       selection: clearSelection ? null : selection ?? this.selection,
       patient: patient ?? this.patient,
+      quote: clearQuote ? null : quote ?? this.quote,
       paymentEmail: paymentEmail ?? this.paymentEmail,
+      cardNumber: cardNumber ?? this.cardNumber,
+      cardExpiry: cardExpiry ?? this.cardExpiry,
+      cardCvc: cardCvc ?? this.cardCvc,
+      paymentSessionId: clearPaymentSession
+          ? null
+          : paymentSessionId ?? this.paymentSessionId,
+      paymentClientSecret: clearPaymentSession
+          ? null
+          : paymentClientSecret ?? this.paymentClientSecret,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: clearError ? null : errorMessage ?? this.errorMessage,
       result: result ?? this.result,
@@ -351,6 +385,21 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
       step: AppointmentStep.confirm,
       clearError: true,
     );
+    loadQuote();
+  }
+
+  Future<void> loadQuote() async {
+    state = state.copyWith(isLoading: true, clearError: true);
+    final result = await _repository.getQuote(
+      service: state.bookingLabel,
+      offeringSlug: state.offering?.slug,
+    );
+    if (result is ApiSuccess<BookingQuote>) {
+      state = state.copyWith(quote: result.data, isLoading: false);
+      return;
+    }
+    final failure = result as ApiFailure<BookingQuote>;
+    state = state.copyWith(isLoading: false, errorMessage: failure.message);
   }
 
   void continueToPayment() {
@@ -359,9 +408,13 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
         state.patient == null) {
       return;
     }
-    final isFree = state.offering?.isFree ?? true;
-    if (isFree) {
-      // Free offerings skip card + OTP and create immediately.
+    final quote = state.quote;
+    if (quote != null && quote.isFree) {
+      submitPayment(skipCard: true);
+      return;
+    }
+    final isFreeOffering = state.offering?.isFree ?? false;
+    if (isFreeOffering && quote == null) {
       submitPayment(skipCard: true);
       return;
     }
@@ -373,17 +426,25 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
   }
 
   /// After card details are valid, move to the mock OTP challenge.
-  void submitCardDetails({required String email}) {
+  void submitCardDetails({
+    required String email,
+    required String cardNumber,
+    required String expiry,
+    required String cvc,
+  }) {
     final trimmed = email.trim();
     if (trimmed.isEmpty) return;
     state = state.copyWith(
       paymentEmail: trimmed,
+      cardNumber: cardNumber,
+      cardExpiry: expiry,
+      cardCvc: cvc,
       step: AppointmentStep.paymentOtp,
       clearError: true,
     );
   }
 
-  /// Mock OTP accepted → create the pending appointment.
+  /// Confirm payment with backend then create the pending appointment.
   Future<void> submitPayment({bool skipCard = false}) async {
     if (state.selection == null ||
         state.selectedSlot == null ||
@@ -392,8 +453,62 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
     }
 
     state = state.copyWith(isLoading: true, clearError: true);
+
+    final sessionResult = await _repository.createPaymentSession(
+      service: state.bookingLabel,
+      offeringSlug: state.offering?.slug,
+    );
+    if (sessionResult is! ApiSuccess<PaymentSessionResult>) {
+      final failure = sessionResult as ApiFailure<PaymentSessionResult>;
+      state = state.copyWith(isLoading: false, errorMessage: failure.message);
+      return;
+    }
+    final session = sessionResult.data;
+    state = state.copyWith(
+      paymentSessionId: session.paymentSessionId,
+      paymentClientSecret: session.clientSecret,
+    );
+
+    final paymentMethod = skipCard
+        ? <String, dynamic>{}
+        : <String, dynamic>{
+            'card_number': state.cardNumber.replaceAll(RegExp(r'\s'), ''),
+            'exp_month': _expiryMonth(state.cardExpiry),
+            'exp_year': _expiryYear(state.cardExpiry),
+            'cvc': state.cardCvc,
+          };
+
+    // Complimentary / $0 still needs confirm for session status.
+    final confirmResult = await _repository.confirmPayment(
+      paymentSessionId: session.paymentSessionId,
+      clientSecret: session.clientSecret,
+      paymentMethod: paymentMethod,
+    );
+    if (confirmResult is ApiFailure<void>) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: confirmResult.message,
+        step: AppointmentStep.payment,
+      );
+      return;
+    }
+
     await Future<void>.delayed(paymentDelay);
     await confirmBooking(fromPayment: true);
+  }
+
+  String _expiryMonth(String expiry) {
+    final parts = expiry.split(RegExp(r'[/\-]'));
+    if (parts.isEmpty) return '';
+    return parts.first.trim().padLeft(2, '0');
+  }
+
+  String _expiryYear(String expiry) {
+    final parts = expiry.split(RegExp(r'[/\-]'));
+    if (parts.length < 2) return '';
+    var year = parts[1].trim();
+    if (year.length == 2) year = '20$year';
+    return year;
   }
 
   void goBack() {
@@ -430,9 +545,18 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
     final patient = state.patient;
     if (slot == null || selection == null || patient == null) return;
 
-    // Payment step owns the create call after mock pay succeeds.
+    // Payment step owns the create call after pay succeeds.
     if (!fromPayment) {
       continueToPayment();
+      return;
+    }
+
+    final paymentSessionId = state.paymentSessionId;
+    if (paymentSessionId == null || paymentSessionId.isEmpty) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: 'Complete payment before submitting.',
+      );
       return;
     }
 
@@ -446,7 +570,10 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
       slotCount: selection.slotCount,
     );
 
-    final result = await _repository.bookAppointment(request);
+    final result = await _repository.bookAppointment(
+      request: request,
+      paymentSessionId: paymentSessionId,
+    );
     if (result is ApiSuccess<AppointmentBookingResult>) {
       final booking = result.data;
       _analytics.logEvent(
@@ -470,7 +597,7 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
     final statusCode = failure.statusCode;
     state = state.copyWith(isLoading: false, errorMessage: message);
 
-    if (statusCode == 400 || statusCode == 409) {
+    if (statusCode == 400 || statusCode == 409 || statusCode == 402) {
       await loadAvailability();
       final selected = state.selectedDate;
       if (selected != null && state.isDateAvailable(selected)) {

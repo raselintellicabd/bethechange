@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/app_button.dart';
+import '../../../auth/domain/models/patient_user.dart';
+import '../../../auth/presentation/providers/auth_providers.dart';
 import '../../domain/models/consultation_mode.dart';
 import '../../domain/models/patient_details.dart';
 
-class PatientDetailsForm extends StatefulWidget {
+class PatientDetailsForm extends ConsumerStatefulWidget {
   const PatientDetailsForm({
     super.key,
     this.initial,
@@ -16,24 +19,41 @@ class PatientDetailsForm extends StatefulWidget {
   final ValueChanged<PatientDetails> onSubmit;
 
   @override
-  State<PatientDetailsForm> createState() => _PatientDetailsFormState();
+  ConsumerState<PatientDetailsForm> createState() => _PatientDetailsFormState();
 }
 
-class _PatientDetailsFormState extends State<PatientDetailsForm> {
+class _PatientDetailsFormState extends ConsumerState<PatientDetailsForm> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
   late final TextEditingController _phoneController;
   ConsultationMode? _consultationMode;
+  bool _forFamilyMember = false;
 
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: widget.initial?.name ?? '');
-    _emailController = TextEditingController(text: widget.initial?.email ?? '');
-    _phoneController = TextEditingController(text: widget.initial?.phone ?? '');
-    _consultationMode = widget.initial?.consultationMode;
+    final initial = widget.initial;
+    _forFamilyMember = initial?.forFamilyMember ?? false;
+    _nameController = TextEditingController(text: initial?.name ?? '');
+    _emailController = TextEditingController(text: initial?.email ?? '');
+    _phoneController = TextEditingController(text: initial?.phone ?? '');
+    _consultationMode = initial?.consultationMode;
   }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_didPrefill) return;
+    _didPrefill = true;
+    final user = ref.read(currentUserProvider);
+    if (widget.initial != null) return;
+    if (user != null && user.profileComplete && !_forFamilyMember) {
+      _applyProfile(user);
+    }
+  }
+
+  bool _didPrefill = false;
 
   @override
   void dispose() {
@@ -43,7 +63,19 @@ class _PatientDetailsFormState extends State<PatientDetailsForm> {
     super.dispose();
   }
 
-  void _submit() {
+  void _applyProfile(PatientUser user) {
+    _nameController.text = user.fullName;
+    _emailController.text = user.email;
+    _phoneController.text = user.phone;
+  }
+
+  void _clearIdentity() {
+    _nameController.clear();
+    _emailController.clear();
+    _phoneController.clear();
+  }
+
+  void _submit(PatientUser? user, {required bool lockSelf}) {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     final mode = _consultationMode;
     if (mode == null) {
@@ -52,10 +84,11 @@ class _PatientDetailsFormState extends State<PatientDetailsForm> {
     }
     widget.onSubmit(
       PatientDetails(
-        name: _nameController.text.trim(),
-        email: _emailController.text.trim(),
-        phone: _phoneController.text.trim(),
+        name: lockSelf && user != null ? user.fullName : _nameController.text.trim(),
+        email: lockSelf && user != null ? user.email : _emailController.text.trim(),
+        phone: lockSelf && user != null ? user.phone : _phoneController.text.trim(),
         consultationMode: mode,
+        forFamilyMember: _forFamilyMember,
       ),
     );
   }
@@ -63,74 +96,128 @@ class _PatientDetailsFormState extends State<PatientDetailsForm> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final user = ref.watch(currentUserProvider);
+    final canFamily = user?.canBookForFamily ?? false;
+    final lockSelf = user != null &&
+        user.profileComplete &&
+        !_forFamilyMember;
+
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          TextFormField(
-            controller: _nameController,
-            textCapitalization: TextCapitalization.words,
-            decoration: const InputDecoration(labelText: 'Full name'),
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-                return 'Name is required';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: AppSpacing.md),
-          TextFormField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(labelText: 'Email'),
-            validator: (value) {
-              final email = value?.trim() ?? '';
-              if (email.isEmpty) return 'Email is required';
-              if (!email.contains('@') || !email.contains('.')) {
-                return 'Enter a valid email';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: AppSpacing.md),
-          TextFormField(
-            controller: _phoneController,
-            keyboardType: TextInputType.phone,
-            decoration: const InputDecoration(labelText: 'Phone'),
-            validator: (value) {
-              final phone = value?.trim() ?? '';
-              if (phone.isEmpty) return 'Phone is required';
-              if (phone.replaceAll(RegExp(r'\D'), '').length < 10) {
-                return 'Enter a valid phone number';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: AppSpacing.md),
+          if (canFamily) ...[
+            Text('Who is this appointment for?', style: theme.textTheme.titleSmall),
+            const SizedBox(height: AppSpacing.sm),
+            RadioListTile<bool>(
+              title: const Text('For me'),
+              value: false,
+              groupValue: _forFamilyMember,
+              onChanged: (v) {
+                setState(() {
+                  _forFamilyMember = false;
+                  if (user != null) _applyProfile(user);
+                });
+              },
+            ),
+            RadioListTile<bool>(
+              title: const Text('For a family member'),
+              value: true,
+              groupValue: _forFamilyMember,
+              onChanged: (v) {
+                setState(() {
+                  _forFamilyMember = true;
+                  _clearIdentity();
+                });
+              },
+            ),
+            const SizedBox(height: AppSpacing.sm),
+          ],
+          if (lockSelf) ...[
+            Card(
+              margin: EdgeInsets.zero,
+              child: Padding(
+                padding: const EdgeInsets.all(AppSpacing.md),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Using your account', style: theme.textTheme.titleSmall),
+                    const SizedBox(height: 4),
+                    Text(user!.fullName),
+                    Text(user.email),
+                    Text(user.phone),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.md),
+          ] else ...[
+            TextFormField(
+              controller: _nameController,
+              textCapitalization: TextCapitalization.words,
+              decoration: const InputDecoration(labelText: 'Full name'),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'Name is required';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: AppSpacing.md),
+            TextFormField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(labelText: 'Email'),
+              validator: (value) {
+                final v = value?.trim() ?? '';
+                if (v.isEmpty) return 'Email is required';
+                if (!v.contains('@') || !v.contains('.')) {
+                  return 'Enter a valid email';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: AppSpacing.md),
+            TextFormField(
+              controller: _phoneController,
+              keyboardType: TextInputType.phone,
+              decoration: const InputDecoration(labelText: 'Phone'),
+              validator: (value) {
+                final digits = (value ?? '').replaceAll(RegExp(r'\D'), '');
+                if (digits.length < 10) {
+                  return 'Enter a valid phone number';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: AppSpacing.md),
+          ],
           Text('Consultation mode', style: theme.textTheme.titleSmall),
           const SizedBox(height: AppSpacing.sm),
-          ...ConsultationMode.values.map((mode) {
-            return RadioListTile<ConsultationMode>(
-              contentPadding: EdgeInsets.zero,
-              title: Text(mode.label),
-              value: mode,
-              groupValue: _consultationMode,
-              onChanged: (value) => setState(() => _consultationMode = value),
-            );
-          }),
+          RadioListTile<ConsultationMode>(
+            title: const Text('Virtual'),
+            value: ConsultationMode.virtual,
+            groupValue: _consultationMode,
+            onChanged: (v) => setState(() => _consultationMode = v),
+          ),
+          RadioListTile<ConsultationMode>(
+            title: const Text('In-Office'),
+            value: ConsultationMode.inOffice,
+            groupValue: _consultationMode,
+            onChanged: (v) => setState(() => _consultationMode = v),
+          ),
           if (_consultationMode == null)
             Text(
-              'Select Virtual or In-Office',
+              'Select a consultation mode',
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.error,
               ),
             ),
           const SizedBox(height: AppSpacing.lg),
           AppButton(
-            label: 'Review booking',
-            expand: true,
-            onPressed: _submit,
+            label: 'Continue',
+            onPressed: () => _submit(user, lockSelf: lockSelf),
           ),
         ],
       ),

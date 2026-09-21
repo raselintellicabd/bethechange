@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/auth/presentation/screens/login_screen.dart';
+import '../../features/auth/presentation/screens/signup_screen.dart';
 import '../../features/about/presentation/screens/about_menu_screen.dart';
 import '../../features/about/presentation/screens/about_slug_screen.dart';
 import '../../features/appointment/domain/models/book_online_offering.dart';
@@ -163,6 +165,22 @@ GoRouter createAppRouter() {
         name: 'contact',
         parentNavigatorKey: rootNavigatorKey,
         builder: (context, state) => const ContactScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.login,
+        name: 'login',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => LoginScreen(
+          returnTo: state.uri.queryParameters['returnTo'],
+        ),
+      ),
+      GoRoute(
+        path: AppRoutes.signup,
+        name: 'signup',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => SignupScreen(
+          returnTo: state.uri.queryParameters['returnTo'],
+        ),
       ),
       GoRoute(
         path: AppRoutes.membership,

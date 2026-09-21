@@ -33,6 +33,7 @@ class ApiLogInterceptor extends Interceptor {
     if (message != null && message.isNotEmpty) {
       _write(message);
     }
+    _write('${err.type.name}: ${err.error ?? err.message ?? 'no details'}');
     _writeBody(err.response?.data);
     handler.next(err);
   }

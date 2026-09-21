@@ -32,6 +32,7 @@ class AppointmentBookingResult {
     }
 
     final createdRaw = json['created_at'] as String? ??
+        json['starts_at'] as String? ??
         json['bookedAt'] as String? ??
         DateTime.now().toIso8601String();
 

@@ -204,6 +204,7 @@ class _StepBody extends StatelessWidget {
       AppointmentStep.confirm => AppointmentConfirmationView(
           sourceContext: state.sourceContext,
           offering: state.offering,
+          quote: state.quote,
           slot: state.selectedSlot!,
           timeLabel: state.selectionTimeLabel ?? state.selectedSlot!.label,
           patient: state.patient!,
@@ -213,20 +214,30 @@ class _StepBody extends StatelessWidget {
           onRetry: controller.retryAfterError,
         ),
       AppointmentStep.payment => MockPaymentView(
-          amountLabel: paymentAmountLabel(state.offering),
+          amountLabel: state.payableLabel,
           initialEmail: state.paymentEmail.isNotEmpty
               ? state.paymentEmail
               : (state.patient?.email ?? ''),
           offering: state.offering,
           errorMessage: state.errorMessage,
-          onContinue: ({required String email}) {
-            controller.submitCardDetails(email: email);
+          onContinue: ({
+            required String email,
+            required String cardNumber,
+            required String expiry,
+            required String cvc,
+          }) {
+            controller.submitCardDetails(
+              email: email,
+              cardNumber: cardNumber,
+              expiry: expiry,
+              cvc: cvc,
+            );
           },
           onRetry: controller.retryAfterError,
         ),
       AppointmentStep.paymentOtp => MockPaymentOtpView(
           email: state.paymentEmail,
-          amountLabel: paymentAmountLabel(state.offering),
+          amountLabel: state.payableLabel,
           isLoading: state.isLoading,
           errorMessage: state.errorMessage,
           onPay: controller.submitPayment,

@@ -22,7 +22,15 @@ class ApiPaths {
   /// Website calendar/slot map (same JSON as the public appointments page).
   static const String appointmentsAvailability = '/appointments/availability/';
 
-  /// Public pending booking create (DRF).
+  /// Paid booking quote / pay / book (JWT optional for member discounts).
+  static const String appointmentsQuote = '/api/v1/appointments/quote/';
+  static const String appointmentsPaymentSession =
+      '/api/v1/appointments/payment/session/';
+  static const String appointmentsPaymentConfirm =
+      '/api/v1/appointments/payment/confirm/';
+  static const String appointmentsBook = '/api/v1/appointments/book/';
+
+  /// Legacy unpaid create (staff / older clients). Prefer [appointmentsBook].
   static const String appointments = '/api/v1/appointments/';
 
   /// Book-online catalog (categories + offerings). Served from mock JSON;

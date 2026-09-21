@@ -136,6 +136,36 @@ class MockApiInterceptor extends Interceptor {
         return _loadObject(MockApiAssets.memberships);
       case '/appointments/availability':
         return _availabilityWindowPayload(query);
+      case ApiPaths.appointmentsQuote:
+      case '/api/v1/appointments/quote':
+        return {
+          'ok': true,
+          'list_amount_cents': 0,
+          'discount_cents': 0,
+          'payable_cents': 0,
+          'discount_percent': 0,
+          'used_complimentary': false,
+          'pricing_note': 'Guest / free-tier rate (list price).',
+          'list_amount_display': 'Free',
+          'discount_display': '\$0',
+          'payable_display': 'Free',
+        };
+      case '/api/v1/auth/patient/me':
+      case '/api/v1/auth/patient/me/':
+        return {
+          'id': 1,
+          'email': 'guest@example.com',
+          'first_name': 'Mock',
+          'last_name': 'User',
+          'phone': '5555555555',
+          'tier': 0,
+          'tier_title': 'Free',
+          'left_days': 0,
+          'services_taken': 0,
+          'complimentary_used': 0,
+          'membership_active': false,
+          'can_book_for_family': false,
+        };
       case '/api/v1/book-online':
         return _bookOnlineCatalogPayload();
       case ApiPaths.chatbotConfig:
@@ -207,7 +237,76 @@ class MockApiInterceptor extends Interceptor {
       case ApiPaths.chatbotMessage:
         return _chatbotReply(data);
       case '/api/v1/appointments':
+      case ApiPaths.appointmentsBook:
         return _bookAppointment(data);
+      case ApiPaths.appointmentsPaymentSession:
+        return {
+          'ok': true,
+          'provider': 'mock',
+          'payment_session_id': 'pay_mock_${_confirmationCounter + 1}',
+          'client_secret': 'secret_mock',
+          'status': 'requires_payment',
+          'amount_cents': 0,
+          'amount_display': 'Free',
+        };
+      case ApiPaths.appointmentsPaymentConfirm:
+        return {
+          'ok': true,
+          'provider': 'mock',
+          'payment_session_id': data['payment_session_id'],
+          'status': 'succeeded',
+          'amount_cents': 0,
+          'amount_display': 'Free',
+        };
+      case '/api/v1/auth/patient/login/':
+      case '/api/v1/auth/patient/signup/':
+        return {
+          'ok': true,
+          'access': 'mock_access',
+          'refresh': 'mock_refresh',
+          'user': {
+            'id': 1,
+            'email': data['email'] ?? 'guest@example.com',
+            'first_name': data['first_name'] ?? 'Mock',
+            'last_name': data['last_name'] ?? 'User',
+            'phone': data['phone'] ?? '5555555555',
+            'tier': 0,
+            'tier_title': 'Free',
+            'left_days': 0,
+            'services_taken': 0,
+            'complimentary_used': 0,
+            'membership_active': false,
+            'can_book_for_family': false,
+          },
+        };
+      case '/api/v1/memberships/payment/session/':
+        return {
+          'ok': true,
+          'payment_session_id': 'mem_mock_1',
+          'client_secret': 'secret',
+          'tier': data['tier'] ?? 1,
+          'amount_cents': 2500,
+          'amount_display': '\$25',
+        };
+      case '/api/v1/memberships/payment/confirm/':
+        return {
+          'ok': true,
+          'tier': 1,
+          'user': {
+            'id': 1,
+            'email': 'guest@example.com',
+            'first_name': 'Mock',
+            'last_name': 'User',
+            'phone': '5555555555',
+            'tier': 1,
+            'tier_title': 'Standard Wellness Membership',
+            'left_days': 120,
+            'services_taken': 0,
+            'complimentary_used': 0,
+            'membership_active': true,
+            'can_book_for_family': false,
+          },
+        };
     }
 
     throw _MockHttpError(404, 'No mock handler for POST $path.');

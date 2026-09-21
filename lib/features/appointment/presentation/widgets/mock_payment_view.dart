@@ -20,7 +20,12 @@ class MockPaymentView extends StatefulWidget {
   final String amountLabel;
   final String initialEmail;
   final BookOnlineOffering? offering;
-  final void Function({required String email}) onContinue;
+  final void Function({
+    required String email,
+    required String cardNumber,
+    required String expiry,
+    required String cvc,
+  }) onContinue;
   final String? errorMessage;
   final VoidCallback? onRetry;
 
@@ -57,7 +62,12 @@ class _MockPaymentViewState extends State<MockPaymentView> {
 
   void _submit() {
     if (!(_formKey.currentState?.validate() ?? false)) return;
-    widget.onContinue(email: _emailController.text.trim());
+    widget.onContinue(
+      email: _emailController.text.trim(),
+      cardNumber: _numberController.text.trim(),
+      expiry: _expiryController.text.trim(),
+      cvc: _cvcController.text.trim(),
+    );
   }
 
   @override

@@ -1,17 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/network/api_result.dart';
+import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
-import '../../../../core/utils/external_link_handler.dart';
 import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/review_card.dart';
+import '../../../auth/presentation/providers/auth_providers.dart';
 import '../../domain/models/membership_catalog.dart';
 import '../providers/membership_providers.dart';
 
@@ -110,18 +113,58 @@ class _MembershipBody extends ConsumerWidget {
     WidgetRef ref,
     MembershipPlan plan,
   ) async {
-    final url = plan.buttonUrl;
-    if (url == null || url.isEmpty) return;
-    final opened =
-        await ref.read(externalLinkHandlerProvider).openExternal(url);
-    if (!context.mounted) return;
-    if (!opened) {
+    if (!plan.isJoinable) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Could not open the link. Please try again.'),
-        ),
+        const SnackBar(content: Text('This plan cannot be purchased in-app.')),
       );
+      return;
     }
+
+    final loggedIn = ref.read(isLoggedInProvider);
+    if (!loggedIn) {
+      context.push(AppRoutes.loginPath(returnTo: AppRoutes.membership));
+      return;
+    }
+
+    final card = await showDialog<_MembershipCardInput>(
+      context: context,
+      builder: (ctx) => _MembershipPaymentDialog(plan: plan),
+    );
+    if (card == null || !context.mounted) return;
+
+    final repo = ref.read(authRepositoryProvider);
+    final sessionResult =
+        await repo.startMembershipPayment(tier: plan.tier);
+    if (!context.mounted) return;
+    if (sessionResult is ApiFailure<Map<String, dynamic>>) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(sessionResult.message)),
+      );
+      return;
+    }
+    final session = (sessionResult as ApiSuccess<Map<String, dynamic>>).data;
+    final confirm = await repo.confirmMembershipPayment(
+      paymentSessionId: '${session['payment_session_id'] ?? ''}',
+      clientSecret: '${session['client_secret'] ?? ''}',
+      paymentMethod: {
+        'card_number': card.number,
+        'exp_month': card.expMonth,
+        'exp_year': card.expYear,
+        'cvc': card.cvc,
+      },
+    );
+    if (!context.mounted) return;
+    if (confirm is ApiFailure<Map<String, dynamic>>) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(confirm.message)),
+      );
+      return;
+    }
+    await ref.read(authControllerProvider.notifier).refreshProfile();
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Welcome to ${plan.title}!')),
+    );
   }
 
   static String? _reviewDate(String? raw) {
@@ -185,7 +228,7 @@ class _PlanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final benefits = plan.displayBenefits;
     final price = plan.priceLabel;
-    final canJoin = plan.buttonUrl != null && plan.buttonUrl!.isNotEmpty;
+    final canJoin = plan.isJoinable;
 
     return Material(
       color: AppColors.card,
@@ -295,6 +338,105 @@ class _PlanCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _MembershipCardInput {
+  const _MembershipCardInput({
+    required this.number,
+    required this.expMonth,
+    required this.expYear,
+    required this.cvc,
+  });
+
+  final String number;
+  final String expMonth;
+  final String expYear;
+  final String cvc;
+}
+
+class _MembershipPaymentDialog extends StatefulWidget {
+  const _MembershipPaymentDialog({required this.plan});
+
+  final MembershipPlan plan;
+
+  @override
+  State<_MembershipPaymentDialog> createState() =>
+      _MembershipPaymentDialogState();
+}
+
+class _MembershipPaymentDialogState extends State<_MembershipPaymentDialog> {
+  final _number = TextEditingController();
+  final _expiry = TextEditingController();
+  final _cvc = TextEditingController();
+
+  @override
+  void dispose() {
+    _number.dispose();
+    _expiry.dispose();
+    _cvc.dispose();
+    super.dispose();
+  }
+
+  void _submit() {
+    final number = _number.text.replaceAll(RegExp(r'\D'), '');
+    final parts = _expiry.text.split(RegExp(r'[/\-]'));
+    if (number.length < 13 || parts.length < 2 || _cvc.text.length < 3) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Enter valid card details.')),
+      );
+      return;
+    }
+    var year = parts[1].trim();
+    if (year.length == 2) year = '20$year';
+    Navigator.of(context).pop(
+      _MembershipCardInput(
+        number: number,
+        expMonth: parts[0].trim().padLeft(2, '0'),
+        expYear: year,
+        cvc: _cvc.text.trim(),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Join ${widget.plan.title}'),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _number,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(labelText: 'Card number'),
+            ),
+            TextField(
+              controller: _expiry,
+              decoration: const InputDecoration(labelText: 'Expiry (MM/YY)'),
+            ),
+            TextField(
+              controller: _cvc,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(labelText: 'CVC'),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Use any card except one ending in 0000 (declined).',
+              style: TextStyle(fontSize: 12),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('Cancel'),
+        ),
+        TextButton(onPressed: _submit, child: const Text('Pay')),
+      ],
     );
   }
 }

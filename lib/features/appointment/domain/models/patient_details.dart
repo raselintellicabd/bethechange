@@ -6,12 +6,14 @@ class PatientDetails {
     required this.email,
     required this.phone,
     required this.consultationMode,
+    this.forFamilyMember = false,
   });
 
   final String name;
   final String email;
   final String phone;
   final ConsultationMode consultationMode;
+  final bool forFamilyMember;
 
   factory PatientDetails.fromJson(Map<String, dynamic> json) {
     final mode = ConsultationMode.tryParse(
@@ -26,6 +28,7 @@ class PatientDetails {
       email: (json['email'] as String?)?.trim() ?? '',
       phone: (json['phone'] as String?)?.trim() ?? '',
       consultationMode: mode,
+      forFamilyMember: json['for_family_member'] == true,
     );
   }
 
@@ -34,6 +37,7 @@ class PatientDetails {
         'email': email,
         'phone': phone,
         'consultation_mode': consultationMode.apiValue,
+        'for_family_member': forFamilyMember,
       };
 
   PatientDetails copyWith({
@@ -41,12 +45,14 @@ class PatientDetails {
     String? email,
     String? phone,
     ConsultationMode? consultationMode,
+    bool? forFamilyMember,
   }) {
     return PatientDetails(
       name: name ?? this.name,
       email: email ?? this.email,
       phone: phone ?? this.phone,
       consultationMode: consultationMode ?? this.consultationMode,
+      forFamilyMember: forFamilyMember ?? this.forFamilyMember,
     );
   }
 }

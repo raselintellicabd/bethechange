@@ -9,6 +9,8 @@ class MembershipPlan {
     this.heroImageUrl,
     this.buttonLabel,
     this.buttonUrl,
+    this.tier = 0,
+    this.priceCents = 0,
   });
 
   final int id;
@@ -18,6 +20,10 @@ class MembershipPlan {
   final List<String> benefits;
   final String? buttonLabel;
   final String? buttonUrl;
+  final int tier;
+  final int priceCents;
+
+  bool get isJoinable => tier >= 1 && tier <= 3;
 
   /// Price line extracted from benefits or description.
   String? get priceLabel {
@@ -84,6 +90,8 @@ class MembershipPlan {
       buttonLabel:
           buttonLabel == null || buttonLabel.isEmpty ? 'Join Now' : buttonLabel,
       buttonUrl: buttonUrl == null || buttonUrl.isEmpty ? null : buttonUrl,
+      tier: (json['tier'] as num?)?.toInt() ?? 0,
+      priceCents: (json['price_cents'] as num?)?.toInt() ?? 0,
     );
   }
 }

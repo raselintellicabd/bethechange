@@ -30,6 +30,3 @@ final patientClinicLinksProvider = FutureProvider<ClinicInfo>((ref) async {
     failure: (message, _) => throw Exception(message),
   );
 });
-
-/// Local Patients-tab session mock until real auth lands.
-final patientsLoggedInProvider = StateProvider<bool>((ref) => false);
