@@ -226,7 +226,6 @@ class _PlanCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final benefits = plan.displayBenefits;
     final price = plan.priceLabel;
     final canJoin = plan.isJoinable;
 
@@ -275,9 +274,20 @@ class _PlanCard extends StatelessWidget {
                   height: 3,
                   color: AppColors.ochre,
                 ),
-                if (benefits.isNotEmpty) ...[
+                for (final section in plan.sections) ...[
                   const SizedBox(height: 14),
-                  for (final benefit in benefits)
+                  if (section.heading.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Text(
+                        section.heading,
+                        style: AppTextStyles.titleMedium.copyWith(
+                          color: AppColors.forest,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  for (final item in section.items)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8),
                       child: Row(
@@ -294,7 +304,7 @@ class _PlanCard extends StatelessWidget {
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              benefit,
+                              item,
                               style: AppTextStyles.bodyMedium.copyWith(
                                 color: AppColors.ink,
                                 height: 1.35,
