@@ -36,7 +36,47 @@ const _page = ContactPage(
       ContactFormField(name: 'name', label: 'Your Name', required: true),
       ContactFormField(name: 'email', label: 'Email Address', required: true),
       ContactFormField(name: 'phone', label: 'Phone Number', required: true),
+      ContactFormField(
+        name: 'category',
+        label: 'Who is this message for?',
+        required: true,
+        choices: [
+          ContactFieldChoice(value: 'services', label: 'Services'),
+          ContactFieldChoice(value: 'doctors', label: 'Doctors'),
+        ],
+      ),
+      ContactFormField(
+        name: 'doctor_id',
+        label: 'Select a doctor',
+        showWhen: 'category=doctors',
+        choices: [
+          ContactFieldChoice(
+            value: '1',
+            label: 'Dr. Jessica Needle',
+            id: 1,
+            slug: 'jessica-needle',
+          ),
+          ContactFieldChoice(
+            value: '2',
+            label: 'Dr. Sultana Afrooz',
+            id: 2,
+            slug: 'sultana-afrooz',
+          ),
+        ],
+      ),
       ContactFormField(name: 'message', label: 'Your Message', required: true),
+    ],
+    doctors: [
+      ContactDoctorOption(
+        id: 1,
+        name: 'Dr. Jessica Needle',
+        slug: 'jessica-needle',
+      ),
+      ContactDoctorOption(
+        id: 2,
+        name: 'Dr. Sultana Afrooz',
+        slug: 'sultana-afrooz',
+      ),
     ],
   ),
 );
@@ -57,22 +97,26 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('ContactApiRepository', () {
-    test('loads the contact page', () async {
+    test('loads the contact page with category and doctors', () async {
       final result = await createMockContactRepository().getContactPage();
       expect(result, isA<ApiSuccess<ContactPage>>());
       final page = (result as ApiSuccess<ContactPage>).data;
       expect(page.title, 'Interested in An Appointment?');
       expect(page.form.submitLabel, 'Send Message');
       expect(page.location.phone, '301-970-9724');
+      expect(page.form.fieldNamed('category'), isNotNull);
+      expect(page.form.doctors, isNotEmpty);
+      expect(page.form.doctorsForPicker(), isNotEmpty);
     });
 
-    test('submits successfully and returns id', () async {
+    test('submits services successfully and returns id', () async {
       final result = await createMockContactRepository().submit(
         const ContactRequest(
           name: 'Alex Patient',
           email: 'alex@example.com',
           phone: '3015551212',
           message: 'What time do you open on Fridays?',
+          category: ContactCategory.services,
         ),
       );
 
@@ -81,6 +125,38 @@ void main() {
       expect(data.id, isNotEmpty);
       expect(data.status, 'received');
       expect(data.statusLabel, 'Received');
+    });
+
+    test('submits doctors with doctor_id successfully', () async {
+      final result = await createMockContactRepository().submit(
+        const ContactRequest(
+          name: 'Alex Patient',
+          email: 'alex@example.com',
+          phone: '3015551212',
+          message: 'Question for my doctor.',
+          category: ContactCategory.doctors,
+          doctorId: 1,
+          doctorName: 'Dr. Jessica Needle',
+        ),
+      );
+
+      expect(result, isA<ApiSuccess<ContactSubmissionResult>>());
+      final data = (result as ApiSuccess<ContactSubmissionResult>).data;
+      expect(data.id, isNotEmpty);
+    });
+
+    test('doctors without doctor_id fails', () async {
+      final result = await createMockContactRepository().submit(
+        const ContactRequest(
+          name: 'Alex Patient',
+          email: 'alex@example.com',
+          phone: '3015551212',
+          message: 'Question for my doctor.',
+          category: ContactCategory.doctors,
+        ),
+      );
+
+      expect(result, isA<ApiFailure>());
     });
 
     test('force error in the message fails', () async {
@@ -96,7 +172,7 @@ void main() {
       expect(result, isA<ApiFailure>());
     });
 
-    test('fromJson accepts the contact response', () {
+    test('fromJson accepts the contact response with routing fields', () {
       final page = ContactPage.fromJson({
         'title': 'Interested in An Appointment?',
         'content': 'Please text us.',
@@ -112,13 +188,42 @@ void main() {
           'submitLabel': 'Send Message',
           'fields': [
             {'name': 'name', 'label': 'Your Name', 'required': true},
+            {
+              'name': 'category',
+              'label': 'Who is this message for?',
+              'required': true,
+              'choices': [
+                {'value': 'services', 'label': 'Services'},
+                {'value': 'doctors', 'label': 'Doctors'},
+              ],
+            },
+            {
+              'name': 'doctor_id',
+              'label': 'Select a doctor',
+              'show_when': 'category=doctors',
+              'choices': [
+                {'id': 1, 'name': 'Dr. Jessica Needle', 'slug': 'jessica-needle'},
+              ],
+            },
+          ],
+          'doctors': [
+            {'id': 1, 'name': 'Dr. Jessica Needle', 'slug': 'jessica-needle'},
           ],
         },
       });
 
       expect(page.title, 'Interested in An Appointment?');
       expect(page.location.directionsUrl, 'https://maps.example.com/clinic');
-      expect(page.form.fields.single.label, 'Your Name');
+      expect(page.form.fieldNamed('category')?.choices.length, 2);
+      expect(page.form.doctors.single.name, 'Dr. Jessica Needle');
+      expect(
+        page.form.fieldNamed('doctor_id')!.isVisibleFor(category: 'doctors'),
+        isTrue,
+      );
+      expect(
+        page.form.fieldNamed('doctor_id')!.isVisibleFor(category: 'services'),
+        isFalse,
+      );
 
       final result = ContactSubmissionResult.fromJson({
         'id': '14',
@@ -127,6 +232,30 @@ void main() {
 
       expect(result.id, '14');
       expect(result.statusLabel, 'Received');
+    });
+
+    test('ContactRequest.toJson includes doctor_id only for doctors', () {
+      final services = const ContactRequest(
+        name: 'Alex',
+        email: 'a@example.com',
+        phone: '3015551212',
+        message: 'Hi',
+        category: ContactCategory.services,
+        doctorId: 1,
+      ).toJson();
+      expect(services['category'], 'services');
+      expect(services.containsKey('doctor_id'), isFalse);
+
+      final doctors = const ContactRequest(
+        name: 'Alex',
+        email: 'a@example.com',
+        phone: '3015551212',
+        message: 'Hi',
+        category: ContactCategory.doctors,
+        doctorId: 2,
+      ).toJson();
+      expect(doctors['category'], 'doctors');
+      expect(doctors['doctor_id'], 2);
     });
   });
 
@@ -186,12 +315,41 @@ void main() {
       expect(find.text('Contact'), findsWidgets);
       expect(find.text(_page.location.name), findsOneWidget);
       expect(find.text(_page.location.phone), findsOneWidget);
+      expect(find.text('Who is this message for?'), findsOneWidget);
+      expect(find.text('Services'), findsOneWidget);
+      expect(find.text('Doctors'), findsOneWidget);
+      expect(find.text('Select a doctor'), findsNothing);
 
       await tapSend(tester);
 
       expect(find.text('Your Name is required'), findsOneWidget);
       expect(find.text('Email Address is required'), findsOneWidget);
       await tester.pump(const Duration(milliseconds: 1));
+    });
+
+    testWidgets('shows doctor dropdown when Doctors is selected',
+        (tester) async {
+      await openContact(tester);
+
+      final doctorsOption = find.text('Doctors');
+      await tester.ensureVisible(doctorsOption);
+      await tester.pump();
+      await tester.tap(doctorsOption);
+      await tester.pump();
+
+      expect(find.text('Select a doctor'), findsOneWidget);
+      expect(find.byType(DropdownButtonFormField<int>), findsOneWidget);
+
+      await tester.enterText(fieldAt(0), 'Alex Patient');
+      await tester.enterText(fieldAt(1), 'alex@example.com');
+      await tester.enterText(fieldAt(2), '3015551212');
+      await tester.enterText(fieldAt(3), 'Question for my doctor.');
+      await tester.pump();
+
+      await tapSend(tester);
+      await tester.pump();
+
+      expect(find.text('Please select a doctor.'), findsOneWidget);
     });
 
     testWidgets('success clears form; failure shows retry', (tester) async {
@@ -218,6 +376,7 @@ void main() {
 
       expect(find.text('Message sent'), findsOneWidget);
       expect(find.textContaining('Thanks, Alex Patient'), findsOneWidget);
+      expect(find.text('Services'), findsOneWidget);
       expect(find.text('Received'), findsOneWidget);
       expect(find.text('Send another message'), findsOneWidget);
     });

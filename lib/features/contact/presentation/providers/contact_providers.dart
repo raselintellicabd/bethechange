@@ -68,7 +68,10 @@ class ContactController extends StateNotifier<ContactFormState> {
       success: (data) {
         _analytics.logEvent(
           AnalyticsEvents.contactSubmitted,
-          parameters: {'id': data.id},
+          parameters: {
+            'id': data.id,
+            'category': request.category,
+          },
         );
         state = state.copyWith(
           isSubmitting: false,

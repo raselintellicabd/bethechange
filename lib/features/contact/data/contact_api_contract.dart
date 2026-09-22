@@ -4,12 +4,27 @@
 ///   GET /api/v1/contact/
 ///   POST /api/v1/contact/
 ///
-/// POST request JSON:
+/// GET `form` includes `category` / `doctor_id` fields and `doctors`.
+///
+/// POST request JSON (Services):
 /// ```json
 /// {
 ///   "name": "string",
 ///   "email": "string",
 ///   "phone": "string",
+///   "category": "services",
+///   "message": "string"
+/// }
+/// ```
+///
+/// POST request JSON (Doctors):
+/// ```json
+/// {
+///   "name": "string",
+///   "email": "string",
+///   "phone": "string",
+///   "category": "doctors",
+///   "doctor_id": 1,
 ///   "message": "string"
 /// }
 /// ```

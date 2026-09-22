@@ -317,6 +317,11 @@ class MockApiInterceptor extends Interceptor {
     final email = '${data['email'] ?? ''}'.trim();
     final phone = '${data['phone'] ?? ''}'.trim();
     final message = '${data['message'] ?? ''}'.trim();
+    final category = '${data['category'] ?? 'services'}'.trim().toLowerCase();
+    final doctorIdRaw = data['doctor_id'];
+    final doctorId = doctorIdRaw is int
+        ? doctorIdRaw
+        : int.tryParse('${doctorIdRaw ?? ''}'.trim());
 
     if (message.toLowerCase().contains('force error')) {
       throw const _MockHttpError(
@@ -327,6 +332,10 @@ class MockApiInterceptor extends Interceptor {
 
     if (name.isEmpty || email.isEmpty || phone.isEmpty || message.isEmpty) {
       throw const _MockHttpError(400, 'All contact fields are required.');
+    }
+
+    if (category == 'doctors' && doctorId == null) {
+      throw const _MockHttpError(400, 'Please select a doctor.');
     }
 
     final id = ++_contactCounter;

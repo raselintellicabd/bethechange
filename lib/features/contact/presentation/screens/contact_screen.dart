@@ -27,6 +27,9 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
   final _phoneController = TextEditingController();
   final _messageController = TextEditingController();
 
+  String _category = ContactCategory.services;
+  int? _doctorId;
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -36,9 +39,29 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
     super.dispose();
   }
 
-  Future<void> _submit() async {
+  void _resetFormFields() {
+    _formKey.currentState?.reset();
+    _nameController.clear();
+    _emailController.clear();
+    _phoneController.clear();
+    _messageController.clear();
+    setState(() {
+      _category = ContactCategory.services;
+      _doctorId = null;
+    });
+  }
+
+  Future<void> _submit(ContactFormContent form) async {
     FocusScope.of(context).unfocus();
     if (!(_formKey.currentState?.validate() ?? false)) return;
+
+    final doctorName = _category == ContactCategory.doctors
+        ? form
+            .doctorsForPicker()
+            .where((doctor) => doctor.id == _doctorId)
+            .map((doctor) => doctor.name)
+            .firstOrNull
+        : null;
 
     final ok = await ref.read(contactControllerProvider.notifier).submit(
           ContactRequest(
@@ -46,15 +69,15 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
             email: _emailController.text.trim(),
             phone: _phoneController.text.trim(),
             message: _messageController.text.trim(),
+            category: _category,
+            doctorId:
+                _category == ContactCategory.doctors ? _doctorId : null,
+            doctorName: doctorName ?? '',
           ),
         );
 
     if (!mounted || !ok) return;
-    _formKey.currentState?.reset();
-    _nameController.clear();
-    _emailController.clear();
-    _phoneController.clear();
-    _messageController.clear();
+    _resetFormFields();
   }
 
   Future<void> _openExternal(String url, String failureMessage) async {
@@ -115,9 +138,22 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
                 emailController: _emailController,
                 phoneController: _phoneController,
                 messageController: _messageController,
+                category: _category,
+                doctorId: _doctorId,
+                onCategoryChanged: (value) {
+                  setState(() {
+                    _category = value;
+                    if (value != ContactCategory.doctors) {
+                      _doctorId = null;
+                    }
+                  });
+                },
+                onDoctorChanged: (value) {
+                  setState(() => _doctorId = value);
+                },
                 errorMessage: state.errorMessage,
                 isSubmitting: state.isSubmitting,
-                onSubmit: _submit,
+                onSubmit: () => _submit(page.form),
               ),
           ],
         ),
@@ -226,6 +262,10 @@ class _ContactForm extends StatelessWidget {
     required this.emailController,
     required this.phoneController,
     required this.messageController,
+    required this.category,
+    required this.doctorId,
+    required this.onCategoryChanged,
+    required this.onDoctorChanged,
     required this.errorMessage,
     required this.isSubmitting,
     required this.onSubmit,
@@ -237,6 +277,10 @@ class _ContactForm extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController phoneController;
   final TextEditingController messageController;
+  final String category;
+  final int? doctorId;
+  final ValueChanged<String> onCategoryChanged;
+  final ValueChanged<int?> onDoctorChanged;
   final String? errorMessage;
   final bool isSubmitting;
   final VoidCallback onSubmit;
@@ -260,8 +304,10 @@ class _ContactForm extends StatelessWidget {
           Text(form.heading, style: AppTextStyles.titleLarge),
           const SizedBox(height: AppSpacing.md),
           for (final field in form.fields) ...[
-            _field(field),
-            const SizedBox(height: AppSpacing.md),
+            if (field.isVisibleFor(category: category)) ...[
+              _field(field),
+              const SizedBox(height: AppSpacing.md),
+            ],
           ],
           if (errorMessage != null) ...[
             Text(
@@ -331,6 +377,17 @@ class _ContactForm extends StatelessWidget {
             return null;
           },
         ),
+      'category' => _CategoryField(
+          field: field,
+          category: category,
+          onChanged: onCategoryChanged,
+        ),
+      'doctor_id' => _DoctorField(
+          field: field,
+          doctors: form.doctorsForPicker(),
+          doctorId: doctorId,
+          onChanged: onDoctorChanged,
+        ),
       'message' => TextFormField(
           controller: messageController,
           minLines: 4,
@@ -352,6 +409,154 @@ class _ContactForm extends StatelessWidget {
       return '${field.label} is required';
     }
     return null;
+  }
+}
+
+class _CategoryField extends StatelessWidget {
+  const _CategoryField({
+    required this.field,
+    required this.category,
+    required this.onChanged,
+  });
+
+  final ContactFormField field;
+  final String category;
+  final ValueChanged<String> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final choices = field.choices.isNotEmpty
+        ? field.choices
+        : const [
+            ContactFieldChoice(
+              value: ContactCategory.services,
+              label: 'Services',
+            ),
+            ContactFieldChoice(
+              value: ContactCategory.doctors,
+              label: 'Doctors',
+            ),
+          ];
+
+    return FormField<String>(
+      initialValue: category,
+      validator: (_) {
+        if (!field.required) return null;
+        if (category.trim().isEmpty) {
+          return '${field.label} is required';
+        }
+        return null;
+      },
+      builder: (state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(field.label, style: AppTextStyles.titleSmall),
+            const SizedBox(height: AppSpacing.sm),
+            for (final choice in choices)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: InkWell(
+                  onTap: () {
+                    onChanged(choice.value);
+                    state.didChange(choice.value);
+                  },
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.sm,
+                      vertical: 12,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: category == choice.value
+                            ? AppColors.forest
+                            : AppColors.line,
+                      ),
+                      color: category == choice.value
+                          ? AppColors.forest.withValues(alpha: 0.06)
+                          : AppColors.card,
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          category == choice.value
+                              ? Icons.radio_button_checked
+                              : Icons.radio_button_off,
+                          size: 20,
+                          color: category == choice.value
+                              ? AppColors.forest
+                              : AppColors.inkMuted,
+                        ),
+                        const SizedBox(width: AppSpacing.sm),
+                        Expanded(
+                          child: Text(
+                            choice.label,
+                            style: AppTextStyles.bodyMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            if (state.hasError)
+              Padding(
+                padding: const EdgeInsets.only(top: AppSpacing.xs),
+                child: Text(
+                  state.errorText!,
+                  style: AppTextStyles.bodySmall.copyWith(
+                    color: AppColors.danger,
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _DoctorField extends StatelessWidget {
+  const _DoctorField({
+    required this.field,
+    required this.doctors,
+    required this.doctorId,
+    required this.onChanged,
+  });
+
+  final ContactFormField field;
+  final List<ContactDoctorOption> doctors;
+  final int? doctorId;
+  final ValueChanged<int?> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final selected =
+        doctors.any((doctor) => doctor.id == doctorId) ? doctorId : null;
+
+    return DropdownButtonFormField<int>(
+      key: ValueKey('doctor-$selected'),
+      initialValue: selected,
+      decoration: InputDecoration(labelText: field.label),
+      items: [
+        for (final doctor in doctors)
+          DropdownMenuItem<int>(
+            value: doctor.id,
+            child: Text(doctor.name),
+          ),
+      ],
+      onChanged: onChanged,
+      validator: (value) {
+        // Doctor is required whenever this field is shown (Doctors category).
+        if (value == null) {
+          return 'Please select a doctor.';
+        }
+        return null;
+      },
+    );
   }
 }
 
@@ -388,6 +593,7 @@ class _ContactSuccessCard extends StatelessWidget {
             style: AppTextStyles.bodyMedium,
           ),
           const SizedBox(height: AppSpacing.md),
+          _receiptRow('Topic', result.topicLabel),
           _receiptRow('Email', result.email),
           _receiptRow('Phone', result.phone),
           _receiptRow('Reference', result.id),

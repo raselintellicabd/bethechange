@@ -21,7 +21,30 @@
       { "name": "name", "label": "Your Name", "required": true },
       { "name": "email", "label": "Email Address", "required": true },
       { "name": "phone", "label": "Phone Number", "required": true },
+      {
+        "name": "category",
+        "label": "Who is this message for?",
+        "required": true,
+        "choices": [
+          { "value": "services", "label": "Services" },
+          { "value": "doctors", "label": "Doctors" }
+        ]
+      },
+      {
+        "name": "doctor_id",
+        "label": "Select a doctor",
+        "required": false,
+        "show_when": "category=doctors",
+        "choices": [
+          { "id": 1, "name": "Dr. Jessica Needle", "slug": "jessica-needle" },
+          { "id": 2, "name": "Dr. Sultana Afrooz", "slug": "sultana-afrooz" }
+        ]
+      },
       { "name": "message", "label": "Your Message", "required": true }
+    ],
+    "doctors": [
+      { "id": 1, "name": "Dr. Jessica Needle", "slug": "jessica-needle" },
+      { "id": 2, "name": "Dr. Sultana Afrooz", "slug": "sultana-afrooz" }
     ]
   }
 }

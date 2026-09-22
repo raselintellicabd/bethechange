@@ -87,12 +87,14 @@ class ContactFormContent {
     this.heading = 'Send Us A Message',
     this.submitLabel = 'Send Message',
     this.fields = const [],
+    this.doctors = const [],
   });
 
   final String eyebrow;
   final String heading;
   final String submitLabel;
   final List<ContactFormField> fields;
+  final List<ContactDoctorOption> doctors;
 
   ContactFormField? fieldNamed(String name) {
     for (final field in fields) {
@@ -101,8 +103,26 @@ class ContactFormContent {
     return null;
   }
 
+  /// Doctors for the dropdown: prefer field choices, else top-level list.
+  List<ContactDoctorOption> doctorsForPicker() {
+    final field = fieldNamed('doctor_id');
+    if (field != null && field.choices.isNotEmpty) {
+      return [
+        for (final choice in field.choices)
+          if (choice.id != null)
+            ContactDoctorOption(
+              id: choice.id!,
+              name: choice.label,
+              slug: choice.slug,
+            ),
+      ];
+    }
+    return doctors;
+  }
+
   factory ContactFormContent.fromJson(Map<String, dynamic> json) {
     final rawFields = json['fields'];
+    final rawDoctors = json['doctors'];
     return ContactFormContent(
       eyebrow: _text(json['eyebrow'], fallback: 'Contact'),
       heading: _text(json['heading'], fallback: 'Send Us A Message'),
@@ -110,6 +130,11 @@ class ContactFormContent {
       fields: rawFields is List
           ? rawFields.whereType<Map>().map((item) {
               return ContactFormField.fromJson(_map(item));
+            }).toList()
+          : const [],
+      doctors: rawDoctors is List
+          ? rawDoctors.whereType<Map>().map((item) {
+              return ContactDoctorOption.fromJson(_map(item));
             }).toList()
           : const [],
     );
@@ -121,17 +146,92 @@ class ContactFormField {
     required this.name,
     required this.label,
     this.required = false,
+    this.showWhen = '',
+    this.choices = const [],
   });
 
   final String name;
   final String label;
   final bool required;
 
+  /// e.g. `category=doctors` — empty means always visible.
+  final String showWhen;
+  final List<ContactFieldChoice> choices;
+
+  bool isVisibleFor({required String category}) {
+    final rule = showWhen.trim();
+    if (rule.isEmpty) return true;
+    final parts = rule.split('=');
+    if (parts.length != 2) return true;
+    final key = parts[0].trim();
+    final value = parts[1].trim();
+    if (key == 'category') return category == value;
+    return true;
+  }
+
   factory ContactFormField.fromJson(Map<String, dynamic> json) {
+    final rawChoices = json['choices'];
     return ContactFormField(
       name: _text(json['name']),
       label: _text(json['label']),
       required: json['required'] == true,
+      showWhen: _text(json['show_when']),
+      choices: rawChoices is List
+          ? rawChoices.whereType<Map>().map((item) {
+              return ContactFieldChoice.fromJson(_map(item));
+            }).toList()
+          : const [],
+    );
+  }
+}
+
+class ContactFieldChoice {
+  const ContactFieldChoice({
+    required this.value,
+    required this.label,
+    this.id,
+    this.slug = '',
+  });
+
+  final String value;
+  final String label;
+  final int? id;
+  final String slug;
+
+  factory ContactFieldChoice.fromJson(Map<String, dynamic> json) {
+    final id = _int(json['id']);
+    final value = _text(json['value']);
+    final name = _text(json['name']);
+    final label = _text(json['label'], fallback: name);
+    return ContactFieldChoice(
+      value: value.isNotEmpty ? value : (id != null ? '$id' : ''),
+      label: label.isNotEmpty ? label : value,
+      id: id,
+      slug: _text(json['slug']),
+    );
+  }
+}
+
+class ContactDoctorOption {
+  const ContactDoctorOption({
+    required this.id,
+    required this.name,
+    this.slug = '',
+  });
+
+  final int id;
+  final String name;
+  final String slug;
+
+  factory ContactDoctorOption.fromJson(Map<String, dynamic> json) {
+    final id = _int(json['id']);
+    if (id == null) {
+      throw const FormatException('ContactDoctorOption id is required.');
+    }
+    return ContactDoctorOption(
+      id: id,
+      name: _text(json['name']),
+      slug: _text(json['slug']),
     );
   }
 }
@@ -140,6 +240,13 @@ String _text(Object? value, {String fallback = ''}) {
   if (value == null) return fallback;
   final text = '$value'.trim();
   return text.isEmpty ? fallback : text;
+}
+
+int? _int(Object? value) {
+  if (value is int) return value;
+  if (value is num) return value.toInt();
+  if (value is String) return int.tryParse(value.trim());
+  return null;
 }
 
 Map<String, dynamic> _map(Map<dynamic, dynamic> value) {
