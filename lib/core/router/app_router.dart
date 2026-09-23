@@ -20,6 +20,8 @@ import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/membership/domain/models/membership_catalog.dart';
 import '../../features/membership/presentation/screens/membership_checkout_screen.dart';
 import '../../features/membership/presentation/screens/membership_screen.dart';
+import '../../features/patient/presentation/screens/appointment_history_screen.dart';
+import '../../features/patient/presentation/screens/patient_profile_screen.dart';
 import '../../features/patient/presentation/screens/patient_tab_screen.dart';
 import '../../features/services/presentation/screens/service_detail_screen.dart';
 import '../constants/app_constants.dart';
@@ -167,6 +169,18 @@ GoRouter createAppRouter() {
         name: 'contact',
         parentNavigatorKey: rootNavigatorKey,
         builder: (context, state) => const ContactScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.patientProfile,
+        name: 'patientProfile',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => const PatientProfileScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.appointmentHistory,
+        name: 'appointmentHistory',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => const AppointmentHistoryScreen(),
       ),
       GoRoute(
         path: AppRoutes.login,

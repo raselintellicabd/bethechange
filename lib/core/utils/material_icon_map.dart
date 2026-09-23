@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 IconData materialIconFromName(String name) {
   return switch (name) {
     'account_circle_outlined' => Icons.account_circle_outlined,
+    'assignment_outlined' => Icons.assignment_outlined,
+    'person_outline' => Icons.person_outline,
+    'history' => Icons.history,
     'medical_services_outlined' => Icons.medical_services_outlined,
     'calendar_plus_outlined' => Icons.edit_calendar_outlined,
     'shopping_bag_outlined' => Icons.shopping_bag_outlined,

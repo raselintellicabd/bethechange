@@ -2,66 +2,110 @@
   "sectionTitle": "Patient resources",
   "sectionSubtitle": "Portal access, booking, supplements and answers.",
   "headerSubtitle": "Manage your care in one place",
-  "tiles": [
+  "sections": [
     {
-      "id": "portal",
-      "title": "Patient portal",
-      "subtitle": "Records and messages",
-      "icon": "account_circle_outlined",
-      "action": {
-        "type": "externalUrlKey",
-        "urlKey": "patientPortalUrl"
-      }
-    },
-    {
-      "id": "book-service",
-      "title": "Book a service",
-      "subtitle": "Browse therapies",
-      "icon": "calendar_plus_outlined",
-      "action": {
-        "type": "route",
-        "route": "/explore/services"
-      }
-    },
-    {
-      "id": "shop",
-      "title": "Shop",
-      "subtitle": "Fullscript shop",
-      "icon": "shopping_bag_outlined",
-      "action": {
-        "type": "externalUrlKey",
-        "urlKey": "shopSupplementsUrl"
-      }
-    },
-    {
-      "id": "faq",
-      "title": "FAQ",
-      "subtitle": "Common questions",
-      "icon": "help_outline",
-      "action": {
-        "type": "route",
-        "route": "/faq"
-      }
+      "id": "my-account",
+      "title": "My account",
+      "tiles": [
+        {
+          "id": "profile",
+          "title": "Profile",
+          "subtitle": "Manage your details",
+          "icon": "person_outline",
+          "action": {
+            "type": "route",
+            "route": "/patients/profile"
+          }
+        },
+        {
+          "id": "appointment-history",
+          "title": "Appointment History",
+          "subtitle": "Past & upcoming visits",
+          "icon": "history",
+          "action": {
+            "type": "route",
+            "route": "/patients/appointment-history"
+          }
+        }
+      ]
     },
     {
       "id": "membership",
       "title": "Membership",
-      "subtitle": "Plans and benefits",
-      "icon": "badge_outlined",
-      "action": {
-        "type": "route",
-        "route": "/membership"
-      }
+      "tiles": [
+        {
+          "id": "membership",
+          "title": "Membership",
+          "subtitle": "Plans and benefits",
+          "icon": "badge_outlined",
+          "action": {
+            "type": "route",
+            "route": "/membership"
+          }
+        }
+      ]
     },
     {
-      "id": "contact",
-      "title": "Contact",
-      "subtitle": "Reach the clinic",
-      "icon": "mail_outline",
-      "action": {
-        "type": "route",
-        "route": "/contact"
-      }
+      "id": "care",
+      "title": "Care",
+      "tiles": [
+        {
+          "id": "portal",
+          "title": "Patient portal",
+          "subtitle": "Records and messages",
+          "icon": "assignment_outlined",
+          "action": {
+            "type": "externalUrlKey",
+            "urlKey": "patientPortalUrl"
+          }
+        },
+        {
+          "id": "book-service",
+          "title": "Book a service",
+          "subtitle": "Browse therapies",
+          "icon": "calendar_plus_outlined",
+          "action": {
+            "type": "route",
+            "route": "/explore/services"
+          }
+        },
+        {
+          "id": "shop",
+          "title": "Shop",
+          "subtitle": "Fullscript shop",
+          "icon": "shopping_bag_outlined",
+          "action": {
+            "type": "externalUrlKey",
+            "urlKey": "shopSupplementsUrl"
+          }
+        }
+      ]
+    },
+    {
+      "id": "support",
+      "title": "Support",
+      "tiles": [
+        {
+          "id": "faq",
+          "title": "FAQ",
+          "subtitle": "Common questions",
+          "icon": "help_outline",
+          "action": {
+            "type": "route",
+            "route": "/faq"
+          }
+        },
+        {
+          "id": "contact",
+          "title": "Contact",
+          "subtitle": "Reach the clinic",
+          "icon": "mail_outline",
+          "action": {
+            "type": "route",
+            "route": "/contact"
+          }
+        }
+      ]
     }
   ]
 }

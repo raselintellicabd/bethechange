@@ -16,6 +16,8 @@ abstract final class AppRoutes {
   static const String membershipCheckout = '/membership/checkout';
   static const String login = '/login';
   static const String signup = '/signup';
+  static const String patientProfile = '/patients/profile';
+  static const String appointmentHistory = '/patients/appointment-history';
 
   static String loginPath({String? returnTo}) {
     if (returnTo == null || returnTo.isEmpty) return login;

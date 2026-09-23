@@ -60,21 +60,59 @@ class PatientTileItem {
   }
 }
 
+class PatientSection {
+  const PatientSection({
+    required this.id,
+    required this.title,
+    required this.tiles,
+  });
+
+  final String id;
+  final String title;
+  final List<PatientTileItem> tiles;
+
+  factory PatientSection.fromJson(Map<String, dynamic> json) {
+    final tiles = (json['tiles'] as List<dynamic>? ?? const [])
+        .map((item) => PatientTileItem.fromJson(item as Map<String, dynamic>))
+        .toList();
+
+    return PatientSection(
+      id: (json['id'] as String?)?.trim() ?? '',
+      title: (json['title'] as String?)?.trim() ?? '',
+      tiles: tiles,
+    );
+  }
+}
+
 class PatientsContent {
   const PatientsContent({
     required this.sectionTitle,
     required this.sectionSubtitle,
-    required this.tiles,
+    required this.sections,
     this.headerSubtitle = 'Manage your care in one place',
-  });
+    List<PatientTileItem>? tiles,
+  }) : _legacyTiles = tiles;
 
   final String sectionTitle;
   final String sectionSubtitle;
   final String headerSubtitle;
-  final List<PatientTileItem> tiles;
+  final List<PatientSection> sections;
+  final List<PatientTileItem>? _legacyTiles;
+
+  /// Flat tile list (sections first, then any legacy top-level tiles).
+  List<PatientTileItem> get tiles {
+    if (sections.isNotEmpty) {
+      return [for (final section in sections) ...section.tiles];
+    }
+    return _legacyTiles ?? const [];
+  }
 
   factory PatientsContent.fromJson(Map<String, dynamic> json) {
-    final tiles = (json['tiles'] as List<dynamic>? ?? const [])
+    final sections = (json['sections'] as List<dynamic>? ?? const [])
+        .map((item) => PatientSection.fromJson(item as Map<String, dynamic>))
+        .toList();
+
+    final legacyTiles = (json['tiles'] as List<dynamic>? ?? const [])
         .map((item) => PatientTileItem.fromJson(item as Map<String, dynamic>))
         .toList();
 
@@ -83,7 +121,8 @@ class PatientsContent {
       sectionSubtitle: (json['sectionSubtitle'] as String?)?.trim() ?? '',
       headerSubtitle: (json['headerSubtitle'] as String?)?.trim() ??
           'Manage your care in one place',
-      tiles: tiles,
+      sections: sections,
+      tiles: sections.isEmpty ? legacyTiles : null,
     );
   }
 }

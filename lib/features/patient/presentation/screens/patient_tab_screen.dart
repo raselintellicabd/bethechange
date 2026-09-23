@@ -2,28 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/external_link_handler.dart';
 import '../../../../core/utils/material_icon_map.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/ui_kit.dart';
+import '../../../auth/domain/models/patient_user.dart';
 import '../../../auth/presentation/providers/auth_providers.dart';
 import '../../../clinic/domain/models/clinic_info.dart';
 import '../../domain/models/patients_content.dart';
 import '../providers/patients_providers.dart';
 
-/// Patients hub redesign — account-style resource list.
+/// Patients hub — account-style resource list with sectioned tiles.
 class PatientTabScreen extends ConsumerWidget {
   const PatientTabScreen({super.key});
 
   static const _headerMuted = Color(0xFFD6EBEF);
   static const _pageBg = Color(0xFFF5F9F9);
-  static const _avatarBg = Color(0xFFD6EBEF);
+  static const _avatarBg = Color(0xFFFFFFFF);
   static const _avatarText = Color(0xFF1F5F6C);
+  static const _profileCard = Color(0xFF267A8C);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,18 +53,18 @@ class PatientTabScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _PatientsHeader(
-                subtitle: loggedIn && user != null
-                    ? user.fullName
-                    : patients.headerSubtitle,
+                headerSubtitle: patients.headerSubtitle,
                 loggedIn: loggedIn,
-                initials: user?.initials ?? '?',
-                tierLabel: loggedIn && user != null
-                    ? (user.membershipActive
-                        ? '${user.tierTitle} · ${user.leftDays}d left'
-                        : user.tierTitle)
-                    : null,
+                user: user,
                 onLoginPressed: () {
-                  context.push(AppRoutes.loginPath(returnTo: AppRoutes.patients));
+                  context.push(
+                    AppRoutes.loginPath(returnTo: AppRoutes.patients),
+                  );
+                },
+                onSignupPressed: () {
+                  context.push(
+                    AppRoutes.signupPath(returnTo: AppRoutes.patients),
+                  );
                 },
                 onLogoutPressed: () {
                   ref.read(authControllerProvider.notifier).logout();
@@ -82,19 +86,19 @@ class PatientTabScreen extends ConsumerWidget {
 
 class _PatientsHeader extends StatelessWidget {
   const _PatientsHeader({
-    required this.subtitle,
+    required this.headerSubtitle,
     required this.loggedIn,
-    required this.initials,
     required this.onLoginPressed,
+    required this.onSignupPressed,
     required this.onLogoutPressed,
-    this.tierLabel,
+    this.user,
   });
 
-  final String subtitle;
+  final String headerSubtitle;
   final bool loggedIn;
-  final String initials;
-  final String? tierLabel;
+  final PatientUser? user;
   final VoidCallback onLoginPressed;
+  final VoidCallback onSignupPressed;
   final VoidCallback onLogoutPressed;
 
   @override
@@ -104,129 +108,192 @@ class _PatientsHeader extends StatelessWidget {
       child: SafeArea(
         bottom: false,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 14, 20, 26),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: const EdgeInsets.fromLTRB(20, 14, 20, 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Patients',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                        height: 1.2,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      subtitle,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: PatientTabScreen._headerMuted,
-                        height: 1.3,
-                      ),
-                    ),
-                    if (tierLabel != null) ...[
-                      const SizedBox(height: 4),
-                      Text(
-                        tierLabel!,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: PatientTabScreen._headerMuted,
-                        ),
-                      ),
-                    ],
-                  ],
+              Text(
+                'Patients',
+                style: GoogleFonts.workSans(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                  height: 1.2,
                 ),
               ),
-              if (loggedIn)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    CircleAvatar(
-                      radius: 15,
-                      backgroundColor: PatientTabScreen._avatarBg,
-                      child: Text(
-                        initials,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: PatientTabScreen._avatarText,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    GestureDetector(
-                      onTap: onLogoutPressed,
-                      behavior: HitTestBehavior.opaque,
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 2),
-                        child: Text(
-                          'Log out',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: PatientTabScreen._headerMuted,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+              const SizedBox(height: 4),
+              Text(
+                headerSubtitle,
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400,
+                  color: PatientTabScreen._headerMuted,
+                  height: 1.3,
+                ),
+              ),
+              const SizedBox(height: 16),
+              if (loggedIn && user != null)
+                _LoggedInProfileCard(
+                  user: user!,
+                  onLogoutPressed: onLogoutPressed,
                 )
               else
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: onLoginPressed,
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: AppColors.ochre,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 7,
-                        ),
-                        minimumSize: Size.zero,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                      ),
-                      child: const Text(
-                        'Log in',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        context.push(
-                          AppRoutes.signupPath(returnTo: AppRoutes.patients),
-                        );
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor: PatientTabScreen._headerMuted,
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        minimumSize: Size.zero,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      child: const Text(
-                        'Sign up',
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ),
-                  ],
+                _LoggedOutActions(
+                  onLoginPressed: onLoginPressed,
+                  onSignupPressed: onSignupPressed,
                 ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _LoggedInProfileCard extends StatelessWidget {
+  const _LoggedInProfileCard({
+    required this.user,
+    required this.onLogoutPressed,
+  });
+
+  final PatientUser user;
+  final VoidCallback onLogoutPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final membershipLabel = user.membershipActive
+        ? '${user.tierTitle} member'
+        : user.tierTitle;
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(12, 12, 10, 12),
+      decoration: BoxDecoration(
+        color: PatientTabScreen._profileCard,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 22,
+            backgroundColor: PatientTabScreen._avatarBg,
+            child: Text(
+              user.initials,
+              style: GoogleFonts.workSans(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                color: PatientTabScreen._avatarText,
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  user.fullName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.workSans(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    height: 1.2,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  membershipLabel,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.workSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: PatientTabScreen._headerMuted,
+                    height: 1.3,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+          TextButton(
+            onPressed: onLogoutPressed,
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.white,
+              foregroundColor: AppColors.ochre,
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              minimumSize: Size.zero,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18),
+              ),
+            ),
+            child: Text(
+              'Log out',
+              style: GoogleFonts.workSans(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LoggedOutActions extends StatelessWidget {
+  const _LoggedOutActions({
+    required this.onLoginPressed,
+    required this.onSignupPressed,
+  });
+
+  final VoidCallback onLoginPressed;
+  final VoidCallback onSignupPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        TextButton(
+          onPressed: onLoginPressed,
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.white,
+            foregroundColor: AppColors.ochre,
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+            minimumSize: Size.zero,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18),
+            ),
+          ),
+          child: Text(
+            'Log in',
+            style: GoogleFonts.workSans(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        TextButton(
+          onPressed: onSignupPressed,
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            minimumSize: Size.zero,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+          child: Text(
+            'Sign up',
+            style: GoogleFonts.workSans(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -242,30 +309,55 @@ class _PatientsBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final sections = patients.sections.isNotEmpty
+        ? patients.sections
+        : [
+            PatientSection(
+              id: 'all',
+              title: '',
+              tiles: patients.tiles,
+            ),
+          ];
+
     return ListView(
       padding: const EdgeInsets.fromLTRB(18, 16, 18, AppSpacing.xl),
       children: [
-        for (var i = 0; i < patients.tiles.length; i++) ...[
-          if (i > 0) const SizedBox(height: 10),
-          Builder(
-            builder: (context) {
-              final tile = patients.tiles[i];
-              final style = _tileStyle(tile.id);
-              final comingSoon =
-                  tile.action.type == PatientTileActionType.none;
-              return PatientTile(
-                title: tile.title,
-                subtitle: tile.subtitle,
-                icon: materialIconFromName(tile.icon),
-                iconBackground: style.background,
-                iconColor: style.foreground,
-                comingSoon: comingSoon,
-                onTap: comingSoon
-                    ? null
-                    : () => _onTileTap(context, ref, tile),
-              );
-            },
-          ),
+        for (var s = 0; s < sections.length; s++) ...[
+          if (s > 0) const SizedBox(height: 18),
+          if (sections[s].title.isNotEmpty) ...[
+            Text(
+              sections[s].title.toUpperCase(),
+              style: AppTextStyles.labelSmall.copyWith(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.6,
+                color: const Color(0xFF5A6A6C),
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
+          for (var i = 0; i < sections[s].tiles.length; i++) ...[
+            if (i > 0) const SizedBox(height: 10),
+            Builder(
+              builder: (context) {
+                final tile = sections[s].tiles[i];
+                final style = _tileStyle(tile.id);
+                final comingSoon =
+                    tile.action.type == PatientTileActionType.none;
+                return PatientTile(
+                  title: tile.title,
+                  subtitle: tile.subtitle,
+                  icon: materialIconFromName(tile.icon),
+                  iconBackground: style.background,
+                  iconColor: style.foreground,
+                  comingSoon: comingSoon,
+                  onTap: comingSoon
+                      ? null
+                      : () => _onTileTap(context, ref, tile),
+                );
+              },
+            ),
+          ],
         ],
       ],
     );
@@ -282,7 +374,9 @@ class _PatientsBody extends ConsumerWidget {
         if (route == null || route.isEmpty) return;
         if (route == AppRoutes.faq ||
             route == AppRoutes.contact ||
-            route == AppRoutes.membership) {
+            route == AppRoutes.membership ||
+            route == AppRoutes.patientProfile ||
+            route == AppRoutes.appointmentHistory) {
           context.push(route);
         } else {
           context.go(route);
@@ -329,7 +423,19 @@ class _TileAccent {
 
 _TileAccent _tileStyle(String id) {
   return switch (id) {
-    'portal' || 'contact' || 'membership' => const _TileAccent(
+    'profile' => const _TileAccent(
+        Color(0xFFE2ECFA),
+        Color(0xFF17568F),
+      ),
+    'appointment-history' => const _TileAccent(
+        Color(0xFFE8E4F5),
+        Color(0xFF5B4B8A),
+      ),
+    'membership' => const _TileAccent(
+        Color(0xFFDCEFEE),
+        Color(0xFF0E5A5F),
+      ),
+    'portal' => const _TileAccent(
         Color(0xFFDCEFEE),
         Color(0xFF0E5A5F),
       ),
@@ -343,7 +449,11 @@ _TileAccent _tileStyle(String id) {
       ),
     'faq' => const _TileAccent(
         Color(0xFFE2ECFA),
-        Color(0xFF17568F),
+        Color(0xFFC62828),
+      ),
+    'contact' => const _TileAccent(
+        Color(0xFFDCEFEE),
+        Color(0xFF6B5B95),
       ),
     _ => const _TileAccent(
         Color(0xFFDCEFEE),

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../providers/auth_providers.dart';
+import '../widgets/auth_labeled_field.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key, this.returnTo});
@@ -19,29 +23,33 @@ class SignupScreen extends ConsumerStatefulWidget {
 
 class _SignupScreenState extends ConsumerState<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _firstName = TextEditingController();
-  final _lastName = TextEditingController();
+  final _fullName = TextEditingController();
   final _email = TextEditingController();
   final _phone = TextEditingController();
   final _password = TextEditingController();
-  final _password2 = TextEditingController();
 
   @override
   void dispose() {
-    _firstName.dispose();
-    _lastName.dispose();
+    _fullName.dispose();
     _email.dispose();
     _phone.dispose();
     _password.dispose();
-    _password2.dispose();
     super.dispose();
+  }
+
+  (String, String) _splitName(String value) {
+    final parts = value.trim().split(RegExp(r'\s+'));
+    if (parts.isEmpty || parts.first.isEmpty) return ('', '');
+    if (parts.length == 1) return (parts.first, '');
+    return (parts.first, parts.sublist(1).join(' '));
   }
 
   Future<void> _submit() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
+    final (firstName, lastName) = _splitName(_fullName.text);
     final ok = await ref.read(authControllerProvider.notifier).signup(
-          firstName: _firstName.text.trim(),
-          lastName: _lastName.text.trim(),
+          firstName: firstName,
+          lastName: lastName,
           email: _email.text.trim(),
           phone: _phone.text.trim(),
           password: _password.text,
@@ -57,41 +65,84 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     }
   }
 
+  void _goToLogin() {
+    if (context.canPop()) {
+      context.pop();
+      return;
+    }
+    context.go(AppRoutes.loginPath(returnTo: widget.returnTo));
+  }
+
   @override
   Widget build(BuildContext context) {
     final auth = ref.watch(authControllerProvider);
 
     return Scaffold(
       backgroundColor: AppColors.paper,
-      appBar: AppAppBar.text('Sign up'),
+      appBar: AppAppBar(
+        title: Text(
+          'Sign up',
+          style: GoogleFonts.workSans(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            color: AppColors.textOnPrimary,
+          ),
+        ),
+      ),
       body: ListView(
-        padding: const EdgeInsets.all(AppSpacing.md),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.lg,
+          AppSpacing.xl,
+          AppSpacing.lg,
+          AppSpacing.lg,
+        ),
         children: [
+          Text(
+            'Create your account',
+            style: AppTextStyles.headlineLarge.copyWith(
+              fontFamily: GoogleFonts.workSans().fontFamily,
+              fontWeight: FontWeight.w700,
+              color: AppColors.forest,
+              fontSize: 26,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            'Start your personalized care plan',
+            style: AppTextStyles.bodyLarge.copyWith(
+              color: AppColors.inkMuted,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xl),
           Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                TextFormField(
-                  controller: _firstName,
+                AuthLabeledField(
+                  label: 'Full name',
+                  controller: _fullName,
+                  hintText: 'Sarah Rahman',
                   textCapitalization: TextCapitalization.words,
-                  decoration: const InputDecoration(labelText: 'First name'),
-                  validator: (v) =>
-                      (v == null || v.trim().isEmpty) ? 'Required' : null,
+                  autofillHints: const [AutofillHints.name],
+                  textInputAction: TextInputAction.next,
+                  validator: (v) {
+                    final (first, last) = _splitName(v ?? '');
+                    if (first.isEmpty) return 'Full name is required';
+                    if (last.isEmpty) {
+                      return 'Enter first and last name';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: AppSpacing.md),
-                TextFormField(
-                  controller: _lastName,
-                  textCapitalization: TextCapitalization.words,
-                  decoration: const InputDecoration(labelText: 'Last name'),
-                  validator: (v) =>
-                      (v == null || v.trim().isEmpty) ? 'Required' : null,
-                ),
-                const SizedBox(height: AppSpacing.md),
-                TextFormField(
+                AuthLabeledField(
+                  label: 'Email',
                   controller: _email,
+                  hintText: 'you@email.com',
                   keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(labelText: 'Email'),
+                  autofillHints: const [AutofillHints.email],
+                  textInputAction: TextInputAction.next,
                   validator: (v) {
                     final value = v?.trim() ?? '';
                     if (value.isEmpty) return 'Email is required';
@@ -100,13 +151,15 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   },
                 ),
                 const SizedBox(height: AppSpacing.md),
-                TextFormField(
+                AuthLabeledField(
+                  label: 'Phone',
                   controller: _phone,
+                  hintText: '(555) 000-0000',
                   keyboardType: TextInputType.phone,
-                  decoration: const InputDecoration(labelText: 'Phone'),
+                  autofillHints: const [AutofillHints.telephoneNumber],
+                  textInputAction: TextInputAction.next,
                   validator: (v) {
-                    final digits =
-                        (v ?? '').replaceAll(RegExp(r'\D'), '');
+                    final digits = (v ?? '').replaceAll(RegExp(r'\D'), '');
                     if (digits.length < 10) {
                       return 'Enter a valid phone number';
                     }
@@ -114,10 +167,16 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   },
                 ),
                 const SizedBox(height: AppSpacing.md),
-                TextFormField(
+                AuthLabeledField(
+                  label: 'Password',
                   controller: _password,
+                  hintText: 'Create a password',
                   obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Password'),
+                  autofillHints: const [AutofillHints.newPassword],
+                  textInputAction: TextInputAction.done,
+                  onFieldSubmitted: (_) {
+                    if (!auth.isBusy) _submit();
+                  },
                   validator: (v) {
                     if (v == null || v.length < 8) {
                       return 'Use at least 8 characters';
@@ -125,28 +184,26 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: AppSpacing.md),
-                TextFormField(
-                  controller: _password2,
-                  obscureText: true,
-                  decoration:
-                      const InputDecoration(labelText: 'Confirm password'),
-                  validator: (v) {
-                    if (v != _password.text) return 'Passwords do not match';
-                    return null;
-                  },
-                ),
                 if (auth.errorMessage != null) ...[
                   const SizedBox(height: AppSpacing.md),
                   Text(
                     auth.errorMessage!,
-                    style: TextStyle(color: Theme.of(context).colorScheme.error),
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: AppColors.danger,
+                    ),
                   ),
                 ],
-                const SizedBox(height: AppSpacing.lg),
+                const SizedBox(height: AppSpacing.xl),
                 AppButton(
-                  label: auth.isBusy ? 'Creating…' : 'Create account',
+                  label: 'Create account',
                   onPressed: auth.isBusy ? null : _submit,
+                  isLoading: auth.isBusy,
+                ),
+                const SizedBox(height: AppSpacing.xl),
+                AuthFooterLink(
+                  prompt: 'Already a patient?',
+                  actionLabel: 'Log in',
+                  onTap: auth.isBusy ? null : _goToLogin,
                 ),
               ],
             ),
