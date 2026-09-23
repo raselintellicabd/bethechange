@@ -2,6 +2,7 @@ import '../../../core/network/api_client.dart';
 import '../../../core/network/api_paths.dart';
 import '../../../core/network/api_result.dart';
 import '../domain/models/appointment_booking_result.dart';
+import '../domain/models/appointment_history_item.dart';
 import '../domain/models/appointment_request.dart';
 import '../domain/models/availability_window.dart';
 import '../domain/models/book_online_catalog.dart';
@@ -97,6 +98,24 @@ class AppointmentApiRepository implements AppointmentRepository {
         data as Map<String, dynamic>,
         request: request,
       ),
+    );
+  }
+
+  Future<ApiResult<List<AppointmentHistoryItem>>> fetchHistory() {
+    return _client.get(
+      ApiPaths.appointmentsHistory,
+      parser: (data) {
+        final map = data as Map<String, dynamic>;
+        final raw = map['results'] as List<dynamic>? ?? const [];
+        return raw
+            .whereType<Map>()
+            .map(
+              (item) => AppointmentHistoryItem.fromJson(
+                Map<String, dynamic>.from(item),
+              ),
+            )
+            .toList();
+      },
     );
   }
 }

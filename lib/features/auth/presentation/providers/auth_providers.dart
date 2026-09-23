@@ -141,6 +141,33 @@ class AuthController extends StateNotifier<AuthState> {
     }
   }
 
+  Future<bool> updateProfile({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String phone,
+  }) async {
+    state = state.copyWith(isBusy: true, clearError: true);
+    final result = await _repository.updateProfile(
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+    );
+    if (result is ApiSuccess<PatientUser>) {
+      await _repository.store.saveUser(result.data);
+      state = state.copyWith(
+        isBusy: false,
+        user: result.data,
+        clearError: true,
+      );
+      return true;
+    }
+    final failure = result as ApiFailure<PatientUser>;
+    state = state.copyWith(isBusy: false, errorMessage: failure.message);
+    return false;
+  }
+
   Future<bool> _applyAuthResult(ApiResult<AuthSession> result) async {
     if (result is ApiSuccess<AuthSession>) {
       final session = result.data;

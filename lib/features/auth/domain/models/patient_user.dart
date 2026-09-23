@@ -1,3 +1,31 @@
+class MembershipUpgradeSuggestion {
+  const MembershipUpgradeSuggestion({
+    required this.message,
+    required this.nextTier,
+    required this.nextTitle,
+    this.currentTier,
+    this.currentTitle,
+  });
+
+  final String message;
+  final int nextTier;
+  final String nextTitle;
+  final int? currentTier;
+  final String? currentTitle;
+
+  String get ctaLabel => 'View $nextTitle';
+
+  factory MembershipUpgradeSuggestion.fromJson(Map<String, dynamic> json) {
+    return MembershipUpgradeSuggestion(
+      message: (json['message'] as String?)?.trim() ?? '',
+      nextTier: (json['next_tier'] as num?)?.toInt() ?? 0,
+      nextTitle: (json['next_title'] as String?)?.trim() ?? '',
+      currentTier: (json['current_tier'] as num?)?.toInt(),
+      currentTitle: (json['current_title'] as String?)?.trim(),
+    );
+  }
+}
+
 class PatientUser {
   const PatientUser({
     required this.id,
@@ -13,6 +41,9 @@ class PatientUser {
     required this.membershipActive,
     required this.canBookForFamily,
     this.membershipExpiresAt,
+    this.membershipStartedAt,
+    this.complimentaryAllowance = 2,
+    this.upgradeSuggestion,
   });
 
   final int id;
@@ -25,9 +56,12 @@ class PatientUser {
   final int leftDays;
   final int servicesTaken;
   final int complimentaryUsed;
+  final int complimentaryAllowance;
   final bool membershipActive;
   final bool canBookForFamily;
   final DateTime? membershipExpiresAt;
+  final DateTime? membershipStartedAt;
+  final MembershipUpgradeSuggestion? upgradeSuggestion;
 
   String get fullName {
     final name = '$firstName $lastName'.trim();
@@ -50,6 +84,8 @@ class PatientUser {
 
   factory PatientUser.fromJson(Map<String, dynamic> json) {
     final expiresRaw = json['membership_expires_at'];
+    final startedRaw = json['membership_started_at'];
+    final upgradeRaw = json['upgrade_suggestion'];
     return PatientUser(
       id: (json['id'] as num?)?.toInt() ?? 0,
       email: (json['email'] as String?)?.trim() ?? '',
@@ -61,10 +97,20 @@ class PatientUser {
       leftDays: (json['left_days'] as num?)?.toInt() ?? 0,
       servicesTaken: (json['services_taken'] as num?)?.toInt() ?? 0,
       complimentaryUsed: (json['complimentary_used'] as num?)?.toInt() ?? 0,
+      complimentaryAllowance:
+          (json['complimentary_allowance'] as num?)?.toInt() ?? 2,
       membershipActive: json['membership_active'] == true,
       canBookForFamily: json['can_book_for_family'] == true,
       membershipExpiresAt: expiresRaw is String && expiresRaw.isNotEmpty
           ? DateTime.tryParse(expiresRaw)
+          : null,
+      membershipStartedAt: startedRaw is String && startedRaw.isNotEmpty
+          ? DateTime.tryParse(startedRaw)
+          : null,
+      upgradeSuggestion: upgradeRaw is Map
+          ? MembershipUpgradeSuggestion.fromJson(
+              Map<String, dynamic>.from(upgradeRaw),
+            )
           : null,
     );
   }
@@ -80,9 +126,19 @@ class PatientUser {
         'left_days': leftDays,
         'services_taken': servicesTaken,
         'complimentary_used': complimentaryUsed,
+        'complimentary_allowance': complimentaryAllowance,
         'membership_active': membershipActive,
         'can_book_for_family': canBookForFamily,
         'membership_expires_at': membershipExpiresAt?.toIso8601String(),
+        'membership_started_at': membershipStartedAt?.toIso8601String(),
+        if (upgradeSuggestion != null)
+          'upgrade_suggestion': {
+            'message': upgradeSuggestion!.message,
+            'next_tier': upgradeSuggestion!.nextTier,
+            'next_title': upgradeSuggestion!.nextTitle,
+            'current_tier': upgradeSuggestion!.currentTier,
+            'current_title': upgradeSuggestion!.currentTitle,
+          },
       };
 }
 

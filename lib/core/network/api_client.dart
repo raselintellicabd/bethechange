@@ -179,6 +179,24 @@ class ApiClient {
     );
   }
 
+  Future<ApiResult<T>> patch<T>(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? extra,
+    required T Function(dynamic data) parser,
+  }) async {
+    return _request(
+      () => _dio.patch<dynamic>(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: extra == null ? null : Options(extra: extra),
+      ),
+      parser,
+    );
+  }
+
   Future<ApiResult<T>> _request<T>(
     Future<Response<dynamic>> Function() call,
     T Function(dynamic data) parser,

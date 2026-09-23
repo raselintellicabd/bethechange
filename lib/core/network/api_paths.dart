@@ -29,6 +29,7 @@ class ApiPaths {
   static const String appointmentsPaymentConfirm =
       '/api/v1/appointments/payment/confirm/';
   static const String appointmentsBook = '/api/v1/appointments/book/';
+  static const String appointmentsHistory = '/api/v1/appointments/history/';
 
   /// Legacy unpaid create (staff / older clients). Prefer [appointmentsBook].
   static const String appointments = '/api/v1/appointments/';

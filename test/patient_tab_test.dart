@@ -412,7 +412,34 @@ void main() {
       await tester.tap(find.text('Appointment History'));
       await tester.pumpAndSettle();
 
-      expect(find.text('Log in to see appointment history'), findsOneWidget);
+      expect(
+        find.text('Log in to see appointment history'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('logged-in Appointment History shows bookings', (tester) async {
+      final router = createAppRouter();
+      await openPatients(
+        tester,
+        router: router,
+        opened: <String>[],
+        authState: const AuthState(
+          status: AuthStatus.authenticated,
+          user: _demoUser,
+        ),
+      );
+
+      await tester.tap(find.text('Appointment History'));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.text('Your recent bookings linked to this account.'),
+        findsOneWidget,
+      );
+      expect(find.text('Consultation regarding Diabetes'), findsOneWidget);
+      expect(find.text('Book an appointment'), findsNothing);
+      expect(find.text('Back to profile'), findsNothing);
     });
   });
 }

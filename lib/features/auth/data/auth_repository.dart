@@ -52,6 +52,24 @@ class AuthRepository {
     );
   }
 
+  Future<ApiResult<PatientUser>> updateProfile({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String phone,
+  }) {
+    return _client.patch(
+      AuthApiPaths.me,
+      data: {
+        'first_name': firstName,
+        'last_name': lastName,
+        'email': email,
+        'phone': phone,
+      },
+      parser: (data) => PatientUser.fromJson(data as Map<String, dynamic>),
+    );
+  }
+
   Future<ApiResult<void>> logout({String? refreshToken}) async {
     final refresh = refreshToken ?? await _store.readRefreshToken();
     final result = await _client.post(

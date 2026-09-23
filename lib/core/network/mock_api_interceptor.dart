@@ -106,6 +106,16 @@ class MockApiInterceptor extends Interceptor {
       );
     }
 
+    if (method == 'PATCH') {
+      await Future<void>.delayed(writeDelay);
+      final data = await _handlePatch(path, options.data);
+      return Response<dynamic>(
+        requestOptions: options,
+        data: data,
+        statusCode: 200,
+      );
+    }
+
     throw _MockHttpError(405, 'Method $method is not supported in mock API.');
   }
 
@@ -152,19 +162,39 @@ class MockApiInterceptor extends Interceptor {
         };
       case '/api/v1/auth/patient/me':
       case '/api/v1/auth/patient/me/':
+        return _mockPatientMe();
+      case ApiPaths.appointmentsHistory:
+      case '/api/v1/appointments/history':
         return {
-          'id': 1,
-          'email': 'guest@example.com',
-          'first_name': 'Mock',
-          'last_name': 'User',
-          'phone': '5555555555',
-          'tier': 0,
-          'tier_title': 'Free',
-          'left_days': 0,
-          'services_taken': 0,
-          'complimentary_used': 0,
-          'membership_active': false,
-          'can_book_for_family': false,
+          'results': [
+            {
+              'id': 1,
+              'when': 'Sep 29, 2026 · 10:00 AM',
+              'service': 'Consultation regarding Diabetes',
+              'mode': 'Virtual',
+              'status': 'Pending',
+              'status_key': 'pending',
+              'amount': '\$31.50',
+            },
+            {
+              'id': 2,
+              'when': 'Sep 29, 2026 · 11:00 AM',
+              'service': 'Infrared Sauna 30 Minute Session',
+              'mode': 'Virtual',
+              'status': 'Pending',
+              'status_key': 'pending',
+              'amount': '\$58.50',
+            },
+            {
+              'id': 3,
+              'when': 'Sep 29, 2026 · 12:00 PM',
+              'service': 'Frequency Specific Microcurrent',
+              'mode': 'Virtual',
+              'status': 'Pending',
+              'status_key': 'pending',
+              'amount': '—',
+            },
+          ],
         };
       case '/api/v1/book-online':
         return _bookOnlineCatalogPayload();
@@ -310,6 +340,54 @@ class MockApiInterceptor extends Interceptor {
     }
 
     throw _MockHttpError(404, 'No mock handler for POST $path.');
+  }
+
+  Future<Object?> _handlePatch(String path, Object? rawData) async {
+    final data = _asMap(rawData);
+    switch (path) {
+      case '/api/v1/auth/patient/me':
+      case '/api/v1/auth/patient/me/':
+        return _mockPatientMe(
+          email: '${data['email'] ?? 'guest@example.com'}',
+          firstName: '${data['first_name'] ?? 'Mock'}',
+          lastName: '${data['last_name'] ?? 'User'}',
+          phone: '${data['phone'] ?? '5555555555'}',
+        );
+    }
+    throw _MockHttpError(404, 'No mock handler for PATCH $path.');
+  }
+
+  Map<String, dynamic> _mockPatientMe({
+    String email = 'guest@example.com',
+    String firstName = 'Mock',
+    String lastName = 'User',
+    String phone = '5555555555',
+  }) {
+    return {
+      'id': 1,
+      'email': email,
+      'first_name': firstName,
+      'last_name': lastName,
+      'phone': phone,
+      'tier': 2,
+      'tier_title': 'Specialized Wellness Membership',
+      'left_days': 29,
+      'services_taken': 10,
+      'complimentary_used': 2,
+      'complimentary_allowance': 2,
+      'membership_active': true,
+      'membership_started_at': '2026-09-22',
+      'membership_expires_at': '2026-10-22',
+      'can_book_for_family': false,
+      'upgrade_suggestion': {
+        'current_tier': 2,
+        'current_title': 'Specialized Wellness Membership',
+        'next_tier': 3,
+        'next_title': 'Family Wellness Membership',
+        'message':
+            "You're on Specialized Wellness Membership. Consider upgrading to Family Wellness Membership for more benefits.",
+      },
+    };
   }
 
   Future<Map<String, dynamic>> _submitContact(Map<String, dynamic> data) async {

@@ -8,6 +8,7 @@ import '../../data/appointment_api_repository.dart';
 import '../../data/appointment_repository.dart';
 import '../../domain/booking_labels.dart';
 import '../../domain/models/appointment_booking_result.dart';
+import '../../domain/models/appointment_history_item.dart';
 import '../../domain/models/appointment_request.dart';
 import '../../domain/models/availability_window.dart';
 import '../../domain/models/book_online_catalog.dart';
@@ -187,6 +188,16 @@ class AppointmentBookingState {
 
 final appointmentRepositoryProvider = Provider<AppointmentRepository>((ref) {
   return AppointmentApiRepository(ref.watch(apiClientProvider));
+});
+
+final appointmentHistoryProvider =
+    FutureProvider.autoDispose<List<AppointmentHistoryItem>>((ref) async {
+  final repo = AppointmentApiRepository(ref.watch(apiClientProvider));
+  final result = await repo.fetchHistory();
+  return result.when(
+    success: (data) => data,
+    failure: (message, _) => throw Exception(message),
+  );
 });
 
 final bookOnlineCatalogProvider =
