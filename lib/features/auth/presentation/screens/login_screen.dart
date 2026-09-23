@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/router/app_routes.dart';
+import '../../../../core/router/auth_navigation.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -41,12 +42,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         );
     if (!mounted) return;
     if (ok) {
-      final dest = widget.returnTo;
-      if (dest != null && dest.isNotEmpty) {
-        context.go(dest);
-      } else {
-        context.pop();
-      }
+      completeAuthNavigation(context, widget.returnTo);
     }
   }
 

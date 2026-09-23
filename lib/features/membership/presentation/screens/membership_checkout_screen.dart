@@ -127,7 +127,11 @@ class _MembershipCheckoutScreenState
           _errorMessage = null;
         });
       case _MembershipCheckoutStep.success:
-        context.go(AppRoutes.membership);
+        if (context.canPop()) {
+          context.pop();
+        } else {
+          context.go(AppRoutes.membership);
+        }
     }
   }
 
@@ -244,7 +248,13 @@ class _MembershipPaymentSuccess extends StatelessWidget {
           ),
           const SizedBox(height: 28),
           TextButton(
-            onPressed: () => context.go(AppRoutes.membership),
+            onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.go(AppRoutes.membership);
+              }
+            },
             child: const Text(
               'Back to memberships',
               style: TextStyle(

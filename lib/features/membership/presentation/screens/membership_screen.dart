@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/router/app_routes.dart';
+import '../../../../core/router/auth_navigation.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -27,7 +28,14 @@ class MembershipScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppColors.paper,
-      appBar: AppAppBar.text('Membership'),
+      appBar: AppAppBar(
+        title: const Text('Membership'),
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => leaveMembershipScreen(context),
+        ),
+      ),
       body: catalogAsync.when(
         loading: () => const LoadingIndicator(message: 'Loading memberships…'),
         error: (error, _) => ErrorStateWidget(
