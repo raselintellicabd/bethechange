@@ -10,8 +10,10 @@ import '../../../appointment/domain/models/consultation_mode.dart';
 import '../../../appointment/domain/models/patient_details.dart';
 import '../../../appointment/domain/models/slot_selection.dart';
 import '../../../appointment/domain/models/time_slot.dart';
+import '../../../auth/presentation/providers/auth_providers.dart';
 import '../../data/packages_repository.dart';
 import '../../domain/models/package_bundle.dart';
+import '../../../points_offers/presentation/providers/points_offers_providers.dart';
 
 final packagesRepositoryProvider = Provider<PackagesRepository>((ref) {
   return PackagesRepository(ref.watch(apiClientProvider));
@@ -185,8 +187,10 @@ class PackageBookController extends StateNotifier<PackageBookState> {
     required this.slug,
     required PackagesRepository packagesRepository,
     required AppointmentApiRepository appointmentRepository,
+    Future<void> Function(int pointsAwarded)? onPointsAwarded,
   })  : _packages = packagesRepository,
         _appointments = appointmentRepository,
+        _onPointsAwarded = onPointsAwarded,
         super(PackageBookState(slug: slug)) {
     load();
   }
@@ -194,6 +198,7 @@ class PackageBookController extends StateNotifier<PackageBookState> {
   final String slug;
   final PackagesRepository _packages;
   final AppointmentApiRepository _appointments;
+  final Future<void> Function(int pointsAwarded)? _onPointsAwarded;
 
   static const paymentDelay = Duration(milliseconds: 400);
 
@@ -481,6 +486,7 @@ class PackageBookController extends StateNotifier<PackageBookState> {
       step: PackageBookStep.success,
       clearError: true,
     );
+    await _onPointsAwarded?.call(bookResult.data.pointsAwarded);
   }
 
   void goBack() {
@@ -533,5 +539,13 @@ final packageBookControllerProvider = StateNotifierProvider.autoDispose
     packagesRepository: ref.watch(packagesRepositoryProvider),
     appointmentRepository:
         AppointmentApiRepository(ref.watch(apiClientProvider)),
+    onPointsAwarded: (awarded) async {
+      if (awarded > 0) {
+        await ref.read(authControllerProvider.notifier).addPoints(awarded);
+      } else {
+        await ref.read(authControllerProvider.notifier).refreshProfile();
+      }
+      ref.invalidate(pointsOfferCatalogProvider);
+    },
   );
 });

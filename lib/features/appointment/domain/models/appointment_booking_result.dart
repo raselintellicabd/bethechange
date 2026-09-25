@@ -10,6 +10,7 @@ class AppointmentBookingResult {
     required this.request,
     required this.bookedAt,
     this.status = 'pending',
+    this.pointsAwarded = 0,
   });
 
   /// Django appointment `id` as string.
@@ -17,6 +18,9 @@ class AppointmentBookingResult {
   final AppointmentRequest request;
   final DateTime bookedAt;
   final String status;
+
+  /// Loyalty points earned from this paid booking ($1 = 1 point).
+  final int pointsAwarded;
 
   bool get isPending => status == 'pending';
 
@@ -41,6 +45,7 @@ class AppointmentBookingResult {
       bookedAt: DateTime.parse(createdRaw),
       status: (json['status'] as String?)?.trim() ?? 'pending',
       request: request,
+      pointsAwarded: (json['points_awarded'] as num?)?.toInt() ?? 0,
     );
   }
 
@@ -53,6 +58,7 @@ class AppointmentBookingResult {
           json['bookedAt'] as String? ?? json['created_at'] as String,
         ),
         status: (json['status'] as String?)?.trim() ?? 'pending',
+        pointsAwarded: (json['points_awarded'] as num?)?.toInt() ?? 0,
         request: AppointmentRequest.fromJson(
           json['request'] as Map<String, dynamic>,
         ),
@@ -89,6 +95,7 @@ class AppointmentBookingResult {
         'confirmationId': confirmationId,
         'bookedAt': bookedAt.toIso8601String(),
         'status': status,
+        'points_awarded': pointsAwarded,
         'request': request.toJson(),
       };
 }

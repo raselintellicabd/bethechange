@@ -36,6 +36,16 @@
             "type": "route",
             "route": "/packages"
           }
+        },
+        {
+          "id": "points-offers",
+          "title": "Points offers",
+          "subtitle": "Claim services with reward points",
+          "icon": "stars_outlined",
+          "action": {
+            "type": "route",
+            "route": "/points-offers"
+          }
         }
       ]
     },

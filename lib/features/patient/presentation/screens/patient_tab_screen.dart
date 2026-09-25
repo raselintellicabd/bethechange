@@ -376,6 +376,7 @@ class _PatientsBody extends ConsumerWidget {
             route == AppRoutes.contact ||
             route == AppRoutes.membership ||
             route == AppRoutes.packages ||
+            route == AppRoutes.pointsOffers ||
             route == AppRoutes.patientProfile ||
             route == AppRoutes.appointmentHistory) {
           context.push(route);
@@ -435,6 +436,10 @@ _TileAccent _tileStyle(String id) {
     'available-packages' => const _TileAccent(
         Color(0xFFE5F3EA),
         Color(0xFF1F6B3A),
+      ),
+    'points-offers' => const _TileAccent(
+        Color(0xFFFFF3E0),
+        Color(0xFFC2670A),
       ),
     'membership' => const _TileAccent(
         Color(0xFFDCEFEE),

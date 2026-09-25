@@ -16,6 +16,8 @@ abstract final class AppRoutes {
   static const String membershipCheckout = '/membership/checkout';
   static const String packages = '/packages';
   static const String packageBook = '/packages/:slug/book';
+  static const String pointsOffers = '/points-offers';
+  static const String pointsOfferBook = '/points-offers/:id/book';
   static const String login = '/login';
   static const String signup = '/signup';
   static const String patientProfile = '/patients/profile';
@@ -23,6 +25,8 @@ abstract final class AppRoutes {
 
   static String packageBookPath(String slug) =>
       '/packages/${Uri.encodeComponent(slug)}/book';
+
+  static String pointsOfferBookPath(int id) => '/points-offers/$id/book';
 
   static String loginPath({String? returnTo}) {
     if (returnTo == null || returnTo.isEmpty) return login;

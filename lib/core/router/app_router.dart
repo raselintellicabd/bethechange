@@ -25,6 +25,8 @@ import '../../features/packages/presentation/screens/packages_list_screen.dart';
 import '../../features/patient/presentation/screens/appointment_history_screen.dart';
 import '../../features/patient/presentation/screens/patient_profile_screen.dart';
 import '../../features/patient/presentation/screens/patient_tab_screen.dart';
+import '../../features/points_offers/presentation/screens/point_offer_book_screen.dart';
+import '../../features/points_offers/presentation/screens/points_offers_list_screen.dart';
 import '../../features/services/presentation/screens/service_detail_screen.dart';
 import '../constants/app_constants.dart';
 import '../theme/app_colors.dart';
@@ -233,6 +235,24 @@ GoRouter createAppRouter() {
             builder: (context, state) {
               final slug = state.pathParameters['slug'] ?? '';
               return PackageBookScreen(slug: Uri.decodeComponent(slug));
+            },
+          ),
+        ],
+      ),
+      GoRoute(
+        path: AppRoutes.pointsOffers,
+        name: 'pointsOffers',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => const PointsOffersListScreen(),
+        routes: [
+          GoRoute(
+            path: ':id/book',
+            name: 'pointsOfferBook',
+            parentNavigatorKey: rootNavigatorKey,
+            builder: (context, state) {
+              final id =
+                  int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+              return PointOfferBookScreen(offerId: id);
             },
           ),
         ],

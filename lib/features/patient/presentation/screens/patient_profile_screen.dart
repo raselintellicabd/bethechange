@@ -218,6 +218,7 @@ class _PatientProfileScreenState extends ConsumerState<PatientProfileScreen> {
               ('Started', _formatDate(user.membershipStartedAt)),
               ('Expires', _formatDate(user.membershipExpiresAt)),
               ('Services taken', '${user.servicesTaken}'),
+              ('Reward points', '${user.points}'),
               (
                 'Complimentary used (this period)',
                 '${user.complimentaryUsed} / ${user.complimentaryAllowance}',

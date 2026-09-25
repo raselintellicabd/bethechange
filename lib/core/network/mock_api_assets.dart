@@ -15,6 +15,7 @@ class MockApiAssets {
   static const String contact = 'assets/data/contact.json';
   static const String memberships = 'assets/data/memberships.json';
   static const String packages = 'assets/data/packages.json';
+  static const String pointsOffers = 'assets/data/points_offers.json';
   static const String chatbotReplies = 'assets/data/chatbot_replies.json';
   static const String appointmentConfig = 'assets/data/appointment_config.json';
   static const String bookOnline = 'assets/data/book_online.json';

@@ -43,6 +43,7 @@ class PatientUser {
     this.membershipExpiresAt,
     this.membershipStartedAt,
     this.complimentaryAllowance = 2,
+    this.points = 0,
     this.upgradeSuggestion,
   });
 
@@ -57,6 +58,7 @@ class PatientUser {
   final int servicesTaken;
   final int complimentaryUsed;
   final int complimentaryAllowance;
+  final int points;
   final bool membershipActive;
   final bool canBookForFamily;
   final DateTime? membershipExpiresAt;
@@ -82,6 +84,47 @@ class PatientUser {
   bool get profileComplete =>
       fullName.isNotEmpty && email.isNotEmpty && phone.trim().isNotEmpty;
 
+  PatientUser copyWith({
+    int? id,
+    String? email,
+    String? firstName,
+    String? lastName,
+    String? phone,
+    int? tier,
+    String? tierTitle,
+    int? leftDays,
+    int? servicesTaken,
+    int? complimentaryUsed,
+    int? complimentaryAllowance,
+    int? points,
+    bool? membershipActive,
+    bool? canBookForFamily,
+    DateTime? membershipExpiresAt,
+    DateTime? membershipStartedAt,
+    MembershipUpgradeSuggestion? upgradeSuggestion,
+  }) {
+    return PatientUser(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      phone: phone ?? this.phone,
+      tier: tier ?? this.tier,
+      tierTitle: tierTitle ?? this.tierTitle,
+      leftDays: leftDays ?? this.leftDays,
+      servicesTaken: servicesTaken ?? this.servicesTaken,
+      complimentaryUsed: complimentaryUsed ?? this.complimentaryUsed,
+      complimentaryAllowance:
+          complimentaryAllowance ?? this.complimentaryAllowance,
+      points: points ?? this.points,
+      membershipActive: membershipActive ?? this.membershipActive,
+      canBookForFamily: canBookForFamily ?? this.canBookForFamily,
+      membershipExpiresAt: membershipExpiresAt ?? this.membershipExpiresAt,
+      membershipStartedAt: membershipStartedAt ?? this.membershipStartedAt,
+      upgradeSuggestion: upgradeSuggestion ?? this.upgradeSuggestion,
+    );
+  }
+
   factory PatientUser.fromJson(Map<String, dynamic> json) {
     final expiresRaw = json['membership_expires_at'];
     final startedRaw = json['membership_started_at'];
@@ -99,6 +142,7 @@ class PatientUser {
       complimentaryUsed: (json['complimentary_used'] as num?)?.toInt() ?? 0,
       complimentaryAllowance:
           (json['complimentary_allowance'] as num?)?.toInt() ?? 2,
+      points: (json['points'] as num?)?.toInt() ?? 0,
       membershipActive: json['membership_active'] == true,
       canBookForFamily: json['can_book_for_family'] == true,
       membershipExpiresAt: expiresRaw is String && expiresRaw.isNotEmpty
@@ -127,6 +171,7 @@ class PatientUser {
         'services_taken': servicesTaken,
         'complimentary_used': complimentaryUsed,
         'complimentary_allowance': complimentaryAllowance,
+        'points': points,
         'membership_active': membershipActive,
         'can_book_for_family': canBookForFamily,
         'membership_expires_at': membershipExpiresAt?.toIso8601String(),

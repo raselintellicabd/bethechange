@@ -31,6 +31,9 @@ class MockApiInterceptor extends Interceptor {
   int _contactCounter = 0;
   int _conversationCounter = 0;
   int _confirmationCounter = 1000;
+  int? _mockPointsBalance;
+
+  int get _pointsBalance => _mockPointsBalance ?? 120;
 
   DateTime get _today => DateTime(_now.year, _now.month, _now.day);
 
@@ -146,6 +149,8 @@ class MockApiInterceptor extends Interceptor {
         return _loadObject(MockApiAssets.memberships);
       case ApiPaths.packages:
         return _loadObject(MockApiAssets.packages);
+      case ApiPaths.pointsOffers:
+        return _pointsOffersCatalogPayload();
       case '/appointments/availability':
         return _availabilityWindowPayload(query);
       case ApiPaths.appointmentsQuote:
@@ -260,6 +265,9 @@ class MockApiInterceptor extends Interceptor {
     final packagePayload = await _packagePathPayload(path);
     if (packagePayload != null) return packagePayload;
 
+    final pointsOfferPayload = await _pointsOfferPathPayload(path);
+    if (pointsOfferPayload != null) return pointsOfferPayload;
+
     throw _MockHttpError(404, 'No mock handler for GET $path.');
   }
 
@@ -312,6 +320,7 @@ class MockApiInterceptor extends Interceptor {
             'complimentary_used': 0,
             'membership_active': false,
             'can_book_for_family': false,
+            'points': 120,
           },
         };
       case '/api/v1/memberships/payment/session/':
@@ -346,6 +355,9 @@ class MockApiInterceptor extends Interceptor {
 
     final packagePost = _packagePostPayload(path, data);
     if (packagePost != null) return packagePost;
+
+    final pointsOfferPost = _pointsOfferPostPayload(path, data);
+    if (pointsOfferPost != null) return pointsOfferPost;
 
     throw _MockHttpError(404, 'No mock handler for POST $path.');
   }
@@ -387,6 +399,7 @@ class MockApiInterceptor extends Interceptor {
       'membership_started_at': '2026-09-22',
       'membership_expires_at': '2026-10-22',
       'can_book_for_family': false,
+      'points': _pointsBalance,
       'upgrade_suggestion': {
         'current_tier': 2,
         'current_title': 'Specialized Wellness Membership',
@@ -489,6 +502,10 @@ class MockApiInterceptor extends Interceptor {
     }
 
     _confirmationCounter += 1;
+    // Demo earn rate: $65 paid ≈ 65 points (matches typical service list price).
+    const amountCents = 6500;
+    final awarded = amountCents ~/ 100;
+    _mockPointsBalance = _pointsBalance + awarded;
     return {
       'id': _confirmationCounter,
       'full_name': fullName,
@@ -500,6 +517,8 @@ class MockApiInterceptor extends Interceptor {
       'starts_at': startsAt,
       'ends_at': endsAt,
       'status': 'pending',
+      'amount_cents': amountCents,
+      'points_awarded': awarded,
       'created_at': _now.toIso8601String(),
       'updated_at': _now.toIso8601String(),
     };
@@ -597,6 +616,121 @@ class MockApiInterceptor extends Interceptor {
     return null;
   }
 
+  Future<Object?> _pointsOfferPathPayload(String path) async {
+    if (!path.startsWith('${ApiPaths.pointsOffers}/')) return null;
+    final rest = path.substring(ApiPaths.pointsOffers.length + 1);
+    if (rest.isEmpty) return null;
+
+    final idPart = rest.split('/').first;
+    final id = int.tryParse(idPart);
+    if (id == null) return null;
+
+    final catalog = await _loadObject(MockApiAssets.pointsOffers);
+    final results = catalog['results'] as List<dynamic>? ?? const [];
+    Map<String, dynamic>? offer;
+    for (final entry in results) {
+      if (entry is! Map) continue;
+      final map = Map<String, dynamic>.from(entry);
+      if ((map['id'] as num?)?.toInt() == id) {
+        offer = map;
+        break;
+      }
+    }
+    if (offer == null) {
+      throw _MockHttpError(404, 'Points offer not found.');
+    }
+
+    if (rest == idPart) {
+      final required = (offer['required_points'] as num?)?.toInt() ?? 0;
+      final balance = _pointsBalance;
+      return {
+        'ok': true,
+        ...offer,
+        'points_balance': balance,
+        'can_claim': balance >= required,
+        'pricing_note':
+            'Claim with $required loyalty points (no card payment).',
+        'payable_display': '$required points',
+        'auth': {
+          'is_authenticated': true,
+          'full_name': 'Mock User',
+          'email': 'guest@example.com',
+          'phone': '5555555555',
+        },
+      };
+    }
+    return null;
+  }
+
+  Future<Map<String, dynamic>> _pointsOffersCatalogPayload() async {
+    final catalog = await _loadObject(MockApiAssets.pointsOffers);
+    final balance = _pointsBalance;
+    final raw = catalog['results'] as List<dynamic>? ?? const [];
+    final results = <Map<String, dynamic>>[];
+    for (final entry in raw) {
+      if (entry is! Map) continue;
+      final map = Map<String, dynamic>.from(entry);
+      final required = (map['required_points'] as num?)?.toInt() ?? 0;
+      map['can_claim'] = balance >= required;
+      results.add(map);
+    }
+    return {
+      'ok': true,
+      'points_balance': balance,
+      'results': results,
+    };
+  }
+
+  Object? _pointsOfferPostPayload(String path, Map<String, dynamic> data) {
+    if (!path.startsWith('${ApiPaths.pointsOffers}/')) return null;
+    final rest = path.substring(ApiPaths.pointsOffers.length + 1);
+    if (!rest.endsWith('/book') && !rest.endsWith('/book/')) return null;
+
+    final idPart = rest.split('/').first;
+    final id = int.tryParse(idPart) ?? 0;
+    final date = '${data['date'] ?? ''}';
+    if (date.isEmpty) {
+      throw _MockHttpError(400, 'Choose a valid date and time.');
+    }
+
+    // Resolve required points from catalog when possible.
+    var spent = 50;
+    final cached = _jsonCache[MockApiAssets.pointsOffers];
+    if (cached is Map) {
+      final results = cached['results'];
+      if (results is List) {
+        for (final entry in results) {
+          if (entry is! Map) continue;
+          if ((entry['id'] as num?)?.toInt() == id) {
+            spent = (entry['required_points'] as num?)?.toInt() ?? spent;
+            break;
+          }
+        }
+      }
+    }
+
+    final balance = _pointsBalance;
+    if (balance < spent) {
+      throw _MockHttpError(
+        400,
+        'Not enough points. You have $balance; this offer needs $spent.',
+      );
+    }
+    _mockPointsBalance = balance - spent;
+    _confirmationCounter += 1;
+    return {
+      'ok': true,
+      'id': 9000 + _confirmationCounter,
+      'status': 'pending',
+      'points_spent': spent,
+      'points_balance': _pointsBalance,
+      'message':
+          'Offer claimed. Your appointment request is Pending — '
+          'our team will review and confirm shortly.',
+      'offer_id': id,
+    };
+  }
+
   Object? _packagePostPayload(String path, Map<String, dynamic> data) {
     if (!path.startsWith('${ApiPaths.packages}/')) return null;
     final rest = path.substring(ApiPaths.packages.length + 1);
@@ -615,11 +749,15 @@ class MockApiInterceptor extends Interceptor {
     }
     if (rest.endsWith('/book')) {
       _confirmationCounter += 1;
+      const amountCents = 16650;
+      final awarded = amountCents ~/ 100;
+      _mockPointsBalance = _pointsBalance + awarded;
       return {
         'ok': true,
         'purchase_id': _confirmationCounter,
         'appointment_ids': [_confirmationCounter, _confirmationCounter + 1],
         'status': 'paid',
+        'points_awarded': awarded,
         'message':
             'Package booked. Your appointment requests are Pending — our team will review and confirm shortly.',
       };

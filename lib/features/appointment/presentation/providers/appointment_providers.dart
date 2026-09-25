@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/analytics/analytics_service.dart';
 import '../../../../core/network/api_client.dart';
 import '../../../../core/network/api_result.dart';
+import '../../../auth/presentation/providers/auth_providers.dart';
+import '../../../points_offers/presentation/providers/points_offers_providers.dart';
 import '../../data/appointment_api_repository.dart';
 import '../../data/appointment_repository.dart';
 import '../../domain/booking_labels.dart';
@@ -219,6 +221,14 @@ final appointmentControllerProvider = StateNotifierProvider.autoDispose
       sourceContext: args.sourceContext,
       offering: args.offering,
       analytics: ref.watch(analyticsServiceProvider),
+      onPointsAwarded: (awarded) async {
+        if (awarded > 0) {
+          await ref.read(authControllerProvider.notifier).addPoints(awarded);
+        } else {
+          await ref.read(authControllerProvider.notifier).refreshProfile();
+        }
+        ref.invalidate(pointsOfferCatalogProvider);
+      },
     );
   },
 );
@@ -231,8 +241,10 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
     AnalyticsService? analytics,
     DateTime? now,
     this.paymentDelay = const Duration(milliseconds: 600),
+    Future<void> Function(int pointsAwarded)? onPointsAwarded,
   })  : _analytics = analytics ?? const LoggingAnalyticsService(),
         _now = now ?? DateTime.now(),
+        _onPointsAwarded = onPointsAwarded,
         super(
           AppointmentBookingState(
             sourceContext: sourceContext,
@@ -257,6 +269,7 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
   final AppointmentRepository _repository;
   final AnalyticsService _analytics;
   final DateTime _now;
+  final Future<void> Function(int pointsAwarded)? _onPointsAwarded;
   final Duration paymentDelay;
 
   Future<void> loadAvailability() async {
@@ -600,6 +613,7 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
         result: booking,
         step: AppointmentStep.success,
       );
+      await _onPointsAwarded?.call(booking.pointsAwarded);
       return;
     }
 

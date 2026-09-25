@@ -1,0 +1,51 @@
+{
+  "ok": true,
+  "points_balance": 120,
+  "results": [
+    {
+      "id": 1,
+      "service_id": 101,
+      "service_slug": "infrared-sauna",
+      "service_name": "Infrared Sauna 30 Minute Session",
+      "category_name": "Therapies",
+      "category_slug": "therapies",
+      "duration_minutes": 30,
+      "duration_display": "30 min",
+      "slot_count": 1,
+      "list_price": "65.00",
+      "list_price_display": "$65.00",
+      "required_points": 50,
+      "can_claim": true
+    },
+    {
+      "id": 2,
+      "service_id": 102,
+      "service_slug": "frequency-specific-microcurrent",
+      "service_name": "Frequency Specific Microcurrent",
+      "category_name": "Therapies",
+      "category_slug": "therapies",
+      "duration_minutes": 60,
+      "duration_display": "60 min",
+      "slot_count": 2,
+      "list_price": "120.00",
+      "list_price_display": "$120.00",
+      "required_points": 100,
+      "can_claim": true
+    },
+    {
+      "id": 3,
+      "service_id": 103,
+      "service_slug": "consultation",
+      "service_name": "New Patient Consultation",
+      "category_name": "Consultations",
+      "category_slug": "consultations",
+      "duration_minutes": 60,
+      "duration_display": "60 min",
+      "slot_count": 2,
+      "list_price": "200.00",
+      "list_price_display": "$200.00",
+      "required_points": 180,
+      "can_claim": false
+    }
+  ]
+}

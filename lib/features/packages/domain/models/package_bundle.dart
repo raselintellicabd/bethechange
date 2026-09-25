@@ -218,12 +218,14 @@ class PackageBookingResult {
     required this.appointmentIds,
     required this.status,
     required this.message,
+    this.pointsAwarded = 0,
   });
 
   final int purchaseId;
   final List<int> appointmentIds;
   final String status;
   final String message;
+  final int pointsAwarded;
 
   factory PackageBookingResult.fromJson(Map<String, dynamic> json) {
     final ids = json['appointment_ids'] as List<dynamic>? ?? const [];
@@ -235,6 +237,7 @@ class PackageBookingResult {
           .toList(),
       status: (json['status'] as String?)?.trim() ?? '',
       message: (json['message'] as String?)?.trim() ?? '',
+      pointsAwarded: (json['points_awarded'] as num?)?.toInt() ?? 0,
     );
   }
 }

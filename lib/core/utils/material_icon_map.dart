@@ -14,6 +14,7 @@ IconData materialIconFromName(String name) {
     'card_membership_outlined' => Icons.card_membership_outlined,
     'badge_outlined' => Icons.badge_outlined,
     'card_giftcard_outlined' => Icons.card_giftcard_outlined,
+    'stars_outlined' => Icons.stars_outlined,
     'mail_outline' => Icons.mail_outline,
     _ => Icons.circle_outlined,
   };

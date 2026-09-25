@@ -17,6 +17,7 @@ class ApiPaths {
   static const String contact = '/api/v1/contact';
   static const String memberships = '/api/v1/memberships';
   static const String packages = '/api/v1/packages';
+  static const String pointsOffers = '/api/v1/points-offers';
   static const String chatbotMessage = '/chatbot/message';
   static const String chatbotConfig = '/chatbot/config';
 
@@ -28,6 +29,9 @@ class ApiPaths {
   static String packagePaymentSession(String slug) =>
       '$packages/$slug/payment/session/';
   static String packageBook(String slug) => '$packages/$slug/book/';
+
+  static String pointsOfferDetail(int id) => '$pointsOffers/$id/';
+  static String pointsOfferBook(int id) => '$pointsOffers/$id/book/';
 
   /// Paid booking quote / pay / book (JWT optional for member discounts).
   static const String appointmentsQuote = '/api/v1/appointments/quote/';

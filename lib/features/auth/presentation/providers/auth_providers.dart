@@ -141,6 +141,21 @@ class AuthController extends StateNotifier<AuthState> {
     }
   }
 
+  /// Updates the cached points balance after a claim (or other spend/earn).
+  Future<void> applyPointsBalance(int points) async {
+    final user = state.user;
+    if (user == null) return;
+    final updated = user.copyWith(points: points < 0 ? 0 : points);
+    await _repository.store.saveUser(updated);
+    state = state.copyWith(user: updated);
+  }
+
+  /// Adds earned loyalty points after a paid booking.
+  Future<void> addPoints(int awarded) async {
+    if (awarded <= 0 || state.user == null) return;
+    await applyPointsBalance(state.user!.points + awarded);
+  }
+
   Future<bool> updateProfile({
     required String firstName,
     required String lastName,
