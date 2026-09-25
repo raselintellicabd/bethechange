@@ -26,6 +26,16 @@
             "type": "route",
             "route": "/patients/appointment-history"
           }
+        },
+        {
+          "id": "available-packages",
+          "title": "Available packages",
+          "subtitle": "Multi-service package deals",
+          "icon": "card_giftcard_outlined",
+          "action": {
+            "type": "route",
+            "route": "/packages"
+          }
         }
       ]
     },

@@ -20,6 +20,8 @@ import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/membership/domain/models/membership_catalog.dart';
 import '../../features/membership/presentation/screens/membership_checkout_screen.dart';
 import '../../features/membership/presentation/screens/membership_screen.dart';
+import '../../features/packages/presentation/screens/package_book_screen.dart';
+import '../../features/packages/presentation/screens/packages_list_screen.dart';
 import '../../features/patient/presentation/screens/appointment_history_screen.dart';
 import '../../features/patient/presentation/screens/patient_profile_screen.dart';
 import '../../features/patient/presentation/screens/patient_tab_screen.dart';
@@ -217,6 +219,23 @@ GoRouter createAppRouter() {
             plan: state.extra! as MembershipPlan,
           );
         },
+      ),
+      GoRoute(
+        path: AppRoutes.packages,
+        name: 'packages',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => const PackagesListScreen(),
+        routes: [
+          GoRoute(
+            path: ':slug/book',
+            name: 'packageBook',
+            parentNavigatorKey: rootNavigatorKey,
+            builder: (context, state) {
+              final slug = state.pathParameters['slug'] ?? '';
+              return PackageBookScreen(slug: Uri.decodeComponent(slug));
+            },
+          ),
+        ],
       ),
       GoRoute(
         path: AppRoutes.bookOnline,

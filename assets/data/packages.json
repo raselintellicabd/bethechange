@@ -1,0 +1,59 @@
+{
+  "ok": true,
+  "viewer_tier": 0,
+  "package_window_days": 180,
+  "results": [
+    {
+      "id": 1,
+      "name": "Wellness Reset Package",
+      "slug": "wellness-reset",
+      "description": "Two complementary therapies booked on separate days.",
+      "items": [
+        {
+          "item_id": 11,
+          "service_id": 101,
+          "service_slug": "infrared-sauna-30",
+          "service_name": "Infrared Sauna 30 Minute Session",
+          "category_name": "Infrared Sauna",
+          "category_slug": "infrared-sauna",
+          "duration_minutes": 30,
+          "slot_count": 1,
+          "price": "65.00",
+          "price_display": "$65",
+          "duration_display": "30 min"
+        },
+        {
+          "item_id": 12,
+          "service_id": 102,
+          "service_slug": "frequency-specific-microcurrent",
+          "service_name": "Frequency Specific Microcurrent",
+          "category_name": "Frequency Specific Microcurrent",
+          "category_slug": "fsm",
+          "duration_minutes": 60,
+          "slot_count": 2,
+          "price": "120.00",
+          "price_display": "$120",
+          "duration_display": "60 min"
+        }
+      ],
+      "quote": {
+        "ok": true,
+        "bundle_id": 1,
+        "bundle_slug": "wellness-reset",
+        "bundle_name": "Wellness Reset Package",
+        "tier": 0,
+        "pricing_mode": "percent",
+        "list_amount_cents": 18500,
+        "list_amount_display": "$185",
+        "discount_cents": 1850,
+        "discount_display": "$18.50",
+        "discount_percent": 10,
+        "payable_cents": 16650,
+        "payable_display": "$166.50",
+        "pricing_note": "10% package discount (Tier 0).",
+        "same_discount_all_tiers": true
+      },
+      "tiers": []
+    }
+  ]
+}

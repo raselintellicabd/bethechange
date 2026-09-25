@@ -9,6 +9,7 @@ import '../domain/models/booking_quote.dart';
 abstract class AppointmentRepository {
   Future<ApiResult<AvailabilityWindow>> getAvailability({
     required String service,
+    bool forPackage = false,
   });
 
   Future<ApiResult<BookOnlineCatalog>> getBookOnlineCatalog();

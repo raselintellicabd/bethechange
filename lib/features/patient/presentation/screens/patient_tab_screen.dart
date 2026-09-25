@@ -375,6 +375,7 @@ class _PatientsBody extends ConsumerWidget {
         if (route == AppRoutes.faq ||
             route == AppRoutes.contact ||
             route == AppRoutes.membership ||
+            route == AppRoutes.packages ||
             route == AppRoutes.patientProfile ||
             route == AppRoutes.appointmentHistory) {
           context.push(route);
@@ -430,6 +431,10 @@ _TileAccent _tileStyle(String id) {
     'appointment-history' => const _TileAccent(
         Color(0xFFE8E4F5),
         Color(0xFF5B4B8A),
+      ),
+    'available-packages' => const _TileAccent(
+        Color(0xFFE5F3EA),
+        Color(0xFF1F6B3A),
       ),
     'membership' => const _TileAccent(
         Color(0xFFDCEFEE),

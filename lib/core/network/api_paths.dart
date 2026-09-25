@@ -16,11 +16,18 @@ class ApiPaths {
   static const String patients = '/patients';
   static const String contact = '/api/v1/contact';
   static const String memberships = '/api/v1/memberships';
+  static const String packages = '/api/v1/packages';
   static const String chatbotMessage = '/chatbot/message';
   static const String chatbotConfig = '/chatbot/config';
 
   /// Website calendar/slot map (same JSON as the public appointments page).
   static const String appointmentsAvailability = '/appointments/availability/';
+
+  static String packageDetail(String slug) => '$packages/$slug/';
+  static String packageQuote(String slug) => '$packages/$slug/quote/';
+  static String packagePaymentSession(String slug) =>
+      '$packages/$slug/payment/session/';
+  static String packageBook(String slug) => '$packages/$slug/book/';
 
   /// Paid booking quote / pay / book (JWT optional for member discounts).
   static const String appointmentsQuote = '/api/v1/appointments/quote/';

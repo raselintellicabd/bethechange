@@ -18,10 +18,14 @@ class AppointmentApiRepository implements AppointmentRepository {
   @override
   Future<ApiResult<AvailabilityWindow>> getAvailability({
     required String service,
+    bool forPackage = false,
   }) {
     return _client.get(
       ApiPaths.appointmentsAvailability,
-      queryParameters: {'service': service},
+      queryParameters: {
+        'service': service,
+        if (forPackage) 'package': '1',
+      },
       parser: (data) =>
           AvailabilityWindow.fromJson(data as Map<String, dynamic>),
     );

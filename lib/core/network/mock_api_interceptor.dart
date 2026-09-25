@@ -144,6 +144,8 @@ class MockApiInterceptor extends Interceptor {
         return _loadObject(MockApiAssets.contact);
       case ApiPaths.memberships:
         return _loadObject(MockApiAssets.memberships);
+      case ApiPaths.packages:
+        return _loadObject(MockApiAssets.packages);
       case '/appointments/availability':
         return _availabilityWindowPayload(query);
       case ApiPaths.appointmentsQuote:
@@ -255,6 +257,9 @@ class MockApiInterceptor extends Interceptor {
       );
     }
 
+    final packagePayload = await _packagePathPayload(path);
+    if (packagePayload != null) return packagePayload;
+
     throw _MockHttpError(404, 'No mock handler for GET $path.');
   }
 
@@ -338,6 +343,9 @@ class MockApiInterceptor extends Interceptor {
           },
         };
     }
+
+    final packagePost = _packagePostPayload(path, data);
+    if (packagePost != null) return packagePost;
 
     throw _MockHttpError(404, 'No mock handler for POST $path.');
   }
@@ -501,10 +509,12 @@ class MockApiInterceptor extends Interceptor {
     Map<String, dynamic> query,
   ) async {
     final service = '${query['service'] ?? ''}'.trim();
+    final forPackage = '${query['package'] ?? ''}' == '1';
+    final windowDays = forPackage ? 180 : 15;
     final today = _today;
     final days = <String, List<Map<String, dynamic>>>{};
 
-    for (var offset = 0; offset <= 14; offset++) {
+    for (var offset = 0; offset <= windowDays - 1; offset++) {
       final day = today.add(Duration(days: offset));
       final key = _dateKey(day);
       if (day.weekday > DateTime.friday) {
@@ -529,13 +539,92 @@ class MockApiInterceptor extends Interceptor {
       'service': service.isEmpty ? 'General appointment' : service,
       'timezone': 'America/New_York',
       'today': _dateKey(today),
-      'window_days': 15,
+      'window_days': windowDays,
       'pending_hold_hours': 48,
       'work_start_minutes': 600,
       'work_end_minutes': 1020,
       'slot_minutes': 30,
       'days': days,
     };
+  }
+
+  Future<Object?> _packagePathPayload(String path) async {
+    if (!path.startsWith('${ApiPaths.packages}/')) return null;
+    final rest = path.substring(ApiPaths.packages.length + 1);
+    if (rest.isEmpty) return null;
+
+    final catalog = await _loadObject(MockApiAssets.packages);
+    final results = catalog['results'] as List<dynamic>? ?? const [];
+    PackageMatch? match;
+
+    for (final entry in results) {
+      if (entry is! Map) continue;
+      final map = Map<String, dynamic>.from(entry);
+      final slug = '${map['slug'] ?? ''}';
+      if (rest == slug ||
+          rest == '$slug/quote' ||
+          rest.startsWith('$slug/')) {
+        match = PackageMatch(slug: slug, bundle: map, rest: rest);
+        break;
+      }
+    }
+    if (match == null) {
+      throw _MockHttpError(404, 'Package not found.');
+    }
+
+    if (match.rest == match.slug) {
+      final quote = match.bundle['quote'];
+      return {
+        'ok': true,
+        ...match.bundle,
+        'auth': {
+          'is_authenticated': false,
+          'full_name': '',
+          'email': '',
+          'phone': '',
+        },
+        'package_window_days': 180,
+        if (quote is Map) 'quote': quote,
+      };
+    }
+    if (match.rest == '${match.slug}/quote') {
+      final quote = match.bundle['quote'];
+      if (quote is Map) {
+        return {'ok': true, ...Map<String, dynamic>.from(quote)};
+      }
+      return {'ok': true};
+    }
+    return null;
+  }
+
+  Object? _packagePostPayload(String path, Map<String, dynamic> data) {
+    if (!path.startsWith('${ApiPaths.packages}/')) return null;
+    final rest = path.substring(ApiPaths.packages.length + 1);
+    if (rest.endsWith('/payment/session')) {
+      return {
+        'ok': true,
+        'provider': 'mock',
+        'payment_session_id': 'pkg_mock_${_confirmationCounter + 1}',
+        'client_secret': 'secret_pkg_mock',
+        'status': 'requires_payment',
+        'amount_cents': 16650,
+        'amount_display': '\$166.50',
+        'payable_display': '\$166.50',
+        'pricing_note': '10% package discount (Tier 0).',
+      };
+    }
+    if (rest.endsWith('/book')) {
+      _confirmationCounter += 1;
+      return {
+        'ok': true,
+        'purchase_id': _confirmationCounter,
+        'appointment_ids': [_confirmationCounter, _confirmationCounter + 1],
+        'status': 'paid',
+        'message':
+            'Package booked. Your appointment requests are Pending — our team will review and confirm shortly.',
+      };
+    }
+    return null;
   }
 
   Future<Map<String, dynamic>> _chatbotConfigPayload() async {
@@ -722,4 +811,16 @@ class _MockHttpError implements Exception {
 
   final int statusCode;
   final String message;
+}
+
+class PackageMatch {
+  const PackageMatch({
+    required this.slug,
+    required this.bundle,
+    required this.rest,
+  });
+
+  final String slug;
+  final Map<String, dynamic> bundle;
+  final String rest;
 }

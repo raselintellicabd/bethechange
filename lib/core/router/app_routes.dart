@@ -14,10 +14,15 @@ abstract final class AppRoutes {
   static const String contact = '/contact';
   static const String membership = '/membership';
   static const String membershipCheckout = '/membership/checkout';
+  static const String packages = '/packages';
+  static const String packageBook = '/packages/:slug/book';
   static const String login = '/login';
   static const String signup = '/signup';
   static const String patientProfile = '/patients/profile';
   static const String appointmentHistory = '/patients/appointment-history';
+
+  static String packageBookPath(String slug) =>
+      '/packages/${Uri.encodeComponent(slug)}/book';
 
   static String loginPath({String? returnTo}) {
     if (returnTo == null || returnTo.isEmpty) return login;
