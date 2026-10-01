@@ -11,9 +11,13 @@ import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/ui_kit.dart';
+import '../../../appointment/domain/clinic_slots.dart';
+import '../../../appointment/domain/models/booking_machine.dart';
 import '../../../appointment/presentation/widgets/appointment_calendar_view.dart';
+import '../../../appointment/presentation/widgets/machine_picker_bar.dart';
 import '../../../appointment/presentation/widgets/mock_payment_view.dart';
 import '../../../appointment/presentation/widgets/patient_details_form.dart';
+import '../../../appointment/presentation/widgets/session_progress_header.dart';
 import '../../../appointment/presentation/widgets/time_slot_selector.dart';
 import '../../domain/models/package_bundle.dart';
 import '../providers/packages_providers.dart';
@@ -307,10 +311,13 @@ class _ServiceScheduleCard extends ConsumerWidget {
                         Text(item.serviceName, style: theme.textTheme.titleSmall),
                         const SizedBox(height: 4),
                         Text(
-                          selection == null
-                              ? '${item.durationDisplay} · Select date & time'
-                              : '${dateFmt.format(selection.date)} · '
-                                  '${schedule.selection?.timeRangeLabel ?? ''}',
+                          selection != null
+                              ? '${dateFmt.format(selection.date)} · '
+                                  '${_visitTimeLabel(schedule.visits.first)}'
+                              : schedule.visits.isNotEmpty
+                                  ? '${schedule.visits.length} of '
+                                      '${schedule.numberOfSessions} sessions selected'
+                                  : '${item.durationDisplay} · Select date & time',
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: selection == null
                                 ? AppColors.inkMuted
@@ -346,28 +353,65 @@ class _ServiceScheduleCard extends ConsumerWidget {
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        AppointmentCalendarView(
-                          focusedMonth: schedule.focusedMonth ??
-                              DateTime(window.today.year, window.today.month),
-                          selectedDate: schedule.selectedDate,
-                          availableDates:
-                              controller.availableDatesFor(item.itemId),
-                          firstDay: window.today,
-                          lastDay: window.windowEnd,
-                          onMonthChanged: (m) =>
-                              controller.selectMonth(item.itemId, m),
-                          onDateSelected: (d) =>
-                              controller.selectDate(item.itemId, d),
+                        SessionProgressHeader(
+                          totalSessions: schedule.numberOfSessions,
+                          activeSessionIndex: schedule.activeSessionIndex,
+                          visits: schedule.visits,
                         ),
-                        if (schedule.selectedDate != null) ...[
-                          const SizedBox(height: AppSpacing.md),
-                          TimeSlotSelector(
-                            slots: schedule.slots,
-                            selection: schedule.selection,
-                            requiredSlots: item.slotCount,
-                            onSlotSelected: (slot) =>
-                                controller.selectSlot(item.itemId, slot),
+                        if (schedule.machines.length > 1) ...[
+                          const SizedBox(height: AppSpacing.sm),
+                          MachinePickerBar(
+                            machines: schedule.machines,
+                            selectedMachineId: schedule.selectedMachineId,
+                            onSelected: (id) =>
+                                controller.selectMachine(item.itemId, id),
+                            enabled: !schedule.isLoading,
                           ),
+                          const SizedBox(height: AppSpacing.md),
+                        ],
+                        if (!schedule.calendarUnlocked)
+                          Text(
+                            'Select a machine to see available times.',
+                            style: theme.textTheme.bodyMedium,
+                          )
+                        else ...[
+                          AppointmentCalendarView(
+                            focusedMonth: schedule.focusedMonth ??
+                                DateTime(window.today.year, window.today.month),
+                            selectedDate: schedule.selectedDate,
+                            availableDates:
+                                controller.availableDatesFor(item.itemId),
+                            sessionDates: {
+                              for (final v in schedule.visits)
+                                DateTime(v.date.year, v.date.month, v.date.day),
+                            },
+                            firstDay: window.today,
+                            lastDay: window.windowEnd,
+                            onMonthChanged: (m) =>
+                                controller.selectMonth(item.itemId, m),
+                            onDateSelected: (d) =>
+                                controller.selectDate(item.itemId, d),
+                          ),
+                          if (schedule.selectedDate != null) ...[
+                            const SizedBox(height: AppSpacing.md),
+                            TimeSlotSelector(
+                              slots: schedule.slots,
+                              selection: schedule.selection,
+                              requiredSlots: schedule.requiredSlots,
+                              onSlotSelected: (slot) =>
+                                  controller.selectSlot(item.itemId, slot),
+                            ),
+                          ],
+                          if (schedule.numberOfSessions > 1 &&
+                              !schedule.isComplete) ...[
+                            const SizedBox(height: AppSpacing.sm),
+                            Text(
+                              'Select ${schedule.numberOfSessions - schedule.visits.length} more '
+                              'session${schedule.numberOfSessions - schedule.visits.length == 1 ? '' : 's'}.',
+                              style: theme.textTheme.bodySmall,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ],
                       ],
                     ),
@@ -377,6 +421,22 @@ class _ServiceScheduleCard extends ConsumerWidget {
       ),
     );
   }
+}
+
+String _visitTimeLabel(BookingVisit visit) {
+  final start = ClinicSlots.displayLabel(visit.timeMinutes);
+  if (visit.slotCount <= 1) return start;
+  final end = ClinicSlots.displayLabel(
+    visit.timeMinutes + visit.slotCount * ClinicSlots.slotMinutes,
+  );
+  return '$start – $end';
+}
+
+String _visitFullLabel(BookingVisit visit) {
+  final dateLabel = DateFormat.yMMMEd().format(
+    DateTime(visit.date.year, visit.date.month, visit.date.day),
+  );
+  return '$dateLabel · ${_visitTimeLabel(visit)}';
 }
 
 /// Matches [AppointmentConfirmationView] layout for packages.
@@ -402,21 +462,28 @@ class _PackageConfirmationView extends ConsumerWidget {
         const SizedBox(height: AppSpacing.md),
         _SummaryRow(label: 'Package', value: bundle.name),
         for (final schedule in state.schedules) ...[
-          if (schedule.asSelection != null)
+          if (schedule.asSelection != null) ...[
             _SummaryRow(
               label: 'Service',
               value: schedule.item.serviceName,
             ),
-          if (schedule.asSelection != null)
-            _SummaryRow(
-              label: 'Date',
-              value: dateFmt.format(schedule.asSelection!.date),
-            ),
-          if (schedule.selection != null)
-            _SummaryRow(
-              label: 'Time',
-              value: schedule.selection!.timeRangeLabel,
-            ),
+            if (schedule.visits.length > 1)
+              for (var i = 0; i < schedule.visits.length; i++)
+                _SummaryRow(
+                  label: 'Session ${i + 1}',
+                  value: _visitFullLabel(schedule.visits[i]),
+                )
+            else if (schedule.visits.isNotEmpty) ...[
+              _SummaryRow(
+                label: 'Date',
+                value: dateFmt.format(schedule.visits.first.date),
+              ),
+              _SummaryRow(
+                label: 'Time',
+                value: _visitTimeLabel(schedule.visits.first),
+              ),
+            ],
+          ],
         ],
         _SummaryRow(label: 'List price', value: quote.listAmountDisplay),
         if (quote.discountCents > 0)

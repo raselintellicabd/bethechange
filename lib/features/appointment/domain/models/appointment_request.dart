@@ -1,6 +1,7 @@
 import '../booking_labels.dart';
 import '../clinic_slots.dart';
 import 'book_online_offering.dart';
+import 'booking_machine.dart';
 import 'patient_details.dart';
 import 'source_context.dart';
 import 'time_slot.dart';
@@ -12,24 +13,35 @@ class AppointmentRequest {
     required this.patient,
     this.slotCount = 1,
     this.offering,
+    this.machineId,
+    this.visits = const [],
   });
 
   final SourceContext sourceContext;
 
-  /// First slot in the selected consecutive range.
+  /// First slot in the selected consecutive range (legacy / primary visit).
   final TimeSlot slot;
   final PatientDetails patient;
 
-  /// Number of 30-minute slots (1–3).
+  /// Number of 30-minute slots for the primary visit (1–3).
   final int slotCount;
 
   /// Selected book-online offering when booking from the picker.
   final BookOnlineOffering? offering;
 
+  /// Selected machine/station when the service requires one.
+  final int? machineId;
+
+  /// Multi-session visits (when length > 1, sent as `visits[]`).
+  final List<BookingVisit> visits;
+
   String get serviceLabel =>
       offering?.name ?? bookingServiceLabel(sourceContext);
 
   String get timeRangeLabel {
+    if (visits.length > 1) {
+      return '${visits.length} sessions';
+    }
     if (slotCount <= 1) return slot.label;
     final endMinutes =
         slot.timeMinutes + slotCount * ClinicSlots.slotMinutes;
@@ -37,6 +49,15 @@ class AppointmentRequest {
   }
 
   factory AppointmentRequest.fromJson(Map<String, dynamic> json) {
+    final visitsRaw = json['visits'];
+    final visits = <BookingVisit>[];
+    if (visitsRaw is List) {
+      for (final item in visitsRaw) {
+        if (item is Map) {
+          visits.add(BookingVisit.fromJson(Map<String, dynamic>.from(item)));
+        }
+      }
+    }
     return AppointmentRequest(
       sourceContext: SourceContext.fromJson(
         json['sourceContext'] as Map<String, dynamic>,
@@ -49,6 +70,9 @@ class AppointmentRequest {
               json['offering'] as Map<String, dynamic>,
             )
           : null,
+      machineId: (json['machineId'] as num?)?.toInt() ??
+          (json['machine_id'] as num?)?.toInt(),
+      visits: visits,
     );
   }
 
@@ -61,19 +85,25 @@ class AppointmentRequest {
         '${date.year.toString().padLeft(4, '0')}-'
         '${date.month.toString().padLeft(2, '0')}-'
         '${date.day.toString().padLeft(2, '0')}';
-    return {
+    final body = <String, dynamic>{
       'full_name': patient.name,
       'email': patient.email,
       'phone': patient.phone,
       'service': serviceLabel,
       'consultation_mode': patient.consultationMode.apiValue,
-      'date': dateStr,
-      'time_minutes': slot.timeMinutes,
-      'slot_count': slotCount,
       'payment_session_id': paymentSessionId,
       'for_family_member': patient.forFamilyMember,
       if (offering != null) 'offering_slug': offering!.slug,
+      if (machineId != null) 'machine_id': machineId,
     };
+    if (visits.length > 1) {
+      body['visits'] = visits.map((v) => v.toJson()).toList();
+    } else {
+      body['date'] = dateStr;
+      body['time_minutes'] = slot.timeMinutes;
+      body['slot_count'] = slotCount;
+    }
+    return body;
   }
 
   /// Payload for legacy `POST /api/v1/appointments/`.
@@ -98,5 +128,7 @@ class AppointmentRequest {
         'service': serviceLabel,
         'slotCount': slotCount,
         if (offering != null) 'offering': offering!.toJson(),
+        if (machineId != null) 'machineId': machineId,
+        if (visits.isNotEmpty) 'visits': visits.map((v) => v.toJson()).toList(),
       };
 }

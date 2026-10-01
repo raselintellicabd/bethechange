@@ -528,6 +528,9 @@ class MockApiInterceptor extends Interceptor {
     Map<String, dynamic> query,
   ) async {
     final service = '${query['service'] ?? ''}'.trim();
+    final offeringSlug = '${query['offering_slug'] ?? ''}'.trim();
+    final machineRaw = '${query['machine'] ?? query['machine_id'] ?? ''}'.trim();
+    final machineId = int.tryParse(machineRaw);
     final forPackage = '${query['package'] ?? ''}' == '1';
     final windowDays = forPackage ? 180 : 15;
     final today = _today;
@@ -563,7 +566,52 @@ class MockApiInterceptor extends Interceptor {
       'work_start_minutes': 600,
       'work_end_minutes': 1020,
       'slot_minutes': 30,
-      'days': days,
+      'machines': offeringSlug.contains('chemotherapy') ||
+              service.toLowerCase().contains('chemo')
+          ? [
+              {
+                'id': 1,
+                'name': 'Machine 1',
+                'slug': 'machine-1',
+                'order': 0,
+              },
+              {
+                'id': 2,
+                'name': 'Machine 2',
+                'slug': 'machine-2',
+                'order': 1,
+              },
+            ]
+          : [
+              {
+                'id': 1,
+                'name': 'Machine 1',
+                'slug': 'machine-1',
+                'order': 0,
+              },
+            ],
+      'needs_machine': (offeringSlug.contains('chemotherapy') ||
+              service.toLowerCase().contains('chemo')) &&
+          machineId == null,
+      'machine_id': machineId,
+      'fixed_slot_count': offeringSlug.contains('3-sessions') ||
+              service.toLowerCase().contains('3 sessions')
+          ? 2
+          : 1,
+      'number_of_sessions': offeringSlug.contains('3-sessions') ||
+              service.toLowerCase().contains('3 sessions')
+          ? 3
+          : 1,
+      'per_visit_minutes': offeringSlug.contains('3-sessions') ||
+              service.toLowerCase().contains('3 sessions')
+          ? 60
+          : 30,
+      'day_gap': 0,
+      'days': (offeringSlug.contains('chemotherapy') ||
+                  service.toLowerCase().contains('chemo')) &&
+              machineId == null
+          ? <String, List<Map<String, dynamic>>>{}
+          : days,
     };
   }
 

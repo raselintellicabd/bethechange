@@ -9,12 +9,15 @@ import '../../../points_offers/presentation/providers/points_offers_providers.da
 import '../../data/appointment_api_repository.dart';
 import '../../data/appointment_repository.dart';
 import '../../domain/booking_labels.dart';
+import '../../domain/booking_schedule_state.dart';
+import '../../domain/clinic_slots.dart';
 import '../../domain/models/appointment_booking_result.dart';
 import '../../domain/models/appointment_history_item.dart';
 import '../../domain/models/appointment_request.dart';
 import '../../domain/models/availability_window.dart';
 import '../../domain/models/book_online_catalog.dart';
 import '../../domain/models/book_online_offering.dart';
+import '../../domain/models/booking_machine.dart';
 import '../../domain/models/booking_quote.dart';
 import '../../domain/models/patient_details.dart';
 import '../../domain/models/slot_selection.dart';
@@ -64,6 +67,12 @@ class AppointmentBookingState {
     this.selectedDate,
     this.slots = const [],
     this.selection,
+    this.machines = const [],
+    this.selectedMachineId,
+    this.visits = const [],
+    this.activeSessionIndex = 0,
+    this.numberOfSessions = 1,
+    this.dayGap = 0,
     this.patient,
     this.quote,
     this.paymentEmail = '',
@@ -86,6 +95,12 @@ class AppointmentBookingState {
   final DateTime? selectedDate;
   final List<TimeSlot> slots;
   final SlotSelection? selection;
+  final List<BookingMachine> machines;
+  final int? selectedMachineId;
+  final List<BookingVisit> visits;
+  final int activeSessionIndex;
+  final int numberOfSessions;
+  final int dayGap;
   final PatientDetails? patient;
   final BookingQuote? quote;
   final String paymentEmail;
@@ -98,9 +113,28 @@ class AppointmentBookingState {
   final String? errorMessage;
   final AppointmentBookingResult? result;
 
-  bool get hasFixedDuration => offering != null;
+  bool get hasFixedDuration =>
+      offering != null ||
+      (availability?.fixedSlotCount != null &&
+          (availability!.fixedSlotCount ?? 0) > 0);
 
-  int? get requiredSlotCount => offering?.requiredSlots;
+  int? get requiredSlotCount {
+    if (availability?.fixedSlotCount != null &&
+        availability!.fixedSlotCount! > 0) {
+      return availability!.effectivePerVisitSlots;
+    }
+    return offering?.requiredSlots;
+  }
+
+  bool get requiresMachinePicker =>
+      machines.length > 1 || (availability?.needsMachine ?? false);
+
+  bool get calendarUnlocked =>
+      !requiresMachinePicker || selectedMachineId != null;
+
+  bool get isMultiSession => numberOfSessions > 1;
+
+  bool get isScheduleComplete => visits.length >= numberOfSessions;
 
   String get bookingLabel =>
       bookingServiceLabel(sourceContext, offering: offering);
@@ -113,6 +147,13 @@ class AppointmentBookingState {
 
   /// First slot of the selected range (for booking payload).
   TimeSlot? get selectedSlot {
+    if (visits.isNotEmpty) {
+      final first = visits.first;
+      return TimeSlot.fromAvailability(
+        date: first.date,
+        timeMinutes: first.timeMinutes,
+      );
+    }
     final range = selection;
     if (range == null) return null;
     for (final slot in slots) {
@@ -121,13 +162,51 @@ class AppointmentBookingState {
     return null;
   }
 
-  int get selectedSlotCount => selection?.slotCount ?? 0;
+  int get selectedSlotCount {
+    if (visits.isNotEmpty) return visits.first.slotCount;
+    return selection?.slotCount ?? 0;
+  }
 
-  String? get selectionTimeLabel => selection?.timeRangeLabel;
+  String? get selectionTimeLabel {
+    if (visits.length > 1) return '${visits.length} sessions scheduled';
+    if (visits.length == 1) {
+      final v = visits.first;
+      final start = ClinicSlots.displayLabel(v.timeMinutes);
+      if (v.slotCount <= 1) return start;
+      final end = ClinicSlots.displayLabel(
+        v.timeMinutes + v.slotCount * ClinicSlots.slotMinutes,
+      );
+      return '$start – $end';
+    }
+    return selection?.timeRangeLabel;
+  }
+
+  String? get selectedMachineName {
+    final id = selectedMachineId;
+    if (id == null) return null;
+    for (final m in machines) {
+      if (m.id == id) return m.name;
+    }
+    return null;
+  }
 
   bool isDateAvailable(DateTime day) {
-    final normalized = DateTime(day.year, day.month, day.day);
-    return availableDates.contains(normalized);
+    final window = availability;
+    if (window == null) {
+      return visitIndexForDate(visits, day) >= 0 || availableDates.contains(
+        DateTime(day.year, day.month, day.day),
+      );
+    }
+    return isScheduleDateAvailable(
+      day: day,
+      visits: visits,
+      activeSessionIndex: activeSessionIndex,
+      dayGap: dayGap,
+      bookableDates: {
+        ...window.bookableDates,
+        ...availableDates,
+      },
+    );
   }
 
   bool isSlotSelected(TimeSlot slot) =>
@@ -143,6 +222,13 @@ class AppointmentBookingState {
     List<TimeSlot>? slots,
     SlotSelection? selection,
     bool clearSelection = false,
+    List<BookingMachine>? machines,
+    int? selectedMachineId,
+    bool clearMachine = false,
+    List<BookingVisit>? visits,
+    int? activeSessionIndex,
+    int? numberOfSessions,
+    int? dayGap,
     PatientDetails? patient,
     BookingQuote? quote,
     bool clearQuote = false,
@@ -169,6 +255,13 @@ class AppointmentBookingState {
           clearSelectedDate ? null : selectedDate ?? this.selectedDate,
       slots: slots ?? this.slots,
       selection: clearSelection ? null : selection ?? this.selection,
+      machines: machines ?? this.machines,
+      selectedMachineId:
+          clearMachine ? null : selectedMachineId ?? this.selectedMachineId,
+      visits: visits ?? this.visits,
+      activeSessionIndex: activeSessionIndex ?? this.activeSessionIndex,
+      numberOfSessions: numberOfSessions ?? this.numberOfSessions,
+      dayGap: dayGap ?? this.dayGap,
       patient: patient ?? this.patient,
       quote: clearQuote ? null : quote ?? this.quote,
       paymentEmail: paymentEmail ?? this.paymentEmail,
@@ -272,11 +365,13 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
   final Future<void> Function(int pointsAwarded)? _onPointsAwarded;
   final Duration paymentDelay;
 
-  Future<void> loadAvailability() async {
+  Future<void> loadAvailability({int? machineId}) async {
     state = state.copyWith(isLoading: true, clearError: true);
 
     final result = await _repository.getAvailability(
       service: state.bookingLabel,
+      offeringSlug: state.offering?.slug,
+      machineId: machineId ?? state.selectedMachineId,
     );
 
     result.when(
@@ -288,17 +383,66 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
         if (focused.isBefore(minMonth)) focused = minMonth;
         if (focused.isAfter(maxMonth)) focused = maxMonth;
 
+        final machines = window.machines;
+        int? selectedMachine =
+            machineId ?? state.selectedMachineId ?? window.machineId;
+        if (selectedMachine == null && machines.length == 1) {
+          selectedMachine = machines.first.id;
+        }
+
+        final sessions = window.numberOfSessions > 0
+            ? window.numberOfSessions
+            : (state.offering?.numberOfSessions ?? 1);
+        final dayGap = window.dayGap >= 0
+            ? window.dayGap
+            : (state.offering?.dayGap ?? 0);
+
+        final calendarReady = selectedMachine != null ||
+            machines.length <= 1 && !window.needsMachine;
+
         state = state.copyWith(
           availability: window,
           focusedMonth: focused,
-          availableDates: _datesForMonth(window, focused),
+          availableDates: calendarReady
+              ? _datesForMonth(window, focused)
+              : const <DateTime>{},
+          machines: machines,
+          selectedMachineId: selectedMachine,
+          clearMachine: selectedMachine == null,
+          numberOfSessions: sessions,
+          dayGap: dayGap,
+          clearSelectedDate: true,
+          clearSelection: true,
+          slots: const [],
           isLoading: false,
+          clearError: true,
         );
+
+        // Auto-reload once when a single machine is inferred.
+        if (selectedMachine != null &&
+            window.needsMachine &&
+            window.machineId == null &&
+            machineId == null) {
+          loadAvailability(machineId: selectedMachine);
+        }
       },
       failure: (message, _) {
         state = state.copyWith(isLoading: false, errorMessage: message);
       },
     );
+  }
+
+  Future<void> selectMachine(int machineId) async {
+    state = state.copyWith(
+      selectedMachineId: machineId,
+      visits: const [],
+      activeSessionIndex: 0,
+      clearSelectedDate: true,
+      clearSelection: true,
+      slots: const [],
+      step: AppointmentStep.date,
+    );
+    await loadAvailability(machineId: machineId);
   }
 
   Future<void> loadMonth(DateTime month) async {
@@ -332,75 +476,89 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
   }
 
   Future<void> selectDate(DateTime date) async {
-    final normalized = DateTime(date.year, date.month, date.day);
-    if (!state.isDateAvailable(normalized)) return;
-
+    if (!state.calendarUnlocked) return;
     final window = state.availability;
     if (window == null) {
       await loadAvailability();
       return;
     }
 
-    final slots = window
-        .slotsOn(normalized)
-        .map(
-          (s) => TimeSlot.fromAvailability(
-            date: normalized,
-            timeMinutes: s.timeMinutes,
-            state: s.state,
-          ),
-        )
-        .toList();
+    final result = resolveScheduleDatePick(
+      date: date,
+      window: window,
+      visits: state.visits,
+      numberOfSessions: state.numberOfSessions,
+      activeSessionIndex: state.activeSessionIndex,
+      dayGap: state.dayGap,
+    );
+    if (result.isError) {
+      state = state.copyWith(errorMessage: result.errorMessage);
+      return;
+    }
+    if (result.selectedDate == null) return;
 
     state = state.copyWith(
-      selectedDate: normalized,
-      clearSelection: true,
-      slots: slots,
-      step: AppointmentStep.time,
+      selectedDate: result.selectedDate,
+      slots: result.slots,
+      selection: result.selection,
+      clearSelection: result.selection == null,
+      activeSessionIndex: result.activeSessionIndex,
+      step: AppointmentStep.date,
       clearError: true,
     );
   }
 
   void selectSlot(TimeSlot slot) {
-    if (!slot.isSelectable) return;
+    final date = state.selectedDate;
+    if (date == null) return;
 
-    final open = state.slots
-        .where((s) => s.isSelectable)
-        .map((s) => s.timeMinutes)
-        .toSet();
-
-    try {
-      final SlotSelection? next;
-      final required = state.requiredSlotCount;
-      if (required != null) {
-        next = SlotSelection.selectFixed(
-          current: state.selection,
-          clickedMinutes: slot.timeMinutes,
-          requiredSlots: required,
-          availableMinutes: open,
-        );
-      } else {
-        next = SlotSelection.select(
-          current: state.selection,
-          clickedMinutes: slot.timeMinutes,
-          availableMinutes: open,
-        );
-      }
-      state = state.copyWith(
-        selection: next,
-        clearSelection: next == null,
-        clearError: true,
-      );
-    } on SlotSelectionLimitException catch (e) {
-      state = state.copyWith(errorMessage: e.toString());
-    } on SlotSelectionBlockedException catch (e) {
-      state = state.copyWith(errorMessage: e.toString());
+    final result = resolveScheduleSlotPick(
+      slot: slot,
+      selectedDate: date,
+      slots: state.slots,
+      currentSelection: state.selection,
+      visits: state.visits,
+      numberOfSessions: state.numberOfSessions,
+      requiredSlots: state.requiredSlotCount,
+    );
+    if (result.isError) {
+      state = state.copyWith(errorMessage: result.errorMessage);
+      return;
     }
+
+    state = state.copyWith(
+      selection: result.selection,
+      clearSelection: result.clearSelection,
+      clearSelectedDate: result.clearSelectedDate,
+      visits: result.visits,
+      activeSessionIndex: result.activeSessionIndex,
+      clearError: true,
+    );
   }
 
   void continueToDetails() {
-    if (state.selection == null || state.selectedSlot == null) return;
-    state = state.copyWith(step: AppointmentStep.details, clearError: true);
+    final visits = ensureVisitsFromSelection(
+      visits: state.visits,
+      selectedDate: state.selectedDate,
+      selection: state.selection,
+      numberOfSessions: state.numberOfSessions,
+    );
+
+    if (visits.length < state.numberOfSessions) {
+      state = state.copyWith(
+        errorMessage: state.numberOfSessions > 1
+            ? 'Select a date and time for all ${state.numberOfSessions} sessions.'
+            : 'Select a date and time to continue.',
+      );
+      return;
+    }
+
+    state = state.copyWith(
+      visits: visits,
+      activeSessionIndex: visits.length,
+      step: AppointmentStep.details,
+      clearError: true,
+    );
   }
 
   void submitPatientDetails(PatientDetails patient) {
@@ -427,11 +585,10 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
   }
 
   void continueToPayment() {
-    if (state.selection == null ||
-        state.selectedSlot == null ||
-        state.patient == null) {
-      return;
-    }
+    if (state.patient == null) return;
+    final hasSchedule =
+        state.visits.isNotEmpty || state.selection != null;
+    if (!hasSchedule) return;
     final quote = state.quote;
     if (quote != null && quote.isFree) {
       submitPayment(skipCard: true);
@@ -470,11 +627,10 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
 
   /// Confirm payment with backend then create the pending appointment.
   Future<void> submitPayment({bool skipCard = false}) async {
-    if (state.selection == null ||
-        state.selectedSlot == null ||
-        state.patient == null) {
-      return;
-    }
+    if (state.patient == null) return;
+    final hasSchedule =
+        state.visits.isNotEmpty || state.selection != null;
+    if (!hasSchedule) return;
 
     state = state.copyWith(isLoading: true, clearError: true);
 
@@ -538,15 +694,14 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
   void goBack() {
     switch (state.step) {
       case AppointmentStep.time:
+        // Schedule is a single screen now; treat like date.
         state = state.copyWith(
           step: AppointmentStep.date,
-          clearSelection: true,
-          slots: const [],
           clearError: true,
         );
         return;
       case AppointmentStep.details:
-        state = state.copyWith(step: AppointmentStep.time, clearError: true);
+        state = state.copyWith(step: AppointmentStep.date, clearError: true);
         return;
       case AppointmentStep.confirm:
         state = state.copyWith(step: AppointmentStep.details, clearError: true);
@@ -564,10 +719,27 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
   }
 
   Future<void> confirmBooking({bool fromPayment = false}) async {
-    final slot = state.selectedSlot;
-    final selection = state.selection;
     final patient = state.patient;
-    if (slot == null || selection == null || patient == null) return;
+    final visits = state.visits;
+    // Commit in-progress selection if user went straight from single session.
+    final effectiveVisits = visits.isNotEmpty
+        ? visits
+        : (state.selection != null && state.selectedDate != null
+            ? [
+                BookingVisit(
+                  date: state.selectedDate!,
+                  timeMinutes: state.selection!.startMinutes,
+                  slotCount: state.selection!.slotCount,
+                ),
+              ]
+            : const <BookingVisit>[]);
+    if (patient == null || effectiveVisits.isEmpty) return;
+
+    final slot = TimeSlot.fromAvailability(
+      date: effectiveVisits.first.date,
+      timeMinutes: effectiveVisits.first.timeMinutes,
+    );
+    final slotCount = effectiveVisits.first.slotCount;
 
     // Payment step owns the create call after pay succeeds.
     if (!fromPayment) {
@@ -591,7 +763,9 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
       offering: state.offering,
       slot: slot,
       patient: patient,
-      slotCount: selection.slotCount,
+      slotCount: slotCount,
+      machineId: state.selectedMachineId,
+      visits: effectiveVisits,
     );
 
     final result = await _repository.bookAppointment(
@@ -612,6 +786,7 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
         isLoading: false,
         result: booking,
         step: AppointmentStep.success,
+        visits: effectiveVisits,
       );
       await _onPointsAwarded?.call(booking.pointsAwarded);
       return;
@@ -623,23 +798,16 @@ class AppointmentController extends StateNotifier<AppointmentBookingState> {
     state = state.copyWith(isLoading: false, errorMessage: message);
 
     if (statusCode == 400 || statusCode == 409 || statusCode == 402) {
-      await loadAvailability();
-      final selected = state.selectedDate;
-      if (selected != null && state.isDateAvailable(selected)) {
-        await selectDate(selected);
-        state = state.copyWith(
-          step: AppointmentStep.time,
-          errorMessage: message,
-        );
-      } else {
-        state = state.copyWith(
-          step: AppointmentStep.date,
-          clearSelectedDate: true,
-          clearSelection: true,
-          slots: const [],
-          errorMessage: message,
-        );
-      }
+      await loadAvailability(machineId: state.selectedMachineId);
+      state = state.copyWith(
+        step: AppointmentStep.date,
+        visits: const [],
+        activeSessionIndex: 0,
+        clearSelectedDate: true,
+        clearSelection: true,
+        slots: const [],
+        errorMessage: message,
+      );
     }
   }
 

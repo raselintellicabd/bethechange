@@ -102,6 +102,9 @@ class _FakeAppointmentRepository implements AppointmentRepository {
   @override
   Future<ApiResult<AvailabilityWindow>> getAvailability({
     required String service,
+    bool forPackage = false,
+    String? offeringSlug,
+    int? machineId,
   }) async {
     return ApiSuccess(window);
   }
@@ -112,9 +115,55 @@ class _FakeAppointmentRepository implements AppointmentRepository {
   }
 
   @override
-  Future<ApiResult<AppointmentBookingResult>> bookAppointment(
-    AppointmentRequest request,
-  ) async {
+  Future<ApiResult<BookingQuote>> getQuote({
+    required String service,
+    String? offeringSlug,
+  }) async {
+    return const ApiSuccess(
+      BookingQuote(
+        listAmountCents: 0,
+        discountCents: 0,
+        payableCents: 0,
+        discountPercent: 0,
+        usedComplimentary: false,
+        pricingNote: '',
+        listAmountDisplay: 'Free',
+        discountDisplay: 'Free',
+        payableDisplay: 'Free',
+      ),
+    );
+  }
+
+  @override
+  Future<ApiResult<PaymentSessionResult>> createPaymentSession({
+    required String service,
+    String? offeringSlug,
+  }) async {
+    return const ApiSuccess(
+      PaymentSessionResult(
+        paymentSessionId: 'sess',
+        clientSecret: 'secret',
+        amountCents: 0,
+        amountDisplay: 'Free',
+        provider: 'mock',
+      ),
+    );
+  }
+
+  @override
+  Future<ApiResult<void>> confirmPayment({
+    required String paymentSessionId,
+    required String clientSecret,
+    required Map<String, dynamic> paymentMethod,
+  }) async {
+    return const ApiSuccess(null);
+  }
+
+  @override
+  Future<ApiResult<AppointmentBookingResult>> bookAppointment({
+    required AppointmentRequest request,
+    required String paymentSessionId,
+  }) async {
     bookCallCount += 1;
     lastRequest = request;
     if (bookFailureStatus != null) {

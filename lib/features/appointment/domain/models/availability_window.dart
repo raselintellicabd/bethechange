@@ -1,3 +1,5 @@
+import 'booking_machine.dart';
+
 /// One clinic slot from Django `day_slot_payload`.
 class AvailabilitySlot {
   const AvailabilitySlot({
@@ -28,6 +30,13 @@ class AvailabilityWindow {
     required this.slotMinutes,
     required this.days,
     this.windowDays = 15,
+    this.machines = const [],
+    this.needsMachine = false,
+    this.machineId,
+    this.fixedSlotCount,
+    this.numberOfSessions = 1,
+    this.perVisitMinutes,
+    this.dayGap = 0,
   });
 
   final String service;
@@ -39,6 +48,27 @@ class AvailabilityWindow {
 
   /// Clinic-local calendar days → slots (may be empty list).
   final Map<DateTime, List<AvailabilitySlot>> days;
+
+  final List<BookingMachine> machines;
+  final bool needsMachine;
+  final int? machineId;
+  final int? fixedSlotCount;
+  final int numberOfSessions;
+  final int? perVisitMinutes;
+  final int dayGap;
+
+  bool get requiresMachinePicker =>
+      needsMachine || machines.length > 1;
+
+  int get effectivePerVisitSlots {
+    if (fixedSlotCount != null && fixedSlotCount! > 0) {
+      return fixedSlotCount!.clamp(1, 3);
+    }
+    final minutes = perVisitMinutes ?? slotMinutes;
+    if (minutes <= 0) return 1;
+    final raw = (minutes / slotMinutes).ceil();
+    return raw.clamp(1, 3);
+  }
 
   factory AvailabilityWindow.fromJson(Map<String, dynamic> json) {
     final daysRaw = json['days'];
@@ -86,6 +116,27 @@ class AvailabilityWindow {
     final windowEnd = tryParseDay(json['window_end']) ??
         today.add(Duration(days: windowDays > 0 ? windowDays - 1 : 0));
 
+    final machinesRaw = json['machines'];
+    final machines = <BookingMachine>[];
+    if (machinesRaw is List) {
+      for (final item in machinesRaw) {
+        if (item is Map) {
+          final machine = BookingMachine.fromJson(
+            Map<String, dynamic>.from(item),
+          );
+          if (machine.id > 0) machines.add(machine);
+        }
+      }
+    }
+
+    final rawMachineId = json['machine_id'];
+    int? machineId;
+    if (rawMachineId is num) {
+      machineId = rawMachineId.toInt();
+    } else if (rawMachineId is String && rawMachineId.trim().isNotEmpty) {
+      machineId = int.tryParse(rawMachineId.trim());
+    }
+
     return AvailabilityWindow(
       service: (json['service'] as String?)?.trim() ?? '',
       timezone: (json['timezone'] as String?)?.trim() ?? 'America/New_York',
@@ -94,6 +145,13 @@ class AvailabilityWindow {
       windowDays: windowDays,
       slotMinutes: (json['slot_minutes'] as num?)?.toInt() ?? 30,
       days: days,
+      machines: List.unmodifiable(machines),
+      needsMachine: json['needs_machine'] == true,
+      machineId: machineId,
+      fixedSlotCount: (json['fixed_slot_count'] as num?)?.toInt(),
+      numberOfSessions: (json['number_of_sessions'] as num?)?.toInt() ?? 1,
+      perVisitMinutes: (json['per_visit_minutes'] as num?)?.toInt(),
+      dayGap: (json['day_gap'] as num?)?.toInt() ?? 0,
     );
   }
 

@@ -47,6 +47,9 @@ class PointOffer {
     this.pricingNote = '',
     this.payableDisplay = '',
     this.pointsBalance,
+    this.perVisitMinutes,
+    this.numberOfSessions = 1,
+    this.dayGap = 0,
     this.auth = const PointOfferAuthPrefill(
       isAuthenticated: false,
       fullName: '',
@@ -71,7 +74,12 @@ class PointOffer {
   final String pricingNote;
   final String payableDisplay;
   final int? pointsBalance;
+  final int? perVisitMinutes;
+  final int numberOfSessions;
+  final int dayGap;
   final PointOfferAuthPrefill auth;
+
+  bool get isMultiSession => numberOfSessions > 1;
 
   factory PointOffer.fromJson(Map<String, dynamic> json) {
     return PointOffer(
@@ -91,6 +99,10 @@ class PointOffer {
       pricingNote: (json['pricing_note'] as String?)?.trim() ?? '',
       payableDisplay: (json['payable_display'] as String?)?.trim() ?? '',
       pointsBalance: (json['points_balance'] as num?)?.toInt(),
+      perVisitMinutes: (json['per_visit_minutes'] as num?)?.toInt(),
+      numberOfSessions:
+          (json['number_of_sessions'] as num?)?.toInt() ?? 1,
+      dayGap: (json['day_gap'] as num?)?.toInt() ?? 0,
       auth: PointOfferAuthPrefill.fromJson(
         json['auth'] is Map
             ? Map<String, dynamic>.from(json['auth'] as Map)

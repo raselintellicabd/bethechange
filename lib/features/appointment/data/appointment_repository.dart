@@ -10,6 +10,8 @@ abstract class AppointmentRepository {
   Future<ApiResult<AvailabilityWindow>> getAvailability({
     required String service,
     bool forPackage = false,
+    String? offeringSlug,
+    int? machineId,
   });
 
   Future<ApiResult<BookOnlineCatalog>> getBookOnlineCatalog();

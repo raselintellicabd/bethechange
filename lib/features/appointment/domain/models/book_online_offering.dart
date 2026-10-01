@@ -3,7 +3,7 @@ import 'dart:math' as math;
 
 import '../clinic_slots.dart';
 
-/// Bookable SKU under a /book-online/ category (Django `BookOnlineService`).
+/// Bookable SKU under a /book-online/ category (Django `SubService`).
 class BookOnlineOffering {
   const BookOnlineOffering({
     required this.slug,
@@ -14,6 +14,9 @@ class BookOnlineOffering {
     this.description = '',
     this.imageUrl = '',
     this.appointmentTopic = '',
+    this.perVisitMinutes,
+    this.numberOfSessions = 1,
+    this.dayGap = 0,
   });
 
   final String slug;
@@ -25,12 +28,28 @@ class BookOnlineOffering {
   final String imageUrl;
   final String appointmentTopic;
 
-  /// Website `data-fixed-slot-count`: ceil(duration/30), capped at 3.
+  /// Minutes for one visit (admin-configured). Falls back to [durationMinutes].
+  final int? perVisitMinutes;
+
+  /// How many visits the patient must schedule.
+  final int numberOfSessions;
+
+  /// Days between sessions when >= 1; 0 = flexible multi-date picking.
+  final int dayGap;
+
+  int get effectivePerVisitMinutes {
+    final value = perVisitMinutes ?? durationMinutes;
+    return value > 0 ? value : ClinicSlots.slotMinutes;
+  }
+
+  /// Website `fixed_slot_count`: ceil(per_visit/30), capped at 3.
   int get requiredSlots {
-    if (durationMinutes <= 0) return 1;
-    final raw = (durationMinutes / ClinicSlots.slotMinutes).ceil();
+    final raw =
+        (effectivePerVisitMinutes / ClinicSlots.slotMinutes).ceil();
     return math.min(SlotSelectionMax.maxSlots, math.max(1, raw));
   }
+
+  bool get isMultiSession => numberOfSessions > 1;
 
   bool get isFree => price <= 0;
 
@@ -58,6 +77,7 @@ class BookOnlineOffering {
 
   String get metaLine {
     final parts = <String>[
+      if (isMultiSession) '$numberOfSessions sessions',
       if (durationDisplay.isNotEmpty) durationDisplay,
       if (priceDisplay.isNotEmpty) priceDisplay,
     ];
@@ -73,6 +93,9 @@ class BookOnlineOffering {
         'description': description,
         'image_url': imageUrl,
         'appointment_topic': appointmentTopic,
+        if (perVisitMinutes != null) 'per_visit_minutes': perVisitMinutes,
+        'number_of_sessions': numberOfSessions,
+        'day_gap': dayGap,
       };
 
   factory BookOnlineOffering.fromJson(Map<String, dynamic> json) {
@@ -87,6 +110,10 @@ class BookOnlineOffering {
       appointmentTopic:
           '${json['appointment_topic'] ?? json['appointmentTopic'] ?? ''}'
               .trim(),
+      perVisitMinutes: (json['per_visit_minutes'] as num?)?.toInt(),
+      numberOfSessions:
+          (json['number_of_sessions'] as num?)?.toInt() ?? 1,
+      dayGap: (json['day_gap'] as num?)?.toInt() ?? 0,
     );
   }
 
@@ -112,11 +139,21 @@ class BookOnlineOffering {
         other.name == name &&
         other.durationMinutes == durationMinutes &&
         other.price == price &&
-        other.categorySlug == categorySlug;
+        other.categorySlug == categorySlug &&
+        other.numberOfSessions == numberOfSessions &&
+        other.dayGap == dayGap;
   }
 
   @override
-  int get hashCode => Object.hash(slug, name, durationMinutes, price, categorySlug);
+  int get hashCode => Object.hash(
+        slug,
+        name,
+        durationMinutes,
+        price,
+        categorySlug,
+        numberOfSessions,
+        dayGap,
+      );
 }
 
 /// Avoid circular import with [SlotSelection] for required-slot math.

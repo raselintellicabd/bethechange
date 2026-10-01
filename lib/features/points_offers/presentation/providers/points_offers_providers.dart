@@ -5,7 +5,9 @@ import 'package:intl/intl.dart';
 import '../../../../core/network/api_client.dart';
 import '../../../../core/network/api_result.dart';
 import '../../../appointment/data/appointment_api_repository.dart';
+import '../../../appointment/domain/booking_schedule_state.dart';
 import '../../../appointment/domain/models/availability_window.dart';
+import '../../../appointment/domain/models/booking_machine.dart';
 import '../../../appointment/domain/models/consultation_mode.dart';
 import '../../../appointment/domain/models/patient_details.dart';
 import '../../../appointment/domain/models/slot_selection.dart';
@@ -41,6 +43,10 @@ class PointOfferBookState {
     this.selectedDate,
     this.slots = const [],
     this.selection,
+    this.machines = const [],
+    this.selectedMachineId,
+    this.visits = const [],
+    this.activeSessionIndex = 0,
     this.step = PointOfferBookStep.schedule,
     this.patient,
     this.isLoading = false,
@@ -55,22 +61,67 @@ class PointOfferBookState {
   final DateTime? selectedDate;
   final List<TimeSlot> slots;
   final SlotSelection? selection;
+  final List<BookingMachine> machines;
+  final int? selectedMachineId;
+  final List<BookingVisit> visits;
+  final int activeSessionIndex;
   final PointOfferBookStep step;
   final PatientDetails? patient;
   final bool isLoading;
   final String? errorMessage;
   final PointOfferClaimResult? result;
 
-  bool get hasSchedule => selectedDate != null && selection != null;
+  int get numberOfSessions =>
+      availability?.numberOfSessions ?? offer?.numberOfSessions ?? 1;
+
+  int get dayGap => availability?.dayGap ?? offer?.dayGap ?? 0;
+
+  int get requiredSlots {
+    if (availability?.fixedSlotCount != null &&
+        availability!.fixedSlotCount! > 0) {
+      return availability!.effectivePerVisitSlots;
+    }
+    return (offer?.slotCount ?? 1).clamp(1, SlotSelection.maxSlots);
+  }
+
+  bool get requiresMachinePicker =>
+      machines.length > 1 || (availability?.needsMachine ?? false);
+
+  bool get calendarUnlocked =>
+      !requiresMachinePicker || selectedMachineId != null;
+
+  bool get hasSchedule =>
+      visits.length >= numberOfSessions ||
+      (numberOfSessions <= 1 && selectedDate != null && selection != null);
+
+  bool get isScheduleComplete => visits.length >= numberOfSessions;
+
+  bool isDateAvailable(DateTime day) {
+    final window = availability;
+    if (window == null) return false;
+    return isScheduleDateAvailable(
+      day: day,
+      visits: visits,
+      activeSessionIndex: activeSessionIndex,
+      dayGap: dayGap,
+      bookableDates: window.bookableDates,
+    );
+  }
 
   PointOfferBookState copyWith({
     PointOffer? offer,
     AvailabilityWindow? availability,
     DateTime? focusedMonth,
     DateTime? selectedDate,
+    bool clearSelectedDate = false,
     List<TimeSlot>? slots,
     SlotSelection? selection,
     bool clearSelection = false,
+    List<BookingMachine>? machines,
+    int? selectedMachineId,
+    bool clearMachine = false,
+    List<BookingVisit>? visits,
+    int? activeSessionIndex,
     PointOfferBookStep? step,
     PatientDetails? patient,
     bool? isLoading,
@@ -83,9 +134,15 @@ class PointOfferBookState {
       offer: offer ?? this.offer,
       availability: availability ?? this.availability,
       focusedMonth: focusedMonth ?? this.focusedMonth,
-      selectedDate: selectedDate ?? this.selectedDate,
+      selectedDate:
+          clearSelectedDate ? null : (selectedDate ?? this.selectedDate),
       slots: slots ?? this.slots,
       selection: clearSelection ? null : (selection ?? this.selection),
+      machines: machines ?? this.machines,
+      selectedMachineId:
+          clearMachine ? null : (selectedMachineId ?? this.selectedMachineId),
+      visits: visits ?? this.visits,
+      activeSessionIndex: activeSessionIndex ?? this.activeSessionIndex,
       step: step ?? this.step,
       patient: patient ?? this.patient,
       isLoading: isLoading ?? this.isLoading,
@@ -137,12 +194,14 @@ class PointOfferBookController extends StateNotifier<PointOfferBookState> {
     await loadAvailability();
   }
 
-  Future<void> loadAvailability() async {
+  Future<void> loadAvailability({int? machineId}) async {
     final offer = state.offer;
     if (offer == null) return;
     state = state.copyWith(isLoading: true, clearError: true);
     final result = await _appointments.getAvailability(
       service: offer.serviceName,
+      offeringSlug: offer.serviceSlug,
+      machineId: machineId ?? state.selectedMachineId,
     );
     if (result is! ApiSuccess<AvailabilityWindow>) {
       final failure = result as ApiFailure<AvailabilityWindow>;
@@ -150,18 +209,50 @@ class PointOfferBookController extends StateNotifier<PointOfferBookState> {
       return;
     }
     final window = result.data;
+    final machines = window.machines;
+    int? selectedMachine =
+        machineId ?? state.selectedMachineId ?? window.machineId;
+    if (selectedMachine == null && machines.length == 1) {
+      selectedMachine = machines.first.id;
+    }
     state = state.copyWith(
       availability: window,
       focusedMonth: DateTime(window.today.year, window.today.month),
+      machines: machines,
+      selectedMachineId: selectedMachine,
+      clearMachine: selectedMachine == null,
       isLoading: false,
       clearError: true,
     );
+    if (selectedMachine != null &&
+        window.needsMachine &&
+        window.machineId == null &&
+        machineId == null) {
+      await loadAvailability(machineId: selectedMachine);
+    }
+  }
+
+  Future<void> selectMachine(int machineId) async {
+    state = state.copyWith(
+      selectedMachineId: machineId,
+      visits: const [],
+      activeSessionIndex: 0,
+      clearSelectedDate: true,
+      clearSelection: true,
+      slots: const [],
+    );
+    await loadAvailability(machineId: machineId);
   }
 
   Set<DateTime> get availableDates {
     final window = state.availability;
     if (window == null) return {};
-    return window.bookableDates;
+    return {
+      for (final d in window.bookableDates)
+        if (state.isDateAvailable(d)) d,
+      for (final v in state.visits)
+        DateTime(v.date.year, v.date.month, v.date.day),
+    };
   }
 
   void selectMonth(DateTime month) {
@@ -169,57 +260,85 @@ class PointOfferBookController extends StateNotifier<PointOfferBookState> {
   }
 
   void selectDate(DateTime date) {
+    if (!state.calendarUnlocked) return;
     final window = state.availability;
     if (window == null) return;
-    final day = DateTime(date.year, date.month, date.day);
-    final slots = window
-        .slotsOn(day)
-        .map(
-          (s) => TimeSlot.fromAvailability(
-            date: day,
-            timeMinutes: s.timeMinutes,
-            state: s.state,
-          ),
-        )
-        .toList();
+
+    final result = resolveScheduleDatePick(
+      date: date,
+      window: window,
+      visits: state.visits,
+      numberOfSessions: state.numberOfSessions,
+      activeSessionIndex: state.activeSessionIndex,
+      dayGap: state.dayGap,
+    );
+    if (result.isError) {
+      state = state.copyWith(errorMessage: result.errorMessage);
+      return;
+    }
+    if (result.selectedDate == null) return;
+
     state = state.copyWith(
-      selectedDate: day,
-      slots: slots,
-      clearSelection: true,
+      selectedDate: result.selectedDate,
+      slots: result.slots,
+      selection: result.selection,
+      clearSelection: result.selection == null,
+      activeSessionIndex: result.activeSessionIndex,
       clearError: true,
     );
   }
 
   void selectSlot(TimeSlot slot) {
-    final offer = state.offer;
-    if (offer == null) return;
-    final availableMinutes = state.slots
-        .where((s) => s.isSelectable)
-        .map((s) => s.timeMinutes)
-        .toSet();
-    try {
-      final nextSelection = SlotSelection.selectFixed(
-        current: state.selection,
-        clickedMinutes: slot.timeMinutes,
-        requiredSlots: offer.slotCount.clamp(1, SlotSelection.maxSlots),
-        availableMinutes: availableMinutes,
-      );
-      state = state.copyWith(
-        selection: nextSelection,
-        clearSelection: nextSelection == null,
-        clearError: true,
-      );
-    } on SlotSelectionBlockedException catch (e) {
-      state = state.copyWith(errorMessage: e.toString());
+    final date = state.selectedDate;
+    if (date == null) return;
+
+    final result = resolveScheduleSlotPick(
+      slot: slot,
+      selectedDate: date,
+      slots: state.slots,
+      currentSelection: state.selection,
+      visits: state.visits,
+      numberOfSessions: state.numberOfSessions,
+      requiredSlots: state.requiredSlots,
+    );
+    if (result.isError) {
+      state = state.copyWith(errorMessage: result.errorMessage);
+      return;
     }
+
+    state = state.copyWith(
+      selection: result.selection,
+      clearSelection: result.clearSelection,
+      clearSelectedDate: result.clearSelectedDate,
+      visits: result.visits,
+      activeSessionIndex: result.activeSessionIndex,
+      clearError: true,
+    );
   }
 
   void goToDetails() {
-    if (!state.hasSchedule) {
-      state = state.copyWith(errorMessage: 'Choose a date and time first.');
+    final visits = ensureVisitsFromSelection(
+      visits: state.visits,
+      selectedDate: state.selectedDate,
+      selection: state.selection,
+      numberOfSessions: state.numberOfSessions,
+    );
+
+    if (visits.length < state.numberOfSessions) {
+      state = state.copyWith(
+        errorMessage: state.numberOfSessions > 1
+            ? 'Select a date and time for all ${state.numberOfSessions} sessions.'
+            : 'Select a date and time to continue.',
+      );
       return;
     }
-    state = state.copyWith(step: PointOfferBookStep.details, clearError: true);
+
+    state = state.copyWith(
+      visits: visits,
+      activeSessionIndex: visits.length,
+      step: PointOfferBookStep.details,
+      clearError: true,
+    );
   }
 
   void saveDetails(PatientDetails details) {
@@ -237,32 +356,50 @@ class PointOfferBookController extends StateNotifier<PointOfferBookState> {
           step: PointOfferBookStep.schedule,
           clearError: true,
         );
+        return;
       case PointOfferBookStep.confirm:
         state = state.copyWith(
           step: PointOfferBookStep.details,
           clearError: true,
         );
+        return;
       case PointOfferBookStep.schedule:
       case PointOfferBookStep.success:
-        break;
+        return;
     }
   }
 
   Future<bool> claim() async {
     final offer = state.offer;
     final patient = state.patient;
-    final date = state.selectedDate;
-    final selection = state.selection;
-    if (offer == null || patient == null || date == null || selection == null) {
+    var visits = state.visits;
+    if (visits.isEmpty &&
+        state.selection != null &&
+        state.selectedDate != null) {
+      visits = [
+        BookingVisit(
+          date: state.selectedDate!,
+          timeMinutes: state.selection!.startMinutes,
+          slotCount: state.selection!.slotCount,
+        ),
+      ];
+    }
+    if (offer == null || patient == null || visits.isEmpty) {
       state = state.copyWith(errorMessage: 'Missing booking details.');
       return false;
     }
 
     state = state.copyWith(isLoading: true, clearError: true);
+    final first = visits.first;
     final result = await _offers.claimOffer(
       id: offer.id,
-      date: DateFormat('yyyy-MM-dd').format(date),
-      timeMinutes: selection.startMinutes,
+      date: DateFormat('yyyy-MM-dd').format(first.date),
+      timeMinutes: first.timeMinutes,
+      slotCount: first.slotCount,
+      machineId: state.selectedMachineId,
+      visits: visits.length > 1
+          ? visits.map((v) => v.toJson()).toList()
+          : null,
       consultationMode: patient.consultationMode.apiValue,
       fullName: patient.name,
       email: patient.email,
@@ -277,17 +414,19 @@ class PointOfferBookController extends StateNotifier<PointOfferBookState> {
       isLoading: false,
       result: result.data,
       step: PointOfferBookStep.success,
+      visits: visits,
     );
     return true;
   }
 }
 
 final pointOfferBookControllerProvider = StateNotifierProvider.autoDispose
-    .family<PointOfferBookController, PointOfferBookState, int>((ref, offerId) {
+    .family<PointOfferBookController, PointOfferBookState, int>((ref, id) {
   return PointOfferBookController(
-    offerId: offerId,
+    offerId: id,
     offersRepository: ref.watch(pointsOffersRepositoryProvider),
-    appointmentRepository:
-        AppointmentApiRepository(ref.watch(apiClientProvider)),
+    appointmentRepository: AppointmentApiRepository(
+      ref.watch(apiClientProvider),
+    ),
   );
 });

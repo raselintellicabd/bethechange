@@ -26,22 +26,31 @@ class PointsOffersRepository {
 
   Future<ApiResult<PointOfferClaimResult>> claimOffer({
     required int id,
-    required String date,
-    required int timeMinutes,
     required String consultationMode,
     required String fullName,
     required String email,
     required String phone,
+    String? date,
+    int? timeMinutes,
+    int? slotCount,
+    int? machineId,
+    List<Map<String, dynamic>>? visits,
   }) {
     return _client.post(
       ApiPaths.pointsOfferBook(id),
       data: {
-        'date': date,
-        'time_minutes': timeMinutes,
         'consultation_mode': consultationMode,
         'full_name': fullName,
         'email': email,
         'phone': phone,
+        if (machineId != null) 'machine_id': machineId,
+        if (visits != null && visits.length > 1)
+          'visits': visits
+        else ...{
+          if (date != null) 'date': date,
+          if (timeMinutes != null) 'time_minutes': timeMinutes,
+          if (slotCount != null) 'slot_count': slotCount,
+        },
       },
       parser: (data) =>
           PointOfferClaimResult.fromJson(data as Map<String, dynamic>),

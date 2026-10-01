@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../domain/booking_labels.dart';
+import '../../domain/clinic_slots.dart';
+import '../../domain/models/booking_machine.dart';
 import '../../domain/models/booking_quote.dart';
 import '../../domain/models/book_online_offering.dart';
 import '../../domain/models/patient_details.dart';
@@ -21,6 +23,8 @@ class AppointmentConfirmationView extends StatelessWidget {
     this.offering,
     this.quote,
     this.timeLabel,
+    this.visits = const [],
+    this.machineName,
     this.errorMessage,
     this.onRetry,
   });
@@ -33,13 +37,15 @@ class AppointmentConfirmationView extends StatelessWidget {
   final bool isLoading;
   final VoidCallback onConfirm;
   final String? timeLabel;
+  final List<BookingVisit> visits;
+  final String? machineName;
   final String? errorMessage;
   final VoidCallback? onRetry;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final dateLabel = DateFormat.yMMMEd().format(slot.dateTime);
+    final multi = visits.length > 1;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -54,6 +60,8 @@ class AppointmentConfirmationView extends StatelessWidget {
           const _SummaryRow(label: 'Recipient', value: 'Family member'),
         if (offering != null)
           _SummaryRow(label: 'Duration', value: offering!.durationDisplay),
+        if (machineName != null && machineName!.isNotEmpty)
+          _SummaryRow(label: 'Machine', value: machineName!),
         if (quote != null) ...[
           _SummaryRow(label: 'List price', value: quote!.listAmountDisplay),
           if (quote!.discountCents > 0)
@@ -69,8 +77,38 @@ class AppointmentConfirmationView extends StatelessWidget {
             ),
         ] else if (offering != null)
           _SummaryRow(label: 'Price', value: offering!.priceDisplay),
-        _SummaryRow(label: 'Date', value: dateLabel),
-        _SummaryRow(label: 'Time', value: timeLabel ?? slot.label),
+        if (multi) ...[
+          Padding(
+            padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+            child: Text('Sessions', style: theme.textTheme.labelLarge),
+          ),
+          for (var i = 0; i < visits.length; i++)
+            _SummaryRow(
+              label: 'Session ${i + 1}',
+              value: _visitLabel(visits[i]),
+            ),
+        ] else ...[
+          _SummaryRow(
+            label: 'Date',
+            value: DateFormat.yMMMEd().format(
+              visits.isNotEmpty
+                  ? DateTime(
+                      visits.first.date.year,
+                      visits.first.date.month,
+                      visits.first.date.day,
+                      visits.first.timeMinutes ~/ 60,
+                      visits.first.timeMinutes % 60,
+                    )
+                  : slot.dateTime,
+            ),
+          ),
+          _SummaryRow(
+            label: 'Time',
+            value: visits.isNotEmpty
+                ? _timeRange(visits.first)
+                : (timeLabel ?? slot.label),
+          ),
+        ],
         _SummaryRow(label: 'Mode', value: patient.consultationMode.label),
         _SummaryRow(label: 'Name', value: patient.name),
         _SummaryRow(label: 'Email', value: patient.email),
@@ -101,6 +139,26 @@ class AppointmentConfirmationView extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String _timeRange(BookingVisit visit) {
+    final start = ClinicSlots.displayLabel(visit.timeMinutes);
+    if (visit.slotCount <= 1) return start;
+    final end = ClinicSlots.displayLabel(
+      visit.timeMinutes + visit.slotCount * ClinicSlots.slotMinutes,
+    );
+    return '$start – $end';
+  }
+
+  String _visitLabel(BookingVisit visit) {
+    final dateLabel = DateFormat.yMMMEd().format(
+      DateTime(
+        visit.date.year,
+        visit.date.month,
+        visit.date.day,
+      ),
+    );
+    return '$dateLabel · ${_timeRange(visit)}';
   }
 }
 

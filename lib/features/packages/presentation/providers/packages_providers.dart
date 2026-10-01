@@ -5,7 +5,9 @@ import 'package:intl/intl.dart';
 import '../../../../core/network/api_client.dart';
 import '../../../../core/network/api_result.dart';
 import '../../../appointment/data/appointment_api_repository.dart';
+import '../../../appointment/domain/booking_schedule_state.dart';
 import '../../../appointment/domain/models/availability_window.dart';
+import '../../../appointment/domain/models/booking_machine.dart';
 import '../../../appointment/domain/models/consultation_mode.dart';
 import '../../../appointment/domain/models/patient_details.dart';
 import '../../../appointment/domain/models/slot_selection.dart';
@@ -43,6 +45,10 @@ class PackageItemScheduleState {
     this.selectedDate,
     this.slots = const [],
     this.selection,
+    this.machines = const [],
+    this.selectedMachineId,
+    this.visits = const [],
+    this.activeSessionIndex = 0,
     this.isLoading = false,
     this.errorMessage,
   });
@@ -53,17 +59,57 @@ class PackageItemScheduleState {
   final DateTime? selectedDate;
   final List<TimeSlot> slots;
   final SlotSelection? selection;
+  final List<BookingMachine> machines;
+  final int? selectedMachineId;
+  final List<BookingVisit> visits;
+  final int activeSessionIndex;
   final bool isLoading;
   final String? errorMessage;
 
+  int get numberOfSessions =>
+      availability?.numberOfSessions ?? item.numberOfSessions;
+
+  int get dayGap => availability?.dayGap ?? item.dayGap;
+
+  int get requiredSlots {
+    if (availability?.fixedSlotCount != null &&
+        availability!.fixedSlotCount! > 0) {
+      return availability!.effectivePerVisitSlots;
+    }
+    return item.effectiveSlotCount.clamp(1, SlotSelection.maxSlots);
+  }
+
+  bool get requiresMachinePicker =>
+      machines.length > 1 || (availability?.needsMachine ?? false);
+
+  bool get calendarUnlocked =>
+      !requiresMachinePicker || selectedMachineId != null;
+
+  bool get isComplete => visits.length >= numberOfSessions;
+
+  bool isDateAvailable(DateTime day, {Set<DateTime> blockedDates = const {}}) {
+    final window = availability;
+    if (window == null) return false;
+    return isScheduleDateAvailable(
+      day: day,
+      visits: visits,
+      activeSessionIndex: activeSessionIndex,
+      dayGap: dayGap,
+      bookableDates: window.bookableDates,
+      blockedDates: blockedDates,
+    );
+  }
+
   PackageSelection? get asSelection {
-    final date = selectedDate;
-    final sel = selection;
-    if (date == null || sel == null) return null;
+    if (!isComplete || visits.isEmpty) return null;
+    final first = visits.first;
     return PackageSelection(
       itemId: item.itemId,
-      date: date,
-      timeMinutes: sel.startMinutes,
+      date: first.date,
+      timeMinutes: first.timeMinutes,
+      slotCount: first.slotCount,
+      machineId: selectedMachineId,
+      visits: visits.map((v) => v.toJson()).toList(),
     );
   }
 
@@ -74,6 +120,12 @@ class PackageItemScheduleState {
     List<TimeSlot>? slots,
     SlotSelection? selection,
     bool clearSelection = false,
+    List<BookingMachine>? machines,
+    int? selectedMachineId,
+    bool clearMachine = false,
+    List<BookingVisit>? visits,
+    int? activeSessionIndex,
+    bool clearSelectedDate = false,
     bool? isLoading,
     String? errorMessage,
     bool clearError = false,
@@ -82,9 +134,15 @@ class PackageItemScheduleState {
       item: item,
       availability: availability ?? this.availability,
       focusedMonth: focusedMonth ?? this.focusedMonth,
-      selectedDate: selectedDate ?? this.selectedDate,
+      selectedDate:
+          clearSelectedDate ? null : (selectedDate ?? this.selectedDate),
       slots: slots ?? this.slots,
       selection: clearSelection ? null : (selection ?? this.selection),
+      machines: machines ?? this.machines,
+      selectedMachineId:
+          clearMachine ? null : (selectedMachineId ?? this.selectedMachineId),
+      visits: visits ?? this.visits,
+      activeSessionIndex: activeSessionIndex ?? this.activeSessionIndex,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
     );
@@ -134,8 +192,13 @@ class PackageBookState {
     final dates = <DateTime>{};
     for (final s in schedules) {
       if (s.item.itemId == itemId) continue;
+      for (final visit in s.visits) {
+        dates.add(
+          DateTime(visit.date.year, visit.date.month, visit.date.day),
+        );
+      }
       final date = s.selectedDate;
-      if (date != null) {
+      if (date != null && s.visits.isEmpty) {
         dates.add(DateTime(date.year, date.month, date.day));
       }
     }
@@ -236,7 +299,7 @@ class PackageBookController extends StateNotifier<PackageBookState> {
     }
   }
 
-  Future<void> loadAvailability(int itemId) async {
+  Future<void> loadAvailability(int itemId, {int? machineId}) async {
     final index = state.schedules.indexWhere((s) => s.item.itemId == itemId);
     if (index < 0) return;
     final current = state.schedules[index];
@@ -247,6 +310,8 @@ class PackageBookController extends StateNotifier<PackageBookState> {
     final result = await _appointments.getAvailability(
       service: current.item.serviceName,
       forPackage: true,
+      offeringSlug: current.item.serviceSlug,
+      machineId: machineId ?? current.selectedMachineId,
     );
     if (result is! ApiSuccess<AvailabilityWindow>) {
       final failure = result as ApiFailure<AvailabilityWindow>;
@@ -260,14 +325,46 @@ class PackageBookController extends StateNotifier<PackageBookState> {
     }
 
     final window = result.data;
+    final machines = window.machines;
+    int? selectedMachine =
+        machineId ?? current.selectedMachineId ?? window.machineId;
+    if (selectedMachine == null && machines.length == 1) {
+      selectedMachine = machines.first.id;
+    }
     final next = [...state.schedules];
     next[index] = state.schedules[index].copyWith(
       availability: window,
       focusedMonth: DateTime(window.today.year, window.today.month),
+      machines: machines,
+      selectedMachineId: selectedMachine,
+      clearMachine: selectedMachine == null,
       isLoading: false,
       clearError: true,
     );
     state = state.copyWith(schedules: next);
+
+    if (selectedMachine != null &&
+        window.needsMachine &&
+        window.machineId == null &&
+        machineId == null) {
+      await loadAvailability(itemId, machineId: selectedMachine);
+    }
+  }
+
+  Future<void> selectMachine(int itemId, int machineId) async {
+    final index = state.schedules.indexWhere((s) => s.item.itemId == itemId);
+    if (index < 0) return;
+    final next = [...state.schedules];
+    next[index] = state.schedules[index].copyWith(
+      selectedMachineId: machineId,
+      visits: const [],
+      activeSessionIndex: 0,
+      clearSelectedDate: true,
+      clearSelection: true,
+      slots: const [],
+    );
+    state = state.copyWith(schedules: next);
+    await loadAvailability(itemId, machineId: machineId);
   }
 
   void setActiveItem(int itemId) {
@@ -288,34 +385,32 @@ class PackageBookController extends StateNotifier<PackageBookState> {
     final index = state.schedules.indexWhere((s) => s.item.itemId == itemId);
     if (index < 0) return;
     final schedule = state.schedules[index];
+    if (!schedule.calendarUnlocked) return;
     final window = schedule.availability;
     if (window == null) return;
 
-    final day = DateTime(date.year, date.month, date.day);
-    if (state.takenDatesExcept(itemId).contains(day)) {
-      state = state.copyWith(
-        errorMessage:
-            'Each package service must be booked on a different day.',
-      );
+    final result = resolveScheduleDatePick(
+      date: date,
+      window: window,
+      visits: schedule.visits,
+      numberOfSessions: schedule.numberOfSessions,
+      activeSessionIndex: schedule.activeSessionIndex,
+      dayGap: schedule.dayGap,
+      blockedDates: state.takenDatesExcept(itemId),
+    );
+    if (result.isError) {
+      state = state.copyWith(errorMessage: result.errorMessage);
       return;
     }
-
-    final slots = window
-        .slotsOn(day)
-        .map(
-          (s) => TimeSlot.fromAvailability(
-            date: day,
-            timeMinutes: s.timeMinutes,
-            state: s.state,
-          ),
-        )
-        .toList();
+    if (result.selectedDate == null) return;
 
     final next = [...state.schedules];
     next[index] = schedule.copyWith(
-      selectedDate: day,
-      slots: slots,
-      clearSelection: true,
+      selectedDate: result.selectedDate,
+      slots: result.slots,
+      selection: result.selection,
+      clearSelection: result.selection == null,
+      activeSessionIndex: result.activeSessionIndex,
       clearError: true,
     );
     state = state.copyWith(schedules: next, clearError: true);
@@ -325,40 +420,71 @@ class PackageBookController extends StateNotifier<PackageBookState> {
     final index = state.schedules.indexWhere((s) => s.item.itemId == itemId);
     if (index < 0) return;
     final schedule = state.schedules[index];
-    final availableMinutes = schedule.slots
-        .where((s) => s.isSelectable)
-        .map((s) => s.timeMinutes)
-        .toSet();
+    final date = schedule.selectedDate;
+    if (date == null) return;
 
-    try {
-      final nextSelection = SlotSelection.selectFixed(
-        current: schedule.selection,
-        clickedMinutes: slot.timeMinutes,
-        requiredSlots: schedule.item.slotCount.clamp(1, SlotSelection.maxSlots),
-        availableMinutes: availableMinutes,
-      );
-      final next = [...state.schedules];
-      next[index] = schedule.copyWith(
-        selection: nextSelection,
-        clearSelection: nextSelection == null,
-        clearError: true,
-      );
-      state = state.copyWith(schedules: next, clearError: true);
-    } on SlotSelectionBlockedException catch (e) {
-      state = state.copyWith(errorMessage: e.toString());
+    final result = resolveScheduleSlotPick(
+      slot: slot,
+      selectedDate: date,
+      slots: schedule.slots,
+      currentSelection: schedule.selection,
+      visits: schedule.visits,
+      numberOfSessions: schedule.numberOfSessions,
+      requiredSlots: schedule.requiredSlots,
+    );
+    if (result.isError) {
+      state = state.copyWith(errorMessage: result.errorMessage);
+      return;
     }
+
+    final next = [...state.schedules];
+    next[index] = schedule.copyWith(
+      selection: result.selection,
+      clearSelection: result.clearSelection,
+      clearSelectedDate: result.clearSelectedDate,
+      visits: result.visits,
+      activeSessionIndex: result.activeSessionIndex,
+      clearError: true,
+    );
+    state = state.copyWith(schedules: next, clearError: true);
+  }
+
+  /// For single-session items, commit the current selection into visits.
+  void ensureVisitsCommitted(int itemId) {
+    final index = state.schedules.indexWhere((s) => s.item.itemId == itemId);
+    if (index < 0) return;
+    final schedule = state.schedules[index];
+    final visits = ensureVisitsFromSelection(
+      visits: schedule.visits,
+      selectedDate: schedule.selectedDate,
+      selection: schedule.selection,
+      numberOfSessions: schedule.numberOfSessions,
+    );
+    if (visits.length == schedule.visits.length) return;
+    final next = [...state.schedules];
+    next[index] = schedule.copyWith(visits: visits);
+    state = state.copyWith(schedules: next);
   }
 
   Set<DateTime> availableDatesFor(int itemId) {
     final index = state.schedules.indexWhere((s) => s.item.itemId == itemId);
     if (index < 0) return {};
-    final window = state.schedules[index].availability;
+    final schedule = state.schedules[index];
+    final window = schedule.availability;
     if (window == null) return {};
-    final taken = state.takenDatesExcept(itemId);
-    return window.bookableDates.difference(taken);
+    final blocked = state.takenDatesExcept(itemId);
+    return {
+      for (final d in window.bookableDates)
+        if (schedule.isDateAvailable(d, blockedDates: blocked)) d,
+      for (final v in schedule.visits)
+        DateTime(v.date.year, v.date.month, v.date.day),
+    };
   }
 
   void continueToDetails() {
+    for (final s in state.schedules) {
+      ensureVisitsCommitted(s.item.itemId);
+    }
     if (!state.allServicesScheduled) {
       state = state.copyWith(
         errorMessage:

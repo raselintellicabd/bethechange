@@ -12,9 +12,11 @@ import '../../domain/models/source_context.dart';
 import '../providers/appointment_providers.dart';
 import '../widgets/appointment_calendar_view.dart';
 import '../widgets/appointment_confirmation_view.dart';
+import '../widgets/machine_picker_bar.dart';
 import '../widgets/mock_payment_success_view.dart';
 import '../widgets/mock_payment_view.dart';
 import '../widgets/patient_details_form.dart';
+import '../widgets/session_progress_header.dart';
 import '../widgets/time_slot_selector.dart';
 
 class AppointmentScreen extends ConsumerWidget {
@@ -113,15 +115,20 @@ class _StepBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (state.step == AppointmentStep.date &&
+    if ((state.step == AppointmentStep.date ||
+            state.step == AppointmentStep.time) &&
         state.isLoading &&
-        state.availableDates.isEmpty) {
+        state.availableDates.isEmpty &&
+        state.selectedDate == null) {
       return const LoadingIndicator(message: 'Loading availability...');
     }
 
-    if (state.step == AppointmentStep.date &&
+    if ((state.step == AppointmentStep.date ||
+            state.step == AppointmentStep.time) &&
         state.errorMessage != null &&
-        state.availableDates.isEmpty) {
+        state.availableDates.isEmpty &&
+        state.selectedDate == null &&
+        !state.calendarUnlocked) {
       return ErrorStateWidget(
         message: state.errorMessage!,
         onRetry: controller.loadAvailability,
@@ -129,60 +136,100 @@ class _StepBody extends StatelessWidget {
     }
 
     return switch (state.step) {
-      AppointmentStep.date => Column(
+      AppointmentStep.date || AppointmentStep.time => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            SessionProgressHeader(
+              totalSessions: state.numberOfSessions,
+              activeSessionIndex: state.activeSessionIndex,
+              visits: state.visits,
+            ),
+            if (state.machines.length > 1) ...[
+              const SizedBox(height: AppSpacing.sm),
+              MachinePickerBar(
+                machines: state.machines,
+                selectedMachineId: state.selectedMachineId,
+                onSelected: controller.selectMachine,
+                enabled: !state.isLoading,
+              ),
+              const SizedBox(height: AppSpacing.md),
+            ],
             Text('Select a date', style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: AppSpacing.sm),
-            AppointmentCalendarView(
-              focusedMonth: state.focusedMonth,
-              selectedDate: state.selectedDate,
-              availableDates: state.availableDates,
-              firstDay: state.availability?.today ??
-                  DateTime(state.focusedMonth.year, state.focusedMonth.month, 1),
-              lastDay: state.availability?.windowEnd ??
-                  DateTime(
-                    state.focusedMonth.year,
-                    state.focusedMonth.month + 1,
-                    0,
-                  ),
-              onMonthChanged: controller.loadMonth,
-              onDateSelected: controller.selectDate,
-            ),
-          ],
-        ),
-      AppointmentStep.time => Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              'Select time',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            if (state.isLoading)
-              const LoadingIndicator(message: 'Loading time slots...')
+            if (!state.calendarUnlocked)
+              Text(
+                'Select a machine to see available times.',
+                style: Theme.of(context).textTheme.bodyMedium,
+              )
             else ...[
-              if (state.errorMessage != null) ...[
+              AppointmentCalendarView(
+                focusedMonth: state.focusedMonth,
+                selectedDate: state.selectedDate,
+                availableDates: {
+                  for (final d in state.availableDates)
+                    if (state.isDateAvailable(d)) d,
+                  // Keep already-booked session dates visible/tappable.
+                  for (final v in state.visits)
+                    DateTime(v.date.year, v.date.month, v.date.day),
+                },
+                sessionDates: {
+                  for (final v in state.visits)
+                    DateTime(v.date.year, v.date.month, v.date.day),
+                },
+                firstDay: state.availability?.today ??
+                    DateTime(state.focusedMonth.year, state.focusedMonth.month, 1),
+                lastDay: state.availability?.windowEnd ??
+                    DateTime(
+                      state.focusedMonth.year,
+                      state.focusedMonth.month + 1,
+                      0,
+                    ),
+                onMonthChanged: controller.loadMonth,
+                onDateSelected: controller.selectDate,
+              ),
+              if (state.selectedDate != null) ...[
+                const SizedBox(height: AppSpacing.lg),
                 Text(
-                  state.errorMessage!,
-                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                  'Select time',
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: AppSpacing.sm),
+                if (state.errorMessage != null) ...[
+                  Text(
+                    state.errorMessage!,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.sm),
+                ],
+                TimeSlotSelector(
+                  slots: state.slots,
+                  selection: state.selection,
+                  requiredSlots: state.requiredSlotCount,
+                  onSlotSelected: controller.selectSlot,
+                ),
               ],
-              TimeSlotSelector(
-                slots: state.slots,
-                selection: state.selection,
-                requiredSlots: state.requiredSlotCount,
-                onSlotSelected: controller.selectSlot,
-              ),
               const SizedBox(height: AppSpacing.lg),
               AppButton(
                 label: 'Continue',
                 expand: true,
-                onPressed: state.selection == null
-                    ? null
-                    : controller.continueToDetails,
+                onPressed: state.isScheduleComplete ||
+                        (state.numberOfSessions <= 1 &&
+                            state.selection != null &&
+                            state.selectedDate != null)
+                    ? controller.continueToDetails
+                    : null,
               ),
+              if (state.numberOfSessions > 1 && !state.isScheduleComplete) ...[
+                const SizedBox(height: AppSpacing.sm),
+                Text(
+                  'Select ${state.numberOfSessions - state.visits.length} more '
+                  'session${state.numberOfSessions - state.visits.length == 1 ? '' : 's'}.',
+                  style: Theme.of(context).textTheme.bodySmall,
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ],
           ],
         ),
@@ -206,6 +253,8 @@ class _StepBody extends StatelessWidget {
           quote: state.quote,
           slot: state.selectedSlot!,
           timeLabel: state.selectionTimeLabel ?? state.selectedSlot!.label,
+          visits: state.visits,
+          machineName: state.selectedMachineName,
           patient: state.patient!,
           isLoading: state.isLoading,
           errorMessage: state.errorMessage,

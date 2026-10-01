@@ -10,8 +10,12 @@ import '../../../../core/widgets/app_app_bar.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
+import '../../../appointment/domain/clinic_slots.dart';
+import '../../../appointment/domain/models/booking_machine.dart';
 import '../../../appointment/presentation/widgets/appointment_calendar_view.dart';
+import '../../../appointment/presentation/widgets/machine_picker_bar.dart';
 import '../../../appointment/presentation/widgets/patient_details_form.dart';
+import '../../../appointment/presentation/widgets/session_progress_header.dart';
 import '../../../appointment/presentation/widgets/time_slot_selector.dart';
 import '../../../auth/presentation/providers/auth_providers.dart';
 import '../providers/points_offers_providers.dart';
@@ -198,24 +202,55 @@ class _ScheduleStep extends ConsumerWidget {
             child: Center(child: CircularProgressIndicator()),
           )
         else ...[
-          AppointmentCalendarView(
-            focusedMonth: state.focusedMonth ??
-                DateTime(window.today.year, window.today.month),
-            selectedDate: state.selectedDate,
-            availableDates: controller.availableDates,
-            firstDay: window.today,
-            lastDay: window.windowEnd,
-            onMonthChanged: controller.selectMonth,
-            onDateSelected: controller.selectDate,
+          SessionProgressHeader(
+            totalSessions: state.numberOfSessions,
+            activeSessionIndex: state.activeSessionIndex,
+            visits: state.visits,
           ),
-          if (state.selectedDate != null) ...[
-            const SizedBox(height: AppSpacing.md),
-            TimeSlotSelector(
-              slots: state.slots,
-              selection: state.selection,
-              requiredSlots: offer.slotCount,
-              onSlotSelected: controller.selectSlot,
+          if (state.machines.length > 1) ...[
+            const SizedBox(height: AppSpacing.sm),
+            MachinePickerBar(
+              machines: state.machines,
+              selectedMachineId: state.selectedMachineId,
+              onSelected: controller.selectMachine,
+              enabled: !state.isLoading,
             ),
+            const SizedBox(height: AppSpacing.md),
+          ],
+          if (!state.calendarUnlocked)
+            Text(
+              'Select a machine to see available times.',
+              style: theme.textTheme.bodyMedium,
+            )
+          else ...[
+            AppointmentCalendarView(
+              focusedMonth: state.focusedMonth ??
+                  DateTime(window.today.year, window.today.month),
+              selectedDate: state.selectedDate,
+              availableDates: controller.availableDates,
+              sessionDates: {
+                for (final v in state.visits)
+                  DateTime(v.date.year, v.date.month, v.date.day),
+              },
+              firstDay: window.today,
+              lastDay: window.windowEnd,
+              onMonthChanged: controller.selectMonth,
+              onDateSelected: controller.selectDate,
+            ),
+            if (state.selectedDate != null) ...[
+              const SizedBox(height: AppSpacing.md),
+              Text(
+                'Select time',
+                style: theme.textTheme.titleMedium,
+              ),
+              const SizedBox(height: AppSpacing.sm),
+              TimeSlotSelector(
+                slots: state.slots,
+                selection: state.selection,
+                requiredSlots: state.requiredSlots,
+                onSlotSelected: controller.selectSlot,
+              ),
+            ],
           ],
         ],
         if (state.errorMessage != null) ...[
@@ -231,8 +266,22 @@ class _ScheduleStep extends ConsumerWidget {
         AppButton(
           label: 'Continue',
           expand: true,
-          onPressed: state.hasSchedule ? controller.goToDetails : null,
+          onPressed: state.isScheduleComplete ||
+                  (state.numberOfSessions <= 1 &&
+                      state.selection != null &&
+                      state.selectedDate != null)
+              ? controller.goToDetails
+              : null,
         ),
+        if (state.numberOfSessions > 1 && !state.isScheduleComplete) ...[
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            'Select ${state.numberOfSessions - state.visits.length} more '
+            'session${state.numberOfSessions - state.visits.length == 1 ? '' : 's'}.',
+            style: theme.textTheme.bodySmall,
+            textAlign: TextAlign.center,
+          ),
+        ],
       ],
     );
   }
@@ -277,16 +326,33 @@ class _ConfirmStep extends ConsumerWidget {
         Text('Confirm your claim', style: theme.textTheme.titleLarge),
         const SizedBox(height: AppSpacing.md),
         _SummaryRow(label: 'Service', value: offer.serviceName),
-        if (state.selectedDate != null)
+        if (state.visits.length > 1)
+          for (var i = 0; i < state.visits.length; i++)
+            _SummaryRow(
+              label: 'Session ${i + 1}',
+              value: _visitFullLabel(state.visits[i]),
+            )
+        else if (state.visits.isNotEmpty) ...[
           _SummaryRow(
             label: 'Date',
-            value: dateFmt.format(state.selectedDate!),
+            value: dateFmt.format(state.visits.first.date),
           ),
-        if (state.selection != null)
           _SummaryRow(
             label: 'Time',
-            value: state.selection!.timeRangeLabel,
+            value: _visitTimeLabel(state.visits.first),
           ),
+        ] else ...[
+          if (state.selectedDate != null)
+            _SummaryRow(
+              label: 'Date',
+              value: dateFmt.format(state.selectedDate!),
+            ),
+          if (state.selection != null)
+            _SummaryRow(
+              label: 'Time',
+              value: state.selection!.timeRangeLabel,
+            ),
+        ],
         _SummaryRow(
           label: 'Cost',
           value: '${offer.requiredPoints} points',
@@ -422,4 +488,20 @@ class _SummaryRow extends StatelessWidget {
       ),
     );
   }
+}
+
+String _visitTimeLabel(BookingVisit visit) {
+  final start = ClinicSlots.displayLabel(visit.timeMinutes);
+  if (visit.slotCount <= 1) return start;
+  final end = ClinicSlots.displayLabel(
+    visit.timeMinutes + visit.slotCount * ClinicSlots.slotMinutes,
+  );
+  return '$start – $end';
+}
+
+String _visitFullLabel(BookingVisit visit) {
+  final dateLabel = DateFormat.yMMMEd().format(
+    DateTime(visit.date.year, visit.date.month, visit.date.day),
+  );
+  return '$dateLabel · ${_visitTimeLabel(visit)}';
 }

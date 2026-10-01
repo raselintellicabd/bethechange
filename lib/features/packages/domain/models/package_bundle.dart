@@ -55,6 +55,9 @@ class PackageItem {
     required this.durationDisplay,
     this.categoryName = '',
     this.price = '',
+    this.perVisitMinutes,
+    this.numberOfSessions = 1,
+    this.dayGap = 0,
   });
 
   final int itemId;
@@ -67,6 +70,13 @@ class PackageItem {
   final String durationDisplay;
   final String categoryName;
   final String price;
+  final int? perVisitMinutes;
+  final int numberOfSessions;
+  final int dayGap;
+
+  bool get isMultiSession => numberOfSessions > 1;
+
+  int get effectiveSlotCount => slotCount > 0 ? slotCount : 1;
 
   factory PackageItem.fromJson(Map<String, dynamic> json) {
     return PackageItem(
@@ -80,6 +90,10 @@ class PackageItem {
       durationDisplay: (json['duration_display'] as String?)?.trim() ?? '',
       categoryName: (json['category_name'] as String?)?.trim() ?? '',
       price: (json['price'] as String?)?.trim() ?? '',
+      perVisitMinutes: (json['per_visit_minutes'] as num?)?.toInt(),
+      numberOfSessions:
+          (json['number_of_sessions'] as num?)?.toInt() ?? 1,
+      dayGap: (json['day_gap'] as num?)?.toInt() ?? 0,
     );
   }
 }
@@ -194,22 +208,37 @@ class PackageSelection {
     required this.itemId,
     required this.date,
     required this.timeMinutes,
+    this.slotCount = 1,
+    this.machineId,
+    this.visits = const [],
   });
 
   final int itemId;
   final DateTime date;
   final int timeMinutes;
+  final int slotCount;
+  final int? machineId;
+  final List<Map<String, dynamic>> visits;
 
   String get dateKey =>
       '${date.year.toString().padLeft(4, '0')}-'
       '${date.month.toString().padLeft(2, '0')}-'
       '${date.day.toString().padLeft(2, '0')}';
 
-  Map<String, dynamic> toJson() => {
-        'item_id': itemId,
-        'date': dateKey,
-        'time_minutes': timeMinutes,
-      };
+  Map<String, dynamic> toJson() {
+    final body = <String, dynamic>{
+      'item_id': itemId,
+      if (machineId != null) 'machine_id': machineId,
+    };
+    if (visits.length > 1) {
+      body['visits'] = visits;
+    } else {
+      body['date'] = dateKey;
+      body['time_minutes'] = timeMinutes;
+      body['slot_count'] = slotCount;
+    }
+    return body;
+  }
 }
 
 class PackageBookingResult {

@@ -19,12 +19,17 @@ class AppointmentApiRepository implements AppointmentRepository {
   Future<ApiResult<AvailabilityWindow>> getAvailability({
     required String service,
     bool forPackage = false,
+    String? offeringSlug,
+    int? machineId,
   }) {
     return _client.get(
       ApiPaths.appointmentsAvailability,
       queryParameters: {
         'service': service,
         if (forPackage) 'package': '1',
+        if (offeringSlug != null && offeringSlug.isNotEmpty)
+          'offering_slug': offeringSlug,
+        if (machineId != null) 'machine': '$machineId',
       },
       parser: (data) =>
           AvailabilityWindow.fromJson(data as Map<String, dynamic>),

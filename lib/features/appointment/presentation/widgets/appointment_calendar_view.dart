@@ -13,11 +13,15 @@ class AppointmentCalendarView extends StatelessWidget {
     required this.lastDay,
     required this.onMonthChanged,
     required this.onDateSelected,
+    this.sessionDates = const {},
   });
 
   final DateTime focusedMonth;
   final DateTime? selectedDate;
   final Set<DateTime> availableDates;
+
+  /// Dates that already have a saved session (shown with a lighter highlight).
+  final Set<DateTime> sessionDates;
 
   /// Inclusive booking-window bounds (clinic-local calendar days).
   final DateTime firstDay;
@@ -28,7 +32,41 @@ class AppointmentCalendarView extends StatelessWidget {
 
   bool _isAvailable(DateTime day) {
     final normalized = DateTime(day.year, day.month, day.day);
-    return availableDates.contains(normalized);
+    return availableDates.contains(normalized) || _isSessionDay(day);
+  }
+
+  bool _isSessionDay(DateTime day) {
+    for (final d in sessionDates) {
+      if (isSameDay(d, day)) return true;
+    }
+    return false;
+  }
+
+  bool _isActiveDay(DateTime day) =>
+      selectedDate != null && isSameDay(selectedDate, day);
+
+  Widget _dayCell({
+    required DateTime day,
+    required Color background,
+    required Color foreground,
+    FontWeight weight = FontWeight.w800,
+  }) {
+    return Container(
+      margin: const EdgeInsets.all(4),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: background,
+        shape: BoxShape.circle,
+      ),
+      child: Text(
+        '${day.day}',
+        style: TextStyle(
+          color: foreground,
+          fontWeight: weight,
+          fontSize: 15,
+        ),
+      ),
+    );
   }
 
   @override
@@ -42,12 +80,17 @@ class AppointmentCalendarView extends StatelessWidget {
     if (safeFocused.isBefore(first)) safeFocused = first;
     if (safeFocused.isAfter(last)) safeFocused = last;
 
+    // Light fill for saved sessions; deeper fill for the currently tapped day.
+    const sessionFill = AppColors.brandMutedSurface;
+    const sessionFg = AppColors.brandPrimaryDark;
+    const activeFill = AppColors.primaryDark;
+    const activeFg = AppColors.textOnPrimary;
+
     return TableCalendar<void>(
       firstDay: first,
       lastDay: last,
       focusedDay: safeFocused,
-      selectedDayPredicate: (day) =>
-          selectedDate != null && isSameDay(selectedDate, day),
+      selectedDayPredicate: _isActiveDay,
       calendarFormat: CalendarFormat.month,
       availableGestures: AvailableGestures.horizontalSwipe,
       headerStyle: const HeaderStyle(
@@ -60,8 +103,13 @@ class AppointmentCalendarView extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         selectedDecoration: const BoxDecoration(
-          color: AppColors.primary,
+          color: activeFill,
           shape: BoxShape.circle,
+        ),
+        selectedTextStyle: const TextStyle(
+          color: activeFg,
+          fontWeight: FontWeight.w800,
+          fontSize: 15,
         ),
         defaultTextStyle: const TextStyle(
           color: AppColors.forest,
@@ -79,6 +127,41 @@ class AppointmentCalendarView extends StatelessWidget {
           fontSize: 14,
         ),
         outsideDaysVisible: false,
+      ),
+      calendarBuilders: CalendarBuilders(
+        // Saved session dates that are not the active tap.
+        defaultBuilder: (context, day, focused) {
+          if (!_isSessionDay(day) || _isActiveDay(day)) return null;
+          return _dayCell(
+            day: day,
+            background: sessionFill,
+            foreground: sessionFg,
+          );
+        },
+        todayBuilder: (context, day, focused) {
+          if (_isActiveDay(day)) {
+            return _dayCell(
+              day: day,
+              background: activeFill,
+              foreground: activeFg,
+            );
+          }
+          if (_isSessionDay(day)) {
+            return _dayCell(
+              day: day,
+              background: sessionFill,
+              foreground: sessionFg,
+            );
+          }
+          return null;
+        },
+        selectedBuilder: (context, day, focused) {
+          return _dayCell(
+            day: day,
+            background: activeFill,
+            foreground: activeFg,
+          );
+        },
       ),
       enabledDayPredicate: _isAvailable,
       onPageChanged: (focusedDay) {
