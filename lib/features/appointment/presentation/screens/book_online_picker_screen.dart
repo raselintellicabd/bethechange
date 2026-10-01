@@ -15,14 +15,36 @@ import '../../domain/models/book_online_offering.dart';
 import '../../domain/models/source_context.dart';
 import '../providers/appointment_providers.dart';
 
-/// Filtered /book-online/ accordion for one CMS service category.
-class BookOnlinePickerScreen extends ConsumerWidget {
+/// /book-online/ picker for a CMS service — offerings come from the API catalog.
+class BookOnlinePickerScreen extends ConsumerStatefulWidget {
   const BookOnlinePickerScreen({super.key, required this.sourceContext});
 
   final SourceContext sourceContext;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<BookOnlinePickerScreen> createState() =>
+      _BookOnlinePickerScreenState();
+}
+
+class _BookOnlinePickerScreenState
+    extends ConsumerState<BookOnlinePickerScreen> {
+  var _redirectedToCalendar = false;
+
+  void _goToCalendarIfNeeded(BookOnlineCatalog catalog) {
+    if (_redirectedToCalendar) return;
+    final category = catalog.categoryForCmsTopic(widget.sourceContext.id);
+    if (category != null && category.offerings.isNotEmpty) return;
+    _redirectedToCalendar = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      context.pushReplacement(
+        AppRoutes.appointmentPath(widget.sourceContext),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final async = ref.watch(bookOnlineCatalogProvider);
 
     return Scaffold(
@@ -40,18 +62,13 @@ class BookOnlinePickerScreen extends ConsumerWidget {
           );
         },
         data: (catalog) {
-          final category = catalog.categoryForCmsTopic(sourceContext.id);
+          final category = catalog.categoryForCmsTopic(widget.sourceContext.id);
           if (category == null || category.offerings.isEmpty) {
-            return ErrorStateWidget(
-              message:
-                  'No bookable offerings found for ${sourceContext.name}.',
-              onRetry: () => context.push(
-                AppRoutes.appointmentPath(sourceContext),
-              ),
-            );
+            _goToCalendarIfNeeded(catalog);
+            return const LoadingIndicator(message: 'Opening calendar...');
           }
           return _CategoryBody(
-            sourceContext: sourceContext,
+            sourceContext: widget.sourceContext,
             category: category,
           );
         },

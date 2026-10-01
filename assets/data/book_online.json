@@ -35,6 +35,10 @@
     {
       "slug": "reflexology",
       "name": "Reflexology"
+    },
+    {
+      "slug": "chemotherapy",
+      "name": "ChemoTherapy"
     }
   ],
   "services": [
@@ -564,6 +568,28 @@
       "description": "One-hour Reflexology session to support relaxation, circulation, and overall wellness.",
       "image_url": "/media/services/Reflexology.webp",
       "appointment_topic": "reflexology",
+      "vcita_id": ""
+    },
+    {
+      "category": "chemotherapy",
+      "slug": "chemotherapy-1-session",
+      "name": "ChemoTherapy 1 session",
+      "duration_minutes": 30,
+      "price": 30.0,
+      "description": "",
+      "image_url": "",
+      "appointment_topic": "chemotherapy",
+      "vcita_id": ""
+    },
+    {
+      "category": "chemotherapy",
+      "slug": "chemotherapy-3-sessions-1-hour-each",
+      "name": "ChemoTherapy 3 sessions (1 hour each)",
+      "duration_minutes": 180,
+      "price": 160.0,
+      "description": "",
+      "image_url": "",
+      "appointment_topic": "chemotherapy",
       "vcita_id": ""
     }
   ]

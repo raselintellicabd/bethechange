@@ -26,7 +26,7 @@ void main() {
       );
     });
 
-    test('mapped service CTA encodes book-online route', () {
+    test('service CTA encodes book-online route', () {
       const context = SourceContext(
         type: SourceContextType.service,
         id: 'ion-foot-detox',
@@ -43,15 +43,17 @@ void main() {
       );
     });
 
-    test('unmapped service CTA still opens appointment', () {
-      const context = SourceContext(
-        type: SourceContextType.service,
-        id: 'wellness-classes',
-        name: 'Wellness Classes',
-      );
-
-      final location = AppointmentCtaBar.locationFor(context);
-      expect(Uri.parse(location).path, AppRoutes.appointment);
+    test('any service CTA opens book-online picker from API catalog', () {
+      for (final id in ['chemotherapy', 'wellness-classes', 'reflexology']) {
+        final location = AppointmentCtaBar.locationFor(
+          SourceContext(
+            type: SourceContextType.service,
+            id: id,
+            name: id,
+          ),
+        );
+        expect(Uri.parse(location).path, AppRoutes.bookOnline, reason: id);
+      }
     });
 
     testWidgets('tapping CTA navigates to book-online for mapped service',

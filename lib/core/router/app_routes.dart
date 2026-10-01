@@ -88,7 +88,7 @@ abstract final class AppRoutes {
     return Uri(path: appointment, queryParameters: params).toString();
   }
 
-  /// Service pages with a book-online category → picker; otherwise calendar.
+  /// Service pages → book-online picker (catalog from API); other sources → calendar.
   static String bookingEntryPath(SourceContext sourceContext) {
     if (usesBookOnlinePicker(sourceContext)) {
       return bookOnlinePath(sourceContext);
