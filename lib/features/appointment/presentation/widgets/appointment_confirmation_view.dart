@@ -61,7 +61,7 @@ class AppointmentConfirmationView extends StatelessWidget {
         if (offering != null)
           _SummaryRow(label: 'Duration', value: offering!.durationDisplay),
         if (machineName != null && machineName!.isNotEmpty)
-          _SummaryRow(label: 'Machine', value: machineName!),
+          _SummaryRow(label: 'Station', value: machineName!),
         if (quote != null) ...[
           _SummaryRow(label: 'List price', value: quote!.listAmountDisplay),
           if (quote!.discountCents > 0)

@@ -158,7 +158,7 @@ class _StepBody extends StatelessWidget {
             const SizedBox(height: AppSpacing.sm),
             if (!state.calendarUnlocked)
               Text(
-                'Select a machine to see available times.',
+                'Select a station to see available times.',
                 style: Theme.of(context).textTheme.bodyMedium,
               )
             else ...[

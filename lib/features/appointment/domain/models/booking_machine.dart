@@ -1,4 +1,4 @@
-/// Machine/station from availability `machines[]`.
+/// Station from availability `machines[]`.
 class BookingMachine {
   const BookingMachine({
     required this.id,

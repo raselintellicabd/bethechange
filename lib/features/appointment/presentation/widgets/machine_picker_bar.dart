@@ -4,7 +4,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../domain/models/booking_machine.dart';
 
-/// Dropdown to pick a machine/station before the calendar unlocks.
+/// Dropdown to pick a station before the calendar unlocks.
 class MachinePickerBar extends StatelessWidget {
   const MachinePickerBar({
     super.key,
@@ -28,7 +28,7 @@ class MachinePickerBar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          'Select a machine / station',
+          'Select a station',
           style: theme.textTheme.titleSmall?.copyWith(
             color: AppColors.forest,
             fontWeight: FontWeight.w600,
@@ -52,7 +52,7 @@ class MachinePickerBar extends StatelessWidget {
                       machines.any((m) => m.id == selectedMachineId)
                   ? selectedMachineId
                   : null,
-              hint: const Text('Choose machine'),
+              hint: const Text('Choose station'),
               items: [
                 for (final machine in machines)
                   DropdownMenuItem(
@@ -71,7 +71,7 @@ class MachinePickerBar extends StatelessWidget {
         if (selectedMachineId == null) ...[
           const SizedBox(height: AppSpacing.sm),
           Text(
-            'Select a machine to see available times.',
+            'Select a station to see available times.',
             style: theme.textTheme.bodySmall?.copyWith(
               color: AppColors.inkMuted,
             ),

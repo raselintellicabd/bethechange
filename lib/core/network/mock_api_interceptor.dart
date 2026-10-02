@@ -571,13 +571,13 @@ class MockApiInterceptor extends Interceptor {
           ? [
               {
                 'id': 1,
-                'name': 'Machine 1',
+                'name': 'Station 1',
                 'slug': 'machine-1',
                 'order': 0,
               },
               {
                 'id': 2,
-                'name': 'Machine 2',
+                'name': 'Station 2',
                 'slug': 'machine-2',
                 'order': 1,
               },
@@ -585,7 +585,7 @@ class MockApiInterceptor extends Interceptor {
           : [
               {
                 'id': 1,
-                'name': 'Machine 1',
+                'name': 'Station 1',
                 'slug': 'machine-1',
                 'order': 0,
               },

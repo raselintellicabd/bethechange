@@ -29,7 +29,7 @@ class AppointmentRequest {
   /// Selected book-online offering when booking from the picker.
   final BookOnlineOffering? offering;
 
-  /// Selected machine/station when the service requires one.
+  /// Selected station when the service requires one.
   final int? machineId;
 
   /// Multi-session visits (when length > 1, sent as `visits[]`).

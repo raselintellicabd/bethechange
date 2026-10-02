@@ -43,8 +43,8 @@ void main() {
         'per_visit_minutes': 60,
         'day_gap': 0,
         'machines': [
-          {'id': 2, 'name': 'Machine 1', 'order': 0, 'slug': 'machine-1'},
-          {'id': 15, 'name': 'Machine 2', 'order': 1, 'slug': 'machine-2'},
+          {'id': 2, 'name': 'Station 1', 'order': 0, 'slug': 'machine-1'},
+          {'id': 15, 'name': 'Station 2', 'order': 1, 'slug': 'machine-2'},
         ],
         'days': <String, dynamic>{},
       });

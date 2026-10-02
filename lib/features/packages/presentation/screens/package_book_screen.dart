@@ -371,7 +371,7 @@ class _ServiceScheduleCard extends ConsumerWidget {
                         ],
                         if (!schedule.calendarUnlocked)
                           Text(
-                            'Select a machine to see available times.',
+                            'Select a station to see available times.',
                             style: theme.textTheme.bodyMedium,
                           )
                         else ...[
