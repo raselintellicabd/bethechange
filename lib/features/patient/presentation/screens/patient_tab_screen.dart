@@ -374,6 +374,8 @@ class _PatientsBody extends ConsumerWidget {
         if (route == null || route.isEmpty) return;
         if (route == AppRoutes.faq ||
             route == AppRoutes.contact ||
+            route == AppRoutes.chatbot ||
+            route == AppRoutes.liveChat ||
             route == AppRoutes.membership ||
             route == AppRoutes.packages ||
             route == AppRoutes.pointsOffers ||
@@ -464,6 +466,10 @@ _TileAccent _tileStyle(String id) {
     'contact' => const _TileAccent(
         Color(0xFFDCEFEE),
         Color(0xFF6B5B95),
+      ),
+    'live-chat' => const _TileAccent(
+        Color(0xFF0E4A57),
+        Colors.white,
       ),
     _ => const _TileAccent(
         Color(0xFFDCEFEE),

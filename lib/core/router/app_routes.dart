@@ -48,6 +48,10 @@ abstract final class AppRoutes {
   static const String aboutSection = '/about/:sectionId';
   static const String faq = '/faq';
   static const String chatbot = '/chatbot';
+  static const String liveChat = '/live-chat';
+
+  /// Live chat opened from the assistant's "Talk to a person".
+  static const String liveChatFromAssistant = '$liveChat?from=assistant';
   static const String appointment = '/appointment';
   static const String bookOnline = '/book-online';
 

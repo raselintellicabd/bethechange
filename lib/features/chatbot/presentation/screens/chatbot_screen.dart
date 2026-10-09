@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/config/env_config.dart';
+import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
-import '../../../../core/widgets/app_app_bar.dart';
+import '../../../../core/utils/external_link_handler.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_state_widget.dart';
 import '../../../../core/widgets/loading_indicator.dart';
+import '../../../live_chat/presentation/providers/live_chat_providers.dart';
+import '../../../live_chat/presentation/widgets/chat_app_bar.dart';
 import '../../domain/models/chat_message.dart';
 import '../../domain/models/chatbot_config.dart';
 import '../providers/chatbot_providers.dart';
+import '../utils/chatbot_link_route.dart';
 
 class ChatbotScreen extends ConsumerStatefulWidget {
   const ChatbotScreen({super.key});
@@ -24,6 +30,21 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
   final _scrollController = ScrollController();
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _resumeOpenLiveChat());
+  }
+
+  /// Like the website widget: an ongoing live chat takes over the assistant.
+  Future<void> _resumeOpenLiveChat() async {
+    final live = ref.read(liveChatControllerProvider.notifier);
+    await live.open();
+    live.close();
+    if (!mounted) return;
+    if (ref.read(liveChatControllerProvider).status.isOpen) _talkToPerson();
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     _scrollController.dispose();
@@ -34,18 +55,22 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
     final text = preset ?? _controller.text;
     if (preset == null) _controller.clear();
     await ref.read(chatbotControllerProvider.notifier).send(text);
-    await _scrollToEnd();
-    setState(() {});
+    if (mounted) setState(() {});
   }
 
-  Future<void> _scrollToEnd() async {
-    await Future<void>.delayed(const Duration(milliseconds: 50));
-    if (!_scrollController.hasClients) return;
-    await _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.easeOut,
-    );
+  void _talkToPerson() {
+    context.push(AppRoutes.liveChatFromAssistant);
+  }
+
+  void _scrollToEnd() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_scrollController.hasClients) return;
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+      );
+    });
   }
 
   @override
@@ -59,10 +84,27 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
           previous?.isSending != next.isSending) {
         _scrollToEnd();
       }
+      if (next.handoffRequested && previous?.handoffRequested != true) {
+        ref.read(chatbotControllerProvider.notifier).handoffHandled();
+        _talkToPerson();
+      }
     });
 
     return Scaffold(
-      appBar: AppAppBar.text('Assistant'),
+      appBar: chatAppBar(
+        title: 'Be The Change',
+        subtitle: 'Virtual assistant',
+        actions: [
+          if (state.messages.isNotEmpty)
+            PopupMenuButton<String>(
+              onSelected: (_) =>
+                  ref.read(chatbotControllerProvider.notifier).reset(),
+              itemBuilder: (context) => const [
+                PopupMenuItem(value: 'new', child: Text('New conversation')),
+              ],
+            ),
+        ],
+      ),
       body: configAsync.when(
         loading: () => const LoadingIndicator(message: 'Loading…'),
         error: (error, _) => ErrorStateWidget(
@@ -77,6 +119,7 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
           canSend: canSend,
           onChanged: () => setState(() {}),
           onSubmit: _submit,
+          onTalkToPerson: _talkToPerson,
         ),
       ),
     );
@@ -92,6 +135,7 @@ class _ChatbotBody extends ConsumerWidget {
     required this.canSend,
     required this.onChanged,
     required this.onSubmit,
+    required this.onTalkToPerson,
   });
 
   final ChatbotUiState state;
@@ -101,65 +145,59 @@ class _ChatbotBody extends ConsumerWidget {
   final bool canSend;
   final VoidCallback onChanged;
   final Future<void> Function([String? preset]) onSubmit;
+  final VoidCallback onTalkToPerson;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-        if (config.disclaimer.isNotEmpty)
-          Container(
-            width: double.infinity,
-            margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: AppColors.sageLight,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: AppColors.line),
-            ),
-            child: Text(
-              config.disclaimer,
-              style: AppTextStyles.bodySmall.copyWith(fontSize: 11),
-            ),
-          ),
         Expanded(
-          child: state.messages.isEmpty
-              ? ListView(
-                  padding: const EdgeInsets.all(AppSpacing.md),
+          child: ListView(
+            controller: scrollController,
+            padding: const EdgeInsets.all(AppSpacing.md),
+            children: [
+              if (config.welcome.isNotEmpty)
+                _ChatBubble(
+                  message: ChatMessage(
+                    id: 'welcome',
+                    role: ChatMessageRole.bot,
+                    text: config.welcome,
+                    createdAt: DateTime(2000),
+                  ),
+                ),
+              if (state.messages.isEmpty)
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
                   children: [
-                    if (config.emptyPrompt.isNotEmpty)
-                      Text(
-                        config.emptyPrompt,
-                        style: AppTextStyles.bodyMedium.copyWith(
-                          color: AppColors.inkMuted,
+                    for (final suggestion in config.suggestions)
+                      OutlinedButton(
+                        onPressed: state.isSending
+                            ? null
+                            : () => onSubmit(suggestion.message),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: AppColors.forest,
+                          side: const BorderSide(color: AppColors.forest),
+                          shape: const StadiumBorder(),
                         ),
+                        child: Text(suggestion.label),
                       ),
-                    const SizedBox(height: AppSpacing.md),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        for (final suggestion in config.suggestions)
-                          ActionChip(
-                            label: Text(suggestion),
-                            onPressed: state.isSending
-                                ? null
-                                : () => onSubmit(suggestion),
-                          ),
-                      ],
+                    FilledButton.icon(
+                      onPressed: onTalkToPerson,
+                      style: FilledButton.styleFrom(
+                        backgroundColor: AppColors.forest,
+                        shape: const StadiumBorder(),
+                      ),
+                      icon: const Icon(Icons.person_outline, size: 18),
+                      label: const Text('Talk to a person'),
                     ),
                   ],
-                )
-              : ListView.builder(
-                  controller: scrollController,
-                  padding: const EdgeInsets.all(AppSpacing.md),
-                  itemCount: state.messages.length + (state.isSending ? 1 : 0),
-                  itemBuilder: (context, index) {
-                    if (state.isSending && index == state.messages.length) {
-                      return const _TypingIndicator();
-                    }
-                    return _ChatBubble(message: state.messages[index]);
-                  },
                 ),
+              for (final message in state.messages)
+                _ChatBubble(message: message),
+              if (state.isSending) const _TypingIndicator(),
+            ],
+          ),
         ),
         if (state.errorMessage != null)
           Material(
@@ -196,6 +234,7 @@ class _ChatbotBody extends ConsumerWidget {
               ),
             ),
           ),
+        const Divider(height: 1),
         SafeArea(
           top: false,
           child: Padding(
@@ -203,35 +242,62 @@ class _ChatbotBody extends ConsumerWidget {
               AppSpacing.md,
               AppSpacing.xs,
               AppSpacing.md,
-              AppSpacing.md,
+              AppSpacing.xs,
             ),
-            child: Row(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
-                  child: TextField(
-                    controller: controller,
-                    minLines: 1,
-                    maxLines: 4,
-                    textInputAction: TextInputAction.send,
-                    enabled: !state.isSending,
-                    decoration: const InputDecoration(
-                      hintText: 'Type your question…',
+                if (config.disclaimer.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: AppSpacing.xs),
+                    child: Text(
+                      config.disclaimer,
+                      textAlign: TextAlign.center,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        fontSize: 11,
+                        color: AppColors.inkMuted,
+                      ),
                     ),
-                    onChanged: (_) => onChanged(),
-                    onSubmitted: (_) {
-                      if (canSend) onSubmit();
-                    },
                   ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: controller,
+                        minLines: 1,
+                        maxLines: 4,
+                        maxLength: 2000,
+                        textInputAction: TextInputAction.send,
+                        enabled: !state.isSending,
+                        decoration: const InputDecoration(
+                          hintText: 'Ask a question…',
+                          counterText: '',
+                        ),
+                        onChanged: (_) => onChanged(),
+                        onSubmitted: (_) {
+                          if (canSend) onSubmit();
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    IconButton.filled(
+                      onPressed: canSend ? () => onSubmit() : null,
+                      style: IconButton.styleFrom(
+                        backgroundColor: AppColors.forest,
+                        foregroundColor: Colors.white,
+                        minimumSize: const Size(48, 48),
+                      ),
+                      icon: const Icon(Icons.send),
+                      tooltip: 'Send',
+                    ),
+                  ],
                 ),
-                const SizedBox(width: AppSpacing.sm),
-                IconButton.filled(
-                  onPressed: canSend ? () => onSubmit() : null,
-                  style: IconButton.styleFrom(
-                    backgroundColor: AppColors.ochre,
-                    foregroundColor: Colors.white,
+                TextButton(
+                  onPressed: onTalkToPerson,
+                  child: const Text(
+                    'Talk to a person',
+                    style: TextStyle(decoration: TextDecoration.underline),
                   ),
-                  icon: const Icon(Icons.send),
-                  tooltip: 'Send',
                 ),
               ],
             ),
@@ -242,18 +308,17 @@ class _ChatbotBody extends ConsumerWidget {
   }
 }
 
-class _ChatBubble extends StatelessWidget {
+class _ChatBubble extends ConsumerWidget {
   const _ChatBubble({required this.message});
 
   final ChatMessage message;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isUser = message.role == ChatMessageRole.user;
     final align = isUser ? Alignment.centerRight : Alignment.centerLeft;
-    final bg = isUser ? AppColors.forest : AppColors.card;
+    final bg = isUser ? AppColors.forest : const Color(0xFFE8ECEE);
     final fg = isUser ? Colors.white : AppColors.ink;
-    final border = isUser ? null : Border.all(color: AppColors.line);
 
     return Align(
       alignment: align,
@@ -268,15 +333,55 @@ class _ChatBubble extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: bg,
-          border: border,
-          borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+          borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
         ),
-        child: Text(
-          message.text,
-          style: AppTextStyles.bodyMedium.copyWith(color: fg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              message.text,
+              style: AppTextStyles.bodyMedium.copyWith(color: fg),
+            ),
+            for (final link in message.links)
+              InkWell(
+                onTap: () => _openLink(context, ref, link),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: AppSpacing.xs),
+                  child: Text(
+                    link.title,
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: AppColors.ochreDark,
+                      fontWeight: FontWeight.w600,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+              ),
+          ],
         ),
       ),
     );
+  }
+
+  static void _openLink(BuildContext context, WidgetRef ref, ChatbotLink link) {
+    final target = chatbotLinkTarget(link);
+    if (target == null) {
+      ref.read(externalLinkHandlerProvider).openExternal(_absoluteUrl(link.url));
+    } else if (target.useGo) {
+      context.go(target.path);
+    } else {
+      context.push(target.path);
+    }
+  }
+
+  /// Assistant links are site-relative (e.g. `/services/ozone-therapy/`).
+  static String _absoluteUrl(String url) {
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+    try {
+      return Uri.parse(EnvConfig.apiBaseUrl).resolve(url).toString();
+    } catch (_) {
+      return url;
+    }
   }
 }
 
@@ -289,15 +394,17 @@ class _TypingIndicator extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Container(
         margin: const EdgeInsets.only(bottom: AppSpacing.sm),
-        padding: const EdgeInsets.all(AppSpacing.md),
-        decoration: BoxDecoration(
-          color: AppColors.sageLight,
-          borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.sm,
         ),
-        child: const SizedBox(
-          width: 24,
-          height: 24,
-          child: CircularProgressIndicator(strokeWidth: 2),
+        decoration: BoxDecoration(
+          color: const Color(0xFFE8ECEE),
+          borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+        ),
+        child: Text(
+          '•••',
+          style: AppTextStyles.bodyMedium.copyWith(color: AppColors.inkMuted),
         ),
       ),
     );

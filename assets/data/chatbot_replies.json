@@ -1,11 +1,11 @@
 {
+  "welcome": "Hi! I'm the Be The Change virtual assistant. Ask me about our services, conditions we treat, blog articles or FAQs.",
   "suggestions": [
-    "How do I book an appointment?",
-    "Do you take insurance?",
-    "Where are you located?"
+    { "label": "Our services", "message": "What services do you offer?" },
+    { "label": "Conditions we treat", "message": "What conditions do you treat?" },
+    { "label": "Insurance", "message": "Do you accept insurance?" }
   ],
-  "disclaimer": "This assistant shares general clinic information and is not a substitute for medical advice.",
-  "emptyPrompt": "Ask about scheduling, insurance, location, and therapies.",
+  "disclaimer": "Automated assistant. Not medical advice. Please don't share personal health details.",
   "replies": [
     {
       "keywords": ["hello", "hi", "hey"],

@@ -7,6 +7,9 @@ import '../../data/chatbot_repository.dart';
 import '../../domain/models/chat_message.dart';
 import '../../domain/models/chatbot_config.dart';
 
+/// Same window the website widget sends as `history`.
+const _historyEntries = 6;
+
 final chatbotRepositoryProvider = Provider<ChatbotRepository>((ref) {
   return ChatbotApiRepository(ref.watch(apiClientProvider));
 });
@@ -22,40 +25,42 @@ final chatbotConfigProvider = FutureProvider<ChatbotConfig>((ref) async {
 class ChatbotUiState {
   const ChatbotUiState({
     this.messages = const [],
-    this.conversationId,
     this.isSending = false,
     this.errorMessage,
     this.pendingRetryText,
+    this.handoffRequested = false,
   });
 
   final List<ChatMessage> messages;
-  final String? conversationId;
   final bool isSending;
   final String? errorMessage;
 
   /// Last user text that failed to send (for retry).
   final String? pendingRetryText;
 
+  /// The assistant asked to hand the visitor over to live chat.
+  final bool handoffRequested;
+
   bool get canRetry =>
       pendingRetryText != null && pendingRetryText!.trim().isNotEmpty;
 
   ChatbotUiState copyWith({
     List<ChatMessage>? messages,
-    String? conversationId,
     bool? isSending,
     String? errorMessage,
     String? pendingRetryText,
+    bool? handoffRequested,
     bool clearError = false,
     bool clearPendingRetry = false,
   }) {
     return ChatbotUiState(
       messages: messages ?? this.messages,
-      conversationId: conversationId ?? this.conversationId,
       isSending: isSending ?? this.isSending,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
       pendingRetryText: clearPendingRetry
           ? null
           : (pendingRetryText ?? this.pendingRetryText),
+      handoffRequested: handoffRequested ?? this.handoffRequested,
     );
   }
 }
@@ -72,6 +77,17 @@ class ChatbotController extends StateNotifier<ChatbotUiState> {
     final text = rawText.trim();
     if (text.isEmpty || state.isSending) return;
 
+    final history = [
+      for (final m in state.messages)
+        {
+          'role': m.role == ChatMessageRole.user ? 'user' : 'assistant',
+          'content': m.text,
+        },
+    ];
+    final recent = history.length > _historyEntries
+        ? history.sublist(history.length - _historyEntries)
+        : history;
+
     final userMessage = ChatMessage(
       id: 'local-${++_idCounter}',
       role: ChatMessageRole.user,
@@ -86,27 +102,22 @@ class ChatbotController extends StateNotifier<ChatbotUiState> {
       clearPendingRetry: true,
     );
 
-    final result = await _repository.sendMessage(
-      message: text,
-      conversationId: state.conversationId,
-    );
+    final result = await _repository.ask(message: text, history: recent);
 
     result.when(
       success: (reply) {
-        _analytics.logEvent(
-          AnalyticsEvents.chatbotMessageSent,
-          parameters: {'conversationId': reply.conversationId},
-        );
+        _analytics.logEvent(AnalyticsEvents.chatbotMessageSent);
         final botMessage = ChatMessage(
           id: 'local-${++_idCounter}',
           role: ChatMessageRole.bot,
           text: reply.reply,
           createdAt: DateTime.now(),
+          links: reply.links,
         );
         state = state.copyWith(
           messages: [...state.messages, botMessage],
-          conversationId: reply.conversationId,
           isSending: false,
+          handoffRequested: reply.handoff,
           clearError: true,
           clearPendingRetry: true,
         );
@@ -137,6 +148,17 @@ class ChatbotController extends StateNotifier<ChatbotUiState> {
       clearPendingRetry: true,
     );
     await send(pending);
+  }
+
+  void handoffHandled() {
+    if (state.handoffRequested) {
+      state = state.copyWith(handoffRequested: false);
+    }
+  }
+
+  /// Starts a fresh assistant conversation.
+  void reset() {
+    state = const ChatbotUiState();
   }
 }
 

@@ -153,10 +153,15 @@ class ApiClient {
   Future<ApiResult<T>> get<T>(
     String path, {
     Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
     required T Function(dynamic data) parser,
   }) async {
     return _request(
-      () => _dio.get<dynamic>(path, queryParameters: queryParameters),
+      () => _dio.get<dynamic>(
+        path,
+        queryParameters: queryParameters,
+        options: headers == null ? null : Options(headers: headers),
+      ),
       parser,
     );
   }
@@ -166,6 +171,7 @@ class ApiClient {
     Object? data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? extra,
+    Map<String, dynamic>? headers,
     required T Function(dynamic data) parser,
   }) async {
     return _request(
@@ -173,7 +179,9 @@ class ApiClient {
         path,
         data: data,
         queryParameters: queryParameters,
-        options: extra == null ? null : Options(extra: extra),
+        options: extra == null && headers == null
+            ? null
+            : Options(extra: extra, headers: headers),
       ),
       parser,
     );

@@ -17,6 +17,7 @@ import '../../features/contact/presentation/screens/contact_screen.dart';
 import '../../features/explore/presentation/screens/explore_screen.dart';
 import '../../features/faq/presentation/screens/faq_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
+import '../../features/live_chat/presentation/screens/live_chat_screen.dart';
 import '../../features/membership/domain/models/membership_catalog.dart';
 import '../../features/membership/presentation/screens/membership_checkout_screen.dart';
 import '../../features/membership/presentation/screens/membership_screen.dart';
@@ -309,6 +310,14 @@ GoRouter createAppRouter() {
         path: AppRoutes.chatbot,
         name: 'chatbot',
         builder: (context, state) => const ChatbotScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.liveChat,
+        name: 'liveChat',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => LiveChatScreen(
+          fromAssistant: state.uri.queryParameters['from'] == 'assistant',
+        ),
       ),
     ],
   );

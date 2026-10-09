@@ -3,11 +3,15 @@ import 'package:bethechange/core/router/app_router.dart';
 import 'package:bethechange/core/router/app_routes.dart';
 import 'package:bethechange/features/chatbot/domain/models/chat_message.dart';
 import 'package:bethechange/features/chatbot/domain/models/chatbot_config.dart';
+import 'package:bethechange/features/appointment/domain/models/source_context.dart';
 import 'package:bethechange/features/chatbot/presentation/providers/chatbot_providers.dart';
+import 'package:bethechange/features/chatbot/presentation/utils/chatbot_link_route.dart';
 import 'package:bethechange/features/faq/data/faq_repository.dart';
 import 'package:bethechange/features/faq/domain/models/faq_catalog.dart';
 import 'package:bethechange/features/faq/domain/models/faq_item.dart';
 import 'package:bethechange/features/faq/presentation/providers/faq_providers.dart';
+import 'package:bethechange/features/live_chat/data/live_chat_token_store.dart';
+import 'package:bethechange/features/live_chat/presentation/providers/live_chat_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -57,7 +61,7 @@ void main() {
   });
 
   group('ChatbotApiRepository', () {
-    test('returns reply and conversationId for common prompts', () async {
+    test('returns a reply for common prompts', () async {
       final repo = createMockChatbotRepository();
 
       const prompts = [
@@ -76,25 +80,154 @@ void main() {
 
       expect(prompts, hasLength(greaterThanOrEqualTo(10)));
 
-      String? conversationId;
       for (final prompt in prompts) {
-        final result = await repo.sendMessage(
-          message: prompt,
-          conversationId: conversationId,
-        );
+        final result = await repo.ask(message: prompt);
         expect(result, isA<ApiSuccess>());
         final reply = (result as ApiSuccess).data;
         expect(reply.reply, isNotEmpty);
-        expect(reply.conversationId, isNotEmpty);
-        conversationId = reply.conversationId;
+        expect(reply.handoff, isFalse);
       }
+    });
+
+    test('asking for a person requests handoff', () async {
+      final result = await createMockChatbotRepository()
+          .ask(message: 'Can I talk to a person?');
+      final reply = (result as ApiSuccess).data;
+      expect(reply.handoff, isTrue);
     });
 
     test('force error simulates failure', () async {
       final result = await createMockChatbotRepository()
-          .sendMessage(message: 'please force error now');
+          .ask(message: 'please force error now');
 
       expect(result, isA<ApiFailure>());
+    });
+
+    test('bundled config matches the website widget', () async {
+      final result = await createMockChatbotRepository().getConfig();
+      final config = (result as ApiSuccess<ChatbotConfig>).data;
+      expect(config.welcome, contains('virtual assistant'));
+      expect(config.suggestions.map((s) => s.label), [
+        'Our services',
+        'Conditions we treat',
+        'Insurance',
+      ]);
+      expect(config.suggestions.first.message, 'What services do you offer?');
+    });
+  });
+
+  group('chatbotLinkTarget', () {
+    ChatbotLinkTarget? target(String kind, String url, [String title = 'X']) =>
+        chatbotLinkTarget(ChatbotLink(title: title, url: url, kind: kind));
+
+    test('content pages open their detail screens', () {
+      expect(
+        target('Service', '/hyperbaric-oxygen-therapy/'),
+        ChatbotLinkTarget(
+          AppRoutes.serviceDetailPath('hyperbaric-oxygen-therapy'),
+        ),
+      );
+      expect(
+        target('Condition', '/diabetes/'),
+        ChatbotLinkTarget(AppRoutes.conditionDetailPath('diabetes')),
+      );
+      expect(
+        target('Blog', '/healthy-fall/'),
+        ChatbotLinkTarget(AppRoutes.blogDetailPath('healthy-fall')),
+      );
+    });
+
+    test('about pages and doctors open under About', () {
+      expect(
+        target('About', '/about/'),
+        const ChatbotLinkTarget(AppRoutes.about, useGo: true),
+      );
+      expect(
+        target('About', '/about/naturopathic-medicine/'),
+        ChatbotLinkTarget(
+          AppRoutes.aboutSectionPath('naturopathic-medicine'),
+          useGo: true,
+        ),
+      );
+      expect(
+        target('About', '/our-process/'),
+        ChatbotLinkTarget(
+          AppRoutes.aboutSectionPath('our-process'),
+          useGo: true,
+        ),
+      );
+      expect(
+        target('Doctor', '/about/dr-afrooz/'),
+        ChatbotLinkTarget(AppRoutes.aboutSectionPath('dr-afrooz'), useGo: true),
+      );
+    });
+
+    test('booking links open the in-app booking flow', () {
+      final category = target(
+        'Booking',
+        '/book-online/?category=hyperbaric-oxygen-therapy',
+        'Book Hyperbaric Oxygen Therapy online',
+      );
+      expect(
+        category,
+        ChatbotLinkTarget(
+          AppRoutes.bookOnlinePath(
+            const SourceContext(
+              type: SourceContextType.service,
+              id: 'hyperbaric-oxygen-therapy',
+              name: 'Hyperbaric Oxygen Therapy',
+            ),
+          ),
+        ),
+      );
+      expect(
+        target('Booking', '/book-online/'),
+        const ChatbotLinkTarget(AppRoutes.exploreServices, useGo: true),
+      );
+      expect(
+        target('Booking', '/appointments/'),
+        ChatbotLinkTarget(
+          AppRoutes.appointmentPath(AppRoutes.clinicSourceContext),
+        ),
+      );
+    });
+
+    test('section pages', () {
+      expect(target('FAQ', '/faq/'), const ChatbotLinkTarget(AppRoutes.faq));
+      expect(
+        target('Memberships', '/memberships/'),
+        const ChatbotLinkTarget(AppRoutes.membership),
+      );
+      expect(
+        target('Package', '/packages/'),
+        const ChatbotLinkTarget(AppRoutes.packages),
+      );
+      expect(
+        target('Contact', '/contact/'),
+        const ChatbotLinkTarget(AppRoutes.contact),
+      );
+      expect(
+        target('Patients', '/patients/'),
+        const ChatbotLinkTarget(AppRoutes.patients, useGo: true),
+      );
+    });
+
+    test('unknown or external links fall back to the browser', () {
+      expect(target('', '/something/'), isNull);
+      expect(target('Shop', '/shop/'), isNull);
+      expect(target('Service', '/a/b/'), isNull);
+      expect(target('Booking', '/checkout/'), isNull);
+      expect(target('Service', 'https://example.com/ozone/'), isNull);
+    });
+
+    test('kind is parsed from the API', () {
+      final reply = ChatbotReply.fromJson({
+        'reply': 'ok',
+        'links': [
+          {'title': 'Ozone', 'url': '/ozone-therapy/', 'kind': 'Service'},
+        ],
+      });
+      expect(reply.links.single.kind, 'Service');
     });
   });
 
@@ -126,7 +259,14 @@ void main() {
         state.messages.where((m) => m.role == ChatMessageRole.bot),
         isNotEmpty,
       );
-      expect(state.conversationId, isNotNull);
+      expect(state.handoffRequested, isFalse);
+
+      await controller.send('I want to talk to a person');
+      state = container.read(chatbotControllerProvider);
+      expect(state.handoffRequested, isTrue);
+      controller.handoffHandled();
+      expect(container.read(chatbotControllerProvider).handoffRequested,
+          isFalse);
     });
   });
 
@@ -148,14 +288,17 @@ void main() {
 
     const sampleConfig = ChatbotConfig(
       suggestions: [
-        'How do I book an appointment?',
-        'Do you take insurance?',
-        'Where are you located?',
+        ChatbotSuggestion(
+          label: 'Our services',
+          message: 'What services do you offer?',
+        ),
+        ChatbotSuggestion(
+          label: 'Insurance',
+          message: 'Do you accept insurance?',
+        ),
       ],
-      disclaimer:
-          'This assistant shares general clinic information and is not a '
-          'substitute for medical advice.',
-      emptyPrompt: 'Ask about scheduling, insurance, location, and therapies.',
+      disclaimer: 'Automated assistant. Not medical advice.',
+      welcome: "Hi! I'm the Be The Change virtual assistant.",
     );
 
     testWidgets('FAQ expands answers', (tester) async {
@@ -201,6 +344,9 @@ void main() {
               createMockChatbotRepository(),
             ),
             chatbotConfigProvider.overrideWith((ref) async => sampleConfig),
+            liveChatTokenStoreProvider.overrideWithValue(
+              MemoryLiveChatTokenStore(),
+            ),
           ],
           child: MaterialApp.router(routerConfig: router),
         ),

@@ -1,17 +1,13 @@
-/// Chatbot HTTP contract (Phase I.3).
+/// Website assistant HTTP contract (same answers as the site chat widget).
 ///
-/// Endpoint:
-///   POST /chatbot/message
-///
-/// Auth:
-///   Send `CHATBOT_API_KEY` from env as `X-Api-Key` (or Bearer when the
-///   backend standardizes). Loaded via [EnvConfig.chatbotApiKey].
+/// Endpoint (no auth):
+///   POST /api/v1/chatbot/ask/
 ///
 /// Request JSON:
 /// ```json
 /// {
 ///   "message": "string",
-///   "conversationId": "string?" // omit or null to start a new conversation
+///   "history": [{"role": "user|assistant", "content": "string"}]
 /// }
 /// ```
 ///
@@ -19,11 +15,14 @@
 /// ```json
 /// {
 ///   "reply": "string",
-///   "conversationId": "string"
+///   "links": [{"title": "string", "url": "/site-relative/", "kind": "string"}],
+///   "handoff": false,
+///   "source": "rule|search|ai"
 /// }
 /// ```
 ///
-/// The mock repository implements this shape until the real API is ready.
+/// `handoff: true` means the visitor asked for a person: open live chat.
+/// 429 `{"error": "..."}` when the visitor asks too quickly.
 library;
 
 // Contract-only library — keep this file free of UI and networking code.

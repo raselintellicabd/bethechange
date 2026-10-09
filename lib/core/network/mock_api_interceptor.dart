@@ -28,6 +28,7 @@ class MockApiInterceptor extends Interceptor {
   final String? _chatbotApiKey;
 
   final Map<String, dynamic> _jsonCache = {};
+  final Map<String, _MockLiveChat> _liveChats = {};
   int _contactCounter = 0;
   int _conversationCounter = 0;
   int _confirmationCounter = 1000;
@@ -88,6 +89,18 @@ class MockApiInterceptor extends Interceptor {
   Future<Response<dynamic>> _handle(RequestOptions options) async {
     final method = options.method.toUpperCase();
     final path = _normalizePath(options.path);
+
+    if (path.startsWith('/api/v1/livechat/')) {
+      await Future<void>.delayed(method == 'GET' ? readDelay : writeDelay);
+      final data = _liveChat(path, options);
+      return Response<dynamic>(
+        requestOptions: options,
+        data: data,
+        statusCode: path.endsWith('/start') && data['created'] == true
+            ? 201
+            : 200,
+      );
+    }
 
     if (method == 'GET') {
       await Future<void>.delayed(readDelay);
@@ -205,8 +218,6 @@ class MockApiInterceptor extends Interceptor {
         };
       case '/api/v1/book-online':
         return _bookOnlineCatalogPayload();
-      case ApiPaths.chatbotConfig:
-        return _chatbotConfigPayload();
     }
 
     final conditionId = _matchId(path, ApiPaths.conditions);
@@ -277,7 +288,7 @@ class MockApiInterceptor extends Interceptor {
     switch (path) {
       case ApiPaths.contact:
         return _submitContact(data);
-      case ApiPaths.chatbotMessage:
+      case '/api/v1/chatbot/ask':
         return _chatbotReply(data);
       case '/api/v1/appointments':
       case ApiPaths.appointmentsBook:
@@ -450,7 +461,6 @@ class MockApiInterceptor extends Interceptor {
     }
 
     final message = (data['message'] as String?)?.trim() ?? '';
-    final conversationId = (data['conversationId'] as String?)?.trim();
 
     if (message.isEmpty) {
       throw const _MockHttpError(400, 'Message cannot be empty.');
@@ -462,14 +472,93 @@ class MockApiInterceptor extends Interceptor {
       );
     }
 
-    final id = (conversationId != null && conversationId.isNotEmpty)
-        ? conversationId
-        : 'mock-convo-${++_conversationCounter}';
+    if (_handoffPattern.hasMatch(message)) {
+      return {
+        'reply': "Sure, I'll connect you with our team. Please enter your "
+            'name and email to start the chat.',
+        'links': const <Object>[],
+        'handoff': true,
+        'source': 'rule',
+      };
+    }
 
     return {
       'reply': await _replyFor(message),
-      'conversationId': id,
+      'links': const <Object>[],
+      'handoff': false,
+      'source': 'rule',
     };
+  }
+
+  static final _handoffPattern = RegExp(
+    r'\b(talk|speak|chat)\b.*\b(person|human|someone|staff|team)\b',
+    caseSensitive: false,
+  );
+
+  /// In-memory live chat: waiting, then a team member joins on the third poll.
+  Map<String, dynamic> _liveChat(String path, RequestOptions options) {
+    final token = '${options.headers['X-Chat-Token'] ?? ''}'.trim();
+    final chat = token.isEmpty ? null : _liveChats[token];
+    final query = options.queryParameters;
+    final data = _asMap(options.data);
+    final since = int.tryParse('${query['since'] ?? data['since'] ?? 0}') ?? 0;
+
+    switch (path) {
+      case '/api/v1/livechat/start':
+        if (chat != null && chat.status != 'ended') {
+          return {'token': chat.token, ...chat.payload(0)};
+        }
+        final name = '${data['name'] ?? ''}'.trim();
+        final email = '${data['email'] ?? ''}'.trim();
+        if (name.isEmpty) {
+          throw const _MockHttpError(400, 'Please enter your name.');
+        }
+        if (!email.contains('@')) {
+          throw const _MockHttpError(
+            400,
+            'Please enter a valid email address so we can reply.',
+          );
+        }
+        final created = _MockLiveChat('mock-chat-${++_conversationCounter}');
+        final first = '${data['message'] ?? ''}'.trim();
+        if (first.isNotEmpty) created.add('visitor', first, author: name);
+        _liveChats[created.token] = created;
+        return {'token': created.token, 'created': true, ...created.payload(0)};
+      case '/api/v1/livechat/state':
+        if (chat == null) return {'status': 'none', 'messages': const []};
+        chat.polls += 1;
+        if (chat.status == 'waiting' && chat.polls >= 3) {
+          chat.status = 'active';
+          chat.add('system', 'Care team joined the chat.');
+          chat.add(
+            'staff',
+            'Hi, thanks for reaching out! How can we help?',
+            author: 'Care team',
+          );
+        }
+        return chat.payload(since);
+      case '/api/v1/livechat/send':
+        if (chat == null) {
+          throw const _MockHttpError(404, 'Start a chat first.');
+        }
+        if (chat.status == 'ended') {
+          throw const _MockHttpError(400, 'This chat has ended.');
+        }
+        final body = '${data['body'] ?? ''}'.trim();
+        if (body.isEmpty) {
+          throw const _MockHttpError(400, 'Please type a message.');
+        }
+        chat.add('visitor', body);
+        return chat.payload(since);
+      case '/api/v1/livechat/end':
+        if (chat == null) throw const _MockHttpError(404, 'No chat to end.');
+        if (chat.status != 'ended') {
+          chat.status = 'ended';
+          chat.add('system', 'You ended the chat.');
+        }
+        return chat.payload(since);
+    }
+    throw _MockHttpError(404, 'No mock handler for $path.');
   }
 
   Future<Map<String, dynamic>> _bookAppointment(
@@ -813,15 +902,6 @@ class MockApiInterceptor extends Interceptor {
     return null;
   }
 
-  Future<Map<String, dynamic>> _chatbotConfigPayload() async {
-    final full = await _loadObject(MockApiAssets.chatbotReplies);
-    return {
-      'suggestions': full['suggestions'] ?? const <String>[],
-      'disclaimer': full['disclaimer'] ?? '',
-      'emptyPrompt': full['emptyPrompt'] ?? '',
-    };
-  }
-
   Future<Map<String, dynamic>> _bookOnlineCatalogPayload() async {
     return _loadObject(MockApiAssets.bookOnline);
   }
@@ -997,6 +1077,37 @@ class _MockHttpError implements Exception {
 
   final int statusCode;
   final String message;
+}
+
+class _MockLiveChat {
+  _MockLiveChat(this.token);
+
+  final String token;
+  String status = 'waiting';
+  int polls = 0;
+  final List<Map<String, dynamic>> messages = [];
+
+  void add(String sender, String body, {String author = ''}) {
+    final now = DateTime.now();
+    final hour = now.hour % 12 == 0 ? 12 : now.hour % 12;
+    final minute = now.minute.toString().padLeft(2, '0');
+    messages.add({
+      'id': messages.length + 1,
+      'sender': sender,
+      'author': author,
+      'body': body,
+      'time': '$hour:$minute ${now.hour < 12 ? 'AM' : 'PM'}',
+    });
+  }
+
+  Map<String, dynamic> payload(int since) => {
+        'id': 1,
+        'status': status,
+        'visitor_name': '',
+        'staff_name': status == 'waiting' ? '' : 'Care team',
+        'fallback': false,
+        'messages': messages.where((m) => (m['id'] as int) > since).toList(),
+      };
 }
 
 class PackageMatch {

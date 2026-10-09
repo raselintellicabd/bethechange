@@ -124,6 +124,16 @@
             "type": "route",
             "route": "/contact"
           }
+        },
+        {
+          "id": "live-chat",
+          "title": "Live chat",
+          "subtitle": "Chat with our care team",
+          "icon": "chat_bubble_outline",
+          "action": {
+            "type": "route",
+            "route": "/chatbot"
+          }
         }
       ]
     }

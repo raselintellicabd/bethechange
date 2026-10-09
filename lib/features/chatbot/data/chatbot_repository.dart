@@ -4,9 +4,11 @@ import '../domain/models/chatbot_config.dart';
 
 /// Chatbot networking contract. See `chatbot_api_contract.dart`.
 abstract class ChatbotRepository {
-  Future<ApiResult<ChatbotReply>> sendMessage({
+  /// [history] is the recent conversation as `{role, content}` maps
+  /// (`role` is `user` or `assistant`), oldest first.
+  Future<ApiResult<ChatbotReply>> ask({
     required String message,
-    String? conversationId,
+    List<Map<String, String>> history = const [],
   });
 
   Future<ApiResult<ChatbotConfig>> getConfig();

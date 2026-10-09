@@ -18,8 +18,14 @@ class ApiPaths {
   static const String memberships = '/api/v1/memberships';
   static const String packages = '/api/v1/packages';
   static const String pointsOffers = '/api/v1/points-offers';
-  static const String chatbotMessage = '/chatbot/message';
-  static const String chatbotConfig = '/chatbot/config';
+  static const String chatbotAsk = '/api/v1/chatbot/ask/';
+
+  /// Live chat with the clinic team. The chat is identified by the
+  /// `X-Chat-Token` header returned from [liveChatStart].
+  static const String liveChatStart = '/api/v1/livechat/start/';
+  static const String liveChatState = '/api/v1/livechat/state/';
+  static const String liveChatSend = '/api/v1/livechat/send/';
+  static const String liveChatEnd = '/api/v1/livechat/end/';
 
   /// Website calendar/slot map (same JSON as the public appointments page).
   static const String appointmentsAvailability = '/appointments/availability/';
